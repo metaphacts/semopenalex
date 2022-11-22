@@ -1,0 +1,21 @@
+version: "3"
+services:
+  graphdb:
+    container_name: graphdb-preload
+    image: ontotext/graphdb:10.1.0
+    mem_limit: 250g
+    mem_reservation: 250g
+
+    entrypoint: [ "/opt/graphdb/dist/bin/importrdf", "preload", "-b", "20m", "-f", "-i", "metaphactory", "/opt/graphdb/graphdb-import/*.trig", "/opt/graphdb/graphdb-import/*.gz", "/opt/graphdb/graphdb-import/authors/*.gz", "/opt/graphdb/graphdb-import/works/*.gz" ]
+
+    environment:
+      GDB_JAVA_OPTS: >-
+        -Xms100g
+        -Xmx100g
+        -Dgraphdb.home=/opt/graphdb/home
+        -Dgraphdb.license.file=/etc/graphdb-license
+        -Dgraphdb.workbench.importDirectory=/opt/graphdb/graphdb-import
+    volumes:
+      - ./graphdb-home:/opt/graphdb/home
+      - ./graphdb-import:/opt/graphdb/graphdb-import
+      - ./graphdb-license/graphdb.license:/etc/graphdb-license
