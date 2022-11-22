@@ -1,0 +1,180 @@
+<div class="page">
+    <div class="ml-5 mt-5 mr-5">
+      <div data-flex-layout="row md-column center-stretch">
+        <div class="grid-demo"></div>
+        <div class="grid-demo">
+          <div class="page__header-navtabs">
+            <div class="page__header-thumbnail">
+              <img src="{{page-publicPath}}/images/help/thenounproject/noun_1113333.svg" />
+            </div>
+            <div class="page__header-body">
+              <h1><mp-label iri='[[this]]'></mp-label> </h1>
+              <p><b>URI</b>: <a href="[[this]]"><i>[[this]]</i></a></p>
+            </div>
+          </div>
+        </div>
+        <div class="grid-demo"></div>
+      </div>
+      <div style='height: 100%;'>
+        <mp-workspace-layout horizontal-collapsed-size=0>
+          <mp-workspace-row>
+            <mp-workspace-item id='1' default-size=350>
+                <div class='grid-demo' style='flex: 1'>
+                  <h2>Timeline:</h2>
+                <div>
+                  <semantic-chart type="line" query="
+                    select ?year (max(?cites) as ?cites) (max(?publications) as ?publications) {
+                      {
+                        select ?year (sum (?cites) as ?cites ) {
+                          ?publication <http://purl.org/dc/terms/creator> <https://semopenalex.org/author/A2105967755> .
+                          ?publication <https://semopenalex.org/property/countsByYear> ?count .
+                          ?count <https://semopenalex.org/property/year> ?year .
+                          ?count <https://semopenalex.org/property/citedByCount> ?cites .
+                        } group by ?year order by asc(?year)
+                      } union {
+                        select ?year (count (distinct ?publication) as ?publications ) {
+                          ?publication <http://purl.org/dc/terms/creator> <https://semopenalex.org/author/A2105967755> .
+                          ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?year .
+                        } group by ?year order by asc(?year)
+                      }
+                    } group by ?year order by asc(?year)
+                " sets='[
+                  {"dataSetName": "Citations", "category": "year", "value": "cites"},
+                  {"dataSetName": "Publications", "category": "year", "value": "publications"}
+                ]'
+                dimensions='{"height": 200}''
+                >
+                </semantic-chart>
+                </div>
+                <h2>Network:</h2>
+
+                <semantic-graph height='200px' query='
+                  construct {
+                    <[[this]]> <urn:coauthors> ?coauthor .
+                    <[[this]]> <urn:cites> ?otherCreator .
+                  } where {
+                    {
+                      ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                      ?publication <http://purl.org/dc/terms/creator> ?coauthor .
+                      filter (?otherCreator != <[[this]]>) .
+                    } union {
+                      #?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                      #?publication <http://purl.org/spar/cito/cites> ?otherPublication .
+                      #?otherPublication <http://purl.org/dc/terms/creator> ?otherCreator .
+                    }
+                  } order by rand() limit 5
+                '>
+                  <semantic-graph-layout-concentric min-node-spacing=10></semantic-graph-layout-concentric>
+                </semantic-graph>
+                </div>
+              </mp-workspace-item>
+            <mp-workspace-item id='2'>
+                <div class='grid-demo' style='flex: 1'>
+                  <h2>Publications:</h2>
+                  <semantic-table query="
+                    select * {
+                      ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                      optional {
+                        ?publication <https://semopenalex.org/property/citedByCount> ?Citations.
+                      }
+                    } order by desc(?Citations)
+                  "
+                  >
+                  </semantic-table>
+
+
+                </div>
+              </mp-workspace-item>
+            <mp-workspace-item id='3' default-size=350>
+              <div class='grid-demo' style='flex: 1'>
+                <h2>Concepts</h2>
+                <semantic-query query="
+                  select ?concept (count (distinct ?publication) as ?count) {
+                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                    ?publication <https://semopenalex.org/property/hasConcept> ?concept .
+                  } group by ?concept order by desc(?count) limit 4
+                " template='{{>tmp}}'>
+                  <template id='tmp'>
+                    <ul>
+                      {{#each bindings}}
+                        <li><semantic-link iri="{{rdf-resolvePrefix ':concept'}}"   urlqueryparam-iri="{{concept.value}}" style='padding-top:8px'><mp-label iri='{{concept.value}}'></mp-label></semantic-link> ({{count.value}})</li>
+                      {{/each}}
+                    </ul>
+                  </template>
+                </semantic-query>
+                
+              [[!-- Semafours --]]
+               <h2>Expertise Clusters</h2>
+                <semantic-query query="
+                  select ?cluster (count (distinct ?publication) as ?count) {
+                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                    ?publication <http://semafours.ch/model/inCluster> ?cluster .
+                  } 
+                  group by ?cluster 
+                  order by desc(?count) limit 4
+                " template='{{>tmp}}'>
+                  <template id='tmp'>
+                    <ul>
+                      {{#each bindings}}
+                        <li><semantic-link iri="{{cluster.value}}"> </semantic-link> </li>
+                      {{/each}}
+                    </ul>
+                  </template>
+                </semantic-query>
+
+
+                <h2>Co-authors</h2>
+                <semantic-query query="
+                  select ?otherCreator (count (distinct ?publication) as ?count) {
+                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                    ?publication <http://purl.org/dc/terms/creator> ?otherCreator .
+                    filter (?otherCreator != <[[this]]>) .
+                  } group by ?otherCreator order by desc(?count) limit 4
+                " template='{{>tmp}}'>
+                  <template id='tmp'>
+                    <ul>
+                      {{#each bindings}}
+                        <li><semantic-link iri='{{otherCreator.value}}'></semantic-link> ({{count.value}})</li>
+                      {{/each}}
+                    </ul>
+                  </template>
+                </semantic-query>
+                <h2>Most cited authors</h2>
+                <semantic-query query="
+                  select ?otherCreator (count (distinct ?otherPublication) as ?count) {
+                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                      ?publication <http://purl.org/spar/cito/cites> ?otherPublication .
+                      ?otherPublication <http://purl.org/dc/terms/creator> ?otherCreator .
+                  } group by ?otherCreator order by desc(?count) limit 4
+                " template='{{>tmp}}'>
+                  <template id='tmp'>
+                    <ul>
+                      {{#each bindings}}
+                        <li><semantic-link iri='{{otherCreator.value}}'></semantic-link> ({{count.value}})</li>
+                      {{/each}}
+                    </ul>
+                  </template>
+                </semantic-query>
+                <h2>Most citing authors</h2>
+                <semantic-query query="
+                  select ?otherCreator (count (distinct ?otherPublication) as ?count) {
+                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                      ?otherPublication <http://purl.org/spar/cito/cites> ?publication .
+                      ?otherPublication <http://purl.org/dc/terms/creator> ?otherCreator .
+                  } group by ?otherCreator order by desc(?count) limit 4
+                " template='{{>tmp}}'>
+                  <template id='tmp'>
+                    <ul>
+                      {{#each bindings}}
+                        <li><semantic-link iri='{{otherCreator.value}}'></semantic-link> ({{count.value}})</li>
+                      {{/each}}
+                    </ul>
+                  </template>
+                </semantic-query>
+              </div>
+          </mp-workspace-item>
+          </mp-workspace-row>
+        </mp-workspace-layout>
+      </div>
+  </div>
+</div>

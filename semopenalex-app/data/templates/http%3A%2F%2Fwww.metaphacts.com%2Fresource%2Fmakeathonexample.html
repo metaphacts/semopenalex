@@ -1,0 +1,163 @@
+<div class="page">
+    <div class="ml-5 mt-5 mr-5">
+<h1> Topic Trends for Emerging Communities </h1>
+<h2> Topic:
+
+<mp-label iri="https://semopenalex.org/concept/C2987255567">     </mp-label>
+  <mp-resource-thumbnail iri="https://semopenalex.org/concept/C2987255567" style='max-height:20px'>   </mp-resource-thumbnail>
+</h2>
+<semantic-search 
+  
+
+
+       
+
+    search-profile='{
+
+              "categories": [{
+                        "iri": "<https://semopenalex.org/class/Work>",
+                        "label": "Topic",
+                        "thumbnail": "../images/help/thenounproject/noun_1113333.svg" },
+                        {
+                        "iri": "<https://semopenalex.org/class/Author>",
+                        "label": "Author",
+                        "thumbnail": "../images/help/thenounproject/noun_1113333.svg" },
+                        { 
+                        "iri": "<https://semopenalex.org/class/Institution>",
+                        "label": "Institution",
+                        "thumbnail": "../images/help/thenounproject/noun_1113333.svg" }
+                        
+                        ],
+                  
+              "relations": [{
+                        "iri": "<http://purl.org/spar/fabio/hasPublicationYear>",
+                        "label": "year published",
+                        "hasDomain": "<https://semopenalex.org/class/Work>",
+                        "hasRange": "<http://www.w3.org/2001/XMLSchema#integer>"
+                         },
+                         {
+                        "iri": "<http://purl.org/spar/fabio/hasPublicationYear>",
+                        "label": "activity year",
+                        "hasDomain": "<https://semopenalex.org/class/Author>",
+                        "hasRange": "<http://www.w3.org/2001/XMLSchema#integer>"
+                         },
+                         {
+                        "iri": "<http://www.w3.org/ns/org#memberOf>",
+                        "label": "member of",
+                        "hasDomain": "<https://semopenalex.org/class/Author>",
+                        "hasRange": "<https://semopenalex.org/class/Institution>"
+                         }
+
+                         
+
+                         
+                         
+                         ]
+                  }'
+    >  
+   
+      <semantic-search-query-constant
+        domain='<https://semopenalex.org/class/Author>'
+        query='
+           SELECT DISTINCT ?subject ?topic ?year WHERE {
+           VALUES (?author) 
+           {
+            (<https://semopenalex.org/author/A2290566231>)
+            (<https://semopenalex.org/author/A190718491>) 
+            (<https://semopenalex.org/author/A2182667553>)
+           }
+           ?subject <https://semopenalex.org/property/hasAuthorPosition> / <https://semopenalex.org/property/hasAuthor> ?author .
+           ?subject <https://semopenalex.org/property/hasConcept> ?topic .
+           ?subject <http://purl.org/spar/fabio/hasPublicationYear> ?year .         
+          }
+        '
+      ></semantic-search-query-constant>
+
+
+
+
+  <semantic-search-facet-store id='facet'></semantic-search-facet-store>
+  <div style='display: flex;'>
+    <div style='flex: 0.33;'>
+      <semantic-search-facet-group allow-multiple-open='true'></semantic-search-facet-group>
+    </div>
+    <semantic-search-result-holder>
+      <div style='flex: 1;'>
+        <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
+      
+      <semantic-search-result>
+        Active Community Members: <semantic-query id="query" query='SELECT DISTINCT ?author Where {
+ VALUES (?author) 
+           {
+            (<https://semopenalex.org/author/A2290566231>)
+            (<https://semopenalex.org/author/A190718491>) 
+            (<https://semopenalex.org/author/A2182667553>)
+           }
+           }
+           '>
+        </semantic-query>
+         </semantic-search-result>
+          <bs-tabs id="results">
+            
+            <bs-tab title="Chart" event-key='0' >
+                      <semantic-search-result>
+                        <semantic-chart id='chart' provider="highcharts" type="bubble" query="SELECT * WHERE {}" 
+                           sets='[{"dataSetName": "Topics", "category": "topic", "x": "year", "y": "topic"}]'>
+                        </semantic-chart>
+                      </semantic-search-result>
+            </bs-tab>
+
+            <bs-tab title="Table" event-key='1'>
+            <semantic-search-result-context
+              multi=true
+              
+            >
+            <semantic-search-result>
+       
+              <semantic-table id='table-result'
+                              query="SELECT DISTINCT ?topic ?year WHERE {
+                                            }"
+                                             options='{
+                                    "enableGrouping": true,
+                                    "groupingOptions": { "groupedBy": ["subject"]}
+                                    }'
+      
+              >
+              </semantic-table>
+             
+            </semantic-search-result>
+            </semantic-search-result-context>
+            </bs-tab>
+            </bs-tabs>
+        
+
+        <bs-panel>
+          <semantic-search-result>
+            <mp-sparql-download id='csv-download'
+                                query="SELECT * WHERE { }"
+                                header="text/csv"
+                                filename="csv-result.csv">
+              <button class="btn btn-secondary">Download CSV</button>
+            </mp-sparql-download>
+          </semantic-search-result>
+          <semantic-search-result>
+            <mp-sparql-download id='json-download'
+                                query="SELECT * WHERE { }"
+                                header="application/sparql-results+json"
+                                filename="json-result.json"
+                                >
+              <button class="btn btn-secondary">Download JSON</button>
+            </mp-sparql-download>
+          </semantic-search-result>
+        </bs-panel>
+      </div>
+    </semantic-search-result-holder>
+
+
+
+
+     
+      </div>
+    </semantic-search>
+    </div>
+</div>
