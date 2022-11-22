@@ -1,0 +1,2 @@
+rdflib
+boto3

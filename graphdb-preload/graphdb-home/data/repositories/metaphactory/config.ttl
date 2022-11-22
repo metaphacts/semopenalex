@@ -1,0 +1,33 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rep: <http://www.openrdf.org/config/repository#> .
+@prefix sail: <http://www.openrdf.org/config/sail#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#metaphactory> a rep:Repository;
+  rep:repositoryID "metaphactory";
+  rep:repositoryImpl [
+      rep:repositoryType "graphdb:SailRepository";
+      <http://www.openrdf.org/config/repository/sail#sailImpl> [
+          <http://www.ontotext.com/config/graphdb#base-URL> "http://example.org/owlim#";
+          <http://www.ontotext.com/config/graphdb#check-for-inconsistencies> "false";
+          <http://www.ontotext.com/config/graphdb#defaultNS> "";
+          <http://www.ontotext.com/config/graphdb#disable-sameAs> "true";
+          <http://www.ontotext.com/config/graphdb#enable-context-index> "true";
+          <http://www.ontotext.com/config/graphdb#enable-literal-index> "true";
+          <http://www.ontotext.com/config/graphdb#enablePredicateList> "true";
+          <http://www.ontotext.com/config/graphdb#entity-id-size> "40";
+          <http://www.ontotext.com/config/graphdb#entity-index-size> "10000000";
+          <http://www.ontotext.com/config/graphdb#imports> "";
+          <http://www.ontotext.com/config/graphdb#in-memory-literal-properties> "true";
+          <http://www.ontotext.com/config/graphdb#query-limit-results> "0";
+          <http://www.ontotext.com/config/graphdb#query-timeout> "0";
+          <http://www.ontotext.com/config/graphdb#read-only> "false";
+          <http://www.ontotext.com/config/graphdb#repository-type> "file-repository";
+          <http://www.ontotext.com/config/graphdb#ruleset> "empty";
+          <http://www.ontotext.com/config/graphdb#storage-folder> "storage";
+          <http://www.ontotext.com/config/graphdb#throw-QueryEvaluationException-on-timeout>
+            "false";
+          sail:sailType "graphdb:Sail"
+        ]
+    ];
+  rdfs:label "metaphactory primary repo" .
