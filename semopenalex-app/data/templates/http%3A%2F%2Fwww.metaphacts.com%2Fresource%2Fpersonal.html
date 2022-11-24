@@ -1,0 +1,182 @@
+<style>
+
+.page-header {
+  padding: 15px;
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: start;
+}
+
+.page-content {
+  padding-top: 15px;
+}
+
+</style>
+
+<div class='page'>
+  <mp-splitpane
+  	min-size=35
+  	dock=true
+  	primary=second
+    default-open=true
+  >
+    <div class='page__body'>
+      <div class='page-header'>
+        <div style='padding-left: 20px;'>
+          <span style="color: #142948; font-size: large; font-weight: 900;"><mp-label iri='{{#if (page-urlParam "iri")}}{{page-urlParam "iri"}}{{/if}}'></mp-label></span>
+          <br><semantic-form-recover-notification></semantic-form-recover-notification>
+          <semantic-query 
+            query='
+            SELECT ?creator WHERE { 
+            {{#if (page-urlParam "iri")}}
+            BIND ( <{{page-urlParam "iri"}}> as ?s )
+            {{/if}}
+              ?s <http://purl.org/dc/terms/creator> ?creator; 
+            }' 
+            template='{{> tmpl}}'>
+            <template id='tmpl'>
+              {{#each bindings}}
+                {{#if creator}}
+                {{#if @first}} {{else}} | {{#if @last}} {{else}} {{/if}} {{/if}}
+                <i><mp-label iri='{{creator.value}}'></mp-label></i>
+                {{/if}}
+              {{/each}}
+              </template>
+          </semantic-query>
+          <semantic-query 
+            query='
+            SELECT ?abstract WHERE { 
+            {{#if (page-urlParam "iri")}}
+            BIND ( <{{page-urlParam "iri"}}> as ?s )
+            {{/if}}
+              ?s <http://purl.org/dc/terms/abstract> ?abstract; 
+            }' 
+            template='{{> tmpl}}'>
+            <template id='tmpl'>
+              {{#each bindings}}
+                <p>{{abstract.value}}</p>
+              {{/each}}
+              </template>
+          </semantic-query>
+        </div>
+      </div>
+      <div class='page-content'>
+
+        <h2 class="text-center">Related articles</h2><hr>
+        <semantic-query 
+          query='SELECT ?work ?date WHERE {
+          {{#if (page-urlParam "iri")}}
+          BIND ( <{{page-urlParam "iri"}}> as ?s )
+          {{/if}}
+          ?s <https://semopenalex.org/property/hasRelatedWork> ?work.
+          }'
+          template='{{> template}}'>
+        <template id='template'>
+          {{#each bindings}}
+          <div style="padding: 10px;">
+            <div class="rds-custome-row" style="color: #142948; font-size: large; font-weight: 900;">
+              <semantic-link iri="{{work.value}}"></semantic-link>
+              <br>
+            </div>
+            <div class="rds-custome-row rds-subrow">
+              <semantic-query 
+                query='SELECT ?creator WHERE {
+                {{work}} <http://purl.org/dc/terms/creator> ?creator.
+                }'
+                template='{{> template}}'>
+              <template id='template'>
+                {{#each bindings}}
+                {{#if creator}}
+                {{#if @first}} {{else}} | {{#if @last}} {{else}} {{/if}} {{/if}}
+                 <i><mp-label iri="{{creator.value}}"> </mp-label></i> 
+                 {{/if}}
+                {{/each}}
+              </template>
+              </semantic-query>
+            </div>
+          </div>
+          {{/each}}
+        </template>
+        </semantic-query>
+      </div>
+        <bs-row>
+          <bs-col sm=10 sm-offset=1 class="text-center" style="width: 1000px;">
+          </bs-col>
+          <bs-col sm=10 sm-offset=1 class="text-center" style="width: 1000px;">
+            <br>
+            <h2><b>Recommendation</b></h2>
+            <hr>
+            <semantic-table
+            query='SELECt ?Article WHERE {
+            <[[this]]> <http://ontologies.metaphacts.com/semopenalex/entity> ?value. 
+             ?value ^<https://semopenalex.org/property/hasConcept> ?Article
+             }'>
+            </semantic-table>
+          </bs-col>
+        </bs-row>
+    </div>
+    <div data-flex-layout='column top-stretch' style='border-left: 1px solid #a2a2a2; background: #f5f5f5; height: auto'>
+      <mp-splitpane-toggle-on>
+        <button style='border: none; background: transparent; padding: 15px 2px; outline: none; width: 100%;'>
+          <i class='fa fa-angle-double-left' style='font-size: 20px'></i>
+        </button>
+      </mp-splitpane-toggle-on>
+      <mp-splitpane-toggle-off>
+        <button data-flex-layout='row center-left' style='border: none; border-bottom: 1px solid #999; background: #fff; padding: 15px; outline: none; width: 100%'>
+          <div class='fa fa-angle-double-right' style='font-size: 20px; margin-right: 10px'></div>
+          <h4 style='margin: 0px'>Annotation Bar</h4>
+        </button>
+      </mp-splitpane-toggle-off>
+      <mp-splitpane-sidebar-open style='display: flex; flex-direction: column; flex: auto; padding: 10px 20px; overflow: auto'>
+        <mp-knowledge-panel-frame template='{{> template}}'>
+          <template id='template'>
+            {{#if iri}}
+            <style>
+              *[data-knowledge-panel-iri="{{iri}}"] {
+                background: lightblue;
+              }
+            </style>
+            <mp-knowledge-panel iri='{{iri}}'></mp-knowledge-panel>
+            {{else}}
+            <semantic-form subject='[[this]]' new-subject-template='http://ontologies.metaphacts.com/semopenalex/{{tag}}' post-action="redirect" browser-persistence="true"
+              fields='[
+                {
+                  "id": "entity",
+                  "iri": "http://ontologies.metaphacts.com/museum-portal/Exhibition/entity",
+                  "label": "Entity",
+                  "xsdDatatype": "xsd:anyURI",               
+                  "minOccurs": 1,
+                  "maxOccurs": 1,
+                  "insertPattern": "INSERT { $subject <http://ontologies.metaphacts.com/semopenalex/entity> $value.} WHERE {}",
+                  "autosuggestionPattern": "
+                    PREFIX lookup: <http://www.metaphacts.com/ontologies/platform/repository/lookup#>
+                    PREFIX Repository: <http://www.metaphacts.com/ontologies/repository#>
+                    PREFIX wiki: <https://wikidata.metaphacts.com/>
+                    SELECT ?value ?dataset ?label ?type ?description ?score WHERE {
+                      SERVICE Repository:lookup {
+                        ?value lookup:token ?__token__;
+                          lookup:dataset ?dataset;
+                          lookup:name ?label;
+                          lookup:limit 100 ;
+                          lookup:description ?description;
+                          lookup:score ?score.
+                      }
+                    }"
+                }
+              ]'>
+              
+              <semantic-form-auto-input for='entity'></semantic-form-auto-input>
+              <semantic-form-recover-notification></semantic-form-recover-notification>
+              <semantic-form-errors></semantic-form-errors>
+              <div class="semantic-form-footer-buttons">
+                <button name="submit" class="btn btn-primary">Save</button>
+                <button name="reset" class="btn btn-secondary">Reset</button>
+              </div>
+            </semantic-form>
+            {{/if}}
+          </template>
+        </mp-knowledge-panel-frame>
+      </mp-splitpane-sidebar-open>
+    </div>
+  </mp-splitpane>
+</div>

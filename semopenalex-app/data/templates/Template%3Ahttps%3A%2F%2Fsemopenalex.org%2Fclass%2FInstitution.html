@@ -1,0 +1,100 @@
+<style>
+  .card-group {
+    border-radius: 10px;
+    box-shadow: 0 0 5px 4px rgb(0 0 0 / 12%);
+    padding: 20px;
+  
+  }
+
+  .card-group:hover {
+    box-shadow: 0 0 14px 10px rgb(0 0 0 / 12%);
+  }
+
+  .card-body {
+    flex: 1 1 auto;
+    //height: 100px;
+    overflow: hidden;
+    padding: 16px;
+  }
+
+  .concept {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+
+</style>
+
+<ol class="page-breadcrumb">
+    <li>
+      <semantic-link title="Start" iri='{{rdf-resolvePrefix "semopenalex:Start"}}'>Start</semantic-link>
+    </li>
+    <li class="active">Institution</li>
+</ol>
+<div class="page">
+  <div class='page__body'>
+
+    <div style="margin: 8px;">
+      <div class="card-group">
+        <div class="card" style='border: none;'>
+          <mp-resource-thumbnail iri='{{page-resource}}' style="height: 100px; width: 100px;  object-fit: contain;">
+          </mp-resource-thumbnail>
+                             
+          <mp-label iri="{{page-resource}}"></mp-label>
+                            
+          <div class="card-body">
+
+            <div style='padding:16px'>
+
+              <semantic-query query='SELECT ?institution WHERE { <{{page-resource}}> <https://semopenalex.org/property/hasAssociatedInstitution> ?institution }' template='{{> tmpl}}'>
+                <template id='tmpl'>
+                  <b>Associated institution:</b>
+                  {{#each bindings}}
+       
+                    <div style='margin-bottom:3px'>
+                      
+                      <semantic-link iri='{{institution.value}}'></semantic-link>
+                    </div>
+      
+                  {{/each}}
+                </template>
+              </semantic-query>
+
+            </div>
+
+            <div style='padding:16px'>
+              <b>Location:</b>
+              <semantic-map query='
+                SELECT ?lat ?lng ?city ?country WHERE {
+                  { 
+                    <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
+                    ?location <http://www.geonames.org/ontology#lat> ?lat .
+                    ?location <http://www.geonames.org/ontology#long> ?lng .
+                    ?location <https://dbpedia.org/property/city> ?city .
+                    ?location <https://dbpedia.org/property/country> ?country .
+                  } UNION {
+                    <{{page-resource}}> <https://semopenalex.org/property/hasAssociatedInstitution>/<https://dbpedia.org/ontology/location> ?location .
+                    ?location <http://www.geonames.org/ontology#lat> ?lat .
+                    ?location <http://www.geonames.org/ontology#long> ?lng .
+                    ?location <https://dbpedia.org/property/city> ?city .
+                    ?location <https://dbpedia.org/property/country> ?country .
+                  }
+                }' 
+                tuple-template='<b>{{city.value}} ({{country.value}})</b>'>
+              </semantic-map>
+
+            </div>                                  
+          </div>                  
+        </div>
+      </div>                        
+    </div>
+  </div>
+</div>

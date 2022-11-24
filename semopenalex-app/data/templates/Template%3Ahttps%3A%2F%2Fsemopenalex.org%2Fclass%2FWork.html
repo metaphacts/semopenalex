@@ -1,0 +1,76 @@
+
+<div style='margin: 15px'>
+
+  <semantic-query
+    query="Select * Where {
+Bind(<[[this]]> as ?Work)
+?Work a <https://semopenalex.org/class/Work>.
+?Work <http://purl.org/dc/terms/title> ?title.
+optional { ?Work <http://purl.org/dc/terms/created> ?date.
+?Work <http://purl.org/dc/terms/abstract> ?abstract.
+
+?Work <http://purl.org/dc/terms/created> ?publicationDate.
+?Work <http://prismstandard.org/namespaces/basic/2.0/doi> ?doi.
+?Work <https://semopenalex.org/property/hasHostVenue> ?hostVenue.
+?Work <https://semopenalex.org/property/citedByCount> ?citedByCount.
+}
+}"
+    template='{{>Work}}'
+  >
+
+    <template id='Work'>
+      <div style='display: flex; margin: 15px; flex-direction: column'>
+       {{#each bindings}}
+        <h1> {{title.value}} </h1>
+        
+          
+         
+          <div style='display: flex;    '>
+                             
+            <div style=' width: 70%;'>
+            <h3>by
+              <semantic-query
+                query="Select * Where {
+        Bind(<[[this]]> as ?Work)
+        ?Work <https://semopenalex.org/property/hasAuthorPosition>/<https://semopenalex.org/property/hasAuthor> ?author.
+
+}"
+                template='{{>authors}}'
+              >
+
+                <template id='authors'>{{#each bindings}}<semantic-link iri='{{author.value}}'></semantic-link> {{/each}}</template>
+              </semantic-query>
+            </h3>
+            
+           <h3>DOI {{doi.value}}</h3>
+            <h3>Abstract </h3>
+            {{abstract.value}}
+          </div>
+            
+
+        
+          
+
+
+        <div style='margin-left: 30px;     width: 30%;'>
+        
+        <h3>Publication Date {{publicationDate.value}}</h3>
+        <h3>Topics:</h3>
+        <semantic-query
+          query="Select * Where {
+        Bind(<[[this]]> as ?Work)
+        ?Work <https://semopenalex.org/property/hasConcept> ?concept.
+
+}"
+          template='{{>concepts}}'
+        >
+          <template id='concepts'><ul>{{#each bindings}}<li><semantic-link iri='{{concept.value}}'></semantic-link></li> {{/each}}</ul></template>
+        </semantic-query>
+        </div>
+
+          </div>
+        {{/each}}
+      </div>
+    </template>
+  </semantic-query>
+</div>

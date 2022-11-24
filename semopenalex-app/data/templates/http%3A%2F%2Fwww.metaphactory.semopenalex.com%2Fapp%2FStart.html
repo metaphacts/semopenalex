@@ -1,0 +1,517 @@
+<style>
+  .card-group {
+    border-radius: 10px;
+    box-shadow: 0 0 5px 4px rgb(0 0 0 / 12%);
+    padding: 20px;
+  
+  }
+
+  .card-group:hover {
+    box-shadow: 0 0 14px 10px rgb(0 0 0 / 12%);
+  }
+
+  .card-body {
+    flex: 1 1 auto;
+    //height: 100px;
+    overflow: hidden;
+    padding: 16px;
+  }
+
+  .nav-tabs .nav-link.active {
+      background-color: #fafbfd;
+      box-shadow: 1px -1px 6px 0 #0000004d;
+  }
+  .nav-tabs {
+      border-bottom: 1px solid #cacaca;
+  }
+  .page__body__wide {
+      flex: 0 0 93.33333333%;
+      max-width: 93.33333333%;
+      margin-left: 3%;
+      margin-top:50px;
+  }
+
+  .highcharts-legend{
+    display: none;
+  }
+
+  .semantic-search__class-selector-item {
+      margin-right: 8px;
+  }
+
+  .knowledge-panel-frame{
+    width:none!important;
+  }
+</style>
+
+<ol class="page-breadcrumb">
+    <li>
+      <semantic-link title="Start" iri='{{rdf-resolvePrefix "semopenalex:Start"}}'>Start</semantic-link>
+    </li>
+    <li class="active">Search</li>
+</ol>
+
+<div class="page">
+  <div class="page__body__wide">
+
+    {{>::sample-keyword-type-search}}
+             
+  </div>
+</div>
+
+
+<template-fragment export id='sample-keyword-type-search'>
+
+   <semantic-search id='sem-open-alex-search'
+      categories='{
+        "<http://www.w3.org/2004/02/skos/core#Concept>": [{
+        "kind": "hierarchy",
+        "queryPattern": "$subject ?__relation__ ?__value__",
+        "resultPattern": "
+            $subject ?__relation__ ?hierarchyLeaf .
+            ?hierarchyLeaf skos:broader* ?__value__ .
+          ",
+        "treePatterns": {
+          "kind": "simple",
+          "relationPattern": "?item <http://www.w3.org/2004/02/skos/core#broader> ?parent"
+          }
+        }]
+      }'
+      relations='{
+        "<http://semopenalex.org/host-venue-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject <https://semopenalex.org/property/hasHostVenue>/<https://semopenalex.org/property/hasVenue> ?__value__ . }"
+        }],
+         "<http://semopenalex.org/host-venue-placeholder-inverse>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject ^(<https://semopenalex.org/property/hasHostVenue>/<https://semopenalex.org/property/hasVenue>) ?__value__ . }"
+        }],
+         "<http://semopenalex.org/has-concept-placeholder-inverse>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject ^<https://semopenalex.org/property/hasConcept> ?__value__ . }"
+        }],
+        "<http://semopenalex.org/has-member-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject ^<http://www.w3.org/ns/org#memberOf> ?__value__ . }"
+        }],
+         "<http://semopenalex.org/author-work-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ ?__value__  <https://semopenalex.org/property/hasAuthorPosition> / <https://semopenalex.org/property/hasAuthor> $subject . }"
+        }]
+
+      }'
+
+
+      search-profile='{
+        "categories": [
+        {
+          "iri": "<https://semopenalex.org/class/Work>",
+          "label": "Work",
+          "thumbnail": "/assets/images/essay.png"
+        }, {
+          "iri": "<https://semopenalex.org/class/Author>",
+          "label": "Author",
+          "thumbnail": "/assets/images/writer.png"
+        }, {
+          "iri": "<https://semopenalex.org/class/Venue>",
+          "label": "Venue",
+          "thumbnail": "/assets/images/location.png"
+        }, {
+        	"iri": "<https://semopenalex.org/class/Institution>",
+          "label": "Institution",
+          "thumbnail": "/assets/images/university.png"
+        }, {
+        	"iri": "<http://www.w3.org/2004/02/skos/core#Concept>",
+          "label": "Concept",
+          "thumbnail": "/assets/images/lightbulb.png"
+        }
+      
+        
+        ],
+        "relations": [
+          {  
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://purl.org/dc/terms/creator>",
+            "hasRange": "<https://semopenalex.org/class/Author>",
+            "label": "creator"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<https://semopenalex.org/property/hasConcept>",
+            "hasRange": "<http://www.w3.org/2004/02/skos/core#Concept>",
+            "label": "has Topic",
+            "inverse": {
+              "iri": "<http://semopenalex.org/has-concept-placeholder-inverse>",
+              "label": "topic is applied by"
+            }
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Author>",
+            "iri": "<http://www.w3.org/ns/org#memberOf>",
+            "hasRange": "<https://semopenalex.org/class/Institution>",
+            "label": "memberOf",
+            "inverse":{
+                "iri": "<http://semopenalex.org/has-member-placeholder>",
+                "label": "has member"
+            }
+          },
+           {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://semopenalex.org/host-venue-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Venue>",
+            "label": "hasHostVenue",
+            "inverse": {
+              "iri": "<http://semopenalex.org/host-venue-placeholder-inverse>",
+              "label": "host Venue Of"
+            }
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://prismstandard.org/namespaces/basic/2.0/publicationDate>",
+            "hasRange": "<http://www.w3.org/2001/XMLSchema#dateTime>",
+            "label": "publication date"
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<https://semopenalex.org/property/hasRelatedWork>",
+            "hasRange": "<https://semopenalex.org/class/Work>",
+            "label": "has related work"
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Institution>",
+            "iri": "<https://semopenalex.org/property/hasAssociatedInstitution>",
+            "hasRange": "<https://semopenalex.org/class/Institution>",
+            "label": "has associated institution"
+          }, {
+            "hasDomain": "<http://www.w3.org/2004/02/skos/core#Concept>",
+            "iri": "<http://www.w3.org/2004/02/skos/core#related>",
+            "hasRange": "<http://www.w3.org/2004/02/skos/core#Concept>",
+            "label": "has related topic"
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Author>",
+            "iri": "<http://semopenalex.org/author-work-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Work>",
+            "label": "author work"
+          }
+        ]
+      }'>
+
+        <semantic-search-query-keyword-type id='keywordTypeQuery1'
+         
+          default-query='SELECT ?subject WHERE {
+            ?subject a ?__domain__ . 
+          } LIMIT 100'
+          default-count-query='
+            PREFIX sys: <http://www.ontotext.com/owlim/system#>
+            SELECT (COUNT (*) as ?count) FROM sys:statistics {    
+              ?subject a ?__domain__
+            }
+          '
+          count-query-mode='queryPerCategory'
+          template='{{> tmpl}}'
+        >
+          <template id='tmpl'>
+            {{>::count-template}}
+          </template>
+        </semantic-search-query-keyword-type>
+
+        {{>::search-result-holders}}
+      
+    </semantic-search>
+</template-fragment>
+
+
+<template-fragment id='count-template'>
+  
+  <div>
+    {{#if selectedDomain}}
+      <div style='margin: 10px 0'>
+        {{#each domains}}
+        <span style='margin-right: 10px'>
+        <mp-event-trigger
+          type='KeywordTypeQuery.SelectDomain'
+          targets='["{{../componentId}}"]'
+          data='{"domainIri": "{{iri}}"}'>
+          <a style='color: #333; padding: 5px 0; {{#if selected}}border-bottom: 2px solid; font-weight: bold{{/if}}'>
+            {{#if thumbnail}}
+              <img src='{{thumbnail}}' style='height:20px;' alt='{{label}}' />&nbsp;
+            {{else}}
+              <i class='fa fa-edit'></i>
+            {{/if}}
+            {{label}}
+            {{#if ../loadingCounts}}
+              (⏳)
+            {{else}}
+              ({{count}})
+            {{/if}}
+          </a>
+        </mp-event-trigger>
+        {{#if selected}}
+        <mp-event-trigger
+          type='KeywordTypeQuery.ClearDomain'
+          targets='["{{../componentId}}"]'
+        >
+          <a style='color: #333; margin: 0 5px'><i class='fa fa-times'></i></a>
+        </mp-event-trigger>
+        {{/if}}
+        </span>
+        {{/each}}
+        <mp-event-trigger
+          type='KeywordTypeQuery.ClearSearch'
+          targets='["{{componentId}}"]'
+        >
+          <a class='pull-right' style='color: #333'><i class='fa fa-trash'></i> Clear</a>
+        </mp-event-trigger>
+      </div>
+    {{else}}
+    <div class='KeywordTypeQuery--domainCards'>
+      <div data-flex-layout='rows stretch-stretch'>
+        {{#each domains}}
+          {{#ifCond count "||" ../loadingCounts}}
+            <div data-flex-self='size-1of5 md-half sm-full' class='KeywordTypeQuery--domainCardItem'>
+              <mp-event-trigger
+                type='KeywordTypeQuery.SelectDomain'
+                targets='["{{../componentId}}"]'
+                data='{"domainIri": "{{iri}}"}'>
+                <button type=button class='btn btn-secondary KeywordTypeQuery--domainCard {{#if selected}}KeywordTypeQuery--domainCard--selected{{/if}}'>
+                  <div class='KeywordTypeQuery--domainCardThumbnail p-3'>
+                    {{#if thumbnail}}
+                      <img src='{{thumbnail}}' style='height:40px;' alt='{{label}}' />&nbsp;
+                    {{else}}
+                      <!-- <i class='fa fa-edit fa-lg'></i> -->
+                    {{/if}}
+                  </div>
+                  <span class='h4'>{{label}}</span>
+                  {{#if count}}<span class='h5'>{{count}}</span>{{/if}}
+                  {{#if ../loadingCounts}}<span class='h5'>⏳</span>{{/if}}
+                </button>
+              </mp-event-trigger>
+            </div>
+          {{/ifCond}}
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+</template-fragment>
+
+
+<template-fragment id='search-result-holders'>
+
+  <semantic-search-facet-store id="facet" values-limit='10000' 
+    default-resource-pattern='
+      SELECT ?value (COUNT(DISTINCT $subject) AS ?count) WHERE {
+        { SELECT DISTINCT ?value ?subject { 
+          FILTER(?__facetRelationPattern__)
+        } LIMIT 10001 }
+    } GROUP BY ?value'
+    default-literal-pattern='
+      SELECT ?literal (COUNT(DISTINCT $subject) AS ?count) WHERE {
+        { SELECT DISTINCT ?literal ?subject { 
+          FILTER(?__facetRelationPattern__)
+        } LIMIT 10001 }
+    } GROUP BY ?literal
+    '
+  >
+  </semantic-search-facet-store>
+  <div style='display: flex;'>
+    
+    <div style='flex: 0.33;'>
+      <semantic-search-facet-group expand-result-context='false' allow-multiple-open='true' default-settings='{"headerTemplate": "{{> headerTemplate}}"}'>
+        <template id='headerTemplate'>
+          <div class='SemanticSearchFacet--relationHeader'>{{$relation.label.value}}
+          {{#if $range.label}}
+             <span class="pull-right">{{$range.label.value}}</span> 
+          {{/if}}
+          </div>
+
+        </template>
+    
+      </semantic-search-facet-group>   
+    </div>
+
+    <semantic-search-result-holder>
+     
+      <div style='flex: 1;'>
+        <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
+              
+        <bs-tabs unmount-on-exit=true id='search-results'>
+      
+          <bs-tab event-key="1" title="Grid">
+            
+            <semantic-search-result>
+               
+              <semantic-search-table-result>
+               
+                <div data-flex-layout='row stretch-stretch'>
+    	            <div data-flex-self='md-full'>
+                    <semantic-table
+                      id="results-table"
+                      query='SELECT * WHERE {}'
+                      number-of-displayed-rows='12'
+                      options='{
+                        "showFilter":false ,
+                        "showNumberOfRows": true,
+                        "enableGrouping": false
+                      }'
+                      tuple-template='{{> template}}'
+                    >
+                      <template id='template'>
+                        <div data-flex-layout="column justify-justify" style="min-height: 100px;margin: 8px; ">
+                       
+                          <div class="card-group">
+                            <div class="card" style='border: none;'>
+                              <mp-resource-thumbnail iri='{{subject.value}}' 
+                                style="height: 100px; width: 200px;  object-fit: contain;">
+                              </mp-resource-thumbnail>
+                      
+                             
+
+                               <semantic-link iri="{{subject.value}}"> </semantic-link> 
+
+                             
+                            
+                           
+                              <div class="card-body">
+                              
+                                <div style='margin-bottom:8px'>
+                                  {{>::work-abstract}}
+                                </div>
+                                <div style='margin-bottom:8px'>
+                                  {{>::concept-note}}
+                                </div>
+                              
+                                
+                              
+                              </div>
+                              
+                            </div>
+                          </div>
+                            
+                        </div>
+                      </template>
+                    </semantic-table>
+    	            </div>
+                  
+                </div>
+              </semantic-search-table-result>
+            </semantic-search-result>
+
+          </bs-tab>
+
+          <bs-tab event-key="2" title="Table">
+            <semantic-search-result-context
+              multi=true
+             
+            >
+            <semantic-search-result>
+              <semantic-search-table-result>
+
+                <div data-flex-layout='row stretch-stretch'>
+    	            <div data-flex-self='md-full'>
+                    <semantic-table
+                      id="results-table"
+                      query='SELECT DISTINCT ?subject WHERE { FILTER(?__contextRelationPattern__) }'
+                      options='{
+                        "showFilter":false,
+                        "showNumberOfRows": true,
+                        "enableGrouping": false,
+                        "groupingOptions": {
+                            "groupedBy": ["subject"], 
+                            "showOnlyAggregatedValue": true, 
+                            "defaultAggregation":"concat"
+                        }
+                      }'
+                                                         
+                      column-configuration='[{
+                          "variableName": "subject",
+                          "cellTemplate": "{{> subjectTemplate iri=subject.value}}"
+                      }]'
+                    >
+                       
+                      <template id='subjectTemplate'>
+                        <mp-knowledge-panel-trigger iri='{{iri}}'></mp-knowledge-panel-trigger>
+                      </template>
+                      
+                    </semantic-table>
+                  </div>
+                  <mp-knowledge-panel-frame></mp-knowledge-panel-frame>
+                </div>
+              </semantic-search-table-result>
+            </semantic-search-result> 
+            </semantic-search-result-context>
+          </bs-tab>
+
+        </bs-tabs>
+      </div> 
+    </semantic-search-result-holder>
+  </div>
+</template-fragment>
+
+
+<template-fragment id='work-abstract'>
+  <semantic-query query='SELECT ?abstract WHERE { <{{subject.value}}> <http://purl.org/dc/terms/abstract> ?abstract }' template='{{> tmpl}}'>
+    <template id='tmpl'>
+      {{#each bindings}}
+        {{#if abstract.value}}
+         
+          <mp-text-truncate lines="3" expand="{{> expand}}" collapse="{{> collapse}}">
+            <template id="expand"><span style="color: gray;">...<a>read more</a></span></template>
+            <template id="collapse"><span style="color: gray;">(<a>show less</a>)</span></template>
+              Abstract:  {{abstract.value}}
+          </mp-text-truncate>
+        {{/if}}
+      {{/each}}
+      </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id='work-creator'>
+   <semantic-query query='SELECT ?author WHERE { <{{subject.value}}> <http://purl.org/dc/terms/creator> ?author }' template='{{> tmpl}}'>
+    <template id='tmpl'>
+      {{#each bindings}}
+        {{#if author.value}}
+          
+              <div style='margin-bottom:3px'>
+                <img src='/assets/images/writer.png' style='height:20px;' alt='{{label}}' />&nbsp;
+                <semantic-link iri='{{author.value}}'></semantic-link><br>
+              </div>
+        
+        {{/if}}
+      {{/each}}
+      </template>
+  </semantic-query>
+</template-fragment>
+
+
+<template-fragment id='work-publication-date'>
+   <semantic-query query='SELECT ?pubDate WHERE { <{{subject.value}}> <http://prismstandard.org/namespaces/basic/2.0/publicationDate> ?pubDate }' template='{{> tmpl}}'>
+    <template id='tmpl'>
+      {{#each bindings}}
+        {{#if pubDate.value}}
+          
+            Publication Date: {{pubDate.value}}
+        
+        {{/if}}
+      {{/each}}
+      </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id='concept-note'>
+   <semantic-query query='SELECT ?note WHERE { <{{subject.value}}> <http://www.w3.org/2004/02/skos/core#note> ?note }' template='{{> tmpl}}'>
+    <template id='tmpl'>
+      {{#each bindings}}
+       
+          <mp-text-truncate lines="3" expand="{{> expand}}" collapse="{{> collapse}}">
+            <template id="expand"><span style="color: gray;">...<a>read more</a></span></template>
+            <template id="collapse"><span style="color: gray;">(<a>show less</a>)</span></template>
+              Note:  {{note.value}}
+          </mp-text-truncate>
+        
+       
+        
+       
+      {{/each}}
+      </template>
+  </semantic-query>
+
+</template-fragment>
+

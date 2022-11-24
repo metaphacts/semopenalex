@@ -1,0 +1,2 @@
+sparqlMaxExecutionTime = 120
+sparqlHttpReadTimeout = 120
