@@ -1,5 +1,2 @@
 sparqlMaxExecutionTime = 120
 sparqlHttpReadTimeout = 120
-performInternalForwardForResolvableResources = true
-platformBaseIri = https://semopenalex.org
-pathsToRewrite =/author/,/concept/,/venue/,/institution/,/countsbyyear/,/geo/,/hostvenue/,/conceptscore/,/openaccess/,/work/
