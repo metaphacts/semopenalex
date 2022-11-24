@@ -1,5 +1,5 @@
 # Copyright Johan Krause, Michael Färber, Institute AIFB, Karlsruhe Institute of Technology (KIT)
-# this script transforms OpenAlex data dump files to triple form in n-triple files for SemOpenAlex
+# this script transforms OpenAlex data dump files to triple form in trig files for SemOpenAlex
 from rdflib import Graph
 from rdflib import URIRef, BNode, Literal
 from rdflib.namespace import DCTERMS, RDF, RDFS, XSD, OWL
@@ -208,7 +208,7 @@ CPU_THREADS = 16
 ENTITY_TYPE = 'works'
 ##########
 
-data_dump_input_root_dir = '/Users/linnaung/openalex-snapshot'
+data_dump_input_root_dir = '/opt/openalex-snapshot'
 data_dump_input_entity_dir = f'{data_dump_input_root_dir}/data/{ENTITY_TYPE}/*'
 
 absolute_path = os.path.dirname(__file__)
