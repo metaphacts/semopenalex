@@ -214,19 +214,19 @@ data_dump_input_entity_dir = f'{data_dump_input_root_dir}/data/{ENTITY_TYPE}/*'
 absolute_path = os.path.dirname(__file__)
 trig_output_dir_path = os.path.join(absolute_path, f'../graphdb-preload/graphdb-import/{ENTITY_TYPE}')
 
-#data_dump_start_time = time.ctime()
-#print('works entity files started to download at: '+ data_dump_start_time)
+data_dump_start_time = time.ctime()
+print('works entity files started to download at: '+ data_dump_start_time)
 # Copy works entity snapshot
-#client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
-#file_names, folders = get_file_folders(client, "openalex", "data/works/")
-#download_files(
-#    client,
-#    "openalex",
-#   data_dump_input_root_dir,
-#    file_names,
-#    folders
-#)
-#print('works entity files finished to download.')
+client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
+file_names, folders = get_file_folders(client, "openalex", "data/works/")
+download_files(
+    client,
+    "openalex",
+   data_dump_input_root_dir,
+    file_names,
+    folders
+)
+print('works entity files finished to download.')
 
 start_time = time.ctime()
 today = date.today()
