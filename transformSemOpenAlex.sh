@@ -13,11 +13,13 @@ python3 ./transformation-scripts/semopenalex-authors.py;
 python3 ./transformation-scripts/semopenalex-works.py;
 python3 ./transformation-scripts/semopenalex-dataset.py;
 
+# make sure to clean graphdb storage folder before ingesting data
+rm -r ./graphdb-preload/graphdb-home/data/repositories/metaphactory/storage
+
 # load RDF data dump .gzip files to graphdb using preload tool
-sudo docker-compose -f ./graphdb-preload/docker-compose.yml up;
+docker-compose -f ./graphdb-preload/docker-compose.yml up;
 
 # gzip graphdb-home/ folder to transfrom to a dedicated server
 echo "Started to tar.gz graphdb-home/ folder at: " $(date -u)
-sudo tar -czvf graphdb-home.tar.gz ./graphdb-preload/graphdb-home/ 
-
+tar -czvf graphdb-home.tar.gz ./graphdb-preload/graphdb-home/ 
 echo "SemOpenAlex transformation script ended at: " $(date -u)
