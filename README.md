@@ -27,9 +27,9 @@ To be able to run the above Python scripts, we need:
 - Python's package management tool `pip`
 
 Linux Server/OS: 
-- disk storage space of at least 7TB (to store temporary openalex data dumps)
-- vCPU with at least 8 threads
-- RAM of at least 128GB
+- disk storage space of at least 4TB
+- vCPU 16
+- RAM of at least 256GB
 
 GraphDB:
 - 10.0.0 (or later)
@@ -85,9 +85,9 @@ min and max values for Java heap memory for GraphDB according to the available r
 Before executing the following single main script (which runs all Python scripts as well as the data ingestion to GraphDB), there are few things you need to consider.
 
 First, to perform data transformation step: from OpenAlex to SemOpenAlex RDF dataset, 
-it typically takes at least 1-2 days in our system environment (vCPU: 16 and RAM 256 GB).
+it typically takes at least 3-4 days in our system environment (vCPU: 16 and RAM 256 GB).
 
-Second, to perform data ingestion to GraphDB, it also typically takes up 1-2 days. 
+Second, to perform data ingestion to GraphDB, it also typically takes up 2-3 days. 
 The overall time taken may depend and may be faster if you have bigger the computation power.
 
 Third, we compress `graphdb-home/` folder. 
