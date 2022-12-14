@@ -310,7 +310,7 @@
         <mp-label iri='{{page-resource}}' class="header__title-main"></mp-label>
         <semantic-query query='
           SELECT ?institution WHERE {
-            <[[this]]> a ?author ;
+            <{{page-resource}}> a ?author ;
             <http://www.w3.org/ns/org#memberOf> ?institution ;
           }
         ' template='{{>institution}}'>
@@ -334,7 +334,7 @@
               <div class="publications-citations__label">Publications</div>
               <semantic-query query='
                 SELECT (COUNT(distinct ?publication) as ?count) WHERE {
-                  ?publication <http://purl.org/dc/terms/creator> <[[this]]>
+                  ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}>
                 }
               ' template='{{>tmp}}'>
                 <template id='tmp'>
@@ -364,14 +364,14 @@
             select ?year (max(?cites) as ?cites) (max(?publications) as ?publications) {
               {
                 select ?year (sum (?cites) as ?cites ) {
-                  ?publication <http://purl.org/dc/terms/creator> <https://semopenalex.org/author/A2105967755> .
+                  ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
                   ?publication <https://semopenalex.org/property/countsByYear> ?count .
                   ?count <https://semopenalex.org/property/year> ?year .
                   ?count <https://semopenalex.org/property/citedByCount> ?cites .
                 } group by ?year order by asc(?year)
               } union {
                 select ?year (count (distinct ?publication) as ?publications ) {
-                  ?publication <http://purl.org/dc/terms/creator> <https://semopenalex.org/author/A2105967755> .
+                  ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
                   ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?year .
                 } group by ?year order by asc(?year)
               }
@@ -433,7 +433,7 @@
       <div class="row concepts">
         <semantic-query query='
           SELECT ?concept (COUNT (distinct ?publication) as ?count) {
-            ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+            ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
             ?publication <https://semopenalex.org/property/hasConcept> ?concept .
           }
           GROUP BY ?concept
@@ -451,7 +451,7 @@
         </semantic-query>
         <semantic-query query='
           SELECT ?concept (COUNT (distinct ?publication) as ?count) {
-            ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+            ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
             ?publication <https://semopenalex.org/property/hasConcept> ?concept .
           }
           GROUP BY ?concept
@@ -478,10 +478,10 @@
             </div>
             <semantic-tree query="SELECT ?parent ?node WHERE {
               {
-                VALUES (?parent ?node) { ( UNDEF <[[this]]>)}
+                VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
               } UNION {          
                 { select ?parent ?node (count (distinct ?publication) as ?count) {
-                    BIND ( <[[this]]> as ?parent)
+                    BIND ( <{{page-resource}}> as ?parent)
                     ?publication <http://purl.org/dc/terms/creator> ?parent .
                     ?publication <http://purl.org/dc/terms/creator> ?node .
                     filter (?node != ?parent) .
@@ -505,10 +505,10 @@
             </div>
             <semantic-tree query="SELECT ?parent ?node WHERE {
               {
-                VALUES (?parent ?node) { ( UNDEF <[[this]]>)}
+                VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
               } UNION {
                 { select ?parent ?node (count (distinct ?publication2) as ?count) {
-                    BIND ( <[[this]]> as ?parent)
+                    BIND ( <{{page-resource}}> as ?parent)
                     ?publication <http://purl.org/dc/terms/creator> ?parent ;
                     <http://purl.org/spar/cito/cites> ?publication2 .
                     ?publication2 <http://purl.org/dc/terms/creator> ?node 
@@ -537,7 +537,7 @@
             </div>
             <semantic-table query='
               SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) WHERE {
-                ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
+                ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
                 ?publication <http://purl.org/dc/terms/creator> ?author . 
                 ?publication <http://purl.org/dc/terms/title> ?title .
                 ?author <http://xmlns.com/foaf/0.1/name> ?name .
