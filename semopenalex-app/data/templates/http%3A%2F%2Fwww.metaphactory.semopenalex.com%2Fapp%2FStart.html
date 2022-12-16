@@ -193,7 +193,11 @@
       }'>
 
         <semantic-search-query-keyword-type id='keywordTypeQuery1'
-         
+          token-pattern='SERVICE Repository:lookup {
+            ?subject lookup:token ?__token__  .
+            ?subject lookup:limit 10000 .
+            ?subject lookup:type ?__domain__ .
+          }'
           default-query='SELECT ?subject WHERE {
             ?subject a ?__domain__ . 
           } LIMIT 100'

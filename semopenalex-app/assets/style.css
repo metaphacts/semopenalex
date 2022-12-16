@@ -1,0 +1,122 @@
+html {
+    font-family: Jost, "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+:root {
+    --soa-color-brown-darker: #827655;
+    --soa-color-brown-dark: #E9DFD1;
+    --soa-color-brown: #F3F1EE;
+    --soa-color-blue: #205BAC;
+    --soa-color-green: #1B9D47;
+    --soa-color-grey: #F3F1EE;
+}
+
+.soa a {
+    color: var(--soa-color-blue);
+}
+
+.soa .header {
+    background-color: initial;
+    border-bottom: 1px solid var(--soa-color-grey);
+}
+
+.soa .header__title-main {
+    font-size: 4.6rem;
+    font-weight: 700;
+    line-height: 4.6rem;
+    color: var(--soa-color-brown-darker);
+}
+
+.soa .body {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: flex-start;
+}
+
+/* chart */
+.soa .highcharts-background {
+    fill: transparent;
+}
+
+.soa .highcharts-color-0 {
+    fill: var(--soa-color-brown-dark);
+    stroke: var(--soa-color-brown-dark);
+}
+
+.soa .highcharts-color-1 {
+    fill: var(--soa-color-blue);
+    stroke: var(--soa-color-blue);
+}
+
+.soa .highcharts-column-series rect.highcharts-point {
+    stroke: none;
+}
+
+.soa .highcharts-axis-title {
+    display: none;
+}
+
+.soa .semantic-chart .highcharts-root {
+    max-width: 100%;
+    width: 100%;
+}
+
+/* chart */
+
+.soa .card {
+    background: var(--soa-color-brown);
+    border-radius: 0.5rem;
+    padding: 1.7rem;
+    font-size: 1.5rem;
+    color: var(--soa-color-blue);
+    border: none;
+}
+
+.soa .card__title {
+    font-size: 1.2rem;
+    color: var(--soa-color-brown-darker);
+    font-weight: 700;
+    padding-bottom: 1rem;
+}
+
+.soa .card select {
+    width: 113px;
+    padding: 3px 6px;
+    align-self: flex-end;
+    font-size: 0.8rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.soa .chip {
+    display: flex;
+    border: 1px solid var(--soa-color-grey);
+    color: var(--soa-color-blue);
+    font-size: 1.6rem;
+    align-items: center;
+    border-left: 1px solid var(--soa-color-grey);
+    overflow: hidden;
+    max-width: 320px;
+}
+
+.soa .chip__name {
+    padding: 0rem 1rem;
+    border-right: 1px solid var(--soa-color-grey);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.soa .chip__icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuMjUgNC4yNUg4Ljc1VjUuNzVINy4yNVY0LjI1Wk03LjI1IDcuMjVIOC43NVYxMS43NUg3LjI1VjcuMjVaTTggMC41QzMuODYgMC41IDAuNSAzLjg2IDAuNSA4QzAuNSAxMi4xNCAzLjg2IDE1LjUgOCAxNS41QzEyLjE0IDE1LjUgMTUuNSAxMi4xNCAxNS41IDhDMTUuNSAzLjg2IDEyLjE0IDAuNSA4IDAuNVpNOCAxNEM0LjY5MjUgMTQgMiAxMS4zMDc1IDIgOEMyIDQuNjkyNSA0LjY5MjUgMiA4IDJDMTEuMzA3NSAyIDE0IDQuNjkyNSAxNCA4QzE0IDExLjMwNzUgMTEuMzA3NSAxNCA4IDE0WiIgZmlsbD0iIzIwNUJBQyIvPgo8L3N2Zz4K);
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    margin: 1rem;
+    flex-shrink: 0;
+}

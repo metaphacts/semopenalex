@@ -1,180 +1,747 @@
-<div class="page">
-    <div class="ml-5 mt-5 mr-5">
-      <div data-flex-layout="row md-column center-stretch">
-        <div class="grid-demo"></div>
-        <div class="grid-demo">
-          <div class="page__header-navtabs">
-            <div class="page__header-thumbnail">
-              <img src="{{page-publicPath}}/images/help/thenounproject/noun_1113333.svg" />
-            </div>
-            <div class="page__header-body">
-              <h1><mp-label iri='[[this]]'></mp-label> </h1>
-              <p><b>URI</b>: <a href="[[this]]"><i>[[this]]</i></a></p>
-            </div>
+<style>
+  .header {
+    gap: 1rem;
+    background-color: initial;
+  }
+  .header__thumbnail img {
+      object-fit: none;
+      padding: initial;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+  }
+  .header__title {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .header__title ul {
+    font-size: 1.5rem;
+    font-weight: 400;
+    width: fit-content;
+    color: #205BAC;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.5rem;
+    padding-left: 0;
+  }
+  .header__title li {
+    position: relative;
+    list-style: none;
+  }
+  .header__title li::before {
+    position: absolute;
+    top: -6px;
+    left: -13px;
+    content: '.';
+  }
+  .header__title li:first-child::before {
+    content: '';
+  }
+  .institution {
+    width: 100%;
+  }
+  .hIndex-citation {
+    position: relative;
+    min-width: 200px;
+  }
+  .hIndex-citation > div {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }  
+  .hIndex {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2E2E2E;
+  }
+  .cards {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 2fr 1fr 1fr;
+    height: 100%;
+    min-height: 240px;
+  }
+  .publications-citations {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .publications-citations__label {
+    font-size: 1.3rem;
+  }
+  .publications-citations__value {
+    font-size: 3.2rem;
+    font-weight: 700;
+  }
+  .publications-count {
+    color: var(--soa-color-blue);
+    margin-bottom: 1.5rem;
+  }
+  .citations-count {
+    color: var(--soa-color-green);
+  }
+
+  /* chart */
+  .highcharts-background {
+    fill: transparent;
+  }
+  .highcharts-color-0 {
+    fill: var(--soa-color-brown-dark);
+    stroke: var(--soa-color-brown-dark);
+  }
+  .highcharts-color-1 {
+    fill: var(--soa-color-blue);
+    stroke: var(--soa-color-blue);
+  }
+  .highcharts-column-series rect.highcharts-point {
+      stroke: none;
+  }
+  .highcharts-axis-title {
+    display: none;
+  }
+  .semantic-chart {
+    flex: 1 1 0;
+  }
+  .semantic-chart .highcharts-root {
+    max-width: 100%;
+    width: 100%;
+  }
+  /* chart */
+
+  .soa .card.related-entities ul {
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .related-entities li {
+    list-style: none;
+    padding: 1px 0;
+    position: relative;
+  }
+  .related-entities li::after {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAxMiAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuNzUgNy4yNTAwNEg5LjEyNzVMNS40Njc1IDEwLjkxQzUuMTc1IDExLjIwMjUgNS4xNzUgMTEuNjgyNSA1LjQ2NzUgMTEuOTc1QzUuNzYgMTIuMjY3NSA2LjIzMjUgMTIuMjY3NSA2LjUyNSAxMS45NzVMMTEuNDY3NSA3LjAzMjU0QzExLjc2IDYuNzQwMDQgMTEuNzYgNi4yNjc1NCAxMS40Njc1IDUuOTc1MDRMNi41MzI1IDEuMDI1MDRDNi4yNCAwLjczMjUzOSA1Ljc2NzUgMC43MzI1MzkgNS40NzUgMS4wMjUwNEM1LjE4MjUgMS4zMTc1NCA1LjE4MjUgMS43OTAwNCA1LjQ3NSAyLjA4MjU0TDkuMTI3NSA1Ljc1MDA0SDAuNzVDMC4zMzc1IDUuNzUwMDQgMCA2LjA4NzU0IDAgNi41MDAwNEMwIDYuOTEyNTQgMC4zMzc1IDcuMjUwMDQgMC43NSA3LjI1MDA0WiIgZmlsbD0iIzIwNUJBQyIvPgo8L3N2Zz4K);
+    width: 12px;
+    height: 12px;
+    content: ' ';
+    background-size: cover;
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+  .concepts {
+    gap: 0.5rem;
+    padding-bottom: 2rem;
+  }
+  .other-authors {
+    background: linear-gradient(180deg, #F4F9FF 2.08%, #FFFFFF 50%);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 40% 20% 40%;
+    align-items: center;
+    color: var(--soa-color-brown-darker);
+    padding: 2rem;
+  }
+  .other-authors ul, .coauthors ul {
+    padding: 1rem 0;
+    list-style: none;
+    margin: 0;
+  }
+  .coauthors .select {
+    width: 113px;
+    padding: 3px 6px;
+    align-self: flex-end;
+    font-size: 0.8rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px solid #000000;
+  }
+  .other-authors ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .coauthors ul {
+    padding: 0;
+  }
+  .other-authors__title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding-left: 7rem;
+  }
+  .other-authors__subtitle {
+    font-size: 1rem;
+    padding-left: 7rem;
+  }
+  .other-authors li, .coauthors li {
+    color: var(--soa-color-blue);
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .other-authors__icon, .co-author__icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgNkM3LjY1NzUgNiA5IDQuNjU3NSA5IDNDOSAxLjM0MjUgNy42NTc1IDAgNiAwQzQuMzQyNSAwIDMgMS4zNDI1IDMgM0MzIDQuNjU3NSA0LjM0MjUgNiA2IDZaTTYgNy41QzMuOTk3NSA3LjUgMCA4LjUwNSAwIDEwLjVWMTEuMjVDMCAxMS42NjI1IDAuMzM3NSAxMiAwLjc1IDEySDExLjI1QzExLjY2MjUgMTIgMTIgMTEuNjYyNSAxMiAxMS4yNVYxMC41QzEyIDguNTA1IDguMDAyNSA3LjUgNiA3LjVaIiBmaWxsPSIjMjA1QkFDIi8+Cjwvc3ZnPgo=);
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
+    background-size: cover;
+    width: 12px;
+    height: 12px;
+  }
+  .other-authors > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+  }
+  .other-authors .author {
+    align-items: center;
+    text-align: center;
+  }
+  .author {
+    gap: 0.5rem;
+    color: var(--soa-color-brown-darker);
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+  .author__picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .author__name {
+    text-align: center;
+  }
+  .other-authors__count {
+    background: #FFFFFF;
+    border-radius: 0.2rem;
+    border: 1px solid var(--soa-color-grey);
+    padding: 2px 8px;
+    color: #000000;
+    font-size: 1rem;
+  }
+  .card.publications {
+    padding: 2rem 10rem;
+    height: auto;
+  }
+  .publications__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .publications .buttons {
+    align-self: flex-end;
+    display: flex;
+    gap: 1rem;
+  }
+  .publications .buttons button {
+    font-size: 1rem;
+    padding: 2px 1rem;
+    border: 1px solid var(--soa-color-grey);
+    background-color: transparent;
+    color: var(--soa-color-blue);
+  } 
+  .publications .buttons button.selected {
+    background-color: #FFFFFF;
+    color: #000000;
+  }
+  .publication {
+    background-color: #FFFFFF;
+    border-radius: 0.3rem;
+    padding: 1rem;
+    overflow: hidden;
+    width: calc(50% - 0.5rem);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 164px;
+    line-height: 1.8rem;
+  }
+  .publications__header {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+    padding-bottom: 0.6rem;
+  }
+  .publications__header .title {
+    padding-bottom: 0;
+    font-size: 1.2rem;
+  }
+  .publication__title {
+    font-size: 1.3rem;
+  }
+  .publication__author, .publication__info {
+    font-size: 1rem;
+    color: #000000;
+  }
+  .publication__info {
+    color: var(--soa-color-brown-darker);
+  }
+  .publication__bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: var(--soa-color-brown-darker);
+    font-weight: 700;
+  }
+  .publication__year {
+    color: #000000;
+  }
+  .publication__citation {
+    display: flex;
+    align-items: center;
+    gap: 3.75px;  
+  }
+  .publication__citation-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xLjUgNy43NUgzLjc1TDUuMjUgNC43NVYwLjI1SDAuNzVWNC43NUgzTDEuNSA3Ljc1Wk03LjUgNy43NUg5Ljc1TDExLjI1IDQuNzVWMC4yNUg2Ljc1VjQuNzVIOUw3LjUgNy43NVoiIGZpbGw9IiM4Mjc2NTUiLz4KPC9zdmc+Cg==);
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 11px;
+    height: 11px;
+  }
+  .publication__citation-value {
+    font-size: 1rem;
+    color: var(--soa-color-brown-darker);
+    font-weight: 700;
+  }
+  .publications__foot {
+    display: flex;
+    justify-content: center;
+  }
+  .publications__foot-button {
+    color: var(--soa-color-blue);
+    font-weight: 700;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    margin: 3rem 0 1rem 0;
+  }
+  .publications__foot-button--disabled {
+    display: none;
+  }
+  .DataTable--table-grid-layout {
+    gap: 1rem;
+  }
+  .DataTable--table-grid-layout {
+    align-items: stretch;
+  }
+  .D3Tree--root .node-cell {
+    display: flex;
+    gap: 1rem;
+    white-space: break-spaces;
+    height: 30px;
+    align-items: flex-start;
+  }
+  .D3Tree--root .node-text {
+    height: 40px;
+  }
+  .DataTable--footer {
+    padding-top: 2rem;
+  }
+  .citation-chart {
+    min-height: 25px;
+  }
+  .citation-chart .highcharts-grid-line, .citation-chart .highcharts-axis-line {
+    stroke: none;
+  }
+}
+</style>
+<div class="page soa">
+  <div class="ml-5 mt-5 mr-5">
+    <div class="header" data-flex-layout="row md-column">
+      <div class="header__thumbnail">
+        <img src="{{page-publicPath}}/images/help/thenounproject/noun_1113333.svg" />
+      </div>
+      <div class="header__title">
+        <mp-label iri='{{page-resource}}' class="header__title-main"></mp-label>
+        <div style="display: flex; justify-content: space-between;">
+          <div class="institution">
+            <semantic-query query='
+              SELECT ?institution WHERE {
+                <{{page-resource}}> a ?author ;
+                <http://www.w3.org/ns/org#memberOf> ?institution ;
+              }
+            ' template='{{>institution}}'>
+              <template id='institution'>
+                <ul>
+                  {{#each bindings}}
+                    <li>
+                      <semantic-link class="header__title-sub" iri="{{institution.value}}"><mp-label iri='{{institution.value}}'></mp-label></semantic-link>
+                    </li>
+                  {{/each}}
+                </ul>
+              </template>
+            </semantic-query>
           </div>
         </div>
-        <div class="grid-demo"></div>
       </div>
-      <div style='height: 100%;'>
-        <mp-workspace-layout horizontal-collapsed-size=0>
-          <mp-workspace-row>
-            <mp-workspace-item id='1' default-size=350>
-                <div class='grid-demo' style='flex: 1'>
-                  <h2>Timeline:</h2>
-                <div>
-                  <semantic-chart type="line" query="
-                    select ?year (max(?cites) as ?cites) (max(?publications) as ?publications) {
-                      {
-                        select ?year (sum (?cites) as ?cites ) {
-                          ?publication <http://purl.org/dc/terms/creator> <https://semopenalex.org/author/A2105967755> .
-                          ?publication <https://semopenalex.org/property/countsByYear> ?count .
-                          ?count <https://semopenalex.org/property/year> ?year .
-                          ?count <https://semopenalex.org/property/citedByCount> ?cites .
-                        } group by ?year order by asc(?year)
-                      } union {
-                        select ?year (count (distinct ?publication) as ?publications ) {
-                          ?publication <http://purl.org/dc/terms/creator> <https://semopenalex.org/author/A2105967755> .
-                          ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?year .
-                        } group by ?year order by asc(?year)
-                      }
-                    } group by ?year order by asc(?year)
-                " sets='[
-                  {"dataSetName": "Citations", "category": "year", "value": "cites"},
-                  {"dataSetName": "Publications", "category": "year", "value": "publications"}
-                ]'
-                dimensions='{"height": 200}''
-                >
-                </semantic-chart>
-                </div>
-                <h2>Network:</h2>
-
-                <semantic-graph height='200px' query='
-                  construct {
-                    <[[this]]> <urn:coauthors> ?coauthor .
-                    <[[this]]> <urn:cites> ?otherCreator .
-                  } where {
-                    {
-                      ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
-                      ?publication <http://purl.org/dc/terms/creator> ?coauthor .
-                      filter (?otherCreator != <[[this]]>) .
-                    } union {
-                      #?publication <http://purl.org/dc/terms/creator> <[[this]]> .
-                      #?publication <http://purl.org/spar/cito/cites> ?otherPublication .
-                      #?otherPublication <http://purl.org/dc/terms/creator> ?otherCreator .
-                    }
-                  } order by rand() limit 5
-                '>
-                  <semantic-graph-layout-concentric min-node-spacing=10></semantic-graph-layout-concentric>
-                </semantic-graph>
-                </div>
-              </mp-workspace-item>
-            <mp-workspace-item id='2'>
-                <div class='grid-demo' style='flex: 1'>
-                  <h2>Publications:</h2>
-                  <semantic-table query="
-                    select * {
-                      ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
-                      optional {
-                        ?publication <https://semopenalex.org/property/citedByCount> ?Citations.
-                      }
-                    } order by desc(?Citations)
-                  "
-                  >
-                  </semantic-table>
-
-
-                </div>
-              </mp-workspace-item>
-            <mp-workspace-item id='3' default-size=350>
-              <div class='grid-demo' style='flex: 1'>
-                <h2>Concepts</h2>
-                <semantic-query query="
-                  select ?concept (count (distinct ?publication) as ?count) {
-                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
-                    ?publication <https://semopenalex.org/property/hasConcept> ?concept .
-                  } group by ?concept order by desc(?count) limit 4
-                " template='{{>tmp}}'>
+          <div class="hIndex-citation">
+            <div>
+              <div>
+                <span style="font-style: italic;">h</span>
+                <span>-index: </span>
+                <semantic-query query='
+                  PREFIX jsfn:<http://www.ontotext.com/js#>
+                  SELECT ?hIndex WHERE { 
+                    { select (group_concat(?cited;separator=",") as ?citedArray)  where {
+                      { select (COUNT(?work) as ?cited) where {
+                        ?work  <http://purl.org/dc/terms/creator> <{{page-resource}}> .
+                        ?work2 <http://purl.org/spar/cito/cites> ?work  .
+                      } group by ?work }
+                    } }
+                    BIND (xsd:integer(jsfn:findHIndex(?citedArray)) as ?hIndex)
+                  }
+                ' template='{{>tmp}}'>
                   <template id='tmp'>
-                    <ul>
-                      {{#each bindings}}
-                        <li><semantic-link iri="{{rdf-resolvePrefix ':concept'}}"   urlqueryparam-iri="{{concept.value}}" style='padding-top:8px'><mp-label iri='{{concept.value}}'></mp-label></semantic-link> ({{count.value}})</li>
-                      {{/each}}
-                    </ul>
-                  </template>
-                </semantic-query>
-                
-              [[!-- Semafours --]]
-               <h2>Expertise Clusters</h2>
-                <semantic-query query="
-                  select ?cluster (count (distinct ?publication) as ?count) {
-                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
-                    ?publication <http://semafours.ch/model/inCluster> ?cluster .
-                  } 
-                  group by ?cluster 
-                  order by desc(?count) limit 4
-                " template='{{>tmp}}'>
-                  <template id='tmp'>
-                    <ul>
-                      {{#each bindings}}
-                        <li><semantic-link iri="{{cluster.value}}"> </semantic-link> </li>
-                      {{/each}}
-                    </ul>
-                  </template>
-                </semantic-query>
-
-
-                <h2>Co-authors</h2>
-                <semantic-query query="
-                  select ?otherCreator (count (distinct ?publication) as ?count) {
-                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
-                    ?publication <http://purl.org/dc/terms/creator> ?otherCreator .
-                    filter (?otherCreator != <[[this]]>) .
-                  } group by ?otherCreator order by desc(?count) limit 4
-                " template='{{>tmp}}'>
-                  <template id='tmp'>
-                    <ul>
-                      {{#each bindings}}
-                        <li><semantic-link iri='{{otherCreator.value}}'></semantic-link> ({{count.value}})</li>
-                      {{/each}}
-                    </ul>
-                  </template>
-                </semantic-query>
-                <h2>Most cited authors</h2>
-                <semantic-query query="
-                  select ?otherCreator (count (distinct ?otherPublication) as ?count) {
-                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
-                      ?publication <http://purl.org/spar/cito/cites> ?otherPublication .
-                      ?otherPublication <http://purl.org/dc/terms/creator> ?otherCreator .
-                  } group by ?otherCreator order by desc(?count) limit 4
-                " template='{{>tmp}}'>
-                  <template id='tmp'>
-                    <ul>
-                      {{#each bindings}}
-                        <li><semantic-link iri='{{otherCreator.value}}'></semantic-link> ({{count.value}})</li>
-                      {{/each}}
-                    </ul>
-                  </template>
-                </semantic-query>
-                <h2>Most citing authors</h2>
-                <semantic-query query="
-                  select ?otherCreator (count (distinct ?otherPublication) as ?count) {
-                    ?publication <http://purl.org/dc/terms/creator> <[[this]]> .
-                      ?otherPublication <http://purl.org/spar/cito/cites> ?publication .
-                      ?otherPublication <http://purl.org/dc/terms/creator> ?otherCreator .
-                  } group by ?otherCreator order by desc(?count) limit 4
-                " template='{{>tmp}}'>
-                  <template id='tmp'>
-                    <ul>
-                      {{#each bindings}}
-                        <li><semantic-link iri='{{otherCreator.value}}'></semantic-link> ({{count.value}})</li>
-                      {{/each}}
-                    </ul>
+                    {{#each bindings}}
+                      <span class="hIndex">{{hIndex.value}}</span>
+                    {{/each}}
                   </template>
                 </semantic-query>
               </div>
-          </mp-workspace-item>
-          </mp-workspace-row>
-        </mp-workspace-layout>
+              <div class="citation-chart">
+                <semantic-chart type="bar" query="
+                  select ?work (COUNT(?work) as ?citations) where {
+                    ?work  <http://purl.org/dc/terms/creator> <{{page-resource}}> .
+                    ?work2 <http://purl.org/spar/cito/cites> ?work  .
+                  } group by ?work ORDER BY ASC(?citations)
+                " sets='[{"dataSetName": "Citations", "category": "work", "value": "citations"}]'
+                  styles='[{
+                    "provider": "highcharts",
+                    "style": {
+                      "series": [
+                        {"type": "column", "showInLegend": false}
+                      ]
+                    }
+                  }]'
+                  style-highcharts='{
+                    "chart": {
+                      "margin": [0, 0, 0, 0]
+                    },
+                    "legend": "hide",
+                    "yAxis": {
+                      "labels": {
+                        "enabled": false
+                      }
+                    },
+                    "xAxis": {
+                      "labels": {
+                        "enabled": false
+                      }
+                    },
+                    "series": [{
+                      "groupPadding": 0.1,
+                      "pointPadding": 0
+                    }]
+                  }'
+                  dimensions='{"width": 200, "height": 50}'
+                  disable-tooltips='true'
+                >
+                </semantic-chart>
+              </div>
+            </div>
+          </div>
+    </div>
+    <div class="body" style='height: 100%;'>
+      <div class="row cards">
+        <div class="card publications-citations">
+          <div>
+            <div class="publications-count">
+              <div class="publications-citations__label">Publications</div>
+              <semantic-query query='
+                SELECT (COUNT(distinct ?publication) as ?count) WHERE {
+                  ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}>
+                }
+              ' template='{{>tmp}}'>
+                <template id='tmp'>
+                  {{#each bindings}}
+                    <div class="publications-citations__value">{{count.value}}</div>
+                  {{/each}}
+                </template>
+              </semantic-query>
+            </div>
+            <div class="citations-count">
+              <div class="publications-citations__label">Citations</div>
+              <semantic-query query='
+                SELECT ?cited WHERE {
+                  <{{page-resource}}> a ?author ;
+                  <https://semopenalex.org/property/citedByCount> ?cited ;
+                }
+              ' template='{{>citations}}'>
+                <template id='citations'>
+                  {{#each bindings}}
+                    <div class="publications-citations__value">{{cited.value}}</div>
+                  {{/each}}
+                </template>
+              </semantic-query>
+            </div>
+          </div>
+          <semantic-chart provider="highcharts" type="line" query="
+            select ?year (max(?cites) as ?cites) (max(?publications) as ?publications) {
+              {
+                select ?year (sum (?cites) as ?cites ) {
+                  ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
+                  ?publication <https://semopenalex.org/property/countsByYear> ?count .
+                  ?count <https://semopenalex.org/property/year> ?year .
+                  ?count <https://semopenalex.org/property/citedByCount> ?cites .
+                } group by ?year order by asc(?year)
+              } union {
+                select ?year (count (distinct ?publication) as ?publications ) {
+                  ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
+                  ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?year .
+                } group by ?year order by asc(?year)
+              }
+            } group by ?year order by asc(?year)
+          " sets='[
+            {"dataSetName": "Citations", "category": "year", "value": "cites"},
+            {"dataSetName": "Publications", "category": "year", "value": "publications"}
+          ]'
+          styles='[{
+            "provider": "highcharts",
+            "style": {
+              "series": [
+                {"type": "column", "showInLegend": false},
+                {"type": "line", "showInLegend": false},
+                {"type": "errorbar"}
+              ]
+            }
+          }]'
+          dimensions='{"height": 200}'>
+          </semantic-chart>
+        </div>
+        <div class="card coauthors">
+          <div class="select">By rating</div>
+          <div class="card__title">CO-AUTHORS</div>
+            <semantic-query query='
+            select ?coauthor (count (distinct ?publication) as ?count) {
+              ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
+              ?publication <http://purl.org/dc/terms/creator> ?coauthor .
+              filter (?coauthor != <{{page-resource}}>) .
+            } group by ?coauthor order by desc(?count) limit 5
+            ' template='{{>tmp}}'>
+                <template id='tmp'>
+                  <ul>
+                    {{#each bindings}}
+                      <li>
+                        <div class="co-author__icon"></div>
+                        {{#if coauthor.value}}
+                          <semantic-link iri="{{coauthor.value}}"></semantic-link>
+                        {{/if}}
+                      </li>
+                    {{/each}}
+                  </ul>
+                </template>
+            </semantic-query>
+        </div>
+        <div class="card related-entities">
+          <semantic-query query='
+            SELECT ?work ?count ?work2 ?coauthor ?institution ?concept WHERE {
+              ?work <http://purl.org/dc/terms/creator> <{{page-resource}}>;
+              { SELECT ?count WHERE {
+                ?work <http://purl.org/dc/terms/creator> <{{page-resource}}> ;
+                  <https://semopenalex.org/property/citedByCount> ?count.
+            
+              } ORDER BY DESC (?count) }
+                ?work2 <http://purl.org/spar/cito/cites> ?work.
+              ?publication <http://purl.org/dc/terms/creator> ?coauthor.
+              FILTER(?coauthor != <{{page-resource}}>)
+              <{{page-resource}}> <http://www.w3.org/ns/org#memberOf> ?institution.
+              ?work <https://semopenalex.org/property/hasConcept> ?concept.
+              
+            }  LIMIT 1
+          ' template='{{>tmp}}'>
+            <template id="tmp">
+                {{#each bindings}}
+                <div class="card__title">RELATED ENTITIES</div>
+                <ul>
+                  <li>
+                    <semantic-link iri='{{work.value}}' urlqueryparam-author="{{page-resource}}">Publications by this author</semantic-link>
+                  </li>              
+                  <li>
+                    <semantic-link iri='{{work2.value}}' urlqueryparam-author="{{page-resource}}">Citations of this author</semantic-link>
+                  </li>
+                  <li>
+                    <semantic-link iri='{{coauthor.value}}' urlqueryparam-author="{{page-resource}}">Co-authors</semantic-link>
+                  </li>
+                  <li>
+                    <semantic-link iri='{{institution.value}}' urlqueryparam-author="{{page-resource}}">Affiliations</semantic-link>
+                  </li>
+                  <li>                  
+                    <semantic-link iri='{{concept.value}}' urlqueryparam-author="{{page-resource}}">Concept</semantic-link>
+                  </li>
+                </ul>
+                {{/each}}
+            </template>
+          </semantic-query>
+        </div>
       </div>
+      <div class="row concepts">
+        <semantic-query query='
+          SELECT ?concept (COUNT (distinct ?publication) as ?count) {
+            ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
+            ?publication <https://semopenalex.org/property/hasConcept> ?concept .
+          }
+          GROUP BY ?concept
+          ORDER BY desc(?count)
+          LIMIT 20
+        ' template='{{>tmp}}'>
+          <template id="tmp">
+            {{#each bindings}}
+              <div class="chip">
+                <semantic-link class="chip__name" iri="{{rdf-resolvePrefix ':concept'}}" urlqueryparam-iri="{{concept.value}}"><mp-label iri='{{concept.value}}'></mp-label></semantic-link>
+                <div class="chip__icon"></div>
+              </div>
+            {{/each}}
+          </template>
+        </semantic-query>
+      </div>
+      <div class="row other-authors">
+        <div class="cited">
+          <div>
+            <div class="other-authors__title">MOST CITED AUTHORS</div>
+            <div class="other-authors__subtitle">
+              <span>Authors who most influenced </span>
+              <mp-label iri='{{page-resource}}'></mp-label>
+            </div>
+            <semantic-tree query="SELECT ?parent ?node ?count WHERE {
+              {
+                VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
+              } UNION {          
+                { select ?parent ?node (count (distinct ?otherPublication) as ?count) {
+                    BIND ( <{{page-resource}}> as ?parent)
+                    ?publication <http://purl.org/dc/terms/creator> ?parent .
+                    ?publication <http://purl.org/spar/cito/cites> ?otherPublication .
+                    ?otherPublication <http://purl.org/dc/terms/creator> ?node .                    
+                    filter (?node != ?parent) .
+                } group by ?parent ?node order by desc(?count) limit 5 }
+              }
+            } 
+            " provider="d3-collapsible-tree" collapsed="false" keys-opened='{{page-resource}}' tuple-template='{{> tmpl}}' d-3-tree-options='{"nodeWidth": 200}'>
+                <template id='tmpl'>
+                  <semantic-link iri='{{node.value}}'></semantic-link>
+                  {{#if count.value}}
+                    <div class="other-authors__count">{{count.value}}</div>
+                  {{/if}}
+                </template>
+            </semantic-tree>
+          </div>
+        </div>
+        <div class="author">
+          <img class="author__picture" src="{{page-publicPath}}/images/help/thenounproject/noun_1113333.svg" />
+          <mp-label iri='{{page-resource}}' class="author__name"></mp-label>
+        </div>
+        <div class="citing">
+          <div>
+            <div class="other-authors__title">MOST CITING AUTHORS</div>
+            <div class="other-authors__subtitle">
+              <span>Authors most influenced by </span> 
+              <mp-label iri='{{page-resource}}'></mp-label>
+            </div>
+            <semantic-tree query="SELECT ?parent ?node ?count WHERE {
+              {
+                VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
+              } UNION {
+                  { select ?parent ?node (count (distinct ?publication2) as ?count) {
+                      BIND ( <{{page-resource}}> as ?parent)
+                      ?publication <http://purl.org/dc/terms/creator> ?parent .
+                      ?publication2 <http://purl.org/spar/cito/cites> ?publication .
+                      ?publication2 <http://purl.org/dc/terms/creator> ?node 
+                      filter (?node != ?parent) .
+                  } group by ?parent ?node order by desc(?count) limit 5 }
+                }
+              } 
+              " provider="d3-collapsible-tree" collapsed="false" keys-opened='{{page-resource}}' tuple-template='{{> tmpl}}' d-3-tree-options='{"nodeWidth": 200}'>
+              <template id='tmpl'>
+                <semantic-link iri='{{node.value}}'></semantic-link>
+                {{#if count.value}}
+                  <div class="other-authors__count">{{count.value}}</div>
+                {{/if}}
+              </template>
+            </semantic-tree>
+          </div>
+        </div>
+      </div>
+      <div class="row card publications">
+        <mp-event-target-template-render id="publications" template='{{>tmp}}'>
+          <template id="tmp">
+            <div class="publications__header">
+              <div class="card__title">PUBLICATIONS</div>
+              <div class="buttons">
+                <mp-event-trigger type='Component.TemplateUpdate' data='{"sort":"DESC (?cited)", "all": "{{all}}"}' targets='["publications"]'>
+                  <button class='{{#unless sort}}selected{{/unless}}{{#ifCond sort "===" "DESC (?cited)"}}selected{{/ifCond}}'>Most cited</button>
+                </mp-event-trigger>
+                <mp-event-trigger type='Component.TemplateUpdate' data='{"sort":"DESC (?publicationYear)", "all": "{{all}}"}' targets='["publications"]'>
+                  <button class='{{#ifCond sort "===" "DESC (?publicationYear)"}}selected{{/ifCond}}'>Latest</button>
+                </mp-event-trigger>
+              </div>
+            </div>
+            <semantic-table query='
+              SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) WHERE {
+                ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
+                ?publication <http://purl.org/dc/terms/creator> ?author . 
+                ?publication <http://purl.org/dc/terms/title> ?title .
+                ?author <http://xmlns.com/foaf/0.1/name> ?name .
+                ?publication <https://semopenalex.org/property/citedByCount> ?cited .
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
+                  ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
+                  ?venue <http://purl.org/dc/terms/publisher> ?publisher .
+                }
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasVolume> ?volume .
+                }
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasIssue> ?issue .
+                }
+                OPTIONAL {
+                  ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
+                }
+              } 
+              GROUP BY ?title ?publication ?publicationYear ?cited ?publisher ?volume ?issue
+              ORDER BY {{#if sort}}{{sort}}{{else}}DESC(?cited){{/if}}
+              {{#unless all}}LIMIT 10{{/unless}}' number-of-displayed-rows="10" tuple-template='
+                <div class="publication">
+                  <div class="publication__top">
+                    <semantic-link iri="{{publication.value}}">
+                      <div class="publication__title">{{title.value}}</div>
+                    </semantic-link>
+                    <div class="publication__author" style="width: 100%;">
+                      <mp-text-truncate truncate="..." style="width: inherit;">
+                        By {{authors.value}}
+                      </mp-text-truncate>
+                    </div>
+                    <div class="publication__info">
+                      {{#if publisher}}{{publisher.value}}, {{/if}}
+                      {{#if volume}}Volume {{volume.value}}, {{/if}}
+                      {{#if issue}}Issue {{issue.value}}, {{/if}}
+                      {{publicationYear.value}}
+                    </div>
+                  </div>
+                  <div class="publication__bottom">
+                    <div class="publication__year">{{publicationYear.value}}</div>
+                    <div class="publication__citation">
+                      <div class="publication__citation-icon"></div>
+                      <div class="publication__citation-value">{{cited.value}}</div>
+                    </div>
+                  </div>
+                </div>
+            ' options='{"showFilter":false}'></semantic-table>
+              <mp-event-trigger type='Component.TemplateUpdate' data='{"all": true, "sort": "{{sort}}"}' targets='["publications"]'>
+                <button class='publications__foot-button {{#ifCond all "===" true}}publications__foot-button--disabled{{/ifCond}}'>ALL PUBLICATIONS</button>
+              </mp-event-trigger>
+          </template>
+        </mp-event-target-template-render>
+      </div>
+    </div>
   </div>
 </div>
