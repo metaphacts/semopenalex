@@ -1,5 +1,5 @@
-# Copyright Johan Krause, Michael Färber, Institute AIFB, Karlsruhe Institute of Technology (KIT)
-# this script transforms OpenAlex data dump files to triple form in trig files for SemOpenAlex
+# Copyright Johan Krause, Michael Färber, David Lamprecht; Institute AIFB, Karlsruhe Institute of Technology (KIT)
+# this script transforms OpenAlex data dump files for work entities to triple form in trig files for SemOpenAlex
 from rdflib import Graph
 from rdflib import URIRef, BNode, Literal
 from rdflib.namespace import DCTERMS, RDF, RDFS, XSD, OWL
