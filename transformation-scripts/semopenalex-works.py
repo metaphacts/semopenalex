@@ -1,5 +1,5 @@
-# Copyright Johan Krause, Michael Färber, Institute AIFB, Karlsruhe Institute of Technology (KIT)
-# this script transforms OpenAlex data dump files to triple form in trig files for SemOpenAlex
+# Copyright Johan Krause, Michael Färber, David Lamprecht; Institute AIFB, Karlsruhe Institute of Technology (KIT)
+# this script transforms OpenAlex data dump files for work entities to triple form in trig files for SemOpenAlex
 from rdflib import Graph
 from rdflib import URIRef, BNode, Literal
 from rdflib.namespace import DCTERMS, RDF, RDFS, XSD, OWL
@@ -166,9 +166,8 @@ soa_class_concept = URIRef(soa_namespace_class + "Concept")
 soa_class_concept_score = URIRef(soa_namespace_class + "ConceptScore")
 
 # SOA predicates
-doi_predicate = URIRef("http://prismstandard.org/namespaces/basic/2.0/doi")
+doi_predicate = URIRef("http://purl.org/spar/datacite/doi")
 publication_year_predicate = URIRef("http://purl.org/spar/fabio/hasPublicationYear")
-publication_date_predicate = URIRef("http://prismstandard.org/namespaces/basic/2.0/publicationDate")
 mag_id_predicate = URIRef("https://semopenalex.org/property/magId")
 pubmed_id_predicate = URIRef("http://purl.org/spar/fabio/hasPubMedId")
 pubmed_central_predicate = URIRef("http://purl.org/spar/fabio/hasPubMedCentralId")
@@ -288,7 +287,7 @@ def transform_gz_file(gz_file_path):
                         work_publication_date = json_data['publication_date']
                         if not work_publication_date is None:
                             work_publication_date = clean(work_publication_date)
-                            works_graph.add((work_uri, publication_date_predicate,
+                            works_graph.add((work_uri, DCTERMS.date,
                                              Literal(work_publication_date, datatype=XSD.date)))
 
                         # ids (relevant: mag, pmid, pmcid)
