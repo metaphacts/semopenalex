@@ -58,6 +58,10 @@ html {
     display: none;
 }
 
+.semantic-chart {
+    flex: 1 1 0;
+}
+
 .soa .semantic-chart .highcharts-root {
     max-width: 100%;
     width: 100%;
@@ -119,4 +123,135 @@ html {
     height: 15px;
     margin: 1rem;
     flex-shrink: 0;
+}
+
+/* publications */
+.card.publications {
+    padding: 2rem 10rem;
+    height: auto;
+}
+
+.card.publications__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.card.publications .buttons {
+    align-self: flex-end;
+    display: flex;
+    gap: 1rem;
+}
+
+.card.publications .buttons button {
+    font-size: 1rem;
+    padding: 2px 1rem;
+    border: 1px solid var(--soa-color-grey);
+    background-color: transparent;
+    color: var(--soa-color-blue);
+} 
+
+.card.publications .buttons button.selected {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.card.publications .publication {
+    background-color: #FFFFFF;
+    border-radius: 0.3rem;
+    padding: 1rem;
+    overflow: hidden;
+    width: calc(50% - 0.5rem);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 164px;
+    line-height: 1.8rem;
+}
+
+.card.publications .publications__header {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+    padding-bottom: 0.6rem;
+}
+
+.card.publications .publications__header .title {
+    padding-bottom: 0;
+    font-size: 1.2rem;
+}
+
+.card.publications .publication__title {
+    font-size: 1.3rem;
+}
+
+.card.publications .publication__author, .publication__info {
+    font-size: 1rem;
+    color: #000000;
+}
+
+.card.publications .publication__info {
+    color: var(--soa-color-brown-darker);
+}
+
+.card.publications .publication__bottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: var(--soa-color-brown-darker);
+    font-weight: 700;
+}
+
+.card.publications .publication__year {
+    color: #000000;
+}
+
+.card.publications .publication__citation {
+    display: flex;
+    align-items: center;
+    gap: 3.75px;  
+}
+
+.card.publications .publication__citation-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xLjUgNy43NUgzLjc1TDUuMjUgNC43NVYwLjI1SDAuNzVWNC43NUgzTDEuNSA3Ljc1Wk03LjUgNy43NUg5Ljc1TDExLjI1IDQuNzVWMC4yNUg2Ljc1VjQuNzVIOUw3LjUgNy43NVoiIGZpbGw9IiM4Mjc2NTUiLz4KPC9zdmc+Cg==);
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 11px;
+    height: 11px;
+}
+
+.card.publications .publication__citation-value {
+    font-size: 1rem;
+    color: var(--soa-color-brown-darker);
+    font-weight: 700;
+}
+
+.card.publications .publications__foot {
+    display: flex;
+    justify-content: center;
+}
+
+.card.publications .publications__foot-button {
+    color: var(--soa-color-blue);
+    font-weight: 700;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    margin: 3rem 0 1rem 0;
+}
+
+.card.publications .publications__foot-button--disabled {
+    display: none;
+}
+
+.card.publications .DataTable--table-grid-layout {
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.card.publications .DataTable--footer {
+    margin-top: 1rem;
 }
