@@ -140,7 +140,7 @@
                 ?count <https://semopenalex.org/property/year> ?year .
                 ?count <https://semopenalex.org/property/citedByCount> ?citations .
               } ORDER BY ASC(?year)
-            " sets='[{"dataSetName": "Citations", "category": "citations", "x": "year", "y": "citations"}]'
+            " sets='[{"dataSetName": "Citations", "category": "year", "x": "year", "y": "citations"}]'
               styles='[{
                 "provider": "highcharts",
                 "style": {
@@ -192,11 +192,10 @@
 <template-fragment id="Concepts">
   <div class="row concepts">
   <semantic-query query='
-    SELECT ?concept (COUNT (distinct ?publication) as ?count) {
+    SELECT ?concept {
+      BIND(<{{page-resource}}> as ?work)
       ?work <https://semopenalex.org/property/hasConcept> ?concept .
     }
-    GROUP BY ?concept
-    ORDER BY desc(?count)
     LIMIT 20
   ' template='{{>tmp}}'>
       <template id="tmp">
@@ -319,7 +318,7 @@
     </div>
   </div>
   <div class="body">
-    <bs-tabs id="tabs">
+    <bs-tabs id="tabs" mount-on-enter=true default-active-key='1'>
       <bs-tab event-key="1" title="Publication">
         {{> ::Cards}}
         {{> ::Concepts}}
