@@ -105,6 +105,11 @@
       search-profile='{
         "categories": [
         {
+          "iri": "<https://semopenalex.org/class/Author>",
+          "label": "Author",
+          "thumbnail": "/assets/images/writer.png"
+        },
+        {
           "iri": "<https://semopenalex.org/class/Work>",
           "label": "Work",
           "thumbnail": "/assets/images/essay.png"
@@ -209,9 +214,46 @@
           '
           count-query-mode='queryPerCategory'
           template='{{> tmpl}}'
+          inline-suggest="true"
+          suggestion-limit="10"
+          suggestion-template="{{> suggestion}}"
+          suggestion-query='
+             PREFIX lookup: <http://www.metaphacts.com/ontologies/platform/repository/lookup#>
+              SELECT ?subject ?affiliation  WHERE {
+              FILTER(?__tokenPattern__)
+              OPTIONAL {
+                ?subject <http://www.w3.org/ns/org#memberOf> ?affiliation.
+              }
+          }'
         >
           <template id='tmpl'>
             {{>::count-template}}
+          </template>
+          <template id="suggestion">
+             {{#switch kind}}
+              {{#case 'search' break=true}}
+                <div class='InlineDisambiguation--search'>
+                  Search for "<span class='InlineDisambiguation--searchTerm'>{{searchTerm}}</span>"
+                </div>
+              {{/case}}
+              {{#case 'group' break=true}}
+                <div class='InlineDisambiguation--group' title='{{domain.iri}}'>
+                  {{domain.label}}
+                </div>
+              {{/case}}
+              {{#case 'resource' break=true}}
+                <div class='InlineDisambiguation--resource' title='{{resource.iri}}'>
+                  [{{domain.label}}] 
+                  <mp-highlight highlight='{{searchTerm}}'>{{resource.label}}</mp-highlight> - 
+                  <mp-description iri='{{resource.iri}}'>
+                  </mp-description>
+                  {{#if data.affiliation}}
+                    (Affiliation: <mp-label iri='{{data.affiliation.value}}'></mp-label>)
+                  {{/if}}
+                  
+                </div>
+              {{/case}}
+            {{/switch}}
           </template>
         </semantic-search-query-keyword-type>
 
@@ -336,74 +378,9 @@
       <div style='flex: 1;'>
         <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
               
-        <bs-tabs unmount-on-exit=true id='search-results'>
-      
-          <bs-tab event-key="1" title="Grid">
-            
-            <semantic-search-result>
-               
-              <semantic-search-table-result>
-               
-                <div data-flex-layout='row stretch-stretch'>
-    	            <div data-flex-self='md-full'>
-                    <semantic-table
-                      id="results-table"
-                      query='SELECT * WHERE {}'
-                      number-of-displayed-rows='12'
-                      options='{
-                        "showFilter":false ,
-                        "showNumberOfRows": true,
-                        "enableGrouping": false
-                      }'
-                      tuple-template='{{> template}}'
-                    >
-                      <template id='template'>
-                        <div data-flex-layout="column justify-justify" style="min-height: 100px;margin: 8px; ">
-                       
-                          <div class="card-group">
-                            <div class="card" style='border: none;'>
-                              <mp-resource-thumbnail iri='{{subject.value}}' 
-                                style="height: 100px; width: 200px;  object-fit: contain;">
-                              </mp-resource-thumbnail>
-                      
-                             
-
-                               <semantic-link iri="{{subject.value}}"> </semantic-link> 
-
-                             
-                            
-                           
-                              <div class="card-body">
-                              
-                                <div style='margin-bottom:8px'>
-                                  {{>::work-abstract}}
-                                </div>
-                                <div style='margin-bottom:8px'>
-                                  {{>::concept-note}}
-                                </div>
-                              
-                                
-                              
-                              </div>
-                              
-                            </div>
-                          </div>
-                            
-                        </div>
-                      </template>
-                    </semantic-table>
-    	            </div>
-                  
-                </div>
-              </semantic-search-table-result>
-            </semantic-search-result>
-
-          </bs-tab>
-
-          <bs-tab event-key="2" title="Table">
             <semantic-search-result-context
               multi=true
-             
+              preselect='["http://www.w3.org/ns/org#memberOf", "http://purl.org/dc/terms/creator"]'
             >
             <semantic-search-result>
               <semantic-search-table-result>
@@ -441,9 +418,6 @@
               </semantic-search-table-result>
             </semantic-search-result> 
             </semantic-search-result-context>
-          </bs-tab>
-
-        </bs-tabs>
       </div> 
     </semantic-search-result-holder>
   </div>
