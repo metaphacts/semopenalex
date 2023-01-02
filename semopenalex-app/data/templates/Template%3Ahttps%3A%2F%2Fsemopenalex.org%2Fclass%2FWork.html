@@ -201,7 +201,7 @@
       <template id="tmp">
         {{#each bindings}}
           <div class="chip">
-            <semantic-link class="chip__name" iri="{{rdf-resolvePrefix ':concept'}}" urlqueryparam-iri="{{concept.value}}"><mp-label iri='{{concept.value}}'></mp-label></semantic-link>
+            <semantic-link class="chip__name" iri="{{concept.value}}"></semantic-link>
             <div class="chip__icon"></div>
           </div>
         {{/each}}
