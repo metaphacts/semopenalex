@@ -1,100 +1,347 @@
 <style>
-  .card-group {
-    border-radius: 10px;
-    box-shadow: 0 0 5px 4px rgb(0 0 0 / 12%);
-    padding: 20px;
-  
+  .soa {
+    padding: 2rem;
   }
-
-  .card-group:hover {
-    box-shadow: 0 0 14px 10px rgb(0 0 0 / 12%);
+  .soa .header {
+    border-bottom: none;
   }
-
-  .card-body {
-    flex: 1 1 auto;
-    //height: 100px;
-    overflow: hidden;
-    padding: 16px;
+  .soa .header__title-sub {
+    font-size: 1.6rem;
+    color: var(--soa-color-blue);
   }
-
-  .concept {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 16px;
-}
-
-
+  .nav {
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  .nav-tabs .nav-item {
+    font-size: 1.2rem;
+    background: var(--soa-color-brown);
+    color: var(--soa-color-brown-darker);
+  }
+  .soa .body {
+    gap: 0;
+    padding: 0;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .card.publication-chart, .card.location {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .publications__label, .publications__value {
+    color: #000000;
+  }
+  .citations__label, .citations__value {
+    color: var(--soa-color-green);
+  }
+  .publications__label, .citations__label {
+    font-size: 1.3rem;
+  }
+  .publications__value, .citations__value {
+    font-size: 3.2rem;
+    font-weight: 700;
+  }
+  .card.location .card__title {
+    padding-bottom: 0;
+    padding-top: 1rem;
+  }
+  .concepts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .publications .card__title {
+    text-transform: uppercase;
+  }
+  .tab-pane > div {
+    padding-bottom: 2rem;
+  }
 </style>
 
-<ol class="page-breadcrumb">
-    <li>
-      <semantic-link title="Start" iri='{{rdf-resolvePrefix "semopenalex:Start"}}'>Start</semantic-link>
-    </li>
-    <li class="active">Institution</li>
-</ol>
-<div class="page">
-  <div class='page__body'>
-
-    <div style="margin: 8px;">
-      <div class="card-group">
-        <div class="card" style='border: none;'>
-          <mp-resource-thumbnail iri='{{page-resource}}' style="height: 100px; width: 100px;  object-fit: contain;">
-          </mp-resource-thumbnail>
-                             
-          <mp-label iri="{{page-resource}}"></mp-label>
-                            
-          <div class="card-body">
-
-            <div style='padding:16px'>
-
-              <semantic-query query='SELECT ?institution WHERE { <{{page-resource}}> <https://semopenalex.org/property/hasAssociatedInstitution> ?institution }' template='{{> tmpl}}'>
-                <template id='tmpl'>
-                  <b>Associated institution:</b>
-                  {{#each bindings}}
-       
-                    <div style='margin-bottom:3px'>
-                      
-                      <semantic-link iri='{{institution.value}}'></semantic-link>
-                    </div>
-      
-                  {{/each}}
-                </template>
-              </semantic-query>
-
-            </div>
-
-            <div style='padding:16px'>
-              <b>Location:</b>
-              <semantic-map query='
-                SELECT ?lat ?lng ?city ?country WHERE {
-                  { 
-                    <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
-                    ?location <http://www.geonames.org/ontology#lat> ?lat .
-                    ?location <http://www.geonames.org/ontology#long> ?lng .
-                    ?location <https://dbpedia.org/property/city> ?city .
-                    ?location <https://dbpedia.org/property/country> ?country .
-                  } UNION {
-                    <{{page-resource}}> <https://semopenalex.org/property/hasAssociatedInstitution>/<https://dbpedia.org/ontology/location> ?location .
-                    ?location <http://www.geonames.org/ontology#lat> ?lat .
-                    ?location <http://www.geonames.org/ontology#long> ?lng .
-                    ?location <https://dbpedia.org/property/city> ?city .
-                    ?location <https://dbpedia.org/property/country> ?country .
-                  }
-                }' 
-                tuple-template='<b>{{city.value}} ({{country.value}})</b>'>
-              </semantic-map>
-
-            </div>                                  
-          </div>                  
+<template-fragment id='Cards'>
+  <div class="cards">
+    <div class="card publication-chart">
+      <div>
+        <div>
+          <div class="publications__label">Publications</div>
+          <semantic-query query='
+            SELECT ?count WHERE { <{{page-resource}}> <https://semopenalex.org/property/worksCount> ?count}' template='{{> tmp}}'>
+              <template id="tmp">
+                {{#each bindings}}
+                  <div class="publications__value">{{count.value}}</div>
+                {{/each}}
+              </template>
+          </semantic-query>
         </div>
-      </div>                        
+        <div>
+          <div class="citations__label">Citations</div>
+          <semantic-query query='
+            SELECT ?cited WHERE {
+	            <{{page-resource}}> <https://semopenalex.org/property/citedByCount> ?cited
+            }' template='{{> tmp}}'>
+              <template id="tmp">
+                {{#each bindings}}
+                  <div class="citations__value">{{cited.value}}</div>
+                {{/each}}
+              </template>
+          </semantic-query>
+        </div>
+      </div>
+      <semantic-chart type="bar" query="
+        SELECT ?year ?work WHERE {
+          <{{page-resource}}> <https://semopenalex.org/property/countsByYear> ?count .
+          ?count <https://semopenalex.org/property/year> ?year .
+          ?count <https://semopenalex.org/property/worksCount> ?work .
+        } ORDER BY ASC(?year)
+      " sets='[{"dataSetName": "Publications", "category": "year", "x": "year", "y": "work"}]'
+        styles='[{
+          "provider": "highcharts",
+          "style": {
+            "series": [
+              {"type": "column", "showInLegend": false}
+            ]
+          }
+        }]'
+        style-highcharts='{
+          "legend": "hide",
+          "caption": {"align": "center", "text": "The last 10 years of publications."}
+        }'
+        dimensions='{"height": 180}'
+      >
+      </semantic-chart>
     </div>
+    <div class="card location">
+      <div>
+        <div class="card__title">LOCATED IN</div>
+        <semantic-query query='SELECT ?location ?city ?country WHERE {
+          <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
+          ?location <https://dbpedia.org/property/city> ?city ;
+                    <https://dbpedia.org/property/country> ?country
+        }' template="{{> tmp}}" no-result-template='Location not available.'>
+          <template id="tmp">
+            {{#each bindings}}
+              {{#if location}}
+                <div>
+                  {{#if city}}
+                    {{city.value}}{{#if country}}, {{/if}}
+                  {{/if}}
+                  {{#if country}}
+                    {{country.value}}
+                  {{/if}}
+                </div>            
+              {{/if}}
+            {{/each}}
+          </template>
+        </semantic-query>
+        <semantic-query query='SELECT ?homepage WHERE {
+          <{{page-resource}}> <http://xmlns.com/foaf/0.1/homepage> ?homepage
+        }' template="{{> tmp}}">
+          <template id="tmp">
+            {{#each bindings}}
+              {{#if homepage}}
+                <div class="card__title">Home Page</div>
+                <a href="{{homepage.value}}">{{homepage.value}}</a>
+              {{/if}}
+            {{/each}}
+          </template>
+        </semantic-query>
+      </div>
+      <div class="map">
+        <semantic-map query='
+          SELECT ?lat ?lng ?city ?country WHERE {
+            <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
+            ?location <http://www.geonames.org/ontology#lat> ?lat .
+            ?location <http://www.geonames.org/ontology#long> ?lng .
+            ?location <https://dbpedia.org/property/city> ?city .
+            ?location <https://dbpedia.org/property/country> ?country .
+          }' 
+          tuple-template='<b>{{city.value}} ({{country.value}})</b>'>
+        </semantic-map>
+      </div>
+    </div>
+  </div>
+</template-fragment>
+
+<template-fragment id='Concepts'>
+  <div class="concepts">
+    <semantic-query query='
+      SELECT ?concept WHERE {
+        ?author <http://www.w3.org/ns/org#memberOf> <{{page-resource}}> .
+        ?work <http://purl.org/dc/terms/creator> ?author .
+        ?work <https://semopenalex.org/property/hasConcept> ?concept
+      }
+      LIMIT 20' template='{{>tmp}}'>
+      <template id="tmp">
+        {{#each bindings}}
+          <div class="chip">
+            <semantic-link class="chip__name" iri="{{concept.value}}"></semantic-link>
+            <div class="chip__icon"></div>
+          </div>
+        {{/each}}
+      </template>
+    </semantic-query>
+  </div>
+</template-fragment>
+
+<template-fragment id="List">
+  <div class="card publications institutions">
+    <mp-event-target-template-render id="list" template='{{>tmp}}'>
+      <template id="tmp">
+        <div class="publications__header">
+          <div class="card__title">{{tab}}</div>
+          {{#ifCond tab "===" "Publications"}}
+            <div class="buttons">
+              <mp-event-trigger type='Component.TemplateUpdate' data='{"sort":"DESC (?cited)", "all": "{{all}}"}' targets='["list"]'>
+                <button class='{{#unless sort}}selected{{/unless}}{{#ifCond sort "===" "DESC (?cited)"}}selected{{/ifCond}}'>Most cited</button>
+              </mp-event-trigger>
+              <mp-event-trigger type='Component.TemplateUpdate' data='{"sort":"DESC (?publicationYear)", "all": "{{all}}"}' targets='["list"]'>
+                <button class='{{#ifCond sort "===" "DESC (?publicationYear)"}}selected{{/ifCond}}'>Latest</button>
+              </mp-event-trigger>
+            </div>
+          {{/ifCond}}
+        </div>
+          {{#ifCond tab "===" "Publications"}}
+            <semantic-table query='
+              SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) WHERE {
+                {
+                  SELECT DISTINCT ?publication WHERE {
+                  BIND(<{{page-resource}}> as ?institution)
+                  ?member <http://www.w3.org/ns/org#memberOf> ?institution .
+                  ?publication <http://purl.org/dc/terms/creator> ?member .
+                  }
+                  LIMIT {{#ifCond all "===" "true"}}1001{{else}}10{{/ifCond}}
+                }
+                ?publication <http://purl.org/dc/terms/creator> ?author .
+                ?publication <http://purl.org/dc/terms/title> ?title .
+                ?author <http://xmlns.com/foaf/0.1/name> ?name .
+                ?publication <https://semopenalex.org/property/citedByCount> ?cited .
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
+                  ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
+                  ?venue <http://purl.org/dc/terms/publisher> ?publisher .
+                }
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasVolume> ?volume .
+                }
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasIssue> ?issue .
+                }
+                OPTIONAL {
+                  ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
+                }
+              } 
+              GROUP BY ?member ?title ?publication ?publicationYear ?cited ?publisher ?volume ?issue
+              ORDER BY {{#if sort}}{{sort}}{{else}}DESC(?cited){{/if}}
+              ' number-of-displayed-rows="10" tuple-template='
+                <div class="publication">
+                  <div class="publication__top">
+                    <semantic-link iri="{{publication.value}}">
+                      <div class="publication__title">{{title.value}}</div>
+                    </semantic-link>
+                    <div class="publication__author" style="width: 100%;">
+                      <mp-text-truncate truncate="..." style="width: inherit;">
+                        By {{authors.value}}
+                      </mp-text-truncate>
+                    </div>
+                    <div class="publication__info">
+                      {{#if publisher}}{{publisher.value}}, {{/if}}
+                      {{#if volume}}Volume {{volume.value}}, {{/if}}
+                      {{#if issue}}Issue {{issue.value}}, {{/if}}
+                      {{publicationYear.value}}
+                    </div>
+                  </div>
+                  <div class="publication__bottom">
+                    <div class="publication__year">{{publicationYear.value}}</div>
+                    <div class="publication__citation">
+                      <div class="publication__citation-icon"></div>
+                      <div class="publication__citation-value">{{cited.value}}</div>
+                    </div>
+                  </div>
+                </div>
+            ' options='{"showFilter":false}'
+            no-result-template='No publications.'>
+            </semantic-table>
+            <mp-event-trigger type='Component.TemplateUpdate' data='{"all": "true", "sort": "{{sort}}"}' targets='["list"]'>
+              <button class='publications__foot-button {{#ifCond all "===" "true"}}publications__foot-button--disabled{{/ifCond}}'>ALL PUBLICATIONS</button>
+            </mp-event-trigger>
+          {{else}}
+            <semantic-table query='
+              SELECT ?associatedInstitution ?name ?alternativeName ?city ?country WHERE {
+                BIND(<{{page-resource}}> as ?institution)
+                ?institution <https://semopenalex.org/property/hasAssociatedInstitution> ?associatedInstitution .
+                ?associatedInstitution <http://xmlns.com/foaf/0.1/name> ?name .
+                OPTIONAL {
+                  ?associatedInstitution <https://dbpedia.org/ontology/alternativeName> ?alternativeName .
+                }
+                OPTIONAL {
+                  ?associatedInstitution <https://dbpedia.org/ontology/location> ?location .
+                }
+                OPTIONAL {
+                  ?location <https://dbpedia.org/property/city> ?city .
+                }
+                OPTIONAL {
+                  ?location <https://dbpedia.org/property/country> ?country .
+                }
+              }'
+              number-of-displayed-rows="10" tuple-template='
+                <div class="publication">
+                  <div class="publication__top">
+                    <semantic-link iri="{{associatedInstitution.value}}">
+                      <div class="publication__title">{{name.value}}</div>
+                    </semantic-link>
+                    <div class="publication__info">
+                      {{#if alternativeName}}
+                        {{alternativeName.value}}{{#unless @last}}, {{/unless}}
+                      {{/if}}
+                      {{#if city}}
+                        {{city.value}}{{#unless @last}}, {{/unless}}
+                      {{/if}}
+                      {{#if country}}{{country.value}}{{/if}}
+                    </div>
+                  </div>
+                </div>
+            ' options='{"showFilter":false}'
+            no-result-template='No associated institutions.'>
+            </semantic-table>
+          {{/ifCond}}
+      </template>
+    </mp-event-target-template-render>
+  </div>
+</template-fragment>
+
+<div class="soa">
+  <div class="header">
+    <mp-label iri='{{page-resource}}' class="header__title-main"></mp-label>
+    <semantic-query query='
+      SELECT ?alternativeName WHERE { <{{page-resource}}> <https://dbpedia.org/ontology/alternativeName> ?alternativeName }
+      ' template='{{> tmp}}'>
+      <template id="tmp">
+        {{#each bindings}}
+          {{#if alternativeName}}
+            <div class="header__title-sub">{{alternativeName.value}}</div>
+          {{/if}}
+        {{/each}}
+      </template>
+    </semantic-query>
+  </div>
+  <div class="body">
+    <bs-tabs id="tabs" mount-on-enter=true default-active-key='1'>
+      <bs-tab event-key="1" title="Publications">
+        {{> ::Cards}}
+        {{> ::Concepts}}
+        {{> ::List tab="Publications"}}
+      </bs-tab>
+      <bs-tab event-key="2" title="Associated Institutions">
+        {{> ::Cards}}
+        {{> ::Concepts}}
+        {{> ::List tab="Associated institutions"}}
+      </bs-tab>
+    </bs-tabs>
   </div>
 </div>
