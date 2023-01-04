@@ -14,7 +14,7 @@
   }
   .cards {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr;
     gap: 1rem;
   }
   .card.publication-chart {
@@ -155,17 +155,17 @@
     width: 12px;
     height: 12px;
   }
-  .publications-since__label, .publications-count__label {
+  .publications__label, .citations__label {
     font-size: 1.3rem;
   }
-  .publications-since__value, .publications-count__value {
+  .publications__value, .citations__value {
     font-size: 3.2rem;
     font-weight: 700;
   }
-  .publications-since__label, .publications-since__value {
+  .publications__label, .publications__value {
     color: #000000;
   }
-  .publications-count__label, .publications-count__value {
+  .citations__label, .citations__value {
     color: var(--soa-color-green);
   }
 </style>
@@ -177,54 +177,40 @@
     <div class="card publication-chart">
       <div>
         <div>
-          <div class="publications-since__label">Publications since</div>
+          <div class="publications__label">Publications</div>
           <semantic-query query='
-            SELECT ?publicationYear WHERE {
-              {
-                SELECT * WHERE {
-                  ?publication <https://semopenalex.org/property/hasConcept> <{{page-resource}}> .  
-                }
-                LIMIT 1001
-              }
-              ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
-            } 
-            ORDER BY ASC(?publicationYear)
-            LIMIT 1' template='{{>tmp}}'>
+            SELECT ?count WHERE {
+              <{{page-resource}}> <https://semopenalex.org/property/worksCount> ?count
+            }' template='{{>tmp}}'>
             <template id="tmp">
               {{#each bindings}}
-                <div class="publications-since__value">{{publicationYear.value}}</div>
+                <div class="publications__value">{{count.value}}</div>
               {{/each}}
             </template>
           </semantic-query>
         </div>
         <div>
-          <div class="publications-count__label">Publications</div>
+          <div class="citations__label">Citation</div>
           <semantic-query query='
-            SELECT (COUNT (?publication) as ?count) WHERE {
-              ?publication <https://semopenalex.org/property/hasConcept> <https://semopenalex.org/concept/C71924100> .  
+            SELECT ?count WHERE {
+              <{{page-resource}}> <https://semopenalex.org/property/citedByCount> ?count  
             }
           ' template="{{> tmp}}">
             <template id="tmp">
               {{#each bindings}}
-                <div class="publications-count__value">{{count.value}}</div>
+                <div class="citations__value">{{count.value}}</div>
               {{/each}}
             </template>
           </semantic-query>
         </div>
       </div>
       <semantic-chart type="bar" query="
-        SELECT ?year (COUNT(?publication) as ?count) WHERE {
-          {
-            SELECT * WHERE {
-              ?publication <https://semopenalex.org/property/hasConcept> <{{page-resource}}>
-            }
-            LIMIT 1001
-          }
-          ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?year .
-        }
-        GROUP BY ?year
-        ORDER BY ASC(?year)
-      " sets='[{"dataSetName": "Publications", "category": "year", "x": "year", "y": "count"}]'
+        SELECT ?year ?work WHERE {
+          <{{page-resource}}> <https://semopenalex.org/property/countsByYear> ?count .
+          ?count <https://semopenalex.org/property/year> ?year .
+          ?count <https://semopenalex.org/property/worksCount> ?work .
+        } ORDER BY ASC(?year)
+      " sets='[{"dataSetName": "Publications", "category": "year", "x": "year", "y": "work"}]'
         styles='[{
           "provider": "highcharts",
           "style": {
@@ -237,57 +223,15 @@
           "chart": {
             "margin": [20, 0, 35, 40]
           },
-          "legend": "hide"
+          "legend": "hide",
+          "subtitle": {"text": "The last 10 years of publications."}
         }'
         dimensions='{"height": 180}'
       >
       </semantic-chart>
     </div>
-    <div class="card top-authors">
-      <div class="card__title">TOP AUTHORS</div>
-        <semantic-query query='
-          SELECT ?author (COUNT(?author) as ?count) WHERE {
-            {
-              SELECT * WHERE {
-                ?publication <https://semopenalex.org/property/hasConcept> <{{page-resource}}>
-              }
-              LIMIT 1001
-            }
-            ?publication <http://purl.org/dc/terms/creator> ?author .
-          }
-          GROUP BY ?author
-          ORDER BY DESC(?count)
-          LIMIT 5
-        ' template='{{>tmp}}'>
-            <template id='tmp'>
-              <ul>
-                {{#each bindings}}
-                  <li>
-                    <div class="co-author__icon"></div>
-                    {{#if author.value}}
-                      <semantic-link iri="{{author.value}}"></semantic-link>
-                    {{/if}}
-                  </li>
-                {{/each}}
-              </ul>
-            </template>
-        </semantic-query>
-    </div>
     <div class="card">
-      <semantic-query query='
-        SELECT ?imageThumbnail WHERE {
-          BIND(<{{page-resource}}> as ?concept)
-          ?concept <https://semopenalex.org/property/imageThumbnail> ?imageThumbnail
-        }
-      ' template='{{> tmp}}'>
-        <template id="tmp">
-          {{#each bindings}}
-            {{#if imageThumbnail}}
-              <img src="{{imageThumbnail.value}}" class="thumbnail"/>
-            {{/if}}
-          {{/each}}
-        </template>
-      </semantic-query>
+      <mp-resource-thumbnail iri="{{page-resource}}" class='thumbnail'></mp-resource-thumbnail>
     </div>
   </div>
   <div class="row search-concepts">
@@ -333,20 +277,7 @@
       </template>
     </mp-event-target-template-render>
     <div class="currentConcept">
-      <semantic-query query='
-        SELECT ?imageThumbnail WHERE {
-          BIND(<{{page-resource}}> as ?concept)
-          ?concept <https://semopenalex.org/property/imageThumbnail> ?imageThumbnail
-        }
-      ' template='{{> tmp}}'>
-        <template id="tmp">
-          {{#each bindings}}
-            {{#if imageThumbnail}}
-              <img src="{{imageThumbnail.value}}" class="thumbnail"/>
-            {{/if}}
-          {{/each}}
-        </template>
-      </semantic-query>
+      <mp-resource-thumbnail iri="{{page-resource}}" class='thumbnail'></mp-resource-thumbnail>
       <mp-label iri='{{page-resource}}' class="card__title"></mp-label>
     </div>
       <mp-event-target-template-render id="narrowerConcepts" template='{{>tmp}}'>
