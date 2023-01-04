@@ -110,9 +110,10 @@
         }]'
         style-highcharts='{
           "chart": {
-            "margin": [20, 0, 20, 40]
+            "margin": [20, 0, 40, 40]
           },
-          "legend": "hide"
+          "legend": "hide",
+          "subtitle": {"text": "The last 10 years of publications."}
         }'
         dimensions='{"height": 180}'
       >
@@ -157,19 +158,11 @@
       <div class="map">
         <semantic-map query='
           SELECT ?lat ?lng ?city ?country WHERE {
-            { 
-              <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
-              ?location <http://www.geonames.org/ontology#lat> ?lat .
-              ?location <http://www.geonames.org/ontology#long> ?lng .
-              ?location <https://dbpedia.org/property/city> ?city .
-              ?location <https://dbpedia.org/property/country> ?country .
-            } UNION {
-              <{{page-resource}}> <https://semopenalex.org/property/hasAssociatedInstitution>/<https://dbpedia.org/ontology/location> ?location .
-              ?location <http://www.geonames.org/ontology#lat> ?lat .
-              ?location <http://www.geonames.org/ontology#long> ?lng .
-              ?location <https://dbpedia.org/property/city> ?city .
-              ?location <https://dbpedia.org/property/country> ?country .
-            }
+            <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
+            ?location <http://www.geonames.org/ontology#lat> ?lat .
+            ?location <http://www.geonames.org/ontology#long> ?lng .
+            ?location <https://dbpedia.org/property/city> ?city .
+            ?location <https://dbpedia.org/property/country> ?country .
           }' 
           tuple-template='<b>{{city.value}} ({{country.value}})</b>'>
         </semantic-map>
