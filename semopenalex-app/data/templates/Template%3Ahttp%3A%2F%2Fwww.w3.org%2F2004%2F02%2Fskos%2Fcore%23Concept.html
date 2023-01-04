@@ -220,7 +220,7 @@
           }
         }]'
         style-highcharts='{
-          "legend": "hide", 
+          "legend": "hide",
           "caption": {"align": "center", "text": "The last 10 years of publications."}
         }'
         dimensions='{"height": 180}'
@@ -228,96 +228,104 @@
       </semantic-chart>
     </div>
     <div class="card">
-      <mp-resource-thumbnail iri="{{page-resource}}" class='thumbnail'></mp-resource-thumbnail>
+      <mp-resource-thumbnail iri="{{page-resource}}" class='thumbnail' no-image-uri='/assets/images/no-photos.png'></mp-resource-thumbnail>
     </div>
   </div>
   <div class="row search-concepts">
-    <mp-event-target-template-render id="broaderConcepts" template='{{>tmp}}'>
-      <template id="tmp">
-        <div class="broader">
-          {{#if selectedConcept}}
-            <semantic-table query='
-              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-              SELECT DISTINCT ?name WHERE {
-                <{{selectedConcept}}> skos:broader|^skos:narrower ?concept .
-                ?concept <http://www.w3.org/2004/02/skos/core#prefLabel> ?name .
-              }' 
-              number-of-displayed-rows="10"
-              options='{"showFilter":false}'
-              tuple-template='{{> tmp}}'
-            >
-              <template id="tmp">
-                <div class="concept">{{name.value}}</div>
-              </template>
-            </semantic-table>
-          {{/if}}
-        </div>
-        <div class="broad">
-          <div class="card__title">BROADER CONCEPTS</div>
-          <semantic-table query='
-            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-            SELECT DISTINCT * WHERE {
-              <{{page-resource}}> skos:broader|^skos:narrower ?concept .
-              ?concept <http://www.w3.org/2004/02/skos/core#prefLabel> ?name .
-            }' 
-            number-of-displayed-rows="10"
-            tuple-template='{{> tmp}}'
-            no-result-template='No broader concepts.'
-          >
-            <template id="tmp">
-              <mp-event-trigger type='Component.TemplateUpdate' data='{"selectedConcept": "{{concept.value}}"}' targets='["broaderConcepts"]'>
-                <div class='concept {{# ifCond selectedConcept "===" concept.value }}selected{{/ifCond}}'>{{name.value}}</div>
-              </mp-event-trigger>
-            </template>
-          </semantic-table>
-        </div>
-      </template>
-    </mp-event-target-template-render>
-    <div class="currentConcept">
-      <mp-resource-thumbnail iri="{{page-resource}}" class='thumbnail'></mp-resource-thumbnail>
-      <mp-label iri='{{page-resource}}' class="card__title"></mp-label>
+    <div class="broad">
+      <div class="card__title">BROADER CONCEPTS</div>
+      <semantic-tree
+        query='
+         SELECT ?parent ?node WHERE {
+          {
+            VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
+          } UNION { 
+   	        BIND (<{{page-resource}}> as ?parent)
+            ?parent skos:broader ?node .
+          } UNION {
+   	        BIND (<{{page-resource}}> as ?concept)
+            ?concept skos:broader ?parent .
+            ?parent skos:broader ?node .
+          } UNION {
+   	        BIND (<{{page-resource}}> as ?concept)
+            ?concept skos:broader ?l4 .
+            ?l4 skos:broader ?parent .
+            ?parent skos:broader ?node . 
+          } UNION {
+   	        BIND (<{{page-resource}}> as ?concept)
+            ?concept skos:broader ?l4 .
+            ?l4 skos:broader ?l3 .
+            ?l3 skos:broader ?parent .
+            ?parent skos:broader ?node . 
+          } UNION {
+   	        BIND (<{{page-resource}}> as ?concept)
+            ?concept skos:broader ?l4 .
+            ?l4 skos:broader ?l3 .
+            ?l3 skos:broader ?l2 .
+            ?l2 skos:broader ?parent .
+            ?parent skos:broader ?node . 
+          } 
+
+        } LIMIT 100'
+        tuple-template='{{> nodeTemplate}}'
+       
+        provider="d3-dendrogram"
+        collapsed="true"
+        d-3-tree-options='{"nodeHeight": 20, "nodeWidth":150}'
+      >
+        <template id="nodeTemplate">
+          <semantic-link iri='{{node.value}}'></semantic-link>
+        </template>
+      </semantic-tree>
+    
+    
     </div>
-      <mp-event-target-template-render id="narrowerConcepts" template='{{>tmp}}'>
-        <template id="tmp">
-          <div class="narrow">
-            <div class="card__title">NARROWER CONCEPTS</div>
-            <semantic-table query='
-              PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-              SELECT DISTINCT * WHERE {
-                <{{page-resource}}> skos:narrower|^skos:broader ?concept .
-                ?concept <http://www.w3.org/2004/02/skos/core#prefLabel> ?name .
-              }' 
-              number-of-displayed-rows="10"
-              tuple-template='{{> tmp}}'
-              no-result-template='No narrower concepts.'
-            >
-              <template id="tmp">
-                <mp-event-trigger type='Component.TemplateUpdate' data='{"selectedConcept": "{{concept.value}}"}' targets='["narrowerConcepts"]'>
-                  <div class='concept {{# ifCond selectedConcept "===" concept.value }}selected{{/ifCond}}'>{{name.value}}</div>
-                </mp-event-trigger>
-              </template>
-            </semantic-table>
-          </div>
-          <div class="narrower">
-            {{#if selectedConcept}}
-              <semantic-table query='
-                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-                SELECT DISTINCT ?name WHERE {
-                  <{{selectedConcept}}> skos:narrower|^skos:broader ?concept .
-                  ?concept <http://www.w3.org/2004/02/skos/core#prefLabel> ?name .
-                }' 
-                number-of-displayed-rows="10"
-                options='{"showFilter":false}'
-                tuple-template='{{> tmp}}'
-              >
-                <template id="tmp">
-                  <div class="concept">{{name.value}}</div>
-                </template>
-              </semantic-table>
-            {{/if}}
-          </div>
-      </template>
-    </mp-event-target-template-render>
+    <div class="narrow">
+       <div class="card__title">NARROWER CONCEPTS</div>
+       <semantic-tree
+        query='
+         SELECT ?parent ?node WHERE {
+          {
+            VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
+          } UNION { 
+   	        BIND (<{{page-resource}}> as ?parent)
+            ?parent ^skos:broader ?node .
+          } UNION {
+   	        BIND (<{{page-resource}}> as ?concept)
+            ?concept ^skos:broader ?parent .
+            ?parent ^skos:broader ?node .
+          } UNION {
+   	        BIND (<{{page-resource}}> as ?concept)
+            ?concept ^skos:broader ?l4 .
+            ?l4 ^skos:broader ?parent .
+            ?parent ^skos:broader ?node . 
+          } UNION {
+   	        BIND (<{{page-resource}}> as ?concept)
+            ?concept ^skos:broader ?l4 .
+            ?l4 ^skos:broader ?l3 .
+            ?l3 ^skos:broader ?parent .
+            ?parent ^skos:broader ?node . 
+          } UNION {
+   	        BIND (<{{page-resource}}> as ?concept)
+            ?concept ^skos:broader ?l4 .
+            ?l4 ^skos:broader ?l3 .
+            ?l3 ^skos:broader ?l2 .
+            ?l2 ^skos:broader ?parent .
+            ?parent ^skos:broader ?node . 
+          } 
+
+        } LIMIT 100'
+        tuple-template='{{> nodeTemplate}}'
+        keys-opened='{{page-resource}}'
+        provider="d3-collapsible-tree"
+        collapsed="false"
+        d-3-tree-options='{"nodeHeight": 20, "nodeWidth":150}'
+      >
+        <template id="nodeTemplate">
+          <semantic-link iri='{{node.value}}'></semantic-link>
+        </template>
+      </semantic-tree>
+    </div>
   </div>
   <div class="row related-concepts">
     <div class="card__title">RELATED CONCEPTS</div>
@@ -326,14 +334,14 @@
         SELECT ?relatedConcept WHERE {
           BIND(<{{page-resource}}> as ?concept)
           ?concept <http://www.w3.org/2004/02/skos/core#related> ?relatedConcept .
-        }
-      ' template='{{>tmp}}'>
+        } LIMIT 20
+      ' template='{{>tmp}}' no-result-template='<span>No related concepts found.</span>'>
         <template id="tmp">
           {{#each bindings}}
             <div class="chip">
-              <semantic-link class="chip__name" iri="{{relatedConcept.value}}"></semantic-link>
+              <semantic-link class="chip__name" iri="{{relatedConcept.value}}"></semantic-link> 
               <div class="chip__icon"></div>
-            </div>
+            </div> 
           {{/each}}
         </template>
       </semantic-query>
