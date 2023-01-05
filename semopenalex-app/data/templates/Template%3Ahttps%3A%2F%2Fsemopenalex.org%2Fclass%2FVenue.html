@@ -66,10 +66,10 @@
             {{#if publisher}}
               <div class="header__title-sub">
                 {{publisher.value}}
-                <i class="fa {{#if isOa}}fa-unlock{{else}}fa-lock{{/if}}"></i>
+                <i class="fa {{#if (cond-eq isOa.value 'true')}}fa-unlock{{else}}fa-lock{{/if}}"></i>
               </div>
             {{/if}}
-            {{#if isInDoaj}}
+            {{#if (cond-eq isInDoaj.value 'true')}}
               <div><a href="https://doaj.org/">DOAJ</a></div>
             {{/if}}
           {{/each}}
@@ -175,7 +175,7 @@
         <template id="tmp">
           {{#each bindings}}
             <div class="chip">
-              <semantic-link class="chip__name" iri="{{concept.value}}"><mp-label iri='{{concept.value}}'></mp-label></semantic-link>
+              <semantic-link class="chip__name" iri="{{concept.value}}">{{concept.value}}</semantic-link>
               <div class="chip__icon"></div>
             </div>
           {{/each}}
