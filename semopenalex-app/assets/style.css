@@ -2,6 +2,10 @@ html {
     font-family: Jost, "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+body {
+    font-family: 'Jost'
+}
+
 :root {
     --soa-color-brown-darker: #827655;
     --soa-color-brown-dark: #E9DFD1;
