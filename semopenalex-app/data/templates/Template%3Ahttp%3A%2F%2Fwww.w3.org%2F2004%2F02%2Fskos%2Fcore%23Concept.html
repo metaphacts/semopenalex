@@ -29,132 +29,6 @@
     gap: 0.5rem;
     justify-content: center;
   }
-  .thumbnail {
-    max-height: 200px;
-    object-fit: contain;
-  }
-  .search-concepts {
-    background: linear-gradient(180deg, #F4F9FF 2.08%, #FFFFFF 50%);
-    border-radius: 8px;
-    min-height: 300px;
-    display: grid;
-    grid-template-columns: minmax(15%, auto) minmax(15%, 0.1fr) auto minmax(15%, 0.1fr) minmax(15%, auto);
-    gap: 1rem;
-    padding: 2rem 2rem 1rem 2rem;
-  }
-  .search-concepts > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  .search-concepts > div.currentConcept {
-    justify-content: center;
-    align-items: center;
-    padding: 0 2rem;
-  }
-  .search-concepts img {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    object-fit: fill;
-  }
-  .related-concepts {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-bottom: 1rem;
-  }
-  .related-concepts > div {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  thead {
-    display: none;
-  }
-  .soa .table {
-    border: none;
-    font-size: 1rem;
-  }
-  .soa .table tr:not(:first-child) td {
-    border-top: none;
-  }
-  .soa .table td {
-    height: auto;
-    padding: 0.5rem 0;
-  }
-  .soa .search-concepts .DataTable--table-grid-layout {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  .soa .search-concepts .broad .DataTable--table-grid-layout, 
-  .soa .search-concepts .broader .DataTable--table-grid-layout,
-  .soa .search-concepts .broad,
-  .soa .search-concepts .broader {
-    align-items: flex-end;
-  }
-  .search-concepts .card__title {
-    padding-bottom: 0;
-  }
-  .search-concepts .DataTable--header-container {
-    padding-top: 0;
-  }
-  .search-concepts .DataTable--footer {
-    margin-top: 1.2rem;
-  }
-  .search-concepts .page-item .page-link {
-    background: transparent;
-    border: 1px solid #F3F1EE;
-  }
-  .search-concepts .page-item.active .page-link {
-    color: #9F9F9F;
-  }
-  .concept {
-    color: var(--soa-color-blue);
-    cursor: pointer;
-    padding: 2px 6px;
-    font-size: 1.2rem;
-  }
-  .concept.selected {
-    background: #ECF0F6;
-    border-radius: 0.5rem;
-  }
-  .narrower .concept, .broader .concept {
-    cursor: initial;
-  }
-  .narrower, .broader {
-    padding-top: 5.6rem;
-  }
-  .warning {
-    display: flex;
-    background: rgba(1, 1, 1, 0.05);
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    text-align: center;
-    justify-content: center;
-    font-size: 1rem;
-    color: var(--soa-color-brown-darker);
-  }
-  .top-authors ul {
-    padding: 0;
-    list-style: none;
-  }
-  .top-authors li {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-  .co-author__icon {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgNkM3LjY1NzUgNiA5IDQuNjU3NSA5IDNDOSAxLjM0MjUgNy42NTc1IDAgNiAwQzQuMzQyNSAwIDMgMS4zNDI1IDMgM0MzIDQuNjU3NSA0LjM0MjUgNiA2IDZaTTYgNy41QzMuOTk3NSA3LjUgMCA4LjUwNSAwIDEwLjVWMTEuMjVDMCAxMS42NjI1IDAuMzM3NSAxMiAwLjc1IDEySDExLjI1QzExLjY2MjUgMTIgMTIgMTEuNjYyNSAxMiAxMS4yNVYxMC41QzEyIDguNTA1IDguMDAyNSA3LjUgNiA3LjVaIiBmaWxsPSIjMjA1QkFDIi8+Cjwvc3ZnPgo=);
-    background-repeat: no-repeat no-repeat;
-    background-position: center center;
-    background-size: cover;
-    width: 12px;
-    height: 12px;
-  }
   .publications__label, .citations__label {
     font-size: 1.3rem;
   }
@@ -167,6 +41,57 @@
   }
   .citations__label, .citations__value {
     color: var(--soa-color-green);
+  }
+  .thumbnail {
+    max-height: 200px;
+    object-fit: contain;
+  }
+  .search-concepts {
+    background: linear-gradient(180deg, #F4F9FF 2.08%, #FFFFFF 50%);
+    border-radius: 8px;
+    min-height: 300px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .search-concepts .D3Tree--root {
+    overflow: auto;
+    max-height: 300px;
+    min-height: 300px;
+  }
+  .search-concepts .broad, .search-concepts .narrow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .search-concepts .card__title {
+    padding-bottom: 0;
+    text-align: center;
+  }
+  .search-concepts .tree {
+    padding: 1rem;
+  }
+  .related-concepts {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+  .related-concepts > div {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .warning {
+    display: flex;
+    background: rgba(1, 1, 1, 0.05);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--soa-color-brown-darker);
   }
 </style>
 <div class="soa">
@@ -234,97 +159,97 @@
   <div class="row search-concepts">
     <div class="broad">
       <div class="card__title">BROADER CONCEPTS</div>
-      <semantic-tree
-        query='
-         SELECT ?parent ?node WHERE {
-          {
-            VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
-          } UNION { 
-   	        BIND (<{{page-resource}}> as ?parent)
-            ?parent skos:broader ?node .
-          } UNION {
-   	        BIND (<{{page-resource}}> as ?concept)
-            ?concept skos:broader ?parent .
-            ?parent skos:broader ?node .
-          } UNION {
-   	        BIND (<{{page-resource}}> as ?concept)
-            ?concept skos:broader ?l4 .
-            ?l4 skos:broader ?parent .
-            ?parent skos:broader ?node . 
-          } UNION {
-   	        BIND (<{{page-resource}}> as ?concept)
-            ?concept skos:broader ?l4 .
-            ?l4 skos:broader ?l3 .
-            ?l3 skos:broader ?parent .
-            ?parent skos:broader ?node . 
-          } UNION {
-   	        BIND (<{{page-resource}}> as ?concept)
-            ?concept skos:broader ?l4 .
-            ?l4 skos:broader ?l3 .
-            ?l3 skos:broader ?l2 .
-            ?l2 skos:broader ?parent .
-            ?parent skos:broader ?node . 
-          } 
+      <div class="tree">
+        <semantic-tree
+          query='
+          SELECT ?parent ?node WHERE {
+            {
+              VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
+            } UNION { 
+              BIND (<{{page-resource}}> as ?parent)
+              ?parent skos:broader ?node .
+            } UNION {
+              BIND (<{{page-resource}}> as ?concept)
+              ?concept skos:broader ?parent .
+              ?parent skos:broader ?node .
+            } UNION {
+              BIND (<{{page-resource}}> as ?concept)
+              ?concept skos:broader ?l4 .
+              ?l4 skos:broader ?parent .
+              ?parent skos:broader ?node . 
+            } UNION {
+              BIND (<{{page-resource}}> as ?concept)
+              ?concept skos:broader ?l4 .
+              ?l4 skos:broader ?l3 .
+              ?l3 skos:broader ?parent .
+              ?parent skos:broader ?node . 
+            } UNION {
+              BIND (<{{page-resource}}> as ?concept)
+              ?concept skos:broader ?l4 .
+              ?l4 skos:broader ?l3 .
+              ?l3 skos:broader ?l2 .
+              ?l2 skos:broader ?parent .
+              ?parent skos:broader ?node . 
+            } 
 
-        } LIMIT 100'
-        tuple-template='{{> nodeTemplate}}'
-       
-        provider="d3-dendrogram"
-        collapsed="true"
-        d-3-tree-options='{"nodeHeight": 20, "nodeWidth":150}'
-      >
-        <template id="nodeTemplate">
-          <semantic-link iri='{{node.value}}'></semantic-link>
-        </template>
-      </semantic-tree>
-    
-    
+          } LIMIT 100'
+          tuple-template='{{> nodeTemplate}}'
+          provider="d3-dendrogram"
+          d-3-tree-options='{"nodeHeight": 20, "nodeWidth":150}'
+        >
+          <template id="nodeTemplate">
+            <semantic-link iri='{{node.value}}'></semantic-link>
+          </template>
+        </semantic-tree>
+      </div>
     </div>
     <div class="narrow">
        <div class="card__title">NARROWER CONCEPTS</div>
-       <semantic-tree
-        query='
-         SELECT ?parent ?node WHERE {
-          {
-            VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
-          } UNION { 
-   	        BIND (<{{page-resource}}> as ?parent)
-            ?parent ^skos:broader ?node .
-          } UNION {
-   	        BIND (<{{page-resource}}> as ?concept)
-            ?concept ^skos:broader ?parent .
-            ?parent ^skos:broader ?node .
-          } UNION {
-   	        BIND (<{{page-resource}}> as ?concept)
-            ?concept ^skos:broader ?l4 .
-            ?l4 ^skos:broader ?parent .
-            ?parent ^skos:broader ?node . 
-          } UNION {
-   	        BIND (<{{page-resource}}> as ?concept)
-            ?concept ^skos:broader ?l4 .
-            ?l4 ^skos:broader ?l3 .
-            ?l3 ^skos:broader ?parent .
-            ?parent ^skos:broader ?node . 
-          } UNION {
-   	        BIND (<{{page-resource}}> as ?concept)
-            ?concept ^skos:broader ?l4 .
-            ?l4 ^skos:broader ?l3 .
-            ?l3 ^skos:broader ?l2 .
-            ?l2 ^skos:broader ?parent .
-            ?parent ^skos:broader ?node . 
-          } 
+       <div class="tree">
+        <semantic-tree
+          query='
+          SELECT ?parent ?node WHERE {
+            {
+              VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
+            } UNION { 
+              BIND (<{{page-resource}}> as ?parent)
+              ?parent ^skos:broader ?node .
+            } UNION {
+              BIND (<{{page-resource}}> as ?concept)
+              ?concept ^skos:broader ?parent .
+              ?parent ^skos:broader ?node .
+            } UNION {
+              BIND (<{{page-resource}}> as ?concept)
+              ?concept ^skos:broader ?l4 .
+              ?l4 ^skos:broader ?parent .
+              ?parent ^skos:broader ?node . 
+            } UNION {
+              BIND (<{{page-resource}}> as ?concept)
+              ?concept ^skos:broader ?l4 .
+              ?l4 ^skos:broader ?l3 .
+              ?l3 ^skos:broader ?parent .
+              ?parent ^skos:broader ?node . 
+            } UNION {
+              BIND (<{{page-resource}}> as ?concept)
+              ?concept ^skos:broader ?l4 .
+              ?l4 ^skos:broader ?l3 .
+              ?l3 ^skos:broader ?l2 .
+              ?l2 ^skos:broader ?parent .
+              ?parent ^skos:broader ?node . 
+            } 
 
-        } LIMIT 100'
-        tuple-template='{{> nodeTemplate}}'
-        keys-opened='{{page-resource}}'
-        provider="d3-collapsible-tree"
-        collapsed="false"
-        d-3-tree-options='{"nodeHeight": 20, "nodeWidth":150}'
-      >
-        <template id="nodeTemplate">
-          <semantic-link iri='{{node.value}}'></semantic-link>
-        </template>
-      </semantic-tree>
+          } LIMIT 100'
+          tuple-template='{{> nodeTemplate}}'
+          keys-opened='{{page-resource}}'
+          provider="d3-dendrogram"
+          collapsed="false"
+          d-3-tree-options='{"nodeHeight": 20, "nodeWidth":150}'
+        >
+          <template id="nodeTemplate">
+            <semantic-link iri='{{node.value}}'></semantic-link>
+          </template>
+        </semantic-tree>
+      </div>
     </div>
   </div>
   <div class="row related-concepts">
