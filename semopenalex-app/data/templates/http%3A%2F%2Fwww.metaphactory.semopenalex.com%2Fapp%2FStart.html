@@ -116,29 +116,28 @@
         "categories": [
         {
           "iri": "<https://semopenalex.org/class/Author>",
-          "label": "Author"
-         
+          "label": "Author",
+          "thumbnail": "/assets/images/writer.png"
         },
         {
           "iri": "<https://semopenalex.org/class/Work>",
-          "label": "Work"
-        
-        }, {
-          "iri": "<https://semopenalex.org/class/Author>",
-          "label": "Author"
-        
-        }, {
+          "label": "Work",
+          "thumbnail": "/assets/images/essay.png"
+        }, 
+        {
           "iri": "<https://semopenalex.org/class/Venue>",
-          "label": "Venue"
-         
-        }, {
+          "label": "Venue",
+          "thumbnail": "/assets/images/location.png"
+        }, 
+        {
         	"iri": "<https://semopenalex.org/class/Institution>",
-          "label": "Institution"
-         
-        }, {
+          "label": "Institution",
+          "thumbnail": "/assets/images/university.png"
+        }, 
+        {
         	"iri": "<http://www.w3.org/2004/02/skos/core#Concept>",
-          "label": "Concept"
-         
+          "label": "Concept",
+          "thumbnail": "/assets/images/lightbulb.png"
         }
       
         
@@ -226,10 +225,20 @@
           count-query-mode='queryPerCategory'
           template='{{> tmpl}}'
           inline-suggest="true"
-          suggestion-limit="10"
+          suggestion-limit="20"
           suggestion-template="{{> suggestion}}"
           placeholder='Search works, authors, concepts etc.'
-      
+          suggestion-query="
+            PREFIX lookup: <http://www.metaphacts.com/ontologies/platform/repository/lookup#>
+            SELECT ?subject ?snippet WHERE {
+              SERVICE Repository:lookup {
+                ?subject lookup:token ?__token__;
+                  lookup:limit 20 ;
+                  lookup:type ?__domain__ ;
+                  lookup:snippet ?snippet.
+              }
+            }
+          "
         >
           <template id='tmpl'>
             {{>::count-template}}
@@ -332,17 +341,14 @@
 
 <template-fragment id='disambiguation-venue-extra-info'>
   <semantic-query query='SELECT * { 
-    <{{resource.iri}}> ^<https://semopenalex.org/property/hasVenue>/<http://purl.org/spar/fabio/hasURL> ?url .
-    optional { <{{resource.iri}}> <http://purl.org/dc/terms/publisher> ?publisher }
+  <{{resource.iri}}> <http://purl.org/dc/terms/publisher> ?publisher .
   } LIMIT 1' template='{{> tmpl}}'>
     <template id='tmpl'>
        Venue:
       {{#each bindings}}
-          {{#if url}}
-            <span>URL: {{url.value}}</span>
-          {{/if}}
+          
           {{#if publisher}}
-            <span> Publisher: {{publisher.value}}</span>
+            <span>Publisher: {{publisher.value}}</span>
           {{/if}}
       {{/each}}
     </template>
@@ -350,7 +356,7 @@
 </template-fragment>
 
 <template-fragment id='count-template'>
-  {{log this}}
+
   <div style='text-align: center; margin-top: 16px; font-size:14px;'>
     SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 28.3 billion statements.
   </div>
@@ -430,7 +436,7 @@
 
     
 
-      {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false) (cond-eq selectedDomain undefined))}}
+      {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false))}}
         {{#each domains}}    
           {{>::search-overview searchTerm=../searchTerm}}
         {{/each}}
@@ -593,7 +599,7 @@
               OPTIONAL {
                 ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
               }
-              filter (?publication != <{{page-resource}}>) .
+             
             } 
             GROUP BY ?title ?publication ?publicationYear ?cited ?publisher ?volume ?issue
             ORDER BY {{#if sort}}{{sort}}{{else}}DESC(?cited){{/if}}
@@ -633,23 +639,23 @@
 
 <template-fragment id='search-result-holders'>
 
-  <semantic-search-facet-store id="facet" values-limit='10000' 
+  <semantic-search-facet-store id="facet" values-limit='1000' 
     default-resource-pattern='
       SELECT ?value (COUNT(DISTINCT $subject) AS ?count) WHERE {
         { SELECT DISTINCT ?value ?subject { 
           FILTER(?__facetRelationPattern__)
-        } LIMIT 10001 }
+        } LIMIT 1001 }
     } GROUP BY ?value'
     default-literal-pattern='
       SELECT ?literal (COUNT(DISTINCT $subject) AS ?count) WHERE {
         { SELECT DISTINCT ?literal ?subject { 
           FILTER(?__facetRelationPattern__)
-        } LIMIT 10001 }
+        } LIMIT 1001 }
     } GROUP BY ?literal
     '
   >
   </semantic-search-facet-store>
-  <div style='display: flex;'>
+  <div style='display: flex;margin: 16px;' >
     
     <div style='flex: 0.33;'>
       <semantic-search-facet-group expand-result-context='false' allow-multiple-open='true' default-settings='{"headerTemplate": "{{> headerTemplate}}"}'>
@@ -666,121 +672,246 @@
     </div>
 
     <semantic-search-result-holder>
-     
+      {{log this}}
       <div style='flex: 1;'>
         <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
               
-            <semantic-search-result-context
-              multi=true
-            >
+         [[!-- <semantic-search-result-context multi=true> --]]
             <semantic-search-result>
               <semantic-search-table-result>
 
                 <div data-flex-layout='row stretch-stretch'>
     	            <div data-flex-self='md-full'>
-                    <semantic-table
-                      id="results-table"
-                      query='SELECT DISTINCT ?subject WHERE { FILTER(?__contextRelationPattern__) }'
-                      options='{
-                        "showFilter":false,
-                        "showNumberOfRows": true,
-                        "enableGrouping": false,
-                        "groupingOptions": {
-                            "groupedBy": ["subject"], 
-                            "showOnlyAggregatedValue": true, 
-                            "defaultAggregation":"concat"
-                        }
-                      }'
-                                                         
-                      column-configuration='[{
-                          "variableName": "subject",
-                          "cellTemplate": "{{> subjectTemplate iri=subject.value}}"
-                      }]'
-                    >
-                       
-                      <template id='subjectTemplate'>
-                        <mp-knowledge-panel-trigger iri='{{iri}}'></mp-knowledge-panel-trigger>
-                      </template>
+                     <div class="row card publications" style='margin:1px;'>
+                      <div class="publications__header">
+                        <div class="card__title">
+                        </div>
+                        <div class="buttons">
+                        
+                        </div>
+                      </div>
+   
+                      <semantic-table
+                        id="results-table"
+                        query='SELECT DISTINCT * WHERE { FILTER(?__contextRelationPattern__) }'
+                        options='{
+                          "showFilter":false,
+                          "showNumberOfRows": false,
+                          "enableGrouping": false,
+                          "groupingOptions": {
+                              "groupedBy": ["subject"], 
+                              "showOnlyAggregatedValue": true, 
+                              "defaultAggregation":"concat"
+                          }
+                        }'
+                        tuple-template='{{> template}}'                                  
+                    
+                      >
                       
+                      <template id='template'>
+                       
+                        {{#if (string-contains subject.value "work")}}
+                          {{>::table-result-author-and-work-publications  mode='work'}}
+                        {{/if}}
+                        {{#if (string-contains subject.value "author")}}
+                          {{>::table-result-author-and-work-publications  mode='author'}}
+                        {{/if}}
+                        {{#if (string-contains subject.value "venue")}}
+                          {{>::table-result-concept-venue-institution-info mode='venue'}}
+                        {{/if}}
+                        {{#if (string-contains subject.value "institution")}}
+                          {{>::table-result-concept-venue-institution-info mode='institution'}}
+                        {{/if}}
+                        {{#if (string-contains subject.value "concept")}}
+                          {{>::table-result-concept-venue-institution-info mode='concept'}}
+                        {{/if}}
+                        
+                        
+                      </template>
+
                     </semantic-table>
                   </div>
-                  <mp-knowledge-panel-frame></mp-knowledge-panel-frame>
                 </div>
-              </semantic-search-table-result>
-            </semantic-search-result> 
-            </semantic-search-result-context>
+              </div>
+            </semantic-search-table-result>
+          </semantic-search-result> 
+        [[!-- </semantic-search-result-context> --]]
       </div> 
     </semantic-search-result-holder>
   </div>
 </template-fragment>
 
+<template-fragment id="table-result-author-and-work-publications">
 
-<template-fragment id='work-abstract'>
-  <semantic-query query='SELECT ?abstract WHERE { <{{subject.value}}> <http://purl.org/dc/terms/abstract> ?abstract }' template='{{> tmpl}}'>
+  <semantic-query query=
+    'SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue ?abstract (group_concat(DISTINCT ?name; separator = ", ") as ?authors) WHERE {
+      {{#if (cond-eq mode "work")}}
+        VALUES ?publication {
+          <{{subject.value}}>
+        }
+      {{/if}}
+      {{#if (cond-eq mode "author")}}
+        VALUES ?author {
+          <{{subject.value}}>
+        }
+      {{/if}}
+     
+
+      ?publication <http://purl.org/dc/terms/creator> ?author . 
+      ?publication <http://purl.org/dc/terms/title> ?title .
+      ?author <http://xmlns.com/foaf/0.1/name> ?name .
+      ?publication <https://semopenalex.org/property/citedByCount> ?cited .
+      OPTIONAL {
+        ?publication <http://purl.org/dc/terms/abstract> ?abstract .
+      }
+      OPTIONAL {
+        ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
+        ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
+        ?venue <http://purl.org/dc/terms/publisher> ?publisher .
+      }
+      OPTIONAL {
+        ?publication <https://semopenalex.org/property/hasVolume> ?volume .
+      }
+      OPTIONAL {
+        ?publication <https://semopenalex.org/property/hasIssue> ?issue .
+      }
+      OPTIONAL {
+        ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
+      }
+     
+    } 
+    GROUP BY ?title ?publication ?publicationYear ?cited ?publisher ?volume ?issue ?abstract
+    ORDER BY {{#if sort}}{{sort}}{{else}}DESC(?cited){{/if}}
+    {{#unless all}}LIMIT 10{{/unless}}'  
+    template='{{> tmpl}}'
+  >
+  
     <template id='tmpl'>
       {{#each bindings}}
-        {{#if abstract.value}}
-         
-          <mp-text-truncate lines="3" expand="{{> expand}}" collapse="{{> collapse}}">
-            <template id="expand"><span style="color: gray;">...<a>read more</a></span></template>
-            <template id="collapse"><span style="color: gray;">(<a>show less</a>)</span></template>
-              Abstract:  {{abstract.value}}
-          </mp-text-truncate>
-        {{/if}}
-      {{/each}}
-      </template>
-  </semantic-query>
-</template-fragment>
-
-<template-fragment id='work-creator'>
-   <semantic-query query='SELECT ?author WHERE { <{{subject.value}}> <http://purl.org/dc/terms/creator> ?author }' template='{{> tmpl}}'>
-    <template id='tmpl'>
-      {{#each bindings}}
-        {{#if author.value}}
-          
-              <div style='margin-bottom:3px'>
-                <img src='/assets/images/writer.png' style='height:20px;' alt='{{label}}' />&nbsp;
-                <semantic-link iri='{{author.value}}'></semantic-link><br>
+        <div data-flex-layout="row top-stretch">
+          <div class="publication">
+            <div class="publication__top">
+              <semantic-link iri="{{publication.value}}">
+                <div class="publication__title">{{title.value}}</div>
+              </semantic-link>
+              <div class="publication__author" style="width: 100%;">
+                <mp-text-truncate truncate="..." style="width: inherit;">
+                  By {{authors.value}}
+                </mp-text-truncate>
               </div>
-        
-        {{/if}}
+              <div class="publication__info">
+                {{#if publisher}}{{publisher.value}}, {{/if}}
+                {{#if volume}}Volume {{volume.value}}, {{/if}}
+                {{#if issue}}Issue {{issue.value}}, {{/if}}
+                {{publicationYear.value}}
+
+                {{#if abstract}}
+                  <mp-text-truncate truncate="..." style="width: inherit;">
+                    Abstract: {{abstract.value}}
+                  </mp-text-truncate>
+                {{/if}}
+              </div>
+              
+            </div>
+            <div class="publication__bottom">
+              <div class="publication__year">{{publicationYear.value}}</div>
+              <div class="publication__citation">
+                <div class="publication__citation-icon"></div>
+                <div class="publication__citation-value">{{cited.value}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       {{/each}}
-      </template>
+    </template>
   </semantic-query>
 </template-fragment>
 
+<template-fragment id="table-result-concept-venue-institution-info">
+  <semantic-query 
+    query='
+      SELECT * { 
+        BIND (<{{subject.value}}> as ?sub)
+        ?sub <https://semopenalex.org/property/citedByCount> ?citations.
+        ?sub <https://semopenalex.org/property/worksCount> ?publications .
+        {{#if (cond-eq mode "institution")}}
+          OPTIONAL{
+            ?sub <https://dbpedia.org/ontology/location>/<https://dbpedia.org/property/city> ?city .
+          }
+          OPTIONAL {
+            ?sub <https://dbpedia.org/ontology/location>/<https://dbpedia.org/property/country> ?country .
+          }
+        {{/if}}
+        {{#if (cond-eq mode "venue")}}
+          OPTIONAL {
+            ?sub <http://purl.org/dc/terms/publisher> ?publisher ;
+              <https://semopenalex.org/property/isOa> ?isOa .
+          }
+          OPTIONAL {
+            ?sub <https://semopenalex.org/property/isInDoaj> ?isInDoaj
+          }
+        {{/if}}
+        {{#if (cond-eq mode "concept")}}
+          OPTIONAL { ?sub skos:note ?note }
+        {{/if}}
+         OPTIONAL { ?sub <http://xmlns.com/foaf/0.1/homepage> ?homepage .}
+      } 
+    ' 
+    template='{{> tmpl}}'>
 
-<template-fragment id='work-publication-date'>
-   <semantic-query query='SELECT ?pubDate WHERE { <{{subject.value}}> <http://prismstandard.org/namespaces/basic/2.0/publicationDate> ?pubDate }' template='{{> tmpl}}'>
     <template id='tmpl'>
       {{#each bindings}}
-        {{#if pubDate.value}}
+        <div data-flex-layout="row top-stretch">
+          <div class="publication">
+            <div class="publication__top">
+              <semantic-link iri="{{../subject.value}}" class="publication__title">
+              
+              </semantic-link>
+              <div class="publication__author" style="width: 100%;">
+                {{#if note}}
+                  <mp-text-truncate truncate="..." style="width: inherit;">
+                    NOTE: {{note.value}}
+                  </mp-text-truncate>
+                {{/if}}
+                {{#if city}}
+                  LOCATED IN: <span>{{city.value}}</span>
+                {{/if}}
+                {{#if country}}
+                  <span>, {{country.value}}</span>
+                {{/if}}
+              </div>
+              <div class="publication__info">
+                {{#if publisher}}{{publisher.value}} {{/if}}
+                {{#if isOa}}
+                  <i class="fa {{#if (cond-eq isOa.value 'true')}}fa-unlock{{else}}fa-lock{{/if}}"></i>
+                {{/if}}
+                {{#if isInDoaj}}
+                  {{#if (cond-eq isInDoaj.value 'true')}}
+                    <span><a href="https://doaj.org/" target='_blank'> DOAJ</a></span>
+                  {{/if}}
+                {{/if}}
+                {{#if homepage}}
+                  <div>Home Page: <a href='{{homepage.value}}' target='_blank'>{{homepage.value}}</a></div>
+                {{/if}}
+              </div>
+              
+            </div>
+            <div class="publication__bottom">
+              {{#if publications}}
+                <div class="publication__year">No. of publications: {{publications.value}}</div>
+              {{/if}}
+              {{#if citations}}
+                <div class="publication__citation">
+                  <div class="publication__citation-icon"></div>
+                  <div class="publication__citation-value">{{citations.value}}</div>
+                </div>
+              {{/if}}
+            </div>
+            
+          </div>
           
-            Publication Date: {{pubDate.value}}
-        
-        {{/if}}
+        </div>
       {{/each}}
-      </template>
+    </template>
   </semantic-query>
 </template-fragment>
-
-<template-fragment id='concept-note'>
-   <semantic-query query='SELECT ?note WHERE { <{{subject.value}}> <http://www.w3.org/2004/02/skos/core#note> ?note }' template='{{> tmpl}}'>
-    <template id='tmpl'>
-      {{#each bindings}}
-       
-          <mp-text-truncate lines="3" expand="{{> expand}}" collapse="{{> collapse}}">
-            <template id="expand"><span style="color: gray;">...<a>read more</a></span></template>
-            <template id="collapse"><span style="color: gray;">(<a>show less</a>)</span></template>
-              Note:  {{note.value}}
-          </mp-text-truncate>
-        
-       
-        
-       
-      {{/each}}
-      </template>
-  </semantic-query>
-
-</template-fragment>
-
