@@ -1,0 +1,35 @@
+/* Jost regular */
+
+@font-face {
+    font-family: "Jost";
+    src: url("./font/static/Jost-Regular.eot");
+    src: url("./font/static/Jost-Regular.woff2") format('woff2'),
+         url("./font/static/Jost-Regular.woff") format('woff'),
+         url("./font/static/Jost-Regular.ttf") format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Jost italic */
+
+@font-face {
+    font-family: "Jost";
+    src: url('./font/static/Jost-Italic.eot');
+    src: url('./font/static/Jost-Italic.woff2') format('woff2'),
+         url('./font/static/Jost-Italic.woff') format('woff'),
+         url('./font/static/Jost-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* Jost bold */
+
+@font-face {
+    font-family: "Jost";
+    src: url('./font/static/Jost-Bold.eot');
+    src: url('./font/static/Jost-Bold.woff2') format('woff2'),
+         url('./font/static/Jost-Bold.woff') format('woff'),
+         url('./font/static/Jost-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}

@@ -1,0 +1,87 @@
+<bs-navbar class="metaphacts-header-navbar navbar-logo-name" data-fixed="top" data-variant="dark" data-bg="primary" data-expand="md" data-role="navigation">
+  <div class="navbar-logo">
+    <bs-navbar-brand data-href="{{page-publicPath}}/">
+      <img src="{{page-publicPath}}/assets/images/semopenalex-icon.svg" alt="SemOpenAlex"/> 
+      <div style='font-size:20px;margin-top:8px;margin-left:24px;'>SemOpenAlex Explorer</div> 
+    </bs-navbar-brand>
+  </div>
+  {{#if systemNotificationMessage}}
+    <div class="navbar-system-message">
+      {{!-- Use {{{systemNotificationMessage}}}, if you want not escape html--}}
+    	<strong>{{systemNotificationMessage}}</strong>
+    </div>
+  {{/if}}
+  <bs-navbar-toggle></bs-navbar-toggle>
+  <bs-navbar-collapse>
+    <ul class="nav mr-auto"></ul>
+    <ul class="nav navbar-nav">
+      <bs-nav title="Search">
+        <bs-nav-item>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/SimpleSearch">
+            <bs-nav-link><i class="fa fa-search"></i></bs-nav-link>
+          </mp-resource-link-container>
+        </bs-nav-item>
+      </bs-nav>
+      <mp-has-permission permission="ui:page:sparql-editor">
+        <bs-nav-item>
+          <mp-link class="nav-link" url="{{page-publicPath}}/sparql" title="Sparql Endpoint">SPARQL</mp-link>
+        </bs-nav-item>
+      </mp-has-permission>
+      <bs-nav>
+        <bs-nav-dropdown title="Assets" id="assets-bg-nested-dropdown" data-align-right="true">
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/">
+            <bs-menu-item>All Assets</bs-menu-item>
+          </mp-resource-link-container>
+          <bs-dropdown-divider></bs-dropdown-divider>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/NamedGraphs">
+            <bs-menu-item>Named Graphs</bs-menu-item>
+          </mp-resource-link-container>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Vocabularies">
+            <bs-menu-item>Vocabularies</bs-menu-item>
+          </mp-resource-link-container>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Ontologies">
+            <bs-menu-item>Ontologies</bs-menu-item>
+          </mp-resource-link-container>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Datasets">
+            <bs-menu-item>Datasets</bs-menu-item>
+          </mp-resource-link-container>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/QueryTemplates">
+            <bs-menu-item>Query Templates</bs-menu-item>
+          </mp-resource-link-container>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Fields">
+            <bs-menu-item>Fields</bs-menu-item>
+          </mp-resource-link-container>
+          <bs-dropdown-divider></bs-dropdown-divider>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Diagrams">
+            <bs-menu-item>Diagrams</bs-menu-item>
+          </mp-resource-link-container>
+        </bs-nav-dropdown>
+        <bs-nav title="Data Import & Export">
+          <bs-nav-item>
+            <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/admin/DataImportExport">
+              <bs-nav-link><i class="fa fa-cloud-upload"></i></bs-nav-link>
+            </mp-resource-link-container>
+          </bs-nav-item>
+        </bs-nav>
+        <mp-has-permission permission="pages:view:*">
+          <bs-nav title="System Administration">
+            <bs-nav-item>
+              <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/admin/">
+                <bs-nav-link><i class="fa fa-cog"></i></bs-nav-link>
+              </mp-resource-link-container>
+            </bs-nav-item>
+          </bs-nav>
+        </mp-has-permission>
+        <bs-nav title="Help">
+          <bs-nav-item>
+            <mp-resource-link-container propagate-link="true" iri="http://help.metaphacts.com/resource/Documentation">
+              <bs-nav-link><i class="fa fa-question-circle"></i></bs-nav-link>
+            </mp-resource-link-container>
+          </bs-nav-item>
+        </bs-nav>
+        <mp-nav-account></mp-nav-account>
+        <mp-user-language-switch></mp-user-language-switch>
+      </bs-nav>
+    </ul>
+  </bs-navbar-collapse>
+</bs-navbar>
