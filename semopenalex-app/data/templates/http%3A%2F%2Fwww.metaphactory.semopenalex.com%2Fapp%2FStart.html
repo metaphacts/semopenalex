@@ -672,7 +672,6 @@
     </div>
 
     <semantic-search-result-holder>
-      {{log this}}
       <div style='flex: 1;'>
         <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
               
@@ -711,10 +710,10 @@
                       <template id='template'>
                        
                         {{#if (string-contains subject.value "work")}}
-                          {{>::table-result-author-and-work-publications  mode='work'}}
+                          {{>::table-result-work-info  mode='work'}}
                         {{/if}}
                         {{#if (string-contains subject.value "author")}}
-                          {{>::table-result-author-and-work-publications  mode='author'}}
+                          {{>::table-result-author-info  mode='author'}}
                         {{/if}}
                         {{#if (string-contains subject.value "venue")}}
                           {{>::table-result-concept-venue-institution-info mode='venue'}}
@@ -741,22 +740,15 @@
   </div>
 </template-fragment>
 
-<template-fragment id="table-result-author-and-work-publications">
+<template-fragment id="table-result-work-info">
 
   <semantic-query query=
     'SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue ?abstract (group_concat(DISTINCT ?name; separator = ", ") as ?authors) WHERE {
-      {{#if (cond-eq mode "work")}}
+      
         VALUES ?publication {
           <{{subject.value}}>
         }
-      {{/if}}
-      {{#if (cond-eq mode "author")}}
-        VALUES ?author {
-          <{{subject.value}}>
-        }
-      {{/if}}
-     
-
+      
       ?publication <http://purl.org/dc/terms/creator> ?author . 
       ?publication <http://purl.org/dc/terms/title> ?title .
       ?author <http://xmlns.com/foaf/0.1/name> ?name .
@@ -898,7 +890,64 @@
             </div>
             <div class="publication__bottom">
               {{#if publications}}
-                <div class="publication__year">No. of publications: {{publications.value}}</div>
+                <div class="publication__year">Publications: {{publications.value}}</div>
+              {{/if}}
+              {{#if citations}}
+                <div class="publication__citation">
+                  <div class="publication__citation-icon"></div>
+                  <div class="publication__citation-value">{{citations.value}}</div>
+                </div>
+              {{/if}}
+            </div>
+            
+          </div>
+          
+        </div>
+      {{/each}}
+    </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id="table-result-author-info">
+  <semantic-query 
+    query='
+      SELECT * { 
+        BIND (<{{subject.value}}> as ?sub)
+        ?sub <https://semopenalex.org/property/citedByCount> ?citations.
+        ?sub <https://semopenalex.org/property/worksCount> ?publications .
+        
+        OPTIONAL { ?sub <http://www.w3.org/ns/org#memberOf> ?institution .}
+        OPTIONAL { ?sub <https://dbpedia.org/ontology/orcidId> ?orcidId }
+      } 
+    ' 
+    template='{{> tmpl}}'>
+
+    <template id='tmpl'>
+      {{#each bindings}}
+        <div data-flex-layout="row top-stretch">
+          <div class="publication">
+            <div class="publication__top">
+              <semantic-link iri="{{../subject.value}}" class="publication__title">
+              
+              </semantic-link>
+              <div class="publication__author" style="width: 100%;">
+                
+                {{#if institution}}
+                  <semantic-link iri='{{institution.value}}'></semantic-link>
+                {{/if}}
+                
+              </div>
+              <div class="publication__info">
+                
+                {{#if orcidId}}
+                  <div>ORCiD: <a href='{{orcidId.value}}' target='_blank'>{{orcidId.value}}</a></div>
+                {{/if}}
+              </div>
+              
+            </div>
+            <div class="publication__bottom">
+              {{#if publications}}
+                <div class="publication__year">Publications: {{publications.value}}</div>
               {{/if}}
               {{#if citations}}
                 <div class="publication__citation">
