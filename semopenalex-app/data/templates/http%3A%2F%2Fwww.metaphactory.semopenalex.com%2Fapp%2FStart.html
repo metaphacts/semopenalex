@@ -120,32 +120,30 @@
       search-profile='{
         "categories": [
         {
+        	"iri": "<http://www.w3.org/2004/02/skos/core#Concept>",
+          "label": "Topic",
+          "thumbnail": "/assets/images/lightbulb.png"
+        },
+        {
           "iri": "<https://semopenalex.org/class/Author>",
           "label": "Author",
           "thumbnail": "/assets/images/writer.png"
         },
-        {
-          "iri": "<https://semopenalex.org/class/Work>",
-          "label": "Work",
-          "thumbnail": "/assets/images/essay.png"
-        }, 
-        {
-          "iri": "<https://semopenalex.org/class/Venue>",
-          "label": "Venue",
-          "thumbnail": "/assets/images/location.png"
-        }, 
         {
         	"iri": "<https://semopenalex.org/class/Institution>",
           "label": "Institution",
           "thumbnail": "/assets/images/university.png"
         }, 
         {
-        	"iri": "<http://www.w3.org/2004/02/skos/core#Concept>",
-          "label": "Concept",
-          "thumbnail": "/assets/images/lightbulb.png"
-        }
-      
-        
+          "iri": "<https://semopenalex.org/class/Venue>",
+          "label": "Venue",
+          "thumbnail": "/assets/images/location.png"
+        },
+        {
+          "iri": "<https://semopenalex.org/class/Work>",
+          "label": "Work",
+          "thumbnail": "/assets/images/essay.png"
+        } 
         ],
         "relations": [
           {  
@@ -288,6 +286,12 @@
                       {{>::disambiguation-venue-extra-info}}
                     </div>
                   {{/if}}
+                  {{log this}}
+                  {{#if (cond-eq domain.label 'Topic')}}
+                    <div>
+                      {{>::disambiguation-topic-extra-info}}
+                    </div>
+                  {{/if}}
 
                 </div>
               {{/case}}
@@ -349,11 +353,25 @@
   <{{resource.iri}}> <http://purl.org/dc/terms/publisher> ?publisher .
   } LIMIT 1' template='{{> tmpl}}'>
     <template id='tmpl'>
-       Venue:
       {{#each bindings}}
           
           {{#if publisher}}
             <span>Publisher: {{publisher.value}}</span>
+          {{/if}}
+      {{/each}}
+    </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id='disambiguation-topic-extra-info'>
+  <semantic-query query='SELECT * { 
+  <{{resource.iri}}> <http://www.w3.org/2004/02/skos/core#note> ?publisher .
+  } LIMIT 1' template='{{> tmpl}}'>
+    <template id='tmpl'>
+      {{#each bindings}}
+          
+          {{#if publisher}}
+            <span>Note: {{publisher.value}}</span>
           {{/if}}
       {{/each}}
     </template>
@@ -461,7 +479,7 @@
       SELECT DISTINCT ?subject ?iri WHERE {
         SERVICE Repository:lookup {
           ?subject lookup:token "{{searchTerm}}";
-            lookup:limit 200 ;
+            lookup:limit 20 ;
             lookup:type <{{iri}}> .
         }
       }' template='{{> tmpl}}'>
