@@ -116,7 +116,7 @@
 
       }'
 
-
+      [[!-- thumbnails are renamed with number and are used for ordering the domains card --]]
       search-profile='{
         "categories": [
         {
@@ -377,10 +377,27 @@
   </semantic-query>
 </template-fragment>
 
+<template-fragment id='icon-attribution'>
+
+  <mp-overlay-dialog title="Icon Attribution" type="modal" bs-size="large">
+    <mp-overlay-dialog-trigger><a>Icon attribution</a></mp-overlay-dialog-trigger>
+    <mp-overlay-dialog-content>  
+      <ul>
+        <li><a href="https://www.flaticon.com/free-icons/writer" target='_blank'>Writer icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/essay" target='_blank'>Eassay icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/university" target='_blank'>University icons created by monkik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/location" target='_blank'>Location icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/lightbulb" target='_blank'>Lightbulb icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/no-photo" target='_blank'>No-photo icons created by Freepik - Flaticon</a></li>
+      </ul>
+    </mp-overlay-dialog-content>
+    </mp-overlay-dialog>
+
+  </template-fragment>
 <template-fragment id='count-template'>
 
   <div style='text-align: center; margin-top: 16px; font-size:14px;'>
-    SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 28.3 billion statements.
+    SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 28.3 billion statements. {{>::icon-attribution}}
   </div>
   <div style='margin: 16px;'>
     {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false) (cond-eq selectedDomain undefined))}}
