@@ -116,33 +116,33 @@
 
       }'
 
-
+      [[!-- thumbnails are renamed with number and are used for ordering the domains card --]]
       search-profile='{
         "categories": [
         {
         	"iri": "<http://www.w3.org/2004/02/skos/core#Concept>",
           "label": "Topic",
-          "thumbnail": "/assets/images/lightbulb.png"
+          "thumbnail": "/assets/images/icon-5.png"
         },
         {
           "iri": "<https://semopenalex.org/class/Author>",
           "label": "Author",
-          "thumbnail": "/assets/images/writer.png"
+          "thumbnail": "/assets/images/icon-1.png"
         },
         {
         	"iri": "<https://semopenalex.org/class/Institution>",
           "label": "Institution",
-          "thumbnail": "/assets/images/university.png"
+          "thumbnail": "/assets/images/icon-3.png"
         }, 
         {
           "iri": "<https://semopenalex.org/class/Venue>",
           "label": "Venue",
-          "thumbnail": "/assets/images/location.png"
+          "thumbnail": "/assets/images/icon-4.png"
         },
         {
           "iri": "<https://semopenalex.org/class/Work>",
           "label": "Work",
-          "thumbnail": "/assets/images/essay.png"
+          "thumbnail": "/assets/images/icon-2.png"
         } 
         ],
         "relations": [
@@ -230,7 +230,7 @@
           inline-suggest="true"
           suggestion-limit="20"
           suggestion-template="{{> suggestion}}"
-          placeholder='Search works, authors, concepts etc.'
+          placeholder='Search works, authors, topics etc.'
           suggestion-query="
             PREFIX lookup: <http://www.metaphacts.com/ontologies/platform/repository/lookup#>
             SELECT ?subject ?snippet WHERE {
@@ -286,7 +286,6 @@
                       {{>::disambiguation-venue-extra-info}}
                     </div>
                   {{/if}}
-                  {{log this}}
                   {{#if (cond-eq domain.label 'Topic')}}
                     <div>
                       {{>::disambiguation-topic-extra-info}}
@@ -378,10 +377,27 @@
   </semantic-query>
 </template-fragment>
 
+<template-fragment id='icon-attribution'>
+
+  <mp-overlay-dialog title="Icon Attribution" type="modal" bs-size="large">
+    <mp-overlay-dialog-trigger><a>Icon attribution</a></mp-overlay-dialog-trigger>
+    <mp-overlay-dialog-content>  
+      <ul>
+        <li><a href="https://www.flaticon.com/free-icons/writer" target='_blank'>Writer icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/essay" target='_blank'>Eassay icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/university" target='_blank'>University icons created by monkik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/location" target='_blank'>Location icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/lightbulb" target='_blank'>Lightbulb icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/no-photo" target='_blank'>No-photo icons created by Freepik - Flaticon</a></li>
+      </ul>
+    </mp-overlay-dialog-content>
+    </mp-overlay-dialog>
+
+  </template-fragment>
 <template-fragment id='count-template'>
 
   <div style='text-align: center; margin-top: 16px; font-size:14px;'>
-    SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 28.3 billion statements.
+    SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 28.3 billion statements. {{>::icon-attribution}}
   </div>
   <div style='margin: 16px;'>
     {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false) (cond-eq selectedDomain undefined))}}
@@ -392,7 +408,7 @@
     {{#if selectedDomain}}
       <div class='KeywordTypeQuery--domainCards'>
       <div data-flex-layout='rows stretch-stretch'>
-        {{#each domains}}
+        {{#each (array-sortBy domains (func (d) d.thumbnail) descending=false)}}
           {{#if (cond-gt count 0)}}
             <div data-flex-self='size-1of5 md-half sm-full' class='KeywordTypeQuery--domainCardItem'>
         
@@ -430,7 +446,7 @@
     {{else}}
       <div class='KeywordTypeQuery--domainCards'>
         <div data-flex-layout='rows stretch-stretch'>
-          {{#each domains}}
+          {{#each (array-sortBy domains (func (d) d.thumbnail) descending=false)}}
             {{#ifCond count "||" ../loadingCounts}}
               <div data-flex-self='size-1of5 md-half sm-full' class='KeywordTypeQuery--domainCardItem'>
                 <mp-event-trigger type='KeywordTypeQuery.SelectDomain' targets='["{{../componentId}}"]' data='{"domainIri": "{{iri}}"}'>
@@ -775,7 +791,7 @@
         INSTITUTIONS
       {{/if}}
       {{#if (cond-eq mode "concept")}}
-        CONCEPTS
+        TOPICS
       {{/if}}
     </div>
   </div>
