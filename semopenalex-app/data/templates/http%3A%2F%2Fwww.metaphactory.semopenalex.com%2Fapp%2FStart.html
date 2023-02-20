@@ -242,7 +242,18 @@
               }
             }
           "
+          explicit-search-command=true
+          search-action-template='{{> buttonTemplate}}'
         >
+          <template id='buttonTemplate'>
+            <mp-event-trigger type='KeywordTypeQuery.PerformSearch' targets='["{{componentId}}"]'>
+              <button
+                class='btn btn-primary text-nowrap KeywordTypeQuery--explicitSearchButton'>
+                <i class='fa fa-rocket' area-hidden='true'></i>
+                <span class='KeywordTypeQuery--explicitSearchButtonLabel'>Search</span>
+              </button>
+            </mp-event-trigger>
+          </template>
           <template id='tmpl'>
             {{>::count-template}}
           </template>
@@ -400,11 +411,14 @@
     SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 28.3 billion statements. {{>::icon-attribution}}
   </div>
   <div style='margin: 16px;'>
-    {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false) (cond-eq selectedDomain undefined))}}
-      <div class="header__title-main">
-        Overview: "{{searchTerm}}"
-      </div>
+    {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false))}}
+      {{#each domains}}
+        {{#if (cond-eq iri 'https://semopenalex.org/class/Work')}}
+          {{>::compare-work-domain-count showOverviewContent=false searchTerm=../searchTerm}}
+        {{/if}}
+      {{/each}}
     {{/if}}
+
     {{#if selectedDomain}}
       <div class='KeywordTypeQuery--domainCards'>
       <div data-flex-layout='rows stretch-stretch'>
@@ -474,10 +488,10 @@
       </div>
 
     
-
+     
       {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false))}}
-        {{#each domains}}    
-          {{>::search-overview searchTerm=../searchTerm}}
+        {{#each domains}}
+          {{>::compare-work-domain-count showOverviewContent=true searchTerm=../searchTerm}}
         {{/each}}
       {{/if}}
        
@@ -487,6 +501,28 @@
 </template-fragment>
 
 
+<template-fragment id='compare-work-domain-count'>
+  <semantic-query query='
+    PREFIX sys: <http://www.ontotext.com/owlim/system#>  
+    SELECT (COUNT (*) as ?count) FROM sys:statistics {    
+      ?subject a <{{iri}}> .
+    }'
+  template='{{> tmpl}}'>
+    <template id='tmpl'>
+      {{#if  (cond-lt count (number-of bindings.0.count.value)) }}
+        {{#if showOverviewContent}}
+          {{>::search-overview}}
+        {{else}}
+          <div class="header__title-main">
+            Overview: "{{searchTerm}}"
+          </div>
+        {{/if}}
+    {{/if}}     
+    </template>
+  </semantic-query>
+        
+
+</template-fragment>
 <template-fragment id='search-overview'>
   
     <semantic-query query='
@@ -495,7 +531,7 @@
       SELECT DISTINCT ?subject ?iri WHERE {
         SERVICE Repository:lookup {
           ?subject lookup:token "{{searchTerm}}";
-            lookup:limit 20 ;
+            lookup:limit 200 ;
             lookup:type <{{iri}}> .
         }
       }' template='{{> tmpl}}'>
@@ -668,7 +704,7 @@
 
         OPTIONAL { ?sub <http://www.w3.org/ns/org#memberOf> ?institution .}
         OPTIONAL { ?sub <https://dbpedia.org/ontology/orcidId> ?orcidId } 
-    }' 
+    } ORDER BY DESC(?citations)' 
     number-of-displayed-rows="10" 
     tuple-template='{{> tmpl}}' options='{"showFilter":false}'>
       <template id='tmpl'>
@@ -831,7 +867,7 @@
             OPTIONAL { ?sub skos:note ?note }
           {{/if}}
           OPTIONAL { ?sub <http://xmlns.com/foaf/0.1/homepage> ?homepage .} 
-      }' 
+      } ORDER BY DESC(?citations)' 
     number-of-displayed-rows="10" 
     tuple-template='{{> tmpl}}' 
     options='{"showFilter":false}'>
