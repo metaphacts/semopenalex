@@ -245,7 +245,7 @@
     PREFIX sc: <https://semopenalex.org/class/>
     PREFIX elastic: <http://www.ontotext.com/connectors/elasticsearch#>
     SELECT ?subject ?type ?disambiguation WHERE {
-      BIND(CONCAT("(name:", ?__token__,")") AS ?q)
+      BIND(CONCAT("(name:(", ?__token__,"))") AS ?q)
             {
             FILTER(?__domain__ = sc:Author)
                 ?search a <http://www.ontotext.com/connectors/elasticsearch/instance#semopenalex-authors>.
@@ -294,7 +294,7 @@
               OPTIONAL { ?subject skos:note ?disambiguation . }  
             }
             ?subject a ?type.
-    }'
+    } ORDER BY DESC(?score)'
               suggestion-template='{{> suggestion}}'  
               >
               <template id='suggestion'>
@@ -441,7 +441,7 @@
   {{else}}
     <semantic-table
       id='table'
-      query='SELECT DISTINCT ?subject WHERE {} LIMIT {{#if selected}}1001{{else}}4{{/if}}'
+      query='SELECT DISTINCT ?subject WHERE {} {{#unless selected}}LIMIT 4{{/unless}}'
       options='{"showFilter": false}'
     ></semantic-table>
   {{/if}}
@@ -563,7 +563,7 @@
   {{else}}
     <semantic-table
       id='table'
-      query='SELECT DISTINCT ?subject WHERE {} LIMIT {{#unless selected}}LIMIT 4{{/unless}}'
+      query='SELECT DISTINCT ?subject WHERE {} {{#unless selected}}LIMIT 4{{/unless}}'
       options='{"showFilter": false}'
     ></semantic-table>
   {{/if}}
@@ -633,7 +633,7 @@
   {{else}}
     <semantic-table
       id='table'
-      query='SELECT DISTINCT ?subject WHERE {} LIMIT {{#unless selected}}LIMIT 4{{/unless}}'
+      query='SELECT DISTINCT ?subject WHERE {} {{#unless selected}}LIMIT 4{{/unless}}'
       options='{"showFilter": false}'
     ></semantic-table>
   {{/if}}
@@ -680,7 +680,7 @@
   {{else}}
     <semantic-table
       id='table'
-      query='SELECT DISTINCT ?subject WHERE {} LIMIT {{#unless selected}}LIMIT 4{{/unless}}'
+      query='SELECT DISTINCT ?subject WHERE {} {{#unless selected}}LIMIT 4{{/unless}}'
       options='{"showFilter": false}'
     ></semantic-table>
   {{/if}}
