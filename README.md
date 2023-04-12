@@ -12,10 +12,11 @@ To generate the SemOpenAlex dataset from the [OpenAlex](https://openalex.s3.amaz
 we use the following python scripts for each entity. Each individual script downloads the latest snapshot and
 produces a RDF document in the TRIG format.
 
-1. [semopenalex-concepts.py](./transformation-scripts/semopenalex-concepts.py)
+1. [semopenalex-authors.py](./transformation-scripts/semopenalex-authors.py)
+2. [semopenalex-concepts.py](./transformation-scripts/semopenalex-concepts.py)
 2. [semopenalex-institutions.py](./transformation-scripts/semopenalex-institutions.py)
-3. [semopenalex-venues.py](./transformation-scripts/semopenalex-venues.py)
-4. [semopenalex-authors.py](./transformation-scripts/semopenalex-authors.py)
+3. [semopenalex-publishers.py](./transformation-scripts/semopenalex-publishers.py)
+3. [semopenalex-sources.py](./transformation-scripts/semopenalex-sources.py)
 5. [semopenalex-works.py](./transformation-scripts/semopenalex-works.py)
 
 Note that the [semopenalex-dataset.py](./transformation-scripts/semopenalex-dataset.py) script is used to capture metadata about SemOpenAlex dataset (e.g. when it was loaded).

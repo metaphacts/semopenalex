@@ -254,7 +254,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     publisher_wikidata = json_data.get('ids').get('wikidata')
                     if not publisher_wikidata is None:
                         publisher_graph.add(
-                            (publisher_uri, OWL.sameAs, Literal(clean_url(publisher_wikidata), datatype=XSD.string)))
+                            (publisher_uri, OWL.sameAs, URIRef(clean_url(publisher_wikidata))))
 
                     # summary stats
                     publisher_2yr_mean_citedness = json_data.get('summary_stats').get('2yr_mean_citedness')
