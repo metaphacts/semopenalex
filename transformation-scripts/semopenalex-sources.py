@@ -280,7 +280,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     source_wikidata = json_data.get('ids').get('wikidata')
                     if not source_wikidata is None:
                         source_graph.add(
-                            (source_uri, OWL.sameAs, Literal(clean_url(source_wikidata), datatype=XSD.string)))
+                            (source_uri, OWL.sameAs, URIRef(clean_url(source_wikidata))))
 
                     # issn_l
                     source_issn_l = json_data['issn_l']
