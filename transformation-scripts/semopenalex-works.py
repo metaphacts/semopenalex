@@ -16,6 +16,7 @@ from pathlib import Path
 from botocore import UNSIGNED
 from botocore.config import Config
 
+
 def get_file_folders(s3_client, bucket_name, prefix=""):
     file_names = []
     folders = []
@@ -45,8 +46,8 @@ def get_file_folders(s3_client, bucket_name, prefix=""):
 
     return file_names, folders
 
-def download_files(s3_client, bucket_name, local_path, file_names, folders):
 
+def download_files(s3_client, bucket_name, local_path, file_names, folders):
     local_path = Path(local_path)
 
     for folder in folders:
@@ -61,6 +62,7 @@ def download_files(s3_client, bucket_name, local_path, file_names, folders):
             file_name,
             str(file_path)
         )
+
 
 replacements = [
     {
@@ -150,15 +152,15 @@ soa_namespace_author_position = "https://semopenalex.org/authorposition/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
 soa_namespace_works = "https://semopenalex.org/work/"
 soa_namespace_institutions = "https://semopenalex.org/institution/"
-soa_namespace_venues = "https://semopenalex.org/venue/"
-soa_namespace_host_venues = "https://semopenalex.org/hostvenue/"
 soa_namespace_open_access = "https://semopenalex.org/openaccess/"
 soa_namespace_concept = "https://semopenalex.org/concept/"
 soa_namespace_concept_score = "https://semopenalex.org/conceptscore/"
+soa_namespace_sources = "https://semopenalex.org/source/"
+soa_namespace_locations = "https://semopenalex.org/location/"
 
 # SOA classes used in this file
 soa_class_work = URIRef(soa_namespace_class + "Work")
-soa_class_host_venue = URIRef(soa_namespace_class + "HostVenue")
+soa_class_location = URIRef(soa_namespace_class + "Location")
 soa_class_open_access = URIRef(soa_namespace_class + "OpenAccess")
 soa_class_author_position = URIRef(soa_namespace_class + "AuthorPosition")
 soa_class_counts_by_year = URIRef(soa_namespace_class + "CountsByYear")
@@ -171,9 +173,6 @@ publication_year_predicate = URIRef("http://purl.org/spar/fabio/hasPublicationYe
 mag_id_predicate = URIRef("https://semopenalex.org/property/magId")
 pubmed_id_predicate = URIRef("http://purl.org/spar/fabio/hasPubMedId")
 pubmed_central_predicate = URIRef("http://purl.org/spar/fabio/hasPubMedCentralId")
-host_venue_predicate = URIRef("https://semopenalex.org/property/hasHostVenue")
-venue_predicate = URIRef("https://semopenalex.org/property/hasVenue")
-alternative_venue_predicate = URIRef("https://semopenalex.org/property/hasAlternativeHostVenue")
 url_predicate = URIRef("http://purl.org/spar/fabio/hasURL")
 is_oa_predicate = URIRef("https://semopenalex.org/property/isOa")
 has_oa_predicate = URIRef("https://semopenalex.org/property/hasOpenAccess")
@@ -198,6 +197,12 @@ score_predicate = URIRef("https://semopenalex.org/property/score")
 cites_predicate = URIRef("http://purl.org/spar/cito/cites")
 related_work_predicate = URIRef("https://semopenalex.org/property/hasRelatedWork")
 year_predicate = URIRef("https://semopenalex.org/property/year")
+## changed:
+has_location_predicate = URIRef("https://semopenalex.org/property/hasLocation")
+has_primary_location_predicate = URIRef("https://semopenalex.org/property/hasPrimaryLocation")
+has_best_oa_location_predicate = URIRef("https://semopenalex.org/property/hasBestOaLocation")
+pdf_url_predicate = URIRef("https://semopenalex.org/property/pdfUrl")
+has_source_predicate = URIRef("https://semopenalex.org/property/hasSource")
 
 # works entity context
 context = URIRef("https://semopenalex.org/works/context")
@@ -214,14 +219,14 @@ absolute_path = os.path.dirname(__file__)
 trig_output_dir_path = os.path.join(absolute_path, f'../graphdb-preload/graphdb-import/{ENTITY_TYPE}')
 
 data_dump_start_time = time.ctime()
-print('works entity files started to download at: '+ data_dump_start_time)
+print('works entity files started to download at: ' + data_dump_start_time)
 # Copy works entity snapshot
 client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 file_names, folders = get_file_folders(client, "openalex", "data/works/")
 download_files(
     client,
     "openalex",
-   data_dump_input_root_dir,
+    data_dump_input_root_dir,
     file_names,
     folders
 )
@@ -230,7 +235,6 @@ print('works entity files finished to download.')
 start_time = time.ctime()
 today = date.today()
 print(f"Overall work entity start -- {start_time}.")
-
 
 # collect all .gz parts of works data dump to iterate over with multiple workers (see no. of CPU THREADS above)
 gz_file_list = []
@@ -306,41 +310,65 @@ def transform_gz_file(gz_file_path):
                             works_graph.add(
                                 (work_uri, pubmed_central_predicate, Literal(work_pmcid_id, datatype=XSD.string)))
 
-                        # host_venue
-                        work_host_venue = json_data['host_venue']
-                        if not work_host_venue is None:
-                            work_host_venue_id = json_data['host_venue']['id']
-                            if not work_host_venue_id is None:
-                                work_host_venue_id = work_host_venue_id.replace("https://openalex.org/", "")
-                                work_host_venue_uri = URIRef(
-                                    soa_namespace_host_venues + str(work_id) + str(work_host_venue_id))
-                                works_graph.add((work_host_venue_uri, RDF.type, soa_class_host_venue))
-                                works_graph.add((work_uri, host_venue_predicate, work_host_venue_uri))
-                                work_venue_uri = URIRef(soa_namespace_venues + str(work_host_venue_id))
-                                works_graph.add((work_host_venue_uri, venue_predicate, work_venue_uri))
+                        # work location
+                        work_locations = json_data['locations']
+                        if not work_locations is None:
+                            location_iter = 1
+                            for work_location in work_locations:
+                                work_location_uri = URIRef(soa_namespace_locations + str(work_id) + str(location_iter))
+                                location_iter += 1
+                                works_graph.add((work_location_uri, RDF.type, soa_class_location))
+                                works_graph.add((work_uri, has_location_predicate, work_location_uri))
 
-                                work_host_venue_url = json_data['host_venue']['url']
-                                if not work_host_venue_url is None:
-                                    work_host_venue_url = clean_url(work_host_venue_url)
-                                    works_graph.add((work_host_venue_uri, url_predicate,
-                                                     Literal(work_host_venue_url, datatype=XSD.string)))
+                                work_location_page_url = work_location['landing_page_url']
+                                if not work_location_page_url is None:
+                                    work_location_page_url = clean_url(work_location_page_url)
+                                    works_graph.add((work_location_uri, url_predicate,
+                                                     Literal(work_location_page_url, datatype=XSD.string)))
 
-                                work_host_venue_is_oa = json_data['host_venue']['is_oa']
-                                if not work_host_venue_is_oa is None:
-                                    works_graph.add((work_host_venue_uri, is_oa_predicate,
-                                                     Literal(work_host_venue_is_oa, datatype=XSD.boolean)))
+                                work_location_pdf_url = work_location['pdf_url']
+                                if not work_location_pdf_url is None:
+                                    work_location_pdf_url = clean_url(work_location_pdf_url)
+                                    works_graph.add((work_location_uri, pdf_url_predicate,
+                                                     Literal(work_location_pdf_url, datatype=XSD.string)))
 
-                                work_host_venue_version = json_data['host_venue']['version']
-                                if not work_host_venue_version is None:
-                                    work_host_venue_version = clean(work_host_venue_version)
-                                    works_graph.add((work_host_venue_uri, version_predicate,
-                                                     Literal(work_host_venue_version, datatype=XSD.string)))
+                                work_location_is_oa = work_location['is_oa']
+                                if not work_location_is_oa is None:
+                                    works_graph.add((work_location_uri, is_oa_predicate,
+                                                     Literal(work_location_is_oa, datatype=XSD.boolean)))
 
-                                work_host_venue_license = json_data['host_venue']['license']
-                                if not work_host_venue_license is None:
-                                    work_host_venue_license = clean(work_host_venue_license)
-                                    works_graph.add((work_host_venue_uri, DCTERMS.license,
-                                                     Literal(work_host_venue_license, datatype=XSD.string)))
+                                work_location_version = work_location['version']
+                                if not work_location_version is None:
+                                    work_location_version = clean(work_location_version)
+                                    works_graph.add((work_location_uri, version_predicate,
+                                                     Literal(work_location_version, datatype=XSD.string)))
+
+                                work_location_license = work_location['license']
+                                if not work_location_license is None:
+                                    work_location_license = clean(work_location_license)
+                                    works_graph.add((work_location_uri, DCTERMS.license,
+                                                     Literal(work_location_license, datatype=XSD.string)))
+
+                                # add additional relation if current location is the primary one
+                                if work_location == json_data['primary_location']:
+                                    works_graph.add((work_uri, has_primary_location_predicate, work_location_uri))
+
+                                # add additional relation if current location is the best oa one, if any
+                                work_best_oa_location = json_data['best_oa_location']
+                                if not work_best_oa_location is None:
+                                    if work_location == work_best_oa_location:
+                                        works_graph.add((work_uri, has_best_oa_location_predicate, work_location_uri))
+
+                                # link from location to source (was venue)
+                                if not work_location['source'] is None:
+                                    work_location_source_id = work_location['source']['id']
+                                    if not work_location_source_id is None:
+                                        work_location_source_id = work_location_source_id.replace(
+                                            "https://openalex.org/", "")
+                                        work_location_source_uri = URIRef(
+                                            soa_namespace_sources + str(work_location_source_id))
+                                        works_graph.add(
+                                            (work_location_uri, has_source_predicate, work_location_source_uri))
 
                         # type
                         work_type = json_data['type']
@@ -454,45 +482,6 @@ def transform_gz_file(gz_file_path):
                                 works_graph.add(
                                     (concept_score_uri, score_predicate, Literal(concept_score, datatype=XSD.integer)))
 
-                        # mesh
-                        # to do
-
-                        # alternate_host_venues
-                        work_alternate_host_venues = json_data['alternate_host_venues']
-                        if not work_alternate_host_venues is None:
-                            for alt_venue in work_alternate_host_venues:
-                                if not alt_venue["id"] is None:
-                                    work_alt_venue_id = alt_venue["id"].replace("https://openalex.org/", "")
-                                    work_alt_host_venue_uri = URIRef(
-                                        soa_namespace_host_venues + str(work_id) + str(work_alt_venue_id))
-                                    works_graph.add((work_alt_host_venue_uri, RDF.type, soa_class_host_venue))
-                                    works_graph.add((work_uri, alternative_venue_predicate, work_alt_host_venue_uri))
-                                    work_alt_venue_uri = URIRef(soa_namespace_venues + str(work_alt_venue_id))
-                                    works_graph.add((work_alt_host_venue_uri, venue_predicate, work_alt_venue_uri))
-
-                                    if not alt_venue["url"] is None:
-                                        alt_venue_url = alt_venue["url"]
-                                        alt_venue_url = clean_url(alt_venue_url)
-                                        works_graph.add((work_alt_host_venue_uri, url_predicate,
-                                                         Literal(alt_venue_url, datatype=XSD.string)))
-
-                                    if not alt_venue["is_oa"] is None:
-                                        alt_venue_is_oa = alt_venue["is_oa"]
-                                        works_graph.add((work_alt_host_venue_uri, is_oa_predicate,
-                                                         Literal(alt_venue_is_oa, datatype=XSD.boolean)))
-
-                                    if not alt_venue["version"] is None:
-                                        alt_venue_version = alt_venue["version"]
-                                        alt_venue_version = clean(alt_venue_version)
-                                        works_graph.add((work_alt_host_venue_uri, version_predicate,
-                                                         Literal(alt_venue_version, datatype=XSD.string)))
-
-                                    if not alt_venue["license"] is None:
-                                        alt_venue_license = alt_venue["license"]
-                                        alt_venue_license = clean(alt_venue_license)
-                                        works_graph.add((work_alt_host_venue_uri, DCTERMS.license,
-                                                         Literal(alt_venue_license, datatype=XSD.string)))
-
                         # referenced_works
                         work_referenced_works = json_data['referenced_works']
                         for ref_work in work_referenced_works:
@@ -579,6 +568,7 @@ def transform_gz_file(gz_file_path):
     # -v for live output, --fast for faster compression with about 90% size reduction, -k for keeping the original .trig file
     os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}.trig')
     print("Worker completed gzip")
+
 
 if __name__ == '__main__':
     pool = Pool(CPU_THREADS, maxtasksperchild=5)
