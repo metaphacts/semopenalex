@@ -207,9 +207,9 @@ skos:ConceptShape a sh:NodeShape;
   sh:path rdfs:seeAlso;
   sh:class <http://purl.org/spar/fabio/WikipediaEntry>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
         sh:class skos:Concept
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
       ]) .
 
 <https://semopenalex.org/vocab#8a9c850e30c57eeae19bc32d2ab5aea0> a sh:PropertyShape;
@@ -255,32 +255,32 @@ skos:ConceptShape a sh:NodeShape;
 <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b> a sh:PropertyShape;
   sh:path <http://purl.org/dc/terms/modified>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
-        sh:class <https://semopenalex.org/class/Venue>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
+        sh:class <https://semopenalex.org/class/Author>
       ] [
         sh:class <https://semopenalex.org/class/Concept>
       ] [
-        sh:class <https://semopenalex.org/class/Author>
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
       ]);
   sh:datatype xsd:date .
 
 <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86> a sh:PropertyShape;
   sh:path <https://semopenalex.org/property/citedByCount>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
-        sh:class <https://semopenalex.org/class/Author>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
+        sh:class <https://semopenalex.org/class/CountsByYear>
       ] [
         sh:class <https://semopenalex.org/class/Venue>
       ] [
-        sh:class <https://semopenalex.org/class/CountsByYear>
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Author>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
       ]);
   sh:datatype xsd:integer .
 
@@ -288,13 +288,13 @@ skos:ConceptShape a sh:NodeShape;
   sh:path <https://semopenalex.org/property/countsByYear>;
   sh:class <https://semopenalex.org/class/CountsByYear>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Author>
+        sh:class <https://semopenalex.org/class/Work>
       ] [
         sh:class <https://semopenalex.org/class/Venue>
       ] [
-        sh:class <https://semopenalex.org/class/Work>
+        sh:class <https://semopenalex.org/class/Author>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
       ]) .
 
 <https://semopenalex.org/vocab#6477781c0083ed6ae289b7101034070e> a sh:PropertyShape;
@@ -304,11 +304,11 @@ skos:ConceptShape a sh:NodeShape;
 <https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38> a sh:PropertyShape;
   sh:path foaf:name;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Venue>
+        sh:class <https://semopenalex.org/class/Author>
       ] [
         sh:class <https://semopenalex.org/class/Institution>
       ] [
-        sh:class <https://semopenalex.org/class/Author>
+        sh:class <https://semopenalex.org/class/Venue>
       ]);
   sh:datatype xsd:string .
 
@@ -319,45 +319,45 @@ skos:ConceptShape a sh:NodeShape;
 <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2> a sh:PropertyShape;
   sh:path <https://semopenalex.org/property/magId>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
-        sh:class <https://semopenalex.org/class/Venue>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
+        sh:class <https://semopenalex.org/class/Author>
       ] [
         sh:class <https://semopenalex.org/class/Concept>
       ] [
-        sh:class <https://semopenalex.org/class/Author>
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
       ]);
   sh:datatype xsd:integer .
 
 <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1> a sh:PropertyShape;
   sh:path <https://semopenalex.org/property/worksCount>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Author>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
+        sh:class <https://semopenalex.org/class/CountsByYear>
       ] [
         sh:class <https://semopenalex.org/class/Venue>
       ] [
-        sh:class <https://semopenalex.org/class/CountsByYear>
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Author>
       ]);
   sh:datatype xsd:integer .
 
 <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7> a sh:PropertyShape;
   sh:path <http://purl.org/dc/terms/created>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
-        sh:class <https://semopenalex.org/class/Venue>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
+        sh:class <https://semopenalex.org/class/Author>
       ] [
         sh:class <https://semopenalex.org/class/Concept>
       ] [
-        sh:class <https://semopenalex.org/class/Author>
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
       ]);
   sh:datatype xsd:date .
 
@@ -373,9 +373,9 @@ skos:ConceptShape a sh:NodeShape;
   sh:path <https://semopenalex.org/property/hasConcept>;
   sh:class skos:Concept;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
         sh:class <https://semopenalex.org/class/ConceptScore>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
       ]) .
 
 <https://semopenalex.org/vocab#aea2f1abde128f871dee5d3bfe5e02fa> a sh:PropertyShape;
@@ -394,9 +394,9 @@ skos:ConceptShape a sh:NodeShape;
 <https://semopenalex.org/vocab#07fe8d090dee52aa25cacf9ba01c537d> a sh:PropertyShape;
   sh:path foaf:depiction;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
         sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
       ]);
   sh:datatype xsd:string .
 
@@ -411,9 +411,9 @@ skos:ConceptShape a sh:NodeShape;
 <https://semopenalex.org/vocab#d780b88e0412f91d5725d74b7b2da814> a sh:PropertyShape;
   sh:path <https://semopenalex.org/property/imageThumbnail>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
         sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
       ]);
   sh:datatype xsd:string .
 
@@ -490,11 +490,11 @@ skos:ConceptShape a sh:NodeShape;
 <https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c> a sh:PropertyShape;
   sh:path <https://semopenalex.org/property/isOa>;
   sh:or ([
-        sh:class <https://semopenalex.org/class/OpenAccess>
+        sh:class <https://semopenalex.org/class/Venue>
       ] [
         sh:class <https://semopenalex.org/class/HostVenue>
       ] [
-        sh:class <https://semopenalex.org/class/Venue>
+        sh:class <https://semopenalex.org/class/OpenAccess>
       ]);
   sh:datatype xsd:boolean .
 
@@ -513,9 +513,9 @@ skos:ConceptShape a sh:NodeShape;
 <https://semopenalex.org/vocab#0d30180e88607a9b9f3e7efdf6a5a920> a sh:PropertyShape;
   sh:path foaf:homepage;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Venue>
-      ] [
         sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
       ]);
   sh:datatype xsd:anyURI .
 

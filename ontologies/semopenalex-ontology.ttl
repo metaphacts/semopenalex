@@ -7,10 +7,6 @@
 @prefix sp: <http://spinrdf.org/sp#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
-<https://semopenalex.org/vocab#> a owl:Ontology;
-  rdfs:label "SemOpenAlex Ontology"@en;
-  rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en .
-
 <http://purl.org/dc/terms/creator> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
   rdfs:range <https://semopenalex.org/class/Author> .
@@ -20,7 +16,9 @@
   rdfs:range xsd:string .
 
 rdfs:seeAlso a owl:ObjectProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727208;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Institution> skos:Concept)
+    ];
   rdfs:range <http://purl.org/spar/fabio/WikipediaEntry> .
 
 skos:Concept a owl:Class;
@@ -43,20 +41,37 @@ skos:related a owl:ObjectProperty;
   rdfs:range skos:Concept .
 
 <http://purl.org/dc/terms/created> a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727234;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Venue>
+          <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
+          <https://semopenalex.org/class/Author>)
+    ];
   rdfs:range xsd:date .
 
 <http://purl.org/dc/terms/modified> a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727240;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Venue>
+          <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
+          <https://semopenalex.org/class/Author>)
+    ];
   rdfs:range xsd:date .
 
 foaf:homepage a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727219;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Venue> <https://semopenalex.org/class/Institution>)
+    ];
   rdfs:range xsd:anyURI .
 
 foaf:name a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727257;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Venue> <https://semopenalex.org/class/Institution>
+          <https://semopenalex.org/class/Author>)
+    ];
   rdfs:range xsd:string .
+
+<https://semopenalex.org/vocab#> a owl:Ontology;
+  rdfs:label "SemOpenAlex Ontology"@en;
+  rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en .
 
 <http://www.w3.org/ns/org#memberOf> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Author>;
@@ -81,7 +96,9 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range <https://semopenalex.org/class/Institution> .
 
 <https://semopenalex.org/property/hasConcept> a owl:ObjectProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727211;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/ConceptScore>)
+    ];
   rdfs:range skos:Concept .
 
 <https://semopenalex.org/class/ConceptScore> a owl:Class;
@@ -96,7 +113,10 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range <https://semopenalex.org/class/Work> .
 
 <https://semopenalex.org/property/countsByYear> a owl:ObjectProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727214;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Concept> <https://semopenalex.org/class/Author>
+          <https://semopenalex.org/class/Venue> <https://semopenalex.org/class/Work>)
+    ];
   rdfs:range <https://semopenalex.org/class/CountsByYear> .
 
 <https://semopenalex.org/class/Concept> a owl:Class;
@@ -147,7 +167,11 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range xsd:string .
 
 <https://semopenalex.org/property/worksCount> a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727222;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Author> <https://semopenalex.org/class/Concept>
+          <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Venue>
+          <https://semopenalex.org/class/CountsByYear>)
+    ];
   rdfs:range xsd:integer .
 
 <http://purl.org/dc/terms/abstract> a owl:DatatypeProperty;
@@ -155,7 +179,11 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range xsd:string .
 
 <https://semopenalex.org/property/magId> a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727228;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Venue>
+          <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
+          <https://semopenalex.org/class/Author>)
+    ];
   rdfs:range xsd:integer .
 
 <http://purl.org/spar/fabio/hasPublicationYear> a owl:DatatypeProperty;
@@ -179,7 +207,10 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range xsd:boolean .
 
 <https://semopenalex.org/property/isOa> a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727246;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/OpenAccess> <https://semopenalex.org/class/HostVenue>
+          <https://semopenalex.org/class/Venue>)
+    ];
   rdfs:range xsd:boolean .
 
 <https://semopenalex.org/property/oaStatus> a owl:DatatypeProperty;
@@ -207,7 +238,11 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range xsd:string .
 
 <https://semopenalex.org/property/citedByCount> a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727250;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Author>
+          <https://semopenalex.org/class/Concept> <https://semopenalex.org/class/Institution>
+          <https://semopenalex.org/class/Venue> <https://semopenalex.org/class/CountsByYear>)
+    ];
   rdfs:range xsd:integer .
 
 <http://purl.org/dc/terms/license> a owl:DatatypeProperty;
@@ -275,11 +310,15 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range xsd:string .
 
 <https://semopenalex.org/property/imageThumbnail> a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727261;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>)
+    ];
   rdfs:range xsd:string .
 
 foaf:depiction a owl:DatatypeProperty;
-  rdfs:domain _:1180a3c5164344b5a6dcbabb5e2b9727264;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>)
+    ];
   rdfs:range xsd:string .
 
 <https://semopenalex.org/property/rorType> a owl:DatatypeProperty;
@@ -352,180 +391,3 @@ foaf:depiction a owl:DatatypeProperty;
 <https://semopenalex.org/property/position> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/AuthorPosition>;
   rdfs:range xsd:string .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727208 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727209 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727211 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727212 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727214 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727215 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727219 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727220 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727222 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727223 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727228 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727229 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727234 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727235 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727240 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727241 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727246 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727247 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727250 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727251 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727257 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727258 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727261 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727262 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727264 a owl:Class;
-  owl:unionOf _:1180a3c5164344b5a6dcbabb5e2b9727265 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727209 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727210 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727210 rdf:first skos:Concept;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727212 rdf:first <https://semopenalex.org/class/Work>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727213 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727213 rdf:first <https://semopenalex.org/class/ConceptScore>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727215 rdf:first <https://semopenalex.org/class/Concept>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727216 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727216 rdf:first <https://semopenalex.org/class/Author>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727217 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727217 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727218 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727218 rdf:first <https://semopenalex.org/class/Work>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727220 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727221 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727221 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727223 rdf:first <https://semopenalex.org/class/Author>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727224 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727224 rdf:first <https://semopenalex.org/class/Concept>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727225 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727225 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727226 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727226 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727227 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727227 rdf:first <https://semopenalex.org/class/CountsByYear>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727229 rdf:first <https://semopenalex.org/class/Work>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727230 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727230 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727231 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727231 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727232 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727232 rdf:first <https://semopenalex.org/class/Concept>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727233 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727233 rdf:first <https://semopenalex.org/class/Author>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727235 rdf:first <https://semopenalex.org/class/Work>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727236 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727236 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727237 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727237 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727238 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727238 rdf:first <https://semopenalex.org/class/Concept>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727239 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727239 rdf:first <https://semopenalex.org/class/Author>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727241 rdf:first <https://semopenalex.org/class/Work>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727242 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727242 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727243 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727243 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727244 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727244 rdf:first <https://semopenalex.org/class/Concept>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727245 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727245 rdf:first <https://semopenalex.org/class/Author>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727247 rdf:first <https://semopenalex.org/class/OpenAccess>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727248 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727248 rdf:first <https://semopenalex.org/class/HostVenue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727249 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727249 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727251 rdf:first <https://semopenalex.org/class/Work>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727252 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727252 rdf:first <https://semopenalex.org/class/Author>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727253 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727253 rdf:first <https://semopenalex.org/class/Concept>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727254 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727254 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727255 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727255 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727256 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727256 rdf:first <https://semopenalex.org/class/CountsByYear>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727258 rdf:first <https://semopenalex.org/class/Venue>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727259 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727259 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727260 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727260 rdf:first <https://semopenalex.org/class/Author>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727262 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727263 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727263 rdf:first <https://semopenalex.org/class/Concept>;
-  rdf:rest rdf:nil .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727265 rdf:first <https://semopenalex.org/class/Institution>;
-  rdf:rest _:1180a3c5164344b5a6dcbabb5e2b9727266 .
-
-_:1180a3c5164344b5a6dcbabb5e2b9727266 rdf:first <https://semopenalex.org/class/Concept>;
-  rdf:rest rdf:nil .
