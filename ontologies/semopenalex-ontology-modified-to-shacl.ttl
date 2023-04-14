@@ -1,0 +1,511 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+skos:ConceptShape a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#0505f27824e6216f6cefdbd4e005817d>, <https://semopenalex.org/vocab#09f17fcc61f87f9692f33bab42323734>,
+    <https://semopenalex.org/vocab#7e72e214b08c0478192cb924f8fdd396>, <https://semopenalex.org/vocab#8a9c850e30c57eeae19bc32d2ab5aea0>,
+    <https://semopenalex.org/vocab#8d3b7b435bad00f06370e5537dceb0ca>;
+  sh:targetClass skos:Concept .
+
+<https://semopenalex.org/vocab#0505f27824e6216f6cefdbd4e005817d> a sh:PropertyShape;
+  sh:path skos:related;
+  sh:class skos:Concept .
+
+<https://semopenalex.org/vocab#09f17fcc61f87f9692f33bab42323734> a sh:PropertyShape;
+  sh:path skos:broader;
+  sh:class skos:Concept .
+
+<https://semopenalex.org/vocab#7e72e214b08c0478192cb924f8fdd396> a sh:PropertyShape;
+  sh:path rdfs:seeAlso;
+  sh:class <http://purl.org/spar/fabio/WikipediaEntry>;
+  sh:or ([
+        sh:class skos:Concept
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ]) .
+
+<https://semopenalex.org/vocab#8a9c850e30c57eeae19bc32d2ab5aea0> a sh:PropertyShape;
+  sh:path skos:note;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#8d3b7b435bad00f06370e5537dceb0ca> a sh:PropertyShape;
+  sh:path skos:prefLabel;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/class/AuthorPositionShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#4c142e0a4b580c4693dc5c02d5f5f9c9>, <https://semopenalex.org/vocab#e87cdd7b584967125d063d517eed6e4e>;
+  sh:targetClass <https://semopenalex.org/class/AuthorPosition> .
+
+<https://semopenalex.org/vocab#4c142e0a4b580c4693dc5c02d5f5f9c9> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/position>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#e87cdd7b584967125d063d517eed6e4e> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasAuthor>;
+  sh:class <https://semopenalex.org/class/Author> .
+
+<https://semopenalex.org/class/AuthorShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#0afadfc52ce5c45fda6af85a1577dff5>, <https://semopenalex.org/vocab#382cdef124935b924eda1ae67588390d>,
+    <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>, <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>,
+    <https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e>, <https://semopenalex.org/vocab#6477781c0083ed6ae289b7101034070e>,
+    <https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38>, <https://semopenalex.org/vocab#8a8aecaca1e42caa6994bd80a9188415>,
+    <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>, <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>,
+    <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>, <https://semopenalex.org/vocab#f57e4f3f58c25d6efcedbe15d8b0dea7>;
+  sh:targetClass <https://semopenalex.org/class/Author> .
+
+<https://semopenalex.org/vocab#0afadfc52ce5c45fda6af85a1577dff5> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/property/twitter>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#382cdef124935b924eda1ae67588390d> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/property/scopus>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b> a sh:PropertyShape;
+  sh:path <http://purl.org/dc/terms/modified>;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Author>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
+      ]);
+  sh:datatype xsd:date .
+
+<https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/citedByCount>;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/CountsByYear>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Author>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
+      ]);
+  sh:datatype xsd:integer .
+
+<https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/countsByYear>;
+  sh:class <https://semopenalex.org/class/CountsByYear>;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Work>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Author>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
+      ]) .
+
+<https://semopenalex.org/vocab#6477781c0083ed6ae289b7101034070e> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/ontology/orcidId>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38> a sh:PropertyShape;
+  sh:path foaf:name;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Author>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ]);
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#8a8aecaca1e42caa6994bd80a9188415> a sh:PropertyShape;
+  sh:path <http://www.w3.org/ns/org#memberOf>;
+  sh:class <https://semopenalex.org/class/Institution> .
+
+<https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/magId>;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Author>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
+      ]);
+  sh:datatype xsd:integer .
+
+<https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/worksCount>;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/CountsByYear>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Author>
+      ]);
+  sh:datatype xsd:integer .
+
+<https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7> a sh:PropertyShape;
+  sh:path <http://purl.org/dc/terms/created>;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Author>
+      ] [
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
+      ]);
+  sh:datatype xsd:date .
+
+<https://semopenalex.org/vocab#f57e4f3f58c25d6efcedbe15d8b0dea7> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/alternativeName>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/class/ConceptScoreShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#2183731b5316d244e42f7f4bb5d53178>, <https://semopenalex.org/vocab#aea2f1abde128f871dee5d3bfe5e02fa>;
+  sh:targetClass <https://semopenalex.org/class/ConceptScore> .
+
+<https://semopenalex.org/vocab#2183731b5316d244e42f7f4bb5d53178> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasConcept>;
+  sh:class skos:Concept;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/ConceptScore>
+      ] [
+        sh:class <https://semopenalex.org/class/Work>
+      ]) .
+
+<https://semopenalex.org/vocab#aea2f1abde128f871dee5d3bfe5e02fa> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/score>;
+  sh:datatype xsd:integer .
+
+<https://semopenalex.org/class/ConceptShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>, <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>,
+    <https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e>, <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>,
+    <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>, <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>,
+    <https://semopenalex.org/vocab#07fe8d090dee52aa25cacf9ba01c537d>, <https://semopenalex.org/vocab#1bb749c62c841583be769092b22db6b8>,
+    <https://semopenalex.org/vocab#2ba3dadbe01db17d6fcc5148f697478d>, <https://semopenalex.org/vocab#d780b88e0412f91d5725d74b7b2da814>,
+    <https://semopenalex.org/vocab#ddcebb3ed512f8f49c20e7d8d168d087>;
+  sh:targetClass <https://semopenalex.org/class/Concept> .
+
+<https://semopenalex.org/vocab#07fe8d090dee52aa25cacf9ba01c537d> a sh:PropertyShape;
+  sh:path foaf:depiction;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ]);
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#1bb749c62c841583be769092b22db6b8> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/level>;
+  sh:datatype xsd:integer .
+
+<https://semopenalex.org/vocab#2ba3dadbe01db17d6fcc5148f697478d> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/umlsCui>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#d780b88e0412f91d5725d74b7b2da814> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/imageThumbnail>;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Concept>
+      ] [
+        sh:class <https://semopenalex.org/class/Institution>
+      ]);
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#ddcebb3ed512f8f49c20e7d8d168d087> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/umlsAui>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/class/CountsByYearShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>, <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>,
+    <https://semopenalex.org/vocab#9247a869288e14c7ff8b4c758e404c13>;
+  sh:targetClass <https://semopenalex.org/class/CountsByYear> .
+
+<https://semopenalex.org/vocab#9247a869288e14c7ff8b4c758e404c13> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/year>;
+  sh:datatype xsd:integer .
+
+<https://semopenalex.org/class/GeoShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#031c9716dcc41536893fe766a943dca2>, <https://semopenalex.org/vocab#1332c0bb9ba85ee3d259b28b69384e8d>,
+    <https://semopenalex.org/vocab#1c15feb6789e3ab6b591b6963f5fabd8>, <https://semopenalex.org/vocab#2b3c29e0b34e9bc29556f5229eb14a97>,
+    <https://semopenalex.org/vocab#6ea4e05d3608eb027517e565a2f1103c>, <https://semopenalex.org/vocab#e38f3b3c38e508f7aa6cceb7394b6c8b>,
+    <https://semopenalex.org/vocab#eb7e6709e5e9634bfcc6232b56028bce>;
+  sh:targetClass <https://semopenalex.org/class/Geo> .
+
+<https://semopenalex.org/vocab#031c9716dcc41536893fe766a943dca2> a sh:PropertyShape;
+  sh:path <http://www.geonames.org/ontology#countryCode>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#1332c0bb9ba85ee3d259b28b69384e8d> a sh:PropertyShape;
+  sh:path <http://www.geonames.org/ontology#lat>;
+  sh:datatype xsd:float .
+
+<https://semopenalex.org/vocab#1c15feb6789e3ab6b591b6963f5fabd8> a sh:PropertyShape;
+  sh:path <http://www.geonames.org/ontology#long>;
+  sh:datatype xsd:float .
+
+<https://semopenalex.org/vocab#2b3c29e0b34e9bc29556f5229eb14a97> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/property/city>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#6ea4e05d3608eb027517e565a2f1103c> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/property/region>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#e38f3b3c38e508f7aa6cceb7394b6c8b> a sh:PropertyShape;
+  sh:path <http://www.geonames.org/ontology#geonamesID>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#eb7e6709e5e9634bfcc6232b56028bce> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/property/country>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/class/HostVenueShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#189d841b1771b070e525aa80a66987e5>, <https://semopenalex.org/vocab#23348fdc99b5798e624fe091e0b4709d>,
+    <https://semopenalex.org/vocab#330235a73dd4a216315cf40345bf056b>, <https://semopenalex.org/vocab#3494e2ce7122eeac1b765ba1aa7e89f7>,
+    <https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c>;
+  sh:targetClass <https://semopenalex.org/class/HostVenue> .
+
+<https://semopenalex.org/vocab#189d841b1771b070e525aa80a66987e5> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasVenue>;
+  sh:class <https://semopenalex.org/class/Venue> .
+
+<https://semopenalex.org/vocab#23348fdc99b5798e624fe091e0b4709d> a sh:PropertyShape;
+  sh:path <http://purl.org/spar/fabio/hasURL>;
+  sh:datatype xsd:anyURI .
+
+<https://semopenalex.org/vocab#330235a73dd4a216315cf40345bf056b> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasVersion>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#3494e2ce7122eeac1b765ba1aa7e89f7> a sh:PropertyShape;
+  sh:path <http://purl.org/dc/terms/license>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/isOa>;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Venue>
+      ] [
+        sh:class <https://semopenalex.org/class/HostVenue>
+      ] [
+        sh:class <https://semopenalex.org/class/OpenAccess>
+      ]);
+  sh:datatype xsd:boolean .
+
+<https://semopenalex.org/class/InstitutionShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#7e72e214b08c0478192cb924f8fdd396>, <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>,
+    <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>, <https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38>,
+    <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>, <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>,
+    <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>, <https://semopenalex.org/vocab#07fe8d090dee52aa25cacf9ba01c537d>,
+    <https://semopenalex.org/vocab#d780b88e0412f91d5725d74b7b2da814>, <https://semopenalex.org/vocab#0d30180e88607a9b9f3e7efdf6a5a920>,
+    <https://semopenalex.org/vocab#32acd9478deb48037209d21c271560b9>, <https://semopenalex.org/vocab#4664cd9b195ba95e5b19f26ac9baf427>,
+    <https://semopenalex.org/vocab#4832ab1df642e9e99ed61f38e2431b26>, <https://semopenalex.org/vocab#6ea9822eaeb42efcce076ee379679293>,
+    <https://semopenalex.org/vocab#99e3c941a405656773ad39ea7e98232e>, <https://semopenalex.org/vocab#cd3685d05f804b6eb5d2ec436d6302d4>,
+    <https://semopenalex.org/vocab#e6d6f1fbf0cd5a66ac9208072882dea6>, <https://semopenalex.org/vocab#fe3d9ddc90fd4837401ab65fb4f1b962>;
+  sh:targetClass <https://semopenalex.org/class/Institution> .
+
+<https://semopenalex.org/vocab#0d30180e88607a9b9f3e7efdf6a5a920> a sh:PropertyShape;
+  sh:path foaf:homepage;
+  sh:or ([
+        sh:class <https://semopenalex.org/class/Institution>
+      ] [
+        sh:class <https://semopenalex.org/class/Venue>
+      ]);
+  sh:datatype xsd:anyURI .
+
+<https://semopenalex.org/vocab#32acd9478deb48037209d21c271560b9> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/ror>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#4664cd9b195ba95e5b19f26ac9baf427> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/ontology/alternativeName>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#4832ab1df642e9e99ed61f38e2431b26> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/property/acronym>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#6ea9822eaeb42efcce076ee379679293> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/grid>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#99e3c941a405656773ad39ea7e98232e> a sh:PropertyShape;
+  sh:path <https://dbpedia.org/property/countryCode>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#cd3685d05f804b6eb5d2ec436d6302d4> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/rorType>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#e6d6f1fbf0cd5a66ac9208072882dea6> a sh:PropertyShape;
+  sh:path <http://dbpedia.org/ontology/location>;
+  sh:class <https://semopenalex.org/class/Geo> .
+
+<https://semopenalex.org/vocab#fe3d9ddc90fd4837401ab65fb4f1b962> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasAssociatedInstitution>;
+  sh:class <https://semopenalex.org/class/Institution> .
+
+<https://semopenalex.org/class/OpenAccessShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c>, <https://semopenalex.org/vocab#501183b9442fb859868a671f76a92e9c>,
+    <https://semopenalex.org/vocab#a2804bb1472c2af20af91a224eaef1ef>;
+  sh:targetClass <https://semopenalex.org/class/OpenAccess> .
+
+<https://semopenalex.org/vocab#501183b9442fb859868a671f76a92e9c> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/oaStatus>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#a2804bb1472c2af20af91a224eaef1ef> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/oaUrl>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/class/VenueShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>, <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>,
+    <https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e>, <https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38>,
+    <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>, <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>,
+    <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>, <https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c>,
+    <https://semopenalex.org/vocab#0d30180e88607a9b9f3e7efdf6a5a920>, <https://semopenalex.org/vocab#008cf57371f432ebda26fe0792875368>,
+    <https://semopenalex.org/vocab#80210bf1e2b1e8d223b924567b6bad92>, <https://semopenalex.org/vocab#8d659e64665e42d94499977b0d77daf6>,
+    <https://semopenalex.org/vocab#9259d4c1ba62f9565e7a21a70687ecb1>;
+  sh:targetClass <https://semopenalex.org/class/Venue> .
+
+<https://semopenalex.org/vocab#008cf57371f432ebda26fe0792875368> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/isInDoaj>;
+  sh:datatype xsd:boolean .
+
+<https://semopenalex.org/vocab#80210bf1e2b1e8d223b924567b6bad92> a sh:PropertyShape;
+  sh:path <http://purl.org/spar/fabio/hasIssnL>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#8d659e64665e42d94499977b0d77daf6> a sh:PropertyShape;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/issn>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#9259d4c1ba62f9565e7a21a70687ecb1> a sh:PropertyShape;
+  sh:path <http://purl.org/dc/terms/publisher>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/class/WorkShape> a sh:NodeShape;
+  sh:property <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>, <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>,
+    <https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e>, <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>,
+    <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>, <https://semopenalex.org/vocab#2183731b5316d244e42f7f4bb5d53178>,
+    <https://semopenalex.org/vocab#013f2f63f0b01681bb2b6bee1410bea9>, <https://semopenalex.org/vocab#0946e3c3725f942fa0f94070bc836046>,
+    <https://semopenalex.org/vocab#3f2ae919e9c05cd1b735ab4f438ab19b>, <https://semopenalex.org/vocab#451627809f2e7ca7411918e1373143f6>,
+    <https://semopenalex.org/vocab#5df0270ce3d36a8313b64ffa0e70c36e>, <https://semopenalex.org/vocab#678c7bb050e904f051e8aa8c79a790d9>,
+    <https://semopenalex.org/vocab#68d76519ea51413696d6257797eb19a3>, <https://semopenalex.org/vocab#6b4b1e8fa9567cd1c95c68eb908526cb>,
+    <https://semopenalex.org/vocab#7be29003021a1fdaae34cd12cee08682>, <https://semopenalex.org/vocab#8cbd77d5d0589157b939473be95d0a12>,
+    <https://semopenalex.org/vocab#95f65df7978b8aef6ba01ac9c93e820b>, <https://semopenalex.org/vocab#9b582e6e5bb30180322da25c6cf5135e>,
+    <https://semopenalex.org/vocab#a66c22bb2050fc16b609acf54adf821a>, <https://semopenalex.org/vocab#abcbc6c65cb325168fe715e373960e7c>,
+    <https://semopenalex.org/vocab#ad4739516afbc43b5b3ab535bc5b81ef>, <https://semopenalex.org/vocab#af99a5a81b65696be8c769bf36a9b633>,
+    <https://semopenalex.org/vocab#b05af3d161aa7b1cbc624e43d5713970>, <https://semopenalex.org/vocab#d186da23412071992d2c55668fbdd101>,
+    <https://semopenalex.org/vocab#d206e9f60b0f09d55eaf45500c6eb411>, <https://semopenalex.org/vocab#e8a0e16f9a3195b262e677cac1e8ac67>,
+    <https://semopenalex.org/vocab#efa5ac5368669aaecc31eabadf5219f5>, <https://semopenalex.org/vocab#fe5d6c5f112271527e2c7abee8c5ea22>;
+  sh:targetClass <https://semopenalex.org/class/Work> .
+
+<https://semopenalex.org/vocab#013f2f63f0b01681bb2b6bee1410bea9> a sh:PropertyShape;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/doi>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#0946e3c3725f942fa0f94070bc836046> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasOpenAccess>;
+  sh:class <https://semopenalex.org/class/OpenAccess> .
+
+<https://semopenalex.org/vocab#3f2ae919e9c05cd1b735ab4f438ab19b> a sh:PropertyShape;
+  sh:path <http://purl.org/dc/terms/title>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#451627809f2e7ca7411918e1373143f6> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasConceptScore>;
+  sh:class <https://semopenalex.org/class/ConceptScore> .
+
+<https://semopenalex.org/vocab#5df0270ce3d36a8313b64ffa0e70c36e> a sh:PropertyShape;
+  sh:path <http://purl.org/spar/fabio/hasPubMedCentralId>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#678c7bb050e904f051e8aa8c79a790d9> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasVolume>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#68d76519ea51413696d6257797eb19a3> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/isRetracted>;
+  sh:datatype xsd:boolean .
+
+<https://semopenalex.org/vocab#6b4b1e8fa9567cd1c95c68eb908526cb> a sh:PropertyShape;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/publicationDate>;
+  sh:datatype xsd:date .
+
+<https://semopenalex.org/vocab#7be29003021a1fdaae34cd12cee08682> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/crossrefType>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#8cbd77d5d0589157b939473be95d0a12> a sh:PropertyShape;
+  sh:path <http://purl.org/dc/terms/abstract>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#95f65df7978b8aef6ba01ac9c93e820b> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasIssue>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#9b582e6e5bb30180322da25c6cf5135e> a sh:PropertyShape;
+  sh:path <http://purl.org/spar/fabio/hasPublicationYear>;
+  sh:datatype xsd:integer .
+
+<https://semopenalex.org/vocab#a66c22bb2050fc16b609acf54adf821a> a sh:PropertyShape;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/endingPage>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#abcbc6c65cb325168fe715e373960e7c> a sh:PropertyShape;
+  sh:path <http://purl.org/dc/terms/creator>;
+  sh:class <https://semopenalex.org/class/Author> .
+
+<https://semopenalex.org/vocab#ad4739516afbc43b5b3ab535bc5b81ef> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/isParatext>;
+  sh:datatype xsd:boolean .
+
+<https://semopenalex.org/vocab#af99a5a81b65696be8c769bf36a9b633> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasAuthorPosition>;
+  sh:class <https://semopenalex.org/class/AuthorPosition> .
+
+<https://semopenalex.org/vocab#b05af3d161aa7b1cbc624e43d5713970> a sh:PropertyShape;
+  sh:path <http://purl.org/spar/cito/cites>;
+  sh:class <https://semopenalex.org/class/Work> .
+
+<https://semopenalex.org/vocab#d186da23412071992d2c55668fbdd101> a sh:PropertyShape;
+  sh:path <http://purl.org/spar/fabio/hasPubMedId>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#d206e9f60b0f09d55eaf45500c6eb411> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasHostVenue>;
+  sh:class <https://semopenalex.org/class/HostVenue> .
+
+<https://semopenalex.org/vocab#e8a0e16f9a3195b262e677cac1e8ac67> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasAlternativeHostVenue>;
+  sh:class <https://semopenalex.org/class/HostVenue> .
+
+<https://semopenalex.org/vocab#efa5ac5368669aaecc31eabadf5219f5> a sh:PropertyShape;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/startingPage>;
+  sh:datatype xsd:string .
+
+<https://semopenalex.org/vocab#fe5d6c5f112271527e2c7abee8c5ea22> a sh:PropertyShape;
+  sh:path <https://semopenalex.org/property/hasRelatedWork>;
+  sh:class <https://semopenalex.org/class/Work> .
