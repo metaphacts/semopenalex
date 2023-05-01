@@ -42,29 +42,36 @@ skos:related a owl:ObjectProperty;
 
 <http://purl.org/dc/terms/created> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
-      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Venue>
+      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Location>
           <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
-          <https://semopenalex.org/class/Author>)
+          <https://semopenalex.org/class/Author> <https://semopenalex.org/class/Publisher>)
     ];
   rdfs:range xsd:date .
 
 <http://purl.org/dc/terms/modified> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
-      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Venue>
+      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Location>
           <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
-          <https://semopenalex.org/class/Author>)
+          <https://semopenalex.org/class/Author> <https://semopenalex.org/class/Publisher>)
     ];
   rdfs:range xsd:date .
 
 foaf:homepage a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
-      owl:unionOf (<https://semopenalex.org/class/Venue> <https://semopenalex.org/class/Institution>)
+      owl:unionOf (<https://semopenalex.org/class/Source> <https://semopenalex.org/class/Institution>)
     ];
   rdfs:range xsd:anyURI .
 
+<https://semopenalex.org/property/hasHostOrganization> a owl:ObjectProperty;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (<https://semopenalex.org/class/Publisher> <https://semopenalex.org/class/Institution>
+          <https://semopenalex.org/class/Source> )
+    ];
+  rdfs:range <https://semopenalex.org/class/Source> .
+
 foaf:name a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
-      owl:unionOf (<https://semopenalex.org/class/Venue> <https://semopenalex.org/class/Institution>
+      owl:unionOf (<https://semopenalex.org/class/Source> <https://semopenalex.org/class/Institution>
           <https://semopenalex.org/class/Author>)
     ];
   rdfs:range xsd:string .
@@ -115,7 +122,8 @@ foaf:name a owl:DatatypeProperty;
 <https://semopenalex.org/property/countsByYear> a owl:ObjectProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Concept> <https://semopenalex.org/class/Author>
-          <https://semopenalex.org/class/Venue> <https://semopenalex.org/class/Work>)
+          <https://semopenalex.org/class/Source> <https://semopenalex.org/class/Work>
+                   <https://semopenalex.org/class/Publisher>)
     ];
   rdfs:range <https://semopenalex.org/class/CountsByYear> .
 
@@ -123,30 +131,42 @@ foaf:name a owl:DatatypeProperty;
   rdfs:subClassOf skos:Concept;
   rdfs:label "Concept"@en .
 
-<https://semopenalex.org/class/Venue> a owl:Class;
-  rdfs:label "Venue"@en .
+<https://semopenalex.org/class/Source> a owl:Class;
+  rdfs:label "Source"@en .
 
 <https://semopenalex.org/class/CountsByYear> a owl:Class;
   rdfs:label "CountsByYear"@en .
 
-<https://semopenalex.org/property/hasHostVenue> a owl:ObjectProperty;
+<https://semopenalex.org/property/hasPrimaryLocation> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
   rdfs:range <https://semopenalex.org/class/HostVenue> .
 
 <https://semopenalex.org/class/HostVenue> a owl:Class;
   rdfs:label "HostVenue"@en .
 
-<https://semopenalex.org/property/hasAlternativeHostVenue> a owl:ObjectProperty;
+<https://semopenalex.org/property/hasLocation> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
   rdfs:range <https://semopenalex.org/class/HostVenue> .
 
-<https://semopenalex.org/property/hasVenue> a owl:ObjectProperty;
+<https://semopenalex.org/property/hasSource> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/HostVenue>;
-  rdfs:range <https://semopenalex.org/class/Venue> .
+  rdfs:range <https://semopenalex.org/class/Source> .
 
 <https://semopenalex.org/property/hasOpenAccess> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
   rdfs:range <https://semopenalex.org/class/OpenAccess> .
+
+<https://semopenalex.org/property/hasLocation> a owl:ObjectProperty;
+  rdfs:domain <https://semopenalex.org/class/Work>;
+  rdfs:range <https://semopenalex.org/class/Location> .
+
+<https://semopenalex.org/property/hasBestOaLocation> a owl:ObjectProperty;
+  rdfs:domain <https://semopenalex.org/class/Work>;
+  rdfs:range <https://semopenalex.org/class/Location> .
+
+<https://semopenalex.org/property/hasPrimaryLocation> a owl:ObjectProperty;
+  rdfs:domain <https://semopenalex.org/class/Work>;
+  rdfs:range <https://semopenalex.org/class/Location> .
 
 <https://semopenalex.org/class/OpenAccess> a owl:Class;
   rdfs:label "OpenAccess"@en .
@@ -166,10 +186,13 @@ foaf:name a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
   rdfs:range xsd:string .
 
+<https://semopenalex.org/class/Author> a owl:Class;
+  rdfs:label "Location"@en .
+
 <https://semopenalex.org/property/worksCount> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Author> <https://semopenalex.org/class/Concept>
-          <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Venue>
+          <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Location>
           <https://semopenalex.org/class/CountsByYear>)
     ];
   rdfs:range xsd:integer .
@@ -180,7 +203,7 @@ foaf:name a owl:DatatypeProperty;
 
 <https://semopenalex.org/property/magId> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
-      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Venue>
+      owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Location>
           <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
           <https://semopenalex.org/class/Author>)
     ];
@@ -209,7 +232,7 @@ foaf:name a owl:DatatypeProperty;
 <https://semopenalex.org/property/isOa> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/OpenAccess> <https://semopenalex.org/class/HostVenue>
-          <https://semopenalex.org/class/Venue>)
+          <https://semopenalex.org/class/Source>)
     ];
   rdfs:range xsd:boolean .
 
@@ -241,37 +264,136 @@ foaf:name a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/Author>
           <https://semopenalex.org/class/Concept> <https://semopenalex.org/class/Institution>
-          <https://semopenalex.org/class/Venue> <https://semopenalex.org/class/CountsByYear>)
+          <https://semopenalex.org/class/Source> <https://semopenalex.org/class/CountsByYear>)
     ];
   rdfs:range xsd:integer .
 
 <http://purl.org/dc/terms/license> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/class/HostVenue>;
+  rdfs:domain <https://semopenalex.org/class/Location>;
   rdfs:range xsd:string .
 
 <http://purl.org/spar/fabio/hasURL> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/class/HostVenue>;
-  rdfs:range xsd:anyURI .
+  rdfs:domain <https://semopenalex.org/class/Location>;
+  rdfs:range xsd:string .
+
+<http://semopenalex.org/property/pdfUrl> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Location>;
+  rdfs:range xsd:string .
 
 <https://semopenalex.org/property/hasVersion> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/class/HostVenue>;
+  rdfs:domain <https://semopenalex.org/class/Location>;
   rdfs:range xsd:string .
 
 <http://prismstandard.org/namespaces/basic/2.0/issn> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/class/Venue>;
+  rdfs:domain <https://semopenalex.org/class/Source>;
   rdfs:range xsd:string .
 
 <http://purl.org/spar/fabio/hasIssnL> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/class/Venue>;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:string .
+
+<http://semopenalex.org/property/abbreviatedName> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:string .
+
+<https://dbpedia.org/ontology/alternativeName> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:string .
+
+<https://dbpedia.org/property/2YrMeanCitedness> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:float .
+
+<http://purl.org/spar/bido/h-index> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:integer .
+
+<https://semopenalex.org/property/i10Index> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:integer .
+
+<https://semopenalex.org/property/fatcatId> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:string .
+
+<https://semopenalex.org/property/sourceType> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:string .
+
+<https://semopenalex.org/property/apcUsd> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range xsd:integer .
+
+<http://www.geonames.org/ontology#countryCode> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
   rdfs:range xsd:string .
 
 <https://semopenalex.org/property/isInDoaj> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/class/Venue>;
+  rdfs:domain <https://semopenalex.org/class/Source>;
   rdfs:range xsd:boolean .
 
 <http://purl.org/dc/terms/publisher> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/class/Venue>;
+  rdfs:domain <https://semopenalex.org/class/Source>;
   rdfs:range xsd:string .
+
+<http://www.w3.org/2002/07/owl#/sameAs> a owl:ObjectProperty;
+  rdfs:domain <https://semopenalex.org/class/Source>;
+  rdfs:range <https://semopenalex.org/class/wikidata> .
+
+<http://www.w3.org/2002/07/owl#/sameAs> a owl:ObjectProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range <https://semopenalex.org/class/wikidata> .
+
+<https://semopenalex.org/class/Publisher> a owl:Class;
+  rdfs:label "Publisher"@en .
+
+<https://semopenalex.org/property/hasParentPublisher> a owl:ObjectProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range <https://semopenalex.org/class/Publisher> .
+
+<https://semopenalex.org/property/i10Index> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:integer .
+
+<http://purl.org/spar/bido/h-index> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:integer .
+
+<https://dbpedia.org/property/2YrMeanCitedness> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:float .
+
+<https://semopenalex.org/property/level> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:integer .
+
+<https://dbpedia.org/property/countryCode> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:string .
+
+<https://semopenalex.org/property/citedByCount> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:integer .
+
+<http://xmlns.com/foaf/0.1/displayName> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:string .
+
+<https://dbpedia.org/ontology/alternateTitles> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:string .
+
+<https://semopenalex.org/property/ror> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:string .
+
+<http://purl.org/dc/terms/updated_date> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:date .
+
+<http://purl.org/dc/terms/created_date> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/class/Publisher>;
+  rdfs:range xsd:date .
 
 <https://dbpedia.org/property/country> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Geo>;
