@@ -1,0 +1,194 @@
+<div class="page soa">
+  <div style='padding: 10px; font-size:15px;'>
+    
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>What exactly do we provide?</b>
+      <div style='margin-top:8px;'>
+        <ol>
+          <li>A semantic search interface to access, search and visualize the SemOpenAlex data in real time.</li>
+          <li>Periodically updated <a href='https://semopenalex.s3.amazonaws.com/browse.html' target='_blank'>RDF dump files</a> of SemOpenAlex.</li>
+          <li>URI Resolution of SemOpenAlex within the Linked Open Data Cloud.</li>
+          <li>A publicly accessible <a href='/sparql' target='_blank'>SPARQL endpoint</a> containing the latest SemOpenAlex data.</li>
+          <li>Entity Embeddings for all works, authors, sources and institutions in SemOpenAlex.</li>
+        </ol>
+      </div>
+    </div>
+
+     <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>How big is SemOpenAlex?</b>
+      <div style='margin-top:8px;'>
+        <bs-row>
+          <bs-col md="6">
+            {{>::count-entity type='https://semopenalex.org/class/Work' image='/assets/images/icon-2.png' label='works'}}
+            {{>::count-entity type='https://semopenalex.org/class/Author' image='/assets/images/icon-1.png' label='authors'}}
+            {{>::count-entity type='https://semopenalex.org/class/Institution' image='/assets/images/icon-3.png' label='institutions'}}
+          </bs-col>
+          <bs-col md="6">
+            {{>::count-entity type='http://www.w3.org/2004/02/skos/core#Concept' image='/assets/images/icon-5.png' label='topics'}}
+            {{>::count-entity type='https://semopenalex.org/class/Source' image='/assets/images/icon-6.png' label='sources'}}
+            {{>::count-entity type='https://semopenalex.org/class/Publisher' image='/assets/images/icon-7.png' label='publishers'}}
+          </bs-col>
+        </bs-row>
+      </div>
+    </div>
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>Entity Embeddings</b>
+      <div style='margin-top:8px;'>
+        For more details, please refer to <a href='https://github.com/metaphacts/semopenalex/tree/main/embeddings-generation' target='_blank'>GitHub</a>.
+        
+      </div>
+    </div>
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>URI Resolution</b>
+      <div style='margin-top:8px;'>
+        The resources of SemOpenAlex are resolvable via HTTP and content negotiation. In this way, the knowledge graph is part of the Linked Open Data cloud.
+        
+          Examples for URI resolution with curl:
+          <mp-code-block mode='text/turtle'>
+curl -H "Accept:text/n3" https://semopenalex.org/work/W4239696231 
+curl -H "Accept:text/plain" https://semopenalex.org/work/W4239696231
+          </mp-code-block>
+        
+      </div>
+    </div>
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>RDF Dumps</b>
+      <div style='margin-top:8px;'>
+        We provide monthly updated RDF dump files of SemOpenAlex at Amazon S3 at no cost:<br>
+        <a href='https://semopenalex.s3.amazonaws.com/browse.html' target='_blank'>https://semopenalex.s3.amazonaws.com/browse.html</a>
+        <p style='margin-top:8px;'>A small data sample is available in <a href='https://github.com/metaphacts/semopenalex' target='_blank'>GitHub</a>.</p>
+      </div>
+  
+    </div>
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>Contact</b>
+      <div style='margin-top:8px;'>
+        The system has been designed and implemented by Michael Färber<sup>1</sup>, Johan Krause<sup>1</sup>, David Lamprecht<sup>1</sup>, Linn Aung<sup>2</sup> and Peter Haase<sup>2</sup>.
+        Feel free to submit bug reports and feature requests on GitHub and address questions and remarks on the project in general to <a href='https://sites.google.com/view/michaelfaerber' target='_blank'>Michael Färber</a> (michael.faerber@kit.edu) as Principal Investigator.
+      </div>
+      <div style='margin-top:8px;'>
+        <sup>1</sup>Institute AIFB, Karlsruhe Institute of Technology (KIT), Karlsruhe, Germany<br>
+        <sup>2</sup>metaphacts GmbH, Walldorf, Germany
+      </div>
+  
+    </div>
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>Code</b>
+      <div style='margin-top:8px;'>
+        The source code for creating SemOpenAlex is available <a href='https://github.com/metaphacts/semopenalex' target='_blank'>here</a>. 
+        It is licensed under the MIT Licence.
+      </div>
+  
+    </div>
+
+     <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>Potential use cases</b>
+      <div style='margin-top:8px;'>
+        <ul>
+          <li>Entity-centric exploration of publications, authors, institutions, etc. (e.g., concerning some research area)</li>
+          <li>Easier data integration through use of RDF and by linking resources to other data sources (e.g., combining
+SemOpenAlex with digital library collections in RDF).</li>
+          <li>Data analysis and knowledge discovery (e.g., measuring the popularity of publications and authors; build semantic
+recommender systems for publications, authors, and sources; and analyzing the evolution of concepts, research methods and data sets over time).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>Example SPARQL queries:</b>
+      <div style='margin-top:8px;'>
+        Title, work URI and open access URL of 100 publications with the concept machine learning from 2022.
+         <mp-code-block mode='text/turtle'>
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#> 
+PREFIX fabio: &lt;http://purl.org/spar/fabio/>
+PREFIX dcterms: &lt;http://purl.org/dc/terms/>
+PREFIX soa: &lt;https://semopenalex.org/property/>
+PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
+
+SELECT DISTINCT ?paperTitle ?paper ?oaUrl WHERE {
+
+  ?paper fabio:hasPublicationYear "2022"^^xsd:integer . 
+  ?paper soa:hasConcept ?concept .
+  ?concept skos:prefLabel "Machine learning"^^xsd:string . 
+  ?paper dcterms:title ?paperTitle .
+  ?paper soa:hasOpenAccess ?openAccess .
+  ?openAccess soa:oaUrl ?oaUrl . 
+
+} LIMIT 100
+         </mp-code-block>
+
+         Top 10 institutions that have published that most works in the year 2021.
+         <mp-code-block mode='text/turtle'>
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/>
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
+PREFIX soa: &lt;https://semopenalex.org/property/>
+
+SELECT ?institution ?institutionName ?worksCount WHERE {
+
+  ?institution rdf:type &lt;https://semopenalex.org/class/Institution> . 
+  ?institution foaf:name ?institutionName .
+  ?institution soa:countsByYear ?countsByYear .
+  ?countsByYear soa:year "2021"^^xsd:integer .
+  ?countsByYear soa:worksCount ?worksCount . 
+
+} ORDER BY DESC(?worksCount) LIMIT 10
+         </mp-code-block>
+   
+        Top 10 most cited papers with the concept semantic web as well as their citation count and first author.
+        <mp-code-block mode='text/turtle'>
+
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/> 
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
+PREFIX dcterms: &lt;http://purl.org/dc/terms/>
+PREFIX soa: &lt;https://semopenalex.org/property/> 
+PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
+
+SELECT ?paperTitle ?citedByCount ?firstAuthorName WHERE {
+
+  ?paper dcterms:title ?paperTitle .
+  ?paper soa:hasConcept ?Concept .
+  ?Concept skos:prefLabel "Semantic Web"^^xsd:string . 
+  ?paper soa:citedByCount ?citedByCount .
+  ?paper soa:hasAuthorPosition ?authorPosition . 
+  ?authorPosition soa:position "first"^^xsd:string . 
+  ?authorPosition soa:hasAuthor ?firstAuthor . 
+  ?firstAuthor foaf:name ?firstAuthorName .
+
+} ORDER BY DESC(?citedByCount) LIMIT 10
+
+        </mp-code-block>
+
+    
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<template-fragment id='count-entity'>
+
+  <semantic-query query='
+    PREFIX sys: <http://www.ontotext.com/owlim/system#>
+    SELECT (COUNT (*) as ?count) FROM sys:statistics {    
+        ?subject a <{{type}}>
+    }' 
+    template='{{> tmpl}}'
+  >
+    <template id='tmpl'>
+      {{#each bindings}}
+        <div style='margin:8px'>
+          <img src='{{../image}}' style="height: 40px;"/> {{count.value}} <i>{{../label}}</i>
+        </div>
+      {{/each}}
+    </template>
+  </semantic-query>
+</template-fragment>

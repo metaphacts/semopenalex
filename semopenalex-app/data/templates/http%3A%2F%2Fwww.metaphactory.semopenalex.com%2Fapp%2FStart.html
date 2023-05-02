@@ -64,8 +64,13 @@
 
 
 <div class="page soa">
-  <div style='padding: 10px'>
+  <div style='padding: 10px; font-size:15px;'>
 
+    <div style='margin:auto;width:922px;' class='abstract'>
+      Welcome to <b>SemOpenAlex</b>, the world's most extensive scholarly knowledge graph with over <b>26 billion RDF triples</b>. SemOpenAlex provides comprehensive information on <b>scientific publications</b> and related entities. It is built upon <b>OpenAlex</b> and is licensed under CC0, making it free for use in any context. 
+      Use SemOpenAlex to semantically navigate the scholarly space, seamlessly integrate your own data with academic publishing information, and leverage the power of machine learning to identify patterns, make predictions, and generate recommendations based on our <b><a href='https://github.com/metaphacts/semopenalex/tree/main/embeddings-generation' target='_blank'>SemOpenAlex entity embeddings</a></b>. {{>::icon-attribution}}
+    </div>
+  
     <div style='margin-top: 16px'>
       {{>::sample-keyword-type-search}}
     </div>
@@ -76,6 +81,7 @@
 
 
 <template-fragment export id='sample-keyword-type-search'>
+
 
    <semantic-search id='sem-open-alex-search'
       categories='{
@@ -116,6 +122,10 @@
          "<http://semopenalex.org/author-work-placeholder>": [{
           "kind": "resource",
           "queryPattern": "{ ?__value__  <https://semopenalex.org/property/hasAuthorPosition> / <https://semopenalex.org/property/hasAuthor> $subject . }"
+        }],
+         "<https://semopenalex.org/property/hostOrganizationOf-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject  ^<https://semopenalex.org/property/hasHostOrganization> ?__value__ . }"
         }]
 
       }'
@@ -141,7 +151,7 @@
         {
           "iri": "<https://semopenalex.org/class/Source>",
           "label": "Source",
-          "thumbnail": "/assets/images/icon-4.png"
+          "thumbnail": "/assets/images/icon-6.png"
         },
         {
           "iri": "<https://semopenalex.org/class/Work>",
@@ -150,7 +160,7 @@
         }, {
           "iri": "<https://semopenalex.org/class/Publisher>",
           "label": "Publisher",
-          "thumbnail": "/assets/images/icon-1.png"
+          "thumbnail": "/assets/images/icon-7.png"
         }
         ],
         "relations": [
@@ -191,11 +201,17 @@
             "hasRange": "<https://semopenalex.org/class/Source>",
             "label": "hasSource (Location)"
           },
-          {
-            "hasDomain": "<https://semopenalex.org/class/Source>",
-            "iri": "<https://semopenalex.org/property/hasHostOrganization>",
+           {
+            "hasDomain": "<https://semopenalex.org/class/Publisher>",
+            "iri": "<https://semopenalex.org/property/hostOrganizationOf-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Source>",
+            "label": "hostOrganizationOf"
+          },
+           {
+            "hasDomain": "<https://semopenalex.org/class/Publisher>",
+            "iri": "<https://semopenalex.org/property/hasParentPublisher>",
             "hasRange": "<https://semopenalex.org/class/Publisher>",
-            "label": "hasHostOrganization"
+            "label": "hasParentPublisher"
           },
           {
             "hasDomain": "<https://semopenalex.org/class/Source>",
@@ -350,7 +366,7 @@
 </template-fragment>
 
 <template-fragment id='disambiguation-publisher-extra-info'>
-  <semantic-query query='SELECT * { <{{resource.iri}}> ^<https://semopenalex.org/property/hasHostOrganization>/<http://xmlns.com/foaf/0.1/name> ?obj } LIMIT 5' template='{{> tmpl}}'>
+  <semantic-query query='SELECT * { <{{resource.iri}}> ^<https://semopenalex.org/property/hasHostOrganization> ?obj } LIMIT 5' template='{{> tmpl}}'>
     <template id='tmpl'>
        Publisher (Host Organization Of)
       {{#each bindings}}
@@ -406,13 +422,13 @@
 
 <template-fragment id='disambiguation-source-extra-info'>
   <semantic-query query='SELECT * { 
-  <{{resource.iri}}> <http://purl.org/dc/terms/publisher> ?publisher .
+  <{{resource.iri}}> <https://semopenalex.org/property/hasHostOrganization> ?publisher .
   } LIMIT 1' template='{{> tmpl}}'>
     <template id='tmpl'>
       {{#each bindings}}
           
           {{#if publisher}}
-            <span>Publisher: {{publisher.value}}</span>
+            <span>Publisher: <semantic-link iri='{{publisher.value}}'></semantic-link></span>
           {{/if}}
       {{/each}}
     </template>
@@ -440,12 +456,13 @@
     <mp-overlay-dialog-trigger><a>Icon attribution</a></mp-overlay-dialog-trigger>
     <mp-overlay-dialog-content>  
       <ul>
-        <li><a href="https://www.flaticon.com/free-icons/writer" target='_blank'>Writer icons created by Freepik - Flaticon</a></li>
-        <li><a href="https://www.flaticon.com/free-icons/essay" target='_blank'>Eassay icons created by Freepik - Flaticon</a></li>
-        <li><a href="https://www.flaticon.com/free-icons/university" target='_blank'>University icons created by monkik - Flaticon</a></li>
-        <li><a href="https://www.flaticon.com/free-icons/location" target='_blank'>Location icons created by Freepik - Flaticon</a></li>
-        <li><a href="https://www.flaticon.com/free-icons/lightbulb" target='_blank'>Lightbulb icons created by Freepik - Flaticon</a></li>
-        <li><a href="https://www.flaticon.com/free-icons/no-photo" target='_blank'>No-photo icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/writer" title="writer icons" target='_blank'>Writer icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/paper" title="paper icons" target='_blank'>Paper icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/university" title="university icons" target='_blank'>University icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/idea" title="idea icons" target='_blank'>Idea icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/books" title="books icons" target='_blank'>Books icons created by popo2021 - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/building" title="building icons" target='_blank'>Building icons created by juicy_fish - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/empty" title="empty icons" target='_blank'>Empty icons created by Icon.doit - Flaticon</a></li>
       </ul>
     </mp-overlay-dialog-content>
     </mp-overlay-dialog>
@@ -453,8 +470,8 @@
   </template-fragment>
 <template-fragment id='count-template'>
 
-  <div style='text-align: center; margin-top: 16px; font-size:14px;'>
-    SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 26.4 billion statements. {{>::icon-attribution}}
+  <div style='margin:auto;width:922px;padding-top:8px;'>
+      <div><semantic-link iri='http://datasets.metaphacts.com/semopenalex' target='_blank'>SemOpenAlex (version from 24.04.2023)</semantic-link> contains, among others:</div>
   </div>
   <div style='margin: 16px;'>
     {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false))}}
@@ -484,10 +501,11 @@
                     {{/if}}
                   </div>
                   
+                  <span class='h4' style='color: #205BAC; {{#if selected}}border-bottom: 2px solid{{/if}}' class='header__title-sub'>{{label}}</span>
                   {{#if count}}
                     <span class='h4'>{{number-format count notation='compact' compactDisplay='long'}}</span>
                   {{/if}}
-                  <span class='h4' style='color: #205BAC; {{#if selected}}border-bottom: 2px solid{{/if}}' class='header__title-sub'>{{label}}</span>
+                  
                   {{#if ../loadingCounts}}<span class='h5'>⏳</span>{{/if}}
                 </button>
                 
@@ -517,12 +535,11 @@
                       {{/if}}
                     </div>
                   
+                    <span class='h4' style='color: #205BAC' class='header__title-sub'>{{label}}</span>
                     {{#if count}}
-                  
                       <span class='h4'>{{number-format count notation='compact' compactDisplay='long'}}</span>
                     {{/if}}
                     
-                    <span class='h4' style='color: #205BAC' class='header__title-sub'>{{label}}</span>
                     {{#if ../loadingCounts}}<span class='h5'>⏳</span>{{/if}}
 
                   </button>
@@ -1028,7 +1045,7 @@
                         
                         </div>
                       </div>
-   
+                      
                       <semantic-table
                         id="results-table"
                         query='SELECT DISTINCT * WHERE { FILTER(?__contextRelationPattern__) }'
@@ -1046,7 +1063,7 @@
                     
                       >
                       
-                      <template id='template'>
+                      <template id='template'>      
                        
                         {{#if (string-contains subject.value "work")}}
                           {{>::table-result-work-info  mode='work'}}
