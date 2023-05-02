@@ -93,13 +93,17 @@
         }]
       }'
       relations='{
-        "<http://semopenalex.org/host-venue-placeholder>": [{
+        "<http://semopenalex.org/has-primary-location-placeholder>": [{
           "kind": "resource",
-          "queryPattern": "{ $subject <https://semopenalex.org/property/hasHostVenue>/<https://semopenalex.org/property/hasVenue> ?__value__ . }"
+          "queryPattern": "{ $subject <https://semopenalex.org/property/hasPrimaryLocation>/<https://semopenalex.org/property/hasSource> ?__value__ . }"
         }],
-         "<http://semopenalex.org/host-venue-placeholder-inverse>": [{
+        "<http://semopenalex.org/has-location-placeholder>": [{
           "kind": "resource",
-          "queryPattern": "{ $subject ^(<https://semopenalex.org/property/hasHostVenue>/<https://semopenalex.org/property/hasVenue>) ?__value__ . }"
+          "queryPattern": "{ $subject <https://semopenalex.org/property/hasLocation>/<https://semopenalex.org/property/hasSource> ?__value__ . }"
+        }],
+        "<http://semopenalex.org/has-best-oa-location-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject <https://semopenalex.org/property/hasBestOaLocation>/<https://semopenalex.org/property/hasSource> ?__value__ . }"
         }],
          "<http://semopenalex.org/has-concept-placeholder-inverse>": [{
           "kind": "resource",
@@ -135,15 +139,19 @@
           "thumbnail": "/assets/images/icon-3.png"
         }, 
         {
-          "iri": "<https://semopenalex.org/class/Venue>",
-          "label": "Venue",
+          "iri": "<https://semopenalex.org/class/Source>",
+          "label": "Source",
           "thumbnail": "/assets/images/icon-4.png"
         },
         {
           "iri": "<https://semopenalex.org/class/Work>",
           "label": "Work",
           "thumbnail": "/assets/images/icon-2.png"
-        } 
+        }, {
+          "iri": "<https://semopenalex.org/class/Publisher>",
+          "label": "Publisher",
+          "thumbnail": "/assets/images/icon-1.png"
+        }
         ],
         "relations": [
           {  
@@ -173,14 +181,35 @@
           },
            {
             "hasDomain": "<https://semopenalex.org/class/Work>",
-            "iri": "<http://semopenalex.org/host-venue-placeholder>",
-            "hasRange": "<https://semopenalex.org/class/Venue>",
-            "label": "hasHostVenue",
-            "inverse": {
-              "iri": "<http://semopenalex.org/host-venue-placeholder-inverse>",
-              "label": "host Venue Of"
-            }
-          }, {
+            "iri": "<http://semopenalex.org/has-primary-location-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Source>",
+            "label": "hasSource (Primary Location)"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://semopenalex.org/has-location-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Source>",
+            "label": "hasSource (Location)"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Source>",
+            "iri": "<https://semopenalex.org/property/hasHostOrganization>",
+            "hasRange": "<https://semopenalex.org/class/Publisher>",
+            "label": "hasHostOrganization"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Source>",
+            "iri": "<https://semopenalex.org/property/hasHostOrganization>",
+            "hasRange": "<https://semopenalex.org/class/Institution>",
+            "label": "hasHostOrganization"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://semopenalex.org/has-best-oa-location-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Source>",
+            "label": "hasSource (Best OA Location)"
+          },
+           {
             "hasDomain": "<https://semopenalex.org/class/Work>",
             "iri": "<http://prismstandard.org/namespaces/basic/2.0/publicationDate>",
             "hasRange": "<http://www.w3.org/2001/XMLSchema#dateTime>",
@@ -292,14 +321,19 @@
                       {{>::disambiguation-institution-extra-info}}
                     </div>
                   {{/if}}
-                  {{#if (cond-eq domain.label 'Venue')}}
+                  {{#if (cond-eq domain.label 'Source')}}
                     <div>
-                      {{>::disambiguation-venue-extra-info}}
+                      {{>::disambiguation-source-extra-info}}
                     </div>
                   {{/if}}
                   {{#if (cond-eq domain.label 'Topic')}}
                     <div>
                       {{>::disambiguation-topic-extra-info}}
+                    </div>
+                  {{/if}}
+                  {{#if (cond-eq domain.label 'Publisher')}}
+                    <div>
+                      {{>::disambiguation-publisher-extra-info}}
                     </div>
                   {{/if}}
 
@@ -313,6 +347,18 @@
         {{>::search-result-holders}}
       
     </semantic-search>
+</template-fragment>
+
+<template-fragment id='disambiguation-publisher-extra-info'>
+  <semantic-query query='SELECT * { <{{resource.iri}}> ^<https://semopenalex.org/property/hasHostOrganization>/<http://xmlns.com/foaf/0.1/name> ?obj } LIMIT 5' template='{{> tmpl}}'>
+    <template id='tmpl'>
+       Publisher (Host Organization Of)
+      {{#each bindings}}
+          <semantic-link iri={{obj.value}}></semantic-link>
+           {{#if @last}}{{else}}, {{/if}}
+      {{/each}}
+    </template>
+  </semantic-query>
 </template-fragment>
 
 <template-fragment id='disambiguation-author-extra-info'>
@@ -358,7 +404,7 @@
   </semantic-query>
 </template-fragment>
 
-<template-fragment id='disambiguation-venue-extra-info'>
+<template-fragment id='disambiguation-source-extra-info'>
   <semantic-query query='SELECT * { 
   <{{resource.iri}}> <http://purl.org/dc/terms/publisher> ?publisher .
   } LIMIT 1' template='{{> tmpl}}'>
@@ -408,7 +454,7 @@
 <template-fragment id='count-template'>
 
   <div style='text-align: center; margin-top: 16px; font-size:14px;'>
-    SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 28.3 billion statements. {{>::icon-attribution}}
+    SemOpenAlex is a <semantic-link iri='http://www.metaphacts.com/resource/assets/Datasets'>dataset</semantic-link> about scientific publications presented in the form of a knowledge graph with approximately 26.4 billion statements. {{>::icon-attribution}}
   </div>
   <div style='margin: 16px;'>
     {{#if (cond-and (cond-gt searchTerm.length 2) (cond-eq loadingCounts false))}}
@@ -424,7 +470,7 @@
       <div data-flex-layout='rows stretch-stretch'>
         {{#each (array-sortBy domains (func (d) d.thumbnail) descending=false)}}
           {{#if (cond-gt count 0)}}
-            <div data-flex-self='size-1of5 md-half sm-full' class='KeywordTypeQuery--domainCardItem'>
+            <div data-flex-self='size-1of3 md-half sm-full' class='KeywordTypeQuery--domainCardItem'>
         
               <mp-event-trigger
                 type='KeywordTypeQuery.SelectDomain'
@@ -462,7 +508,7 @@
         <div data-flex-layout='rows stretch-stretch'>
           {{#each (array-sortBy domains (func (d) d.thumbnail) descending=false)}}
             {{#ifCond count "||" ../loadingCounts}}
-              <div data-flex-self='size-1of5 md-half sm-full' class='KeywordTypeQuery--domainCardItem'>
+              <div data-flex-self='size-1of3 md-half sm-full' class='KeywordTypeQuery--domainCardItem'>
                 <mp-event-trigger type='KeywordTypeQuery.SelectDomain' targets='["{{../componentId}}"]' data='{"domainIri": "{{iri}}"}'>
                   <button class='btn btn-secondary KeywordTypeQuery--domainCard {{#if selected}}KeywordTypeQuery--domainCard--selected{{/if}}' style='background: #F9F8F6'>
                     <div class='KeywordTypeQuery--domainCardThumbnail p-3'>
@@ -547,19 +593,19 @@
             {{>::overview-authors mode='author'}}
           {{/if}}
         {{/if}}
-        {{#if (cond-eq iri 'https://semopenalex.org/class/Venue')}}
+        {{#if (cond-eq iri 'https://semopenalex.org/class/Source')}}
           {{#if (cond-gt bindings.length 0)}}
-            {{>::overview-concept-venue-institution mode='venue'}}
+            {{>::overview-concept-source-institution mode='source'}}
           {{/if}}
         {{/if}}
         {{#if (cond-eq iri 'https://semopenalex.org/class/Institution')}}
           {{#if (cond-gt bindings.length 0)}}
-            {{>::overview-concept-venue-institution mode='institution'}}
+            {{>::overview-concept-source-institution mode='institution'}}
           {{/if}}
         {{/if}}
         {{#if (cond-eq iri 'http://www.w3.org/2004/02/skos/core#Concept')}}
           {{#if (cond-gt bindings.length 0)}}
-            {{>::overview-concept-venue-institution mode='concept'}}
+            {{>::overview-concept-source-institution mode='concept'}}
           {{/if}}
         {{/if}}
       </template>
@@ -615,9 +661,10 @@
             ?author <http://xmlns.com/foaf/0.1/name> ?name .
             ?publication <https://semopenalex.org/property/citedByCount> ?cited .
             OPTIONAL {
-              ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
-              ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
-              ?venue <http://purl.org/dc/terms/publisher> ?publisher .
+             
+              ?location <https://semopenalex.org/property/hasSource> ?source .
+              ?publication <https://semopenalex.org/property/hasLocation> ?location .
+              ?source <https://semopenalex.org/property/hasHostOrganization> ?publisher .
             }
             OPTIONAL {
               ?publication <http://purl.org/dc/terms/abstract> ?abstract .
@@ -765,14 +812,14 @@
   </semantic-query>
 </template-fragment>
 
-<template-fragment id='venue-institution-concepts'>
+<template-fragment id='source-institution-concepts'>
   <semantic-query query='
     SELECT ?concept  {
         
-        {{#if (cond-eq mode "venue")}}
-          BIND(<{{sub.value}}> as ?venue)
-          ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
-          ?work <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
+        {{#if (cond-eq mode "source")}}
+          BIND(<{{sub.value}}> as ?source)
+          ?location <https://semopenalex.org/property/hasSource> ?source .
+          ?work <https://semopenalex.org/property/hasLocation> ?location .
         {{/if}}
 
         {{#if (cond-eq mode "institution")}}
@@ -815,13 +862,13 @@
 </template-fragment>
 
 
-<template-fragment id="overview-concept-venue-institution">
+<template-fragment id="overview-concept-source-institution">
   <div class="row card publications" style='margin:8px'>
    
   <div class="publications__header">
     <div class="card__title">
-      {{#if (cond-eq mode "venue")}}
-        VENUES 
+      {{#if (cond-eq mode "source")}}
+        SOURCES
       {{/if}}
       {{#if (cond-eq mode "institution")}}
         INSTITUTIONS
@@ -852,7 +899,7 @@
             }
           {{/if}}
         
-          {{#if (cond-eq mode "venue")}}
+          {{#if (cond-eq mode "source")}}
             ?sub <http://xmlns.com/foaf/0.1/name> ?name .
             OPTIONAL {
               ?sub <http://purl.org/dc/terms/publisher> ?publisher ;
@@ -906,9 +953,9 @@
                 <div>Home Page: <a href='{{homepage.value}}' target='_blank'>{{homepage.value}}</a></div>
               {{/if}}
             </div>
-            {{#if (cond-or (cond-eq mode "venue") (cond-eq mode "institution"))}}
+            {{#if (cond-or (cond-eq mode "source") (cond-eq mode "institution"))}}
               <div class="row concepts" style="margin:3px;">
-                {{>::venue-institution-concepts}}
+                {{>::source-institution-concepts}}
               </div>
             {{/if}}
           </div>
@@ -1007,14 +1054,17 @@
                         {{#if (string-contains subject.value "author")}}
                           {{>::table-result-author-info  mode='author'}}
                         {{/if}}
-                        {{#if (string-contains subject.value "venue")}}
-                          {{>::table-result-concept-venue-institution-info mode='venue'}}
+                        {{#if (string-contains subject.value "source")}}
+                          {{>::table-result-concept-source-institution-publisher-info mode='source'}}
                         {{/if}}
                         {{#if (string-contains subject.value "institution")}}
-                          {{>::table-result-concept-venue-institution-info mode='institution'}}
+                          {{>::table-result-concept-source-institution-publisher-info mode='institution'}}
                         {{/if}}
                         {{#if (string-contains subject.value "concept")}}
-                          {{>::table-result-concept-venue-institution-info mode='concept'}}
+                          {{>::table-result-concept-source-institution-publisher-info mode='concept'}}
+                        {{/if}}
+                        {{#if (string-contains subject.value "publisher")}}
+                          {{>::table-result-concept-source-institution-publisher-info mode='publisher'}}
                         {{/if}}
                         
                         
@@ -1049,9 +1099,10 @@
         ?publication <http://purl.org/dc/terms/abstract> ?abstract .
       }
       OPTIONAL {
-        ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
-        ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
-        ?venue <http://purl.org/dc/terms/publisher> ?publisher .
+       
+        ?location <https://semopenalex.org/property/hasSource> ?source .
+        ?publication <https://semopenalex.org/property/hasLocation> ?location .
+        ?source <https://semopenalex.org/property/hasHostOrganization> ?publisher .
       }
       OPTIONAL {
         ?publication <https://semopenalex.org/property/hasVolume> ?volume .
@@ -1114,7 +1165,7 @@
   </semantic-query>
 </template-fragment>
 
-<template-fragment id="table-result-concept-venue-institution-info">
+<template-fragment id="table-result-concept-source-institution-publisher-info">
   <semantic-query 
     query='
       SELECT * { 
@@ -1129,9 +1180,19 @@
             ?sub <https://dbpedia.org/ontology/location>/<https://dbpedia.org/property/country> ?country .
           }
         {{/if}}
-        {{#if (cond-eq mode "venue")}}
+        {{#if (cond-eq mode "publisher")}}
+          OPTIONAL{
+            ?sub <http://www.geonames.org/ontology#countryCode> ?countryCode .
+          }
+           OPTIONAL{
+            ?sub <http://purl.org/spar/bido/h-index> ?hIndex .
+            ?sub <https://semopenalex.org/property/i10Index> ?i10Index .
+          }
+          
+        {{/if}}
+        {{#if (cond-eq mode "source")}}
           OPTIONAL {
-            ?sub <http://purl.org/dc/terms/publisher> ?publisher ;
+            ?sub <https://semopenalex.org/property/hasHostOrganization> ?publisher ;
               <https://semopenalex.org/property/isOa> ?isOa .
           }
           OPTIONAL {
@@ -1163,11 +1224,21 @@
                 {{#if city}}
                   LOCATED IN: <span>{{city.value}}</span>
                 {{/if}}
+                {{#if countryCode}}
+                  LOCATED IN: <span>{{countryCode.value}}</span>
+                {{/if}}
+                
                 {{#if country}}
                   <span>, {{country.value}}</span>
                 {{/if}}
               </div>
               <div class="publication__info">
+                {{#if hIndex}}
+                  h-Index: <span>{{hIndex.value}}</span><br>
+                {{/if}}
+                {{#if i10Index}}
+                  i10-Index: <span>{{i10Index.value}}</span>
+                {{/if}}
                 {{#if publisher}}{{publisher.value}} {{/if}}
                 {{#if isOa}}
                   <i class="fa {{#if (cond-eq isOa.value 'true')}}fa-unlock{{else}}fa-lock{{/if}}"></i>
@@ -1181,9 +1252,9 @@
                   <div>Home Page: <a href='{{homepage.value}}' target='_blank'>{{homepage.value}}</a></div>
                 {{/if}}
               </div>
-              {{#if (cond-or (cond-eq ../mode "venue") (cond-eq ../mode "institution"))}}
+              {{#if (cond-or (cond-eq ../mode "source") (cond-eq ../mode "institution"))}}
                 <div class="row concepts" style="margin:3px;">
-                  {{>::venue-institution-concepts mode=../mode}}
+                  {{>::source-institution-concepts mode=../mode}}
                 </div>
               {{/if}}
             </div>
