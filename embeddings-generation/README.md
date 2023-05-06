@@ -17,4 +17,4 @@
 
 All processes regarding Marius were executed in a container environment for HPC settings using the Enroot framework for Docker containers. 
 The container image is `nvidia+cuda+11.2.2-cudnn8-devel-ubuntu18.04.sqsh` from [NVidia](https://catalog.ngc.nvidia.com/containers).
-
+In our setup we used a system running RHEL 8.4, using Python 3.7, Marius 0.0.2, PyTorch 1.9.1 and CUDA 11.2.2. for embeddings generation. 
