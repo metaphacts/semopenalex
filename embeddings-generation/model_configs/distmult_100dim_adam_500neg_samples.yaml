@@ -1,0 +1,62 @@
+model:
+  random_seed: 456356765455
+  learning_task: LINK_PREDICTION
+  encoder:
+    layers:
+      - - type: EMBEDDING
+          output_dim: 100
+  decoder:
+    type: DISTMULT
+    options:
+      input_dim: 50
+  loss:
+    type: SOFTMAX_CE
+    options:
+      reduction: SUM
+  dense_optimizer:
+      type: ADAM
+      options:
+        learning_rate: 0.1
+  sparse_optimizer:
+      type: ADAGRAD
+      options:
+        learning_rate: 0.1
+storage:
+  device_type: cuda
+  dataset:
+    dataset_dir: /mount_home/marius_imported/
+  edges:
+    type: FLAT_FILE
+    options:
+      dtype: int
+  embeddings:
+    type: HOST_MEMORY
+    options:
+      dtype: float
+  model_dir: /mount_home/models/distmult/
+training:
+  batch_size: 16000
+  negative_sampling:
+    num_chunks: 10
+    negatives_per_positive: 500
+    degree_fraction: 0.0
+    filtered: false
+  num_epochs: 1
+  pipeline:
+    sync: false
+    staleness_bound: 16
+    batch_loader_threads: 8
+    gradient_update_threads: 8
+  epochs_per_shuffle: 1
+  logs_per_epoch: 20
+  save_model: true
+evaluation:
+  batch_size: 2000
+  negative_sampling:
+    num_chunks: 2
+    negatives_per_positive: 500
+    degree_fraction: 0.0
+    filtered: false
+  pipeline:
+    sync: true
+  epochs_per_eval: 1
