@@ -22,11 +22,23 @@
           </mp-resource-link-container>
         </bs-nav-item>
       </bs-nav>
+      <mp-resource-link-container propagate-link="true" iri="http://www.metaphactory.semopenalex.com/app/About">
+        <bs-nav-item class="nav-link" style='cursor:pointer'>About</bs-nav-item>
+      </mp-resource-link-container>
       <mp-has-permission permission="ui:page:sparql-editor">
         <bs-nav-item>
           <mp-link class="nav-link" url="{{page-publicPath}}/sparql" title="Sparql Endpoint">SPARQL</mp-link>
         </bs-nav-item>
       </mp-has-permission>
+      <mp-resource-link-container iri="https://semopenalex.org/vocab#">
+        <bs-nav-item class="nav-link" style='cursor:pointer'>Ontology</bs-nav-item>
+      </mp-resource-link-container>
+      <mp-resource-link-container iri="https://docs.openalex.org/about-the-data/concept">
+        <bs-nav-item class="nav-link" style='cursor:pointer'>Concept</bs-nav-item>
+      </mp-resource-link-container>
+      <mp-resource-link-container propagate-link="true" iri="http://datasets.metaphacts.com/semopenalex">
+        <bs-nav-item class="nav-link" style='cursor:pointer'>Dataset</bs-nav-item>
+      </mp-resource-link-container>
       <bs-nav>
         <bs-nav-dropdown title="Assets" id="assets-bg-nested-dropdown" data-align-right="true">
           <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/">
@@ -36,11 +48,11 @@
           <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/NamedGraphs">
             <bs-menu-item>Named Graphs</bs-menu-item>
           </mp-resource-link-container>
-          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Vocabularies">
-            <bs-menu-item>Vocabularies</bs-menu-item>
-          </mp-resource-link-container>
           <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Ontologies">
             <bs-menu-item>Ontologies</bs-menu-item>
+          </mp-resource-link-container>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Vocabularies">
+            <bs-menu-item>Vocabularies</bs-menu-item>
           </mp-resource-link-container>
           <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Datasets">
             <bs-menu-item>Datasets</bs-menu-item>
@@ -48,21 +60,7 @@
           <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/QueryTemplates">
             <bs-menu-item>Query Templates</bs-menu-item>
           </mp-resource-link-container>
-          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Fields">
-            <bs-menu-item>Fields</bs-menu-item>
-          </mp-resource-link-container>
-          <bs-dropdown-divider></bs-dropdown-divider>
-          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Diagrams">
-            <bs-menu-item>Diagrams</bs-menu-item>
-          </mp-resource-link-container>
         </bs-nav-dropdown>
-        <bs-nav title="Data Import & Export">
-          <bs-nav-item>
-            <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/admin/DataImportExport">
-              <bs-nav-link><i class="fa fa-cloud-upload"></i></bs-nav-link>
-            </mp-resource-link-container>
-          </bs-nav-item>
-        </bs-nav>
         <mp-has-permission permission="pages:view:*">
           <bs-nav title="System Administration">
             <bs-nav-item>

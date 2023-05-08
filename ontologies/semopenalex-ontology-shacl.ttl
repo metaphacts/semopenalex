@@ -851,7 +851,7 @@ skos:ConceptShape a sh:NodeShape;
 <https://semopenalex.org/property/apcUsd> a owl:DatatypeProperty;
   rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
   rdfs:label "apcUsd"@en;
-  rdfs:comment "source's ar1cle processing charge in US Dollars, if available from DOAJ"@en .
+  rdfs:comment "Source's article processing charge in US Dollars, if available from DOAJ"@en .
 
 <https://semopenalex.org/property/fatcatId> a owl:DatatypeProperty;
   rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
