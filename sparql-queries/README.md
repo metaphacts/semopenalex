@@ -1,3 +1,14 @@
 ## SPARQL Queries Section 3.4
 
-A small data sample from SemOpenAlex which contains information about the publication [Linked Data - The Story So Far](https://semopenalex.org/work/W2015191210) and its authors [Tim Berners-Lee](https://semopenalex.org/author/A2308609296), [Christian Bizer](https://semopenalex.org/author/A247353998) and [Tom Heath](https://semopenalex.org/author/A2558543881).
+SPARQL Queries over the [SemOpenAlex SPARQL Endpoint](https://semopenalex.org/sparql) to generate the statistics from Section 3.4.
+
+`figure-3_ml-papers-kit-2000-to-2021.py`: Send several SPARQL Queries to the SPARQL endpoint to get the number of publications 
+published in [machine learning](https://semopenalex.org/concept/C119857082) by researchers from 
+[Karlsruhe Institute of Technology](https://semopenalex.org/institution/I102335020) from 2000 to 2021.
+In the paper additionaly the number of publications published in [Natural language processing](https://semopenalex.org/concept/C204321447) is shown.
+
+`figure-4_count-institution-country.txt`: Count the number of institutions in the United States (US).
+In the paper the number of institutions for the `US`, `GB`, `DE`, `CN`, `JP`, `FR`, `IN` and `CA` are shown.
+
+`table-4_count-institution-type.txt`: Count the number how many institutions are from educational type.
+The diffrent institutions types are `company`, `education`, `nonprofit`, `healthcare`, `facility`, `other`, `government`, `archive` or the institution type is `unknown`.
