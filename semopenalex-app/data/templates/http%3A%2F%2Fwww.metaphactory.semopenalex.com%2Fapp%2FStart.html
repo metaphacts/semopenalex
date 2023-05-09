@@ -67,7 +67,7 @@
   <div style='padding: 10px; font-size:15px;'>
 
     <div style='margin:auto;width:922px;' class='abstract'>
-      Welcome to <b>SemOpenAlex</b>, the world's most extensive scholarly knowledge graph with over <b>26 billion RDF triples</b>. SemOpenAlex provides comprehensive information on <b>scientific publications</b> and related entities. It is built upon <b>OpenAlex</b> and is licensed under CC0, making it free for use in any context. 
+      Welcome to <b><semantic-link iri='{{rdf-resolvePrefix "semopenalex:About"}}'>SemOpenAlex</semantic-link></b>, the world's most extensive scholarly knowledge graph with over <b>26 billion RDF triples</b>. SemOpenAlex provides comprehensive information on <b>scientific publications</b> and related entities. It is built upon <b>OpenAlex</b> and is licensed under CC0, making it free for use in any context. 
       Use SemOpenAlex to semantically navigate the scholarly space, seamlessly integrate your own data with academic publishing information, and leverage the power of machine learning to identify patterns, make predictions, and generate recommendations based on our <b><a href='https://github.com/metaphacts/semopenalex/tree/main/embeddings-generation' target='_blank'>SemOpenAlex entity embeddings</a></b>. {{>::icon-attribution}}
     </div>
   
@@ -503,7 +503,7 @@
                   
                   <span class='h4' style='color: #205BAC; {{#if selected}}border-bottom: 2px solid{{/if}}' class='header__title-sub'>{{label}}</span>
                   {{#if count}}
-                    <span class='h4'>{{number-format count notation='compact' compactDisplay='long'}}</span>
+                    <span class='h4'>{{number-format count notation='compact' compactDisplay='long' locale='en'}}</span>
                   {{/if}}
                   
                   {{#if ../loadingCounts}}<span class='h5'>⏳</span>{{/if}}
@@ -537,7 +537,7 @@
                   
                     <span class='h4' style='color: #205BAC' class='header__title-sub'>{{label}}</span>
                     {{#if count}}
-                      <span class='h4'>{{number-format count notation='compact' compactDisplay='long'}}</span>
+                      <span class='h4'>{{number-format count notation='compact' compactDisplay='long' locale='en'}}</span>
                     {{/if}}
                     
                     {{#if ../loadingCounts}}<span class='h5'>⏳</span>{{/if}}
