@@ -11,4 +11,4 @@ In the paper additionaly the numbers of publications published in [Natural langu
 In the paper the number of institutions for the `US`, `GB`, `DE`, `CN`, `JP`, `FR`, `IN` and `CA` are shown.
 
 `table-4_count-institution-type.txt`: Count the number how many institutions are from educational type.
-The diffrent institutions types are `company`, `education`, `nonprofit`, `healthcare`, `facility`, `other`, `government`, `archive` or the institution type is `unknown`.
+The different institutions types are `company`, `education`, `nonprofit`, `healthcare`, `facility`, `other`, `government`, `archive` or the institution type is `unknown`.
