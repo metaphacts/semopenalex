@@ -14,7 +14,7 @@
 
 ### Evaluation results
 
-After training for 3 iterations on the entire training graph, evaluation via a link prediction task yielded the following evaluation scores. The best value for each metric is marked bold.
+After training for 3 iterations on the entire training graph, evaluation via a link prediction task yielded the following evaluation scores. The best values for the metrics mean rank (MR), mean reciprocal rank (MRR), and Hits@N are marked bold.
 
 | Metric  | TransE | DistMult | ComplEx | GraphSAGE |   Graph Attention Network   |
 |---------|-------:|---------:|--------:|----------:|--------:|
