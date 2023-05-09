@@ -12,6 +12,18 @@
 
 *05:* Export the embedding vectors for subsequent use using `marius_postprocess`.
 
+### Evaluation results
+
+After training for 3 iterations on the entire training graph, evaluation via a link prediction task yielded the following evaluation scores. The best value for each metric is marked bold.
+
+| Metric  | TransE | DistMult | ComplEx | GraphSAGE |   Graph Attention Network   |
+|---------|-------:|---------:|--------:|----------:|--------:|
+| MR      | 43.633 |   28.268 |  28.290 |   **26.053**  |  35.500 |
+| MRR     |  0.372 |  **0.695**|  0.693  |   0.688   |   0.657 |
+| Hits@1  |  0.309 |  **0.655**|  0.651  |   0.642   |   0.604 |
+| Hits@3  |  0.375 |  **0.714**|  0.713  |   0.713   |   0.689 |
+| Hits@10 |  0.499 |  **0.764**|  0.763  |   0.762   |   0.746 |
+
 
 ### Technical details
 
