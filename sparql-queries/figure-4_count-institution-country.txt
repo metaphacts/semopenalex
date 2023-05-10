@@ -1,0 +1,6 @@
+SELECT(COUNT (?institution) as ?institutionCount) 
+WHERE { 
+
+  ?institution a <https://semopenalex.org/class/Institution> .
+  ?institution <https://dbpedia.org/property/countryCode> "US"^^xsd:string .
+}

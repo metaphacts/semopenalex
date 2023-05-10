@@ -1,0 +1,11 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX soa: <https://semopenalex.org/property/>
+
+SELECT(COUNT (?institution) as ?institutionCount)  WHERE {
+
+  ?institution rdf:type <https://semopenalex.org/class/Institution> . 
+  ?institution soa:rorType "education"^^xsd:string . 
+
+}
+ 
