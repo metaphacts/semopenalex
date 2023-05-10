@@ -10,7 +10,7 @@
           <li>Periodically updated <a href='https://semopenalex.s3.amazonaws.com/browse.html' target='_blank'>RDF dump files</a> of SemOpenAlex.</li>
           <li>URI Resolution of SemOpenAlex within the Linked Open Data Cloud.</li>
           <li>A publicly accessible <a href='/sparql' target='_blank'>SPARQL endpoint</a> containing the latest SemOpenAlex data.</li>
-          <li>Entity Embeddings for all works, authors, sources and institutions in SemOpenAlex.</li>
+          <li><a href='https://doi.org/10.5281/zenodo.7912776' target='_blank'>Entity Embeddings</a> for all works, authors, sources and institutions in SemOpenAlex.</li>
         </ol>
       </div>
     </div>
@@ -36,9 +36,27 @@
     <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>Entity Embeddings</b>
       <div style='margin-top:8px;'>
-        For more details, please refer to <a href='https://github.com/metaphacts/semopenalex/tree/main/embeddings-generation' target='_blank'>GitHub</a>.
+        Trained <a href='https://arxiv.org/pdf/1412.6575.pdf' target='_blank'>DistMult </a> <a href='https://zenodo.org/record/7912776#.ZFtZTi1n5ao' target='_blank'>entity embeddings</a> for all works, authors, sources and institutions in SemOpenAlex.
         
       </div>
+      <div style='margin-top:8px;'>
+        For more details, please refer to <a href='https://doi.org/10.5281/zenodo.7912776' target='_blank'>GitHub</a>.
+      </div>
+    </div>
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>Ontology and Linked Dataset Descriptions</b>
+       <div style='margin-top:8px;'>
+        <ul>
+          <li>
+            <a href='https://semopenalex.org/resource/?uri=https%3A%2F%2Fsemopenalex.org%2Fvocab%23' target='_blank'>SemOpenAlex Ontology</a>
+          </li>
+          <li>
+            <a href='https://github.com/metaphacts/semopenalex/blob/main/ontologies/semopenalex-ontology-shacl.ttl' target='_blank'>Turtle file</a>
+          </li>
+          <li><a href='https://github.com/metaphacts/semopenalex/tree/main/linked-dataset-description' target='_blank'>VoID file</a></li>
+        </ul>
+       </div>
     </div>
 
     <div style='margin:auto;width:922px;padding-top:16px;'>
@@ -60,7 +78,7 @@ curl -H "Accept:text/plain" https://semopenalex.org/work/W4239696231
       <div style='margin-top:8px;'>
         We provide monthly updated RDF dump files of SemOpenAlex at Amazon S3 at no cost:<br>
         <a href='https://semopenalex.s3.amazonaws.com/browse.html' target='_blank'>https://semopenalex.s3.amazonaws.com/browse.html</a>
-        <p style='margin-top:8px;'>A small data sample is available in <a href='https://github.com/metaphacts/semopenalex' target='_blank'>GitHub</a>.</p>
+        <p style='margin-top:8px;'>A small data sample is available in <a href='https://github.com/metaphacts/semopenalex/tree/main/data-sample' target='_blank'>GitHub</a>.</p>
       </div>
   
     </div>
@@ -79,10 +97,13 @@ curl -H "Accept:text/plain" https://semopenalex.org/work/W4239696231
     </div>
 
     <div style='margin:auto;width:922px;padding-top:16px;'>
-      <b>Code</b>
+      <b>License & Code</b>
       <div style='margin-top:8px;'>
-        The source code for creating SemOpenAlex is available <a href='https://github.com/metaphacts/semopenalex' target='_blank'>here</a>. 
-        It is licensed under the MIT Licence.
+        SemOpenAlex, the linked data description files, and the ontology are licensed under <a href='https://creativecommons.org/publicdomain/zero/1.0/' target='_blank'>CC0</a>.
+        
+      </div>
+      <div style='margin-top:8px;'>
+        The source code for creating SemOpenAlex is available <a href='https://github.com/metaphacts/semopenalex/tree/main/transformation-scripts' target='_blank'>here</a>. It is licensed under the MIT Licence.
       </div>
   
     </div>

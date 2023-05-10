@@ -23,21 +23,21 @@
         </bs-nav-item>
       </bs-nav>
       <mp-resource-link-container propagate-link="true" iri="http://www.metaphactory.semopenalex.com/app/About">
-        <bs-nav-item class="nav-link" style='cursor:pointer'>About</bs-nav-item>
+        <bs-nav-link>About</bs-nav-link>
       </mp-resource-link-container>
       <mp-has-permission permission="ui:page:sparql-editor">
         <bs-nav-item>
           <mp-link class="nav-link" url="{{page-publicPath}}/sparql" title="Sparql Endpoint">SPARQL</mp-link>
         </bs-nav-item>
       </mp-has-permission>
-      <mp-resource-link-container iri="https://semopenalex.org/vocab#">
-        <bs-nav-item class="nav-link" style='cursor:pointer'>Ontology</bs-nav-item>
+      <mp-resource-link-container propagate-link="true" iri="https://semopenalex.org/vocab#">
+        <bs-nav-link>Ontology</bs-nav-link>
       </mp-resource-link-container>
-      <mp-resource-link-container iri="https://docs.openalex.org/about-the-data/concept">
-        <bs-nav-item class="nav-link" style='cursor:pointer'>Concept</bs-nav-item>
+      <mp-resource-link-container propagate-link="true" iri="https://docs.openalex.org/about-the-data/concept">
+        <bs-nav-link>Concepts</bs-nav-link>
       </mp-resource-link-container>
       <mp-resource-link-container propagate-link="true" iri="http://datasets.metaphacts.com/semopenalex">
-        <bs-nav-item class="nav-link" style='cursor:pointer'>Dataset</bs-nav-item>
+        <bs-nav-link>Dataset</bs-nav-link>
       </mp-resource-link-container>
       <bs-nav>
         <bs-nav-dropdown title="Assets" id="assets-bg-nested-dropdown" data-align-right="true">
@@ -59,6 +59,9 @@
           </mp-resource-link-container>
           <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/QueryTemplates">
             <bs-menu-item>Query Templates</bs-menu-item>
+          </mp-resource-link-container>
+          <mp-resource-link-container propagate-link="true" iri="http://www.metaphacts.com/resource/assets/Diagrams">
+            <bs-menu-item>Diagrams</bs-menu-item>
           </mp-resource-link-container>
         </bs-nav-dropdown>
         <mp-has-permission permission="pages:view:*">
