@@ -1,0 +1,76 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <#> .
+
+:SemOpenAlex
+	rdf:type void:Dataset ;
+	foaf:homepage <https://semopenalex.org/> ;
+	dcterms:title "SemOpenAlex" ;
+	void:sparqlEndpoint <https://semopenalex.org/sparql>;
+	dcterms:contributor <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology> ;
+	dcterms:contributor <https://www.wikidata.org/wiki/Q22132500> ;
+	dcterms:source <https://github.com/metaphacts/semopenalex> ;
+	dcterms:modified "2023-04-24"^^xsd:date ; 
+	dcterms:publisher :Michael_Faerber ;
+	dcterms:publisher :Johan_Krause ;
+	dcterms:publisher :David_Lamprecht ;
+	dcterms:publisher :Linn_Aung ;
+	dcterms:publisher :Peter_Haase ;
+	dcterms:license <https://creativecommons.org/share-your-work/public-domain/cc0/> ;
+	dcterms:subject <http://dbpedia.org/resource/Computer_science> ;  
+	dcterms:subject <http://dbpedia.org/resource/Knowledge_graph> ;  
+	dcterms:subject <http://dbpedia.org/resource/Resource_Description_Framework> ;  
+	void:feature <http://www.w3.org/ns/formats/TriG> ;
+	void:triples 26401183867 ;
+	void:vocabulary <http://xmlns.com/foaf/0.1/> ;
+	void:vocabulary <http://www.w3.org /2001/XMLSchema\#> ;
+	void:vocabulary <http://www.w3.org/1999/02/22-rdf-syntax-ns/#> ;
+	void:vocabulary <http://www.w3.org/2000/01/rdf-schema/#> ;
+	void:vocabulary <http://purl.org/dc/terms/> ;
+	void:vocabulary <http://purl.org/spar/cito/> ;
+	void:vocabulary <http://purl.org/spar/fabio/> ;
+	void:vocabulary <http://purl.org/spar/bido/> ;
+	void:vocabulary <http://purl.org/spar/datacite> ;
+	void:vocabulary <https://semopenalex.org/vocab#> ;
+	void:vocabulary <http://prismstandard.org/namespaces/basic/2.0/> ;
+	void:vocabulary <http://dbpedia.org/ontology/> ;
+	void:vocabulary <http://dbpedia.org/property/> ;
+	void:vocabulary <http://www.w3.org/ns/org/#> ;
+	void:vocabulary <https://www.geonames.org/ontology/#> ;
+	void:vocabulary <http://www.w3.org/2004/02/skos/core/#> ;
+	void:vocabulary <http://www.w3.org/2002/07/owl#> ;
+	void:linkPredicate owl:sameAs ;
+	void:linkPredicate rdfs:seeAlso .
+
+		 
+:Michael_Faerber a 
+	foaf:Person ;
+	rdfs:label "Michael Färber" ;
+	foaf:homepage <https://www.aifb.kit.edu/web/Michael_Färber>; 
+	foaf:mbox <mailto:michael.faerber@kit.edu> .
+
+:Johan_Krause a 
+	foaf:Person ;
+	rdfs:label "Johan Krause" ;
+	foaf:mbox <mailto:johan.krause@student.kit.edu> .
+
+:David_Lamprecht a 
+	foaf:Person ;
+	rdfs:label "David Lamprecht" ;
+	foaf:mbox <mailto:david.lamprecht@student.kit.edu> .
+
+:Linn_Aung a 
+	foaf:Person ;
+	rdfs:label "Linn Aung" ;
+	foaf:mbox <mailto:la@metaphacts.com> .
+
+:Peter_Haase a 
+	foaf:Person ;
+	rdfs:label "Peter Haase" ;
+	foaf:mbox <mailto:ph@metaphacts.com> .
+

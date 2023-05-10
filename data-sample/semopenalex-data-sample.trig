@@ -1,0 +1,2494 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ns1: <https://semopenalex.org/property/> .
+@prefix ns2: <http://purl.org/spar/datacite/> .
+@prefix ns3: <http://purl.org/spar/cito/> .
+@prefix ns4: <http://purl.org/spar/fabio/> .
+@prefix ns5: <http://purl.org/spar/bido/> .
+@prefix ns6: <https://dbpedia.org/ontology/> .
+@prefix ns7: <http://prismstandard.org/namespaces/basic/2.0/> .
+@prefix ns8: <https://dbpedia.org/property/> .
+@prefix ns9: <http://www.geonames.org/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns1:context {
+    <https://semopenalex.org/work/W2015191210> a <https://semopenalex.org/class/Work> ;
+        ns7:endingPage "22" ;
+        ns7:startingPage "1" ;
+        dcterms:abstract "The term “Linked Data” refers to a set of best practices for publishing and connecting structured data on the Web. These best practices have been adopted by an increasing number of data providers over the last three years, leading to the creation of a global data space containing billions of assertions— the Web of Data. In this article, the authors present the concept and technical principles of Linked Data, and situate these within the broader context of related technological developments. They describe progress to date in publishing Linked Data on the Web, review applications that have been developed to exploit the Web of Data, and map out a research agenda for the Linked Data community as it moves forward." ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:creator <https://semopenalex.org/author/A2308609296>,
+            <https://semopenalex.org/author/A247353998>,
+            <https://semopenalex.org/author/A2558543881> ;
+        dcterms:date "2009-07-01"^^xsd:date ;
+        dcterms:modified "2023-03-15"^^xsd:date ;
+        dcterms:title "Linked Data - The Story So Far" ;
+        ns3:cites <https://semopenalex.org/work/W1491268609>,
+            <https://semopenalex.org/work/W1543276876>,
+            <https://semopenalex.org/work/W1555486317>,
+            <https://semopenalex.org/work/W1582479658>,
+            <https://semopenalex.org/work/W1590084442>,
+            <https://semopenalex.org/work/W1762323318>,
+            <https://semopenalex.org/work/W1809515864>,
+            <https://semopenalex.org/work/W1874194247>,
+            <https://semopenalex.org/work/W1987617217>,
+            <https://semopenalex.org/work/W1995521835>,
+            <https://semopenalex.org/work/W2000417652>,
+            <https://semopenalex.org/work/W2012698696>,
+            <https://semopenalex.org/work/W2027855916>,
+            <https://semopenalex.org/work/W2029554959>,
+            <https://semopenalex.org/work/W2034912561>,
+            <https://semopenalex.org/work/W2059268928>,
+            <https://semopenalex.org/work/W2061315286>,
+            <https://semopenalex.org/work/W2066636486>,
+            <https://semopenalex.org/work/W2069235736>,
+            <https://semopenalex.org/work/W2127217276>,
+            <https://semopenalex.org/work/W2130962338>,
+            <https://semopenalex.org/work/W2131448664>,
+            <https://semopenalex.org/work/W2132731949>,
+            <https://semopenalex.org/work/W2142216989>,
+            <https://semopenalex.org/work/W2154085356>,
+            <https://semopenalex.org/work/W2156677278>,
+            <https://semopenalex.org/work/W2165428180>,
+            <https://semopenalex.org/work/W2168236902>,
+            <https://semopenalex.org/work/W2171262729>,
+            <https://semopenalex.org/work/W2295240344>,
+            <https://semopenalex.org/work/W2341759796>,
+            <https://semopenalex.org/work/W2553945548>,
+            <https://semopenalex.org/work/W2912191242>,
+            <https://semopenalex.org/work/W3146259567>,
+            <https://semopenalex.org/work/W3166835856>,
+            <https://semopenalex.org/work/W4239696231>,
+            <https://semopenalex.org/work/W4254697110> ;
+        ns2:doi "https://doi.org/10.4018/jswis.2009081901" ;
+        ns4:hasPublicationYear 2009 ;
+        owl:sameAs <https://makg.org/entity/2015191210> ;
+        ns1:citedByCount 3653 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/W20151912102012>,
+            <https://semopenalex.org/countsbyyear/W20151912102013>,
+            <https://semopenalex.org/countsbyyear/W20151912102014>,
+            <https://semopenalex.org/countsbyyear/W20151912102015>,
+            <https://semopenalex.org/countsbyyear/W20151912102016>,
+            <https://semopenalex.org/countsbyyear/W20151912102017>,
+            <https://semopenalex.org/countsbyyear/W20151912102018>,
+            <https://semopenalex.org/countsbyyear/W20151912102019>,
+            <https://semopenalex.org/countsbyyear/W20151912102020>,
+            <https://semopenalex.org/countsbyyear/W20151912102021>,
+            <https://semopenalex.org/countsbyyear/W20151912102022>,
+            <https://semopenalex.org/countsbyyear/W20151912102023> ;
+        ns1:crossrefType "https://api.crossref.org/types/journal-article" ;
+        ns1:hasAuthorPosition <https://semopenalex.org/authorposition/W2015191210A2308609296>,
+            <https://semopenalex.org/authorposition/W2015191210A247353998>,
+            <https://semopenalex.org/authorposition/W2015191210A2558543881> ;
+        ns1:hasBestOaLocation <https://semopenalex.org/location/W20151912102> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C110875604>,
+            <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C151719136>,
+            <https://semopenalex.org/concept/C165696696>,
+            <https://semopenalex.org/concept/C166957645>,
+            <https://semopenalex.org/concept/C177264268>,
+            <https://semopenalex.org/concept/C17744445>,
+            <https://semopenalex.org/concept/C182321512>,
+            <https://semopenalex.org/concept/C184356942>,
+            <https://semopenalex.org/concept/C199360897>,
+            <https://semopenalex.org/concept/C199539241>,
+            <https://semopenalex.org/concept/C2129575>,
+            <https://semopenalex.org/concept/C2522767166>,
+            <https://semopenalex.org/concept/C2779343474>,
+            <https://semopenalex.org/concept/C2780535194>,
+            <https://semopenalex.org/concept/C2781396290>,
+            <https://semopenalex.org/concept/C38652104>,
+            <https://semopenalex.org/concept/C41008148>,
+            <https://semopenalex.org/concept/C69075417>,
+            <https://semopenalex.org/concept/C95457728> ;
+        ns1:hasConceptScore <https://semopenalex.org/conceptscore/W2015191210C110875604>,
+            <https://semopenalex.org/conceptscore/W2015191210C136764020>,
+            <https://semopenalex.org/conceptscore/W2015191210C151719136>,
+            <https://semopenalex.org/conceptscore/W2015191210C165696696>,
+            <https://semopenalex.org/conceptscore/W2015191210C166957645>,
+            <https://semopenalex.org/conceptscore/W2015191210C177264268>,
+            <https://semopenalex.org/conceptscore/W2015191210C17744445>,
+            <https://semopenalex.org/conceptscore/W2015191210C182321512>,
+            <https://semopenalex.org/conceptscore/W2015191210C184356942>,
+            <https://semopenalex.org/conceptscore/W2015191210C199360897>,
+            <https://semopenalex.org/conceptscore/W2015191210C199539241>,
+            <https://semopenalex.org/conceptscore/W2015191210C2129575>,
+            <https://semopenalex.org/conceptscore/W2015191210C2522767166>,
+            <https://semopenalex.org/conceptscore/W2015191210C2779343474>,
+            <https://semopenalex.org/conceptscore/W2015191210C2780535194>,
+            <https://semopenalex.org/conceptscore/W2015191210C2781396290>,
+            <https://semopenalex.org/conceptscore/W2015191210C38652104>,
+            <https://semopenalex.org/conceptscore/W2015191210C41008148>,
+            <https://semopenalex.org/conceptscore/W2015191210C69075417>,
+            <https://semopenalex.org/conceptscore/W2015191210C95457728> ;
+        ns1:hasIssue "3" ;
+        ns1:hasLocation <https://semopenalex.org/location/W20151912101>,
+            <https://semopenalex.org/location/W20151912102>,
+            <https://semopenalex.org/location/W20151912103> ;
+        ns1:hasOpenAccess <https://semopenalex.org/openaccess/W2015191210> ;
+        ns1:hasPrimaryLocation <https://semopenalex.org/location/W20151912101> ;
+        ns1:hasRelatedWork <https://semopenalex.org/work/W113952751>,
+            <https://semopenalex.org/work/W1504423824>,
+            <https://semopenalex.org/work/W2003352804>,
+            <https://semopenalex.org/work/W2101906686>,
+            <https://semopenalex.org/work/W2174331460>,
+            <https://semopenalex.org/work/W2270948981>,
+            <https://semopenalex.org/work/W2276646111>,
+            <https://semopenalex.org/work/W2593784918>,
+            <https://semopenalex.org/work/W3036050654>,
+            <https://semopenalex.org/work/W67220624> ;
+        ns1:hasVolume "5" ;
+        ns1:isParatext false ;
+        ns1:isRetracted false ;
+        ns1:magId 2015191210 .
+
+    <https://semopenalex.org/authorposition/W2015191210A2308609296> a <https://semopenalex.org/class/AuthorPosition> ;
+        ns1:hasAuthor <https://semopenalex.org/author/A2308609296> ;
+        ns1:position "last" .
+
+    <https://semopenalex.org/authorposition/W2015191210A247353998> a <https://semopenalex.org/class/AuthorPosition> ;
+        ns1:hasAuthor <https://semopenalex.org/author/A247353998> ;
+        ns1:position "first" .
+
+    <https://semopenalex.org/authorposition/W2015191210A2558543881> a <https://semopenalex.org/class/AuthorPosition> ;
+        ns1:hasAuthor <https://semopenalex.org/author/A2558543881> ;
+        ns1:position "middle" .
+
+    <https://semopenalex.org/conceptscore/W2015191210C110875604> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C110875604> ;
+        ns1:score 0.3163361 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C136764020> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C136764020> ;
+        ns1:score 0.5867916 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C151719136> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C151719136> ;
+        ns1:score 0.54360276 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C165696696> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C165696696> ;
+        ns1:score 0.6879853 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C166957645> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C166957645> ;
+        ns1:score 0.0 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C177264268> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C177264268> ;
+        ns1:score 0.45513713 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C17744445> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C17744445> ;
+        ns1:score 0.10111219 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C182321512> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C182321512> ;
+        ns1:score 0.46676207 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C184356942> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C184356942> ;
+        ns1:score 0.43116313 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C199360897> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C199360897> ;
+        ns1:score 0.0 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C199539241> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C199539241> ;
+        ns1:score 0.0 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C2129575> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C2129575> ;
+        ns1:score 0.42841697 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C2522767166> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C2522767166> ;
+        ns1:score 0.59041 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C2779343474> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C2779343474> ;
+        ns1:score 0.5953876 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C2780535194> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C2780535194> ;
+        ns1:score 0.44892073 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C2781396290> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C2781396290> ;
+        ns1:score 0.50858796 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C38652104> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C38652104> ;
+        ns1:score 0.079868674 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C41008148> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C41008148> ;
+        ns1:score 0.75392395 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C69075417> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C69075417> ;
+        ns1:score 0.7286897 .
+
+    <https://semopenalex.org/conceptscore/W2015191210C95457728> a <https://semopenalex.org/class/ConceptScore> ;
+        ns1:hasConcept <https://semopenalex.org/concept/C95457728> ;
+        ns1:score 0.073347956 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962012> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1991 ;
+        ns1:worksCount 3 ;
+        ns1:year 2012 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962013> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1756 ;
+        ns1:worksCount 2 ;
+        ns1:year 2013 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962014> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1809 ;
+        ns1:worksCount 3 ;
+        ns1:year 2014 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962015> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1428 ;
+        ns1:worksCount 2 ;
+        ns1:year 2015 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962016> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1091 ;
+        ns1:worksCount 3 ;
+        ns1:year 2016 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962017> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 850 ;
+        ns1:worksCount 4 ;
+        ns1:year 2017 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962018> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 908 ;
+        ns1:worksCount 2 ;
+        ns1:year 2018 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962019> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 840 ;
+        ns1:worksCount 1 ;
+        ns1:year 2019 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962020> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 771 ;
+        ns1:worksCount 1 ;
+        ns1:year 2020 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962021> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 602 ;
+        ns1:worksCount 0 ;
+        ns1:year 2021 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962022> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 538 ;
+        ns1:worksCount 0 ;
+        ns1:year 2022 .
+
+    <https://semopenalex.org/countsbyyear/A23086092962023> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 87 ;
+        ns1:worksCount 0 ;
+        ns1:year 2023 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982012> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1660 ;
+        ns1:worksCount 21 ;
+        ns1:year 2012 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982013> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1788 ;
+        ns1:worksCount 10 ;
+        ns1:year 2013 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982014> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1994 ;
+        ns1:worksCount 18 ;
+        ns1:year 2014 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982015> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1840 ;
+        ns1:worksCount 22 ;
+        ns1:year 2015 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982016> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1633 ;
+        ns1:worksCount 11 ;
+        ns1:year 2016 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982017> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1349 ;
+        ns1:worksCount 12 ;
+        ns1:year 2017 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982018> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1456 ;
+        ns1:worksCount 6 ;
+        ns1:year 2018 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982019> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1496 ;
+        ns1:worksCount 7 ;
+        ns1:year 2019 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982020> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1559 ;
+        ns1:worksCount 6 ;
+        ns1:year 2020 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982021> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1304 ;
+        ns1:worksCount 4 ;
+        ns1:year 2021 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982022> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 915 ;
+        ns1:worksCount 3 ;
+        ns1:year 2022 .
+
+    <https://semopenalex.org/countsbyyear/A2473539982023> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 132 ;
+        ns1:worksCount 0 ;
+        ns1:year 2023 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812012> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 836 ;
+        ns1:worksCount 7 ;
+        ns1:year 2012 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812013> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 831 ;
+        ns1:worksCount 3 ;
+        ns1:year 2013 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812014> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 889 ;
+        ns1:worksCount 7 ;
+        ns1:year 2014 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812015> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 698 ;
+        ns1:worksCount 3 ;
+        ns1:year 2015 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812016> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 547 ;
+        ns1:worksCount 4 ;
+        ns1:year 2016 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812017> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 367 ;
+        ns1:worksCount 2 ;
+        ns1:year 2017 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812018> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 369 ;
+        ns1:worksCount 3 ;
+        ns1:year 2018 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812019> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 335 ;
+        ns1:worksCount 1 ;
+        ns1:year 2019 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812020> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 272 ;
+        ns1:worksCount 3 ;
+        ns1:year 2020 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812021> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 254 ;
+        ns1:worksCount 1 ;
+        ns1:year 2021 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812022> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 237 ;
+        ns1:worksCount 1 ;
+        ns1:year 2022 .
+
+    <https://semopenalex.org/countsbyyear/A25585438812023> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 19 ;
+        ns1:worksCount 0 ;
+        ns1:year 2023 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172012> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 29307 ;
+        ns1:worksCount 872 ;
+        ns1:year 2012 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172013> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 32726 ;
+        ns1:worksCount 832 ;
+        ns1:year 2013 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172014> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 34836 ;
+        ns1:worksCount 804 ;
+        ns1:year 2014 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172015> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 35816 ;
+        ns1:worksCount 866 ;
+        ns1:year 2015 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172016> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 36574 ;
+        ns1:worksCount 910 ;
+        ns1:year 2016 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172017> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 37413 ;
+        ns1:worksCount 842 ;
+        ns1:year 2017 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172018> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 39899 ;
+        ns1:worksCount 871 ;
+        ns1:year 2018 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172019> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 44557 ;
+        ns1:worksCount 915 ;
+        ns1:year 2019 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172020> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 52917 ;
+        ns1:worksCount 991 ;
+        ns1:year 2020 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172021> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 58979 ;
+        ns1:worksCount 1036 ;
+        ns1:year 2021 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172022> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 56916 ;
+        ns1:worksCount 639 ;
+        ns1:year 2022 .
+
+    <https://semopenalex.org/countsbyyear/I1778022172023> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 14029 ;
+        ns1:worksCount 129 ;
+        ns1:year 2023 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802012> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 0 ;
+        ns1:worksCount 1 ;
+        ns1:year 2012 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802013> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1 ;
+        ns1:worksCount 2 ;
+        ns1:year 2013 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802014> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 2 ;
+        ns1:worksCount 4 ;
+        ns1:year 2014 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802015> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 0 ;
+        ns1:worksCount 3 ;
+        ns1:year 2015 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802016> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 7 ;
+        ns1:worksCount 4 ;
+        ns1:year 2016 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802017> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 32 ;
+        ns1:worksCount 5 ;
+        ns1:year 2017 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802018> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 75 ;
+        ns1:worksCount 19 ;
+        ns1:year 2018 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802019> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 120 ;
+        ns1:worksCount 7 ;
+        ns1:year 2019 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802020> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 145 ;
+        ns1:worksCount 9 ;
+        ns1:year 2020 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802021> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 219 ;
+        ns1:worksCount 4 ;
+        ns1:year 2021 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802022> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 226 ;
+        ns1:worksCount 8 ;
+        ns1:year 2022 .
+
+    <https://semopenalex.org/countsbyyear/I28029521802023> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 64 ;
+        ns1:worksCount 1 ;
+        ns1:year 2023 .
+
+    <https://semopenalex.org/countsbyyear/I639660072012> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1243506 ;
+        ns1:worksCount 7565 ;
+        ns1:year 2012 .
+
+    <https://semopenalex.org/countsbyyear/I639660072013> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1429785 ;
+        ns1:worksCount 8144 ;
+        ns1:year 2013 .
+
+    <https://semopenalex.org/countsbyyear/I639660072014> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1523946 ;
+        ns1:worksCount 8424 ;
+        ns1:year 2014 .
+
+    <https://semopenalex.org/countsbyyear/I639660072015> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1659581 ;
+        ns1:worksCount 8656 ;
+        ns1:year 2015 .
+
+    <https://semopenalex.org/countsbyyear/I639660072016> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1802045 ;
+        ns1:worksCount 8610 ;
+        ns1:year 2016 .
+
+    <https://semopenalex.org/countsbyyear/I639660072017> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 1926707 ;
+        ns1:worksCount 8642 ;
+        ns1:year 2017 .
+
+    <https://semopenalex.org/countsbyyear/I639660072018> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 2107282 ;
+        ns1:worksCount 9384 ;
+        ns1:year 2018 .
+
+    <https://semopenalex.org/countsbyyear/I639660072019> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 2324907 ;
+        ns1:worksCount 9445 ;
+        ns1:year 2019 .
+
+    <https://semopenalex.org/countsbyyear/I639660072020> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 2595587 ;
+        ns1:worksCount 10185 ;
+        ns1:year 2020 .
+
+    <https://semopenalex.org/countsbyyear/I639660072021> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 2896494 ;
+        ns1:worksCount 9622 ;
+        ns1:year 2021 .
+
+    <https://semopenalex.org/countsbyyear/I639660072022> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 2575941 ;
+        ns1:worksCount 6333 ;
+        ns1:year 2022 .
+
+    <https://semopenalex.org/countsbyyear/I639660072023> a <https://semopenalex.org/class/CountsByYear> ;
+        ns1:citedByCount 630630 ;
+        ns1:worksCount 1212 ;
+        ns1:year 2023 .
+
+    <https://semopenalex.org/institution/I177802217> a <https://semopenalex.org/class/Institution> ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-28"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/University%20of%20Mannheim" ;
+        owl:sameAs <https://makg.org/entity/177802217>,
+            "https://www.wikidata.org/wiki/Q317070" ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/en/e/eb/Uni_Mannheim_Seal.png" ;
+        foaf:homepage "https://www.uni-mannheim.de/en/" ;
+        foaf:name "University of Mannheim" ;
+        ns6:location <https://semopenalex.org/geo/I177802217> ;
+        ns8:acronym "UMA" ;
+        ns8:countryCode "DE" ;
+        ns1:citedByCount 627570 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/I1778022172012>,
+            <https://semopenalex.org/countsbyyear/I1778022172013>,
+            <https://semopenalex.org/countsbyyear/I1778022172014>,
+            <https://semopenalex.org/countsbyyear/I1778022172015>,
+            <https://semopenalex.org/countsbyyear/I1778022172016>,
+            <https://semopenalex.org/countsbyyear/I1778022172017>,
+            <https://semopenalex.org/countsbyyear/I1778022172018>,
+            <https://semopenalex.org/countsbyyear/I1778022172019>,
+            <https://semopenalex.org/countsbyyear/I1778022172020>,
+            <https://semopenalex.org/countsbyyear/I1778022172021>,
+            <https://semopenalex.org/countsbyyear/I1778022172022>,
+            <https://semopenalex.org/countsbyyear/I1778022172023> ;
+        ns1:grid "grid.5601.2" ;
+        ns1:hasAssociatedInstitution <https://semopenalex.org/institution/I4210086273>,
+            <https://semopenalex.org/institution/I4210087507>,
+            <https://semopenalex.org/institution/I4210132032>,
+            <https://semopenalex.org/institution/I57233200> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Uni_Mannheim_Seal.png/100px-Uni_Mannheim_Seal.png" ;
+        ns1:magId 177802217 ;
+        ns1:ror "https://ror.org/031bsb921" ;
+        ns1:rorType "education" ;
+        ns1:worksCount 18505 .
+
+    <https://semopenalex.org/institution/I2802952180> a <https://semopenalex.org/class/Institution> ;
+        dcterms:created "2018-05-17"^^xsd:date ;
+        dcterms:modified "2023-03-28"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Open%20Data%20Institute" ;
+        owl:sameAs <https://makg.org/entity/2802952180>,
+            "https://www.wikidata.org/wiki/Q7095994" ;
+        foaf:homepage "http://theodi.org/" ;
+        foaf:name "Open Data Institute" ;
+        ns6:location <https://semopenalex.org/geo/I2802952180> ;
+        ns8:acronym "ODI" ;
+        ns8:countryCode "GB" ;
+        ns1:citedByCount 870 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/I28029521802012>,
+            <https://semopenalex.org/countsbyyear/I28029521802013>,
+            <https://semopenalex.org/countsbyyear/I28029521802014>,
+            <https://semopenalex.org/countsbyyear/I28029521802015>,
+            <https://semopenalex.org/countsbyyear/I28029521802016>,
+            <https://semopenalex.org/countsbyyear/I28029521802017>,
+            <https://semopenalex.org/countsbyyear/I28029521802018>,
+            <https://semopenalex.org/countsbyyear/I28029521802019>,
+            <https://semopenalex.org/countsbyyear/I28029521802020>,
+            <https://semopenalex.org/countsbyyear/I28029521802021>,
+            <https://semopenalex.org/countsbyyear/I28029521802022>,
+            <https://semopenalex.org/countsbyyear/I28029521802023> ;
+        ns1:grid "grid.436768.8" ;
+        ns1:magId 2802952180 ;
+        ns1:ror "https://ror.org/02hr72y72" ;
+        ns1:rorType "nonprofit" ;
+        ns1:worksCount 67 .
+
+    <https://semopenalex.org/institution/I43439940> a <https://semopenalex.org/class/Institution> ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-24"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/University%20of%20Southampton" ;
+        owl:sameAs <https://makg.org/entity/43439940>,
+            "https://www.wikidata.org/wiki/Q76473" ;
+        foaf:homepage "http://www.southampton.ac.uk/" ;
+        foaf:name "University of Southampton" ;
+        ns6:location <https://semopenalex.org/geo/I43439940> ;
+        ns8:countryCode "GB" ;
+        ns1:citedByCount 6047036 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/I434399402012>,
+            <https://semopenalex.org/countsbyyear/I434399402013>,
+            <https://semopenalex.org/countsbyyear/I434399402014>,
+            <https://semopenalex.org/countsbyyear/I434399402015>,
+            <https://semopenalex.org/countsbyyear/I434399402016>,
+            <https://semopenalex.org/countsbyyear/I434399402017>,
+            <https://semopenalex.org/countsbyyear/I434399402018>,
+            <https://semopenalex.org/countsbyyear/I434399402019>,
+            <https://semopenalex.org/countsbyyear/I434399402020>,
+            <https://semopenalex.org/countsbyyear/I434399402021>,
+            <https://semopenalex.org/countsbyyear/I434399402022>,
+            <https://semopenalex.org/countsbyyear/I434399402023> ;
+        ns1:grid "grid.5491.9" ;
+        ns1:hasAssociatedInstitution <https://semopenalex.org/institution/I197940685>,
+            <https://semopenalex.org/institution/I2801388914>,
+            <https://semopenalex.org/institution/I2801680240>,
+            <https://semopenalex.org/institution/I2801859090>,
+            <https://semopenalex.org/institution/I2802802402>,
+            <https://semopenalex.org/institution/I2802891629>,
+            <https://semopenalex.org/institution/I4210110707>,
+            <https://semopenalex.org/institution/I4210118229>,
+            <https://semopenalex.org/institution/I4210139412>,
+            <https://semopenalex.org/institution/I4210148293>,
+            <https://semopenalex.org/institution/I4210148830>,
+            <https://semopenalex.org/institution/I4210163415> ;
+        ns1:magId 43439940 ;
+        ns1:ror "https://ror.org/01ryk1543" ;
+        ns1:rorType "education" ;
+        ns1:worksCount 109805 .
+
+    <https://semopenalex.org/institution/I63966007> a <https://semopenalex.org/class/Institution> ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-24"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Massachusetts%20Institute%20of%20Technology" ;
+        owl:sameAs <https://makg.org/entity/63966007>,
+            "https://www.wikidata.org/wiki/Q49108" ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/en/4/44/MIT_Seal.svg" ;
+        foaf:homepage "http://web.mit.edu/" ;
+        foaf:name "Massachusetts Institute of Technology" ;
+        ns6:location <https://semopenalex.org/geo/I63966007> ;
+        ns8:acronym "MIT" ;
+        ns8:countryCode "US" ;
+        ns1:citedByCount 33662854 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/I639660072012>,
+            <https://semopenalex.org/countsbyyear/I639660072013>,
+            <https://semopenalex.org/countsbyyear/I639660072014>,
+            <https://semopenalex.org/countsbyyear/I639660072015>,
+            <https://semopenalex.org/countsbyyear/I639660072016>,
+            <https://semopenalex.org/countsbyyear/I639660072017>,
+            <https://semopenalex.org/countsbyyear/I639660072018>,
+            <https://semopenalex.org/countsbyyear/I639660072019>,
+            <https://semopenalex.org/countsbyyear/I639660072020>,
+            <https://semopenalex.org/countsbyyear/I639660072021>,
+            <https://semopenalex.org/countsbyyear/I639660072022>,
+            <https://semopenalex.org/countsbyyear/I639660072023> ;
+        ns1:grid "grid.116068.8" ;
+        ns1:hasAssociatedInstitution <https://semopenalex.org/institution/I107606265>,
+            <https://semopenalex.org/institution/I144112489>,
+            <https://semopenalex.org/institution/I2802422659>,
+            <https://semopenalex.org/institution/I2803022237>,
+            <https://semopenalex.org/institution/I4210087444>,
+            <https://semopenalex.org/institution/I4210092658>,
+            <https://semopenalex.org/institution/I4210093068>,
+            <https://semopenalex.org/institution/I4210109539>,
+            <https://semopenalex.org/institution/I4210110987>,
+            <https://semopenalex.org/institution/I4210122954>,
+            <https://semopenalex.org/institution/I4210124934>,
+            <https://semopenalex.org/institution/I4210125891>,
+            <https://semopenalex.org/institution/I4210127055>,
+            <https://semopenalex.org/institution/I4210129287>,
+            <https://semopenalex.org/institution/I4210157710>,
+            <https://semopenalex.org/institution/I4210159271>,
+            <https://semopenalex.org/institution/I4210160315>,
+            <https://semopenalex.org/institution/I4210167254> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/en/thumb/4/44/MIT_Seal.svg/100px-MIT_Seal.svg.png" ;
+        ns1:magId 63966007 ;
+        ns1:ror "https://ror.org/042nb2s44" ;
+        ns1:rorType "education" ;
+        ns1:worksCount 228325 .
+
+    <https://semopenalex.org/location/W20151912103> a <https://semopenalex.org/class/Location> ;
+        dcterms:license "pd" ;
+        ns4:hasURL "http://tomheath.com/papers/bizer-heath-berners-lee-ijswis-linked-data.pdf" ;
+        ns1:hasVersion "submittedVersion" ;
+        ns1:isOa true ;
+        ns1:pdfUrl "http://tomheath.com/papers/bizer-heath-berners-lee-ijswis-linked-data.pdf" .
+
+    <https://semopenalex.org/source/S181240966> a <https://semopenalex.org/class/Source> ;
+        ns7:issn "1552-6283",
+            "1552-6291" ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-25"^^xsd:date ;
+        ns5:h-index 39 ;
+        ns4:hasIssnL "1552-6283" ;
+        ns9:countryCode "US" ;
+        owl:sameAs <https://makg.org/entity/181240966> ;
+        foaf:name "International Journal on Semantic Web and Information Systems" ;
+        ns6:alternativeName "IJSWIS",
+            "International journal on Semantic Web & information systems" ;
+        ns1:2YrMeanCitedness "3.230769230769231"^^xsd:float ;
+        ns1:citedByCount 10478 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/S1812409662012>,
+            <https://semopenalex.org/countsbyyear/S1812409662013>,
+            <https://semopenalex.org/countsbyyear/S1812409662014>,
+            <https://semopenalex.org/countsbyyear/S1812409662015>,
+            <https://semopenalex.org/countsbyyear/S1812409662016>,
+            <https://semopenalex.org/countsbyyear/S1812409662017>,
+            <https://semopenalex.org/countsbyyear/S1812409662018>,
+            <https://semopenalex.org/countsbyyear/S1812409662019>,
+            <https://semopenalex.org/countsbyyear/S1812409662020>,
+            <https://semopenalex.org/countsbyyear/S1812409662021>,
+            <https://semopenalex.org/countsbyyear/S1812409662022>,
+            <https://semopenalex.org/countsbyyear/S1812409662023> ;
+        ns1:hasHostOrganization <https://semopenalex.org/publisher/P4310320424> ;
+        ns1:i10Index 130 ;
+        ns1:isInDoaj false ;
+        ns1:isOa true ;
+        ns1:magId 181240966 ;
+        ns1:sourceType "journal" ;
+        ns1:worksCount 463 .
+
+    <https://semopenalex.org/source/S4306401020> a <https://semopenalex.org/class/Source> ;
+        dcterms:created "2022-10-17"^^xsd:date ;
+        dcterms:modified "2023-03-28"^^xsd:date ;
+        foaf:name "ePrints Soton (University of Southampton)" ;
+        ns1:citedByCount 738904 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/S43064010202012>,
+            <https://semopenalex.org/countsbyyear/S43064010202013>,
+            <https://semopenalex.org/countsbyyear/S43064010202014>,
+            <https://semopenalex.org/countsbyyear/S43064010202015>,
+            <https://semopenalex.org/countsbyyear/S43064010202016>,
+            <https://semopenalex.org/countsbyyear/S43064010202017>,
+            <https://semopenalex.org/countsbyyear/S43064010202018>,
+            <https://semopenalex.org/countsbyyear/S43064010202019>,
+            <https://semopenalex.org/countsbyyear/S43064010202020>,
+            <https://semopenalex.org/countsbyyear/S43064010202021>,
+            <https://semopenalex.org/countsbyyear/S43064010202022>,
+            <https://semopenalex.org/countsbyyear/S43064010202023> ;
+        ns1:hasHostOrganization <https://semopenalex.org/institution/I43439940> ;
+        ns1:isOa true ;
+        ns1:sourceType "repository" ;
+        ns1:worksCount 24530 .
+
+    <https://semopenalex.org/author/A2308609296> a <https://semopenalex.org/class/Author> ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-23"^^xsd:date ;
+        owl:sameAs <https://makg.org/entity/2308609296> ;
+        org:memberOf <https://semopenalex.org/institution/I63966007> ;
+        foaf:name "Tim Berners-Lee" ;
+        ns1:citedByCount 23374 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/A23086092962012>,
+            <https://semopenalex.org/countsbyyear/A23086092962013>,
+            <https://semopenalex.org/countsbyyear/A23086092962014>,
+            <https://semopenalex.org/countsbyyear/A23086092962015>,
+            <https://semopenalex.org/countsbyyear/A23086092962016>,
+            <https://semopenalex.org/countsbyyear/A23086092962017>,
+            <https://semopenalex.org/countsbyyear/A23086092962018>,
+            <https://semopenalex.org/countsbyyear/A23086092962019>,
+            <https://semopenalex.org/countsbyyear/A23086092962020>,
+            <https://semopenalex.org/countsbyyear/A23086092962021>,
+            <https://semopenalex.org/countsbyyear/A23086092962022>,
+            <https://semopenalex.org/countsbyyear/A23086092962023> ;
+        ns1:magId 2308609296 ;
+        ns1:worksCount 144 .
+
+    <https://semopenalex.org/author/A247353998> a <https://semopenalex.org/class/Author> ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-24"^^xsd:date ;
+        owl:sameAs <https://makg.org/entity/247353998> ;
+        org:memberOf <https://semopenalex.org/institution/I177802217> ;
+        foaf:name "Christian Bizer" ;
+        ns6:orcidId "https://orcid.org/0000-0003-2367-0237" ;
+        ns8:scopus "http://www.scopus.com/inward/authorDetails.url?authorID=35236159100&partnerID=MN8TOARS" ;
+        ns1:citedByCount 14982 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/A2473539982012>,
+            <https://semopenalex.org/countsbyyear/A2473539982013>,
+            <https://semopenalex.org/countsbyyear/A2473539982014>,
+            <https://semopenalex.org/countsbyyear/A2473539982015>,
+            <https://semopenalex.org/countsbyyear/A2473539982016>,
+            <https://semopenalex.org/countsbyyear/A2473539982017>,
+            <https://semopenalex.org/countsbyyear/A2473539982018>,
+            <https://semopenalex.org/countsbyyear/A2473539982019>,
+            <https://semopenalex.org/countsbyyear/A2473539982020>,
+            <https://semopenalex.org/countsbyyear/A2473539982021>,
+            <https://semopenalex.org/countsbyyear/A2473539982022>,
+            <https://semopenalex.org/countsbyyear/A2473539982023> ;
+        ns1:magId 247353998 ;
+        ns1:worksCount 199 .
+
+    <https://semopenalex.org/author/A2558543881> a <https://semopenalex.org/class/Author> ;
+        dcterms:created "2016-12-08"^^xsd:date ;
+        dcterms:modified "2023-03-24"^^xsd:date ;
+        owl:sameAs <https://makg.org/entity/2558543881> ;
+        org:memberOf <https://semopenalex.org/institution/I2802952180> ;
+        foaf:name "Tom Heath" ;
+        ns1:citedByCount 6116 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/A25585438812012>,
+            <https://semopenalex.org/countsbyyear/A25585438812013>,
+            <https://semopenalex.org/countsbyyear/A25585438812014>,
+            <https://semopenalex.org/countsbyyear/A25585438812015>,
+            <https://semopenalex.org/countsbyyear/A25585438812016>,
+            <https://semopenalex.org/countsbyyear/A25585438812017>,
+            <https://semopenalex.org/countsbyyear/A25585438812018>,
+            <https://semopenalex.org/countsbyyear/A25585438812019>,
+            <https://semopenalex.org/countsbyyear/A25585438812020>,
+            <https://semopenalex.org/countsbyyear/A25585438812021>,
+            <https://semopenalex.org/countsbyyear/A25585438812022>,
+            <https://semopenalex.org/countsbyyear/A25585438812023> ;
+        ns1:magId 2558543881 ;
+        ns1:worksCount 100 .
+
+    <https://semopenalex.org/concept/C177264268> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Set%20%28abstract%20data%20type%29" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q1514741>,
+            <https://makg.org/entity/177264268> ;
+        skos:broader <https://semopenalex.org/concept/C199360897>,
+            <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "abstract data type in computer science" ;
+        skos:prefLabel "Set (abstract data type)" ;
+        skos:related <https://semopenalex.org/concept/C119560385>,
+            <https://semopenalex.org/concept/C138958017>,
+            <https://semopenalex.org/concept/C145177509>,
+            <https://semopenalex.org/concept/C146064661>,
+            <https://semopenalex.org/concept/C146101286>,
+            <https://semopenalex.org/concept/C147224247>,
+            <https://semopenalex.org/concept/C150807984>,
+            <https://semopenalex.org/concept/C160403385>,
+            <https://semopenalex.org/concept/C162319229>,
+            <https://semopenalex.org/concept/C168781493>,
+            <https://semopenalex.org/concept/C175971053>,
+            <https://semopenalex.org/concept/C26951474>,
+            <https://semopenalex.org/concept/C2780334700>,
+            <https://semopenalex.org/concept/C67388219>,
+            <https://semopenalex.org/concept/C7660682>,
+            <https://semopenalex.org/concept/C9395851> ;
+        ns1:citedByCount 13686323 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1772642682012>,
+            <https://semopenalex.org/countsbyyear/C1772642682013>,
+            <https://semopenalex.org/countsbyyear/C1772642682014>,
+            <https://semopenalex.org/countsbyyear/C1772642682015>,
+            <https://semopenalex.org/countsbyyear/C1772642682016>,
+            <https://semopenalex.org/countsbyyear/C1772642682017>,
+            <https://semopenalex.org/countsbyyear/C1772642682018>,
+            <https://semopenalex.org/countsbyyear/C1772642682019>,
+            <https://semopenalex.org/countsbyyear/C1772642682020>,
+            <https://semopenalex.org/countsbyyear/C1772642682021>,
+            <https://semopenalex.org/countsbyyear/C1772642682022>,
+            <https://semopenalex.org/countsbyyear/C1772642682023> ;
+        ns1:level 2 ;
+        ns1:magId 177264268 ;
+        ns1:umlsCui "C0179658" ;
+        ns1:worksCount 1401144 .
+
+    <https://semopenalex.org/concept/C184356942> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Best%20practice" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q830382>,
+            <https://makg.org/entity/184356942> ;
+        skos:broader <https://semopenalex.org/concept/C162324750>,
+            <https://semopenalex.org/concept/C17744445>,
+            <https://semopenalex.org/concept/C187736073>,
+            <https://semopenalex.org/concept/C199539241> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "method or technique that has been generally accepted as superior to alternatives either because it produces results that are better or because it has become a standard way of doing things" ;
+        skos:prefLabel "Best practice" ;
+        skos:related <https://semopenalex.org/concept/C106436119>,
+            <https://semopenalex.org/concept/C115903868>,
+            <https://semopenalex.org/concept/C121017731>,
+            <https://semopenalex.org/concept/C14185376>,
+            <https://semopenalex.org/concept/C144133560>,
+            <https://semopenalex.org/concept/C15952604>,
+            <https://semopenalex.org/concept/C160735492>,
+            <https://semopenalex.org/concept/C162853370>,
+            <https://semopenalex.org/concept/C187736073>,
+            <https://semopenalex.org/concept/C201359696>,
+            <https://semopenalex.org/concept/C26713055>,
+            <https://semopenalex.org/concept/C2777904410>,
+            <https://semopenalex.org/concept/C2778150722>,
+            <https://semopenalex.org/concept/C2779709869>,
+            <https://semopenalex.org/concept/C535046627>,
+            <https://semopenalex.org/concept/C66204764>,
+            <https://semopenalex.org/concept/C71405471>,
+            <https://semopenalex.org/concept/C83864248>,
+            <https://semopenalex.org/concept/C86251818>,
+            <https://semopenalex.org/concept/C86275758> ;
+        ns1:citedByCount 498360 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1843569422012>,
+            <https://semopenalex.org/countsbyyear/C1843569422013>,
+            <https://semopenalex.org/countsbyyear/C1843569422014>,
+            <https://semopenalex.org/countsbyyear/C1843569422015>,
+            <https://semopenalex.org/countsbyyear/C1843569422016>,
+            <https://semopenalex.org/countsbyyear/C1843569422017>,
+            <https://semopenalex.org/countsbyyear/C1843569422018>,
+            <https://semopenalex.org/countsbyyear/C1843569422019>,
+            <https://semopenalex.org/countsbyyear/C1843569422020>,
+            <https://semopenalex.org/countsbyyear/C1843569422021>,
+            <https://semopenalex.org/countsbyyear/C1843569422022>,
+            <https://semopenalex.org/countsbyyear/C1843569422023> ;
+        ns1:level 2 ;
+        ns1:magId 184356942 ;
+        ns1:umlsCui "C3179154" ;
+        ns1:worksCount 58362 .
+
+    <https://semopenalex.org/concept/C2781396290> a skos:Concept ;
+        dcterms:created "2018-01-05"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Data%20publishing" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q17051824>,
+            <https://makg.org/entity/2781396290> ;
+        skos:broader <https://semopenalex.org/concept/C124952713>,
+            <https://semopenalex.org/concept/C142362112>,
+            <https://semopenalex.org/concept/C151719136>,
+            <https://semopenalex.org/concept/C17744445>,
+            <https://semopenalex.org/concept/C199539241> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "act of making research datasets available, often a large quantity at one time" ;
+        skos:prefLabel "Data publishing" ;
+        skos:related <https://semopenalex.org/concept/C138368954>,
+            <https://semopenalex.org/concept/C2777462167>,
+            <https://semopenalex.org/concept/C2778149293>,
+            <https://semopenalex.org/concept/C2779965156>,
+            <https://semopenalex.org/concept/C2781083858>,
+            <https://semopenalex.org/concept/C43169469>,
+            <https://semopenalex.org/concept/C58489278>,
+            <https://semopenalex.org/concept/C93518851> ;
+        ns1:citedByCount 28684 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C27813962902012>,
+            <https://semopenalex.org/countsbyyear/C27813962902013>,
+            <https://semopenalex.org/countsbyyear/C27813962902014>,
+            <https://semopenalex.org/countsbyyear/C27813962902015>,
+            <https://semopenalex.org/countsbyyear/C27813962902016>,
+            <https://semopenalex.org/countsbyyear/C27813962902017>,
+            <https://semopenalex.org/countsbyyear/C27813962902018>,
+            <https://semopenalex.org/countsbyyear/C27813962902019>,
+            <https://semopenalex.org/countsbyyear/C27813962902020>,
+            <https://semopenalex.org/countsbyyear/C27813962902021>,
+            <https://semopenalex.org/countsbyyear/C27813962902022>,
+            <https://semopenalex.org/countsbyyear/C27813962902023> ;
+        ns1:level 3 ;
+        ns1:magId 2781396290 ;
+        ns1:worksCount 2386 .
+
+    <https://semopenalex.org/location/W20151912101> a <https://semopenalex.org/class/Location> ;
+        ns4:hasURL "https://doi.org/10.4018/jswis.2009081901" ;
+        ns1:hasSource <https://semopenalex.org/source/S181240966> ;
+        ns1:isOa false .
+
+    <https://semopenalex.org/location/W20151912102> a <https://semopenalex.org/class/Location> ;
+        dcterms:license "pd" ;
+        ns4:hasURL "https://eprints.soton.ac.uk/271285/1/bizer-heath-berners-lee-ijswis-linked-data.pdf" ;
+        ns1:hasSource <https://semopenalex.org/source/S4306401020> ;
+        ns1:hasVersion "acceptedVersion" ;
+        ns1:isOa true ;
+        ns1:pdfUrl "https://eprints.soton.ac.uk/271285/1/bizer-heath-berners-lee-ijswis-linked-data.pdf" .
+
+    <https://semopenalex.org/concept/C165696696> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Exploit%20%28computer%20security%29" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q11287>,
+            <https://makg.org/entity/165696696> ;
+        skos:broader <https://semopenalex.org/concept/C38652104>,
+            <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "software, data or commands that use a bug or vulnerability to compromise a computer system" ;
+        skos:prefLabel "Exploit" ;
+        skos:related <https://semopenalex.org/concept/C1009929>,
+            <https://semopenalex.org/concept/C107101626>,
+            <https://semopenalex.org/concept/C111919701>,
+            <https://semopenalex.org/concept/C19407854>,
+            <https://semopenalex.org/concept/C2780415144>,
+            <https://semopenalex.org/concept/C31258907>,
+            <https://semopenalex.org/concept/C38652104>,
+            <https://semopenalex.org/concept/C38822068>,
+            <https://semopenalex.org/concept/C40842320>,
+            <https://semopenalex.org/concept/C508378895>,
+            <https://semopenalex.org/concept/C527648132>,
+            <https://semopenalex.org/concept/C541664917>,
+            <https://semopenalex.org/concept/C86844869>,
+            <https://semopenalex.org/concept/C95713431> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/3/38/Information_Security_Incidents_by_Category%2C_Fiscal_Year_2014.svg" ;
+        ns1:citedByCount 1298243 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1656966962012>,
+            <https://semopenalex.org/countsbyyear/C1656966962013>,
+            <https://semopenalex.org/countsbyyear/C1656966962014>,
+            <https://semopenalex.org/countsbyyear/C1656966962015>,
+            <https://semopenalex.org/countsbyyear/C1656966962016>,
+            <https://semopenalex.org/countsbyyear/C1656966962017>,
+            <https://semopenalex.org/countsbyyear/C1656966962018>,
+            <https://semopenalex.org/countsbyyear/C1656966962019>,
+            <https://semopenalex.org/countsbyyear/C1656966962020>,
+            <https://semopenalex.org/countsbyyear/C1656966962021>,
+            <https://semopenalex.org/countsbyyear/C1656966962022>,
+            <https://semopenalex.org/countsbyyear/C1656966962023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Information_Security_Incidents_by_Category%2C_Fiscal_Year_2014.svg/100px-Information_Security_Incidents_by_Category%2C_Fiscal_Year_2014.svg.png" ;
+        ns1:level 2 ;
+        ns1:magId 165696696 ;
+        ns1:worksCount 125155 .
+
+    <https://semopenalex.org/concept/C182321512> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Web%20standards" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q1153289>,
+            <https://makg.org/entity/182321512> ;
+        skos:broader <https://semopenalex.org/concept/C110875604>,
+            <https://semopenalex.org/concept/C111919701>,
+            <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C199360897>,
+            <https://semopenalex.org/concept/C21959979>,
+            <https://semopenalex.org/concept/C35578498>,
+            <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "technical standard" ;
+        skos:prefLabel "Web standards" ;
+        skos:related <https://semopenalex.org/concept/C110875604>,
+            <https://semopenalex.org/concept/C111919701>,
+            <https://semopenalex.org/concept/C118643609>,
+            <https://semopenalex.org/concept/C136699151>,
+            <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C137922610>,
+            <https://semopenalex.org/concept/C138708601>,
+            <https://semopenalex.org/concept/C147497476>,
+            <https://semopenalex.org/concept/C189139006>,
+            <https://semopenalex.org/concept/C194669863>,
+            <https://semopenalex.org/concept/C198240166>,
+            <https://semopenalex.org/concept/C202629362>,
+            <https://semopenalex.org/concept/C2129575>,
+            <https://semopenalex.org/concept/C21959979>,
+            <https://semopenalex.org/concept/C2385561>,
+            <https://semopenalex.org/concept/C508378895>,
+            <https://semopenalex.org/concept/C517481932>,
+            <https://semopenalex.org/concept/C521306242>,
+            <https://semopenalex.org/concept/C544833334>,
+            <https://semopenalex.org/concept/C84063617>,
+            <https://semopenalex.org/concept/C84119808>,
+            <https://semopenalex.org/concept/C8797682>,
+            <https://semopenalex.org/concept/C89159866>,
+            <https://semopenalex.org/concept/C93213560> ;
+        ns1:citedByCount 131010 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1823215122012>,
+            <https://semopenalex.org/countsbyyear/C1823215122013>,
+            <https://semopenalex.org/countsbyyear/C1823215122014>,
+            <https://semopenalex.org/countsbyyear/C1823215122015>,
+            <https://semopenalex.org/countsbyyear/C1823215122016>,
+            <https://semopenalex.org/countsbyyear/C1823215122017>,
+            <https://semopenalex.org/countsbyyear/C1823215122018>,
+            <https://semopenalex.org/countsbyyear/C1823215122019>,
+            <https://semopenalex.org/countsbyyear/C1823215122020>,
+            <https://semopenalex.org/countsbyyear/C1823215122021>,
+            <https://semopenalex.org/countsbyyear/C1823215122022>,
+            <https://semopenalex.org/countsbyyear/C1823215122023> ;
+        ns1:level 3 ;
+        ns1:magId 182321512 ;
+        ns1:worksCount 16732 .
+
+    <https://semopenalex.org/concept/C2522767166> a skos:Concept ;
+        dcterms:created "2016-09-30"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Data%20science" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q2374463>,
+            <https://makg.org/entity/2522767166> ;
+        skos:broader <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "interdisciplinary field of study focused on deriving knowledge and insights from data" ;
+        skos:prefLabel "Data science" ;
+        skos:related <https://semopenalex.org/concept/C105795698>,
+            <https://semopenalex.org/concept/C11413529>,
+            <https://semopenalex.org/concept/C119857082>,
+            <https://semopenalex.org/concept/C120894424>,
+            <https://semopenalex.org/concept/C124101348>,
+            <https://semopenalex.org/concept/C151406439>,
+            <https://semopenalex.org/concept/C154945302>,
+            <https://semopenalex.org/concept/C175801342>,
+            <https://semopenalex.org/concept/C2767350>,
+            <https://semopenalex.org/concept/C2775858994>,
+            <https://semopenalex.org/concept/C33923547>,
+            <https://semopenalex.org/concept/C41008148>,
+            <https://semopenalex.org/concept/C60644358>,
+            <https://semopenalex.org/concept/C73555534>,
+            <https://semopenalex.org/concept/C75684735>,
+            <https://semopenalex.org/concept/C79158427>,
+            <https://semopenalex.org/concept/C80444323>,
+            <https://semopenalex.org/concept/C83209312> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/4/45/PIA23792-1600x1200%281%29.jpg" ;
+        ns1:citedByCount 12524780 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C25227671662012>,
+            <https://semopenalex.org/countsbyyear/C25227671662013>,
+            <https://semopenalex.org/countsbyyear/C25227671662014>,
+            <https://semopenalex.org/countsbyyear/C25227671662015>,
+            <https://semopenalex.org/countsbyyear/C25227671662016>,
+            <https://semopenalex.org/countsbyyear/C25227671662017>,
+            <https://semopenalex.org/countsbyyear/C25227671662018>,
+            <https://semopenalex.org/countsbyyear/C25227671662019>,
+            <https://semopenalex.org/countsbyyear/C25227671662020>,
+            <https://semopenalex.org/countsbyyear/C25227671662021>,
+            <https://semopenalex.org/countsbyyear/C25227671662022>,
+            <https://semopenalex.org/countsbyyear/C25227671662023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/PIA23792-1600x1200%281%29.jpg/100px-PIA23792-1600x1200%281%29.jpg" ;
+        ns1:level 1 ;
+        ns1:magId 2522767166 ;
+        ns1:umlsCui "C4704771" ;
+        ns1:worksCount 1718660 .
+
+    <https://semopenalex.org/concept/C2779343474> a skos:Concept ;
+        dcterms:created "2018-01-05"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Glossary%20of%20archaeology" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q3109175>,
+            <https://makg.org/entity/2779343474> ;
+        skos:broader <https://semopenalex.org/concept/C127313418>,
+            <https://semopenalex.org/concept/C151730666>,
+            <https://semopenalex.org/concept/C166957645>,
+            <https://semopenalex.org/concept/C205649164>,
+            <https://semopenalex.org/concept/C86803240>,
+            <https://semopenalex.org/concept/C95457728> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "glossary for archaeological terms" ;
+        skos:prefLabel "Context (archaeology)" ;
+        skos:related <https://semopenalex.org/concept/C100134115>,
+            <https://semopenalex.org/concept/C103303479>,
+            <https://semopenalex.org/concept/C109281948>,
+            <https://semopenalex.org/concept/C166957645>,
+            <https://semopenalex.org/concept/C2776505523>,
+            <https://semopenalex.org/concept/C2776608160>,
+            <https://semopenalex.org/concept/C2777798969>,
+            <https://semopenalex.org/concept/C2779269003>,
+            <https://semopenalex.org/concept/C31858485>,
+            <https://semopenalex.org/concept/C541743481> ;
+        ns1:citedByCount 25215017 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C27793434742012>,
+            <https://semopenalex.org/countsbyyear/C27793434742013>,
+            <https://semopenalex.org/countsbyyear/C27793434742014>,
+            <https://semopenalex.org/countsbyyear/C27793434742015>,
+            <https://semopenalex.org/countsbyyear/C27793434742016>,
+            <https://semopenalex.org/countsbyyear/C27793434742017>,
+            <https://semopenalex.org/countsbyyear/C27793434742018>,
+            <https://semopenalex.org/countsbyyear/C27793434742019>,
+            <https://semopenalex.org/countsbyyear/C27793434742020>,
+            <https://semopenalex.org/countsbyyear/C27793434742021>,
+            <https://semopenalex.org/countsbyyear/C27793434742022>,
+            <https://semopenalex.org/countsbyyear/C27793434742023> ;
+        ns1:level 2 ;
+        ns1:magId 2779343474 ;
+        ns1:umlsCui "C0449255" ;
+        ns1:worksCount 2413892 .
+
+    <https://semopenalex.org/concept/C2780535194> a skos:Concept ;
+        dcterms:created "2018-01-05"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Open%20data" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q309901>,
+            <https://makg.org/entity/2780535194> ;
+        skos:broader <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C17744445>,
+            <https://semopenalex.org/concept/C199539241>,
+            <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "practice of sharing data publicly and reusably" ;
+        skos:prefLabel "Open data" ;
+        skos:related <https://semopenalex.org/concept/C101293273>,
+            <https://semopenalex.org/concept/C110875604>,
+            <https://semopenalex.org/concept/C197352329>,
+            <https://semopenalex.org/concept/C2777221391>,
+            <https://semopenalex.org/concept/C2778149293>,
+            <https://semopenalex.org/concept/C2778464652>,
+            <https://semopenalex.org/concept/C2778526452>,
+            <https://semopenalex.org/concept/C2780233690>,
+            <https://semopenalex.org/concept/C41856607>,
+            <https://semopenalex.org/concept/C512654426>,
+            <https://semopenalex.org/concept/C518677369>,
+            <https://semopenalex.org/concept/C539828613>,
+            <https://semopenalex.org/concept/C62230096>,
+            <https://semopenalex.org/concept/C67936045>,
+            <https://semopenalex.org/concept/C69075417>,
+            <https://semopenalex.org/concept/C75684735>,
+            <https://semopenalex.org/concept/C99613125> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/3/39/Lod.png" ;
+        ns1:citedByCount 73270 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C27805351942012>,
+            <https://semopenalex.org/countsbyyear/C27805351942013>,
+            <https://semopenalex.org/countsbyyear/C27805351942014>,
+            <https://semopenalex.org/countsbyyear/C27805351942015>,
+            <https://semopenalex.org/countsbyyear/C27805351942016>,
+            <https://semopenalex.org/countsbyyear/C27805351942017>,
+            <https://semopenalex.org/countsbyyear/C27805351942018>,
+            <https://semopenalex.org/countsbyyear/C27805351942019>,
+            <https://semopenalex.org/countsbyyear/C27805351942020>,
+            <https://semopenalex.org/countsbyyear/C27805351942021>,
+            <https://semopenalex.org/countsbyyear/C27805351942022>,
+            <https://semopenalex.org/countsbyyear/C27805351942023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Lod.png/100px-Lod.png" ;
+        ns1:level 2 ;
+        ns1:magId 2780535194 ;
+        ns1:worksCount 10592 .
+
+    <https://semopenalex.org/concept/C151719136> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-28"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Publishing" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q3972943>,
+            <https://makg.org/entity/151719136> ;
+        skos:broader <https://semopenalex.org/concept/C124952713>,
+            <https://semopenalex.org/concept/C142362112>,
+            <https://semopenalex.org/concept/C17744445>,
+            <https://semopenalex.org/concept/C199539241> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "process of production and dissemination of literature, music, or information" ;
+        skos:prefLabel "Publishing" ;
+        skos:related <https://semopenalex.org/concept/C101780184>,
+            <https://semopenalex.org/concept/C103631927>,
+            <https://semopenalex.org/concept/C110875604>,
+            <https://semopenalex.org/concept/C112698675>,
+            <https://semopenalex.org/concept/C117374575>,
+            <https://semopenalex.org/concept/C117774814>,
+            <https://semopenalex.org/concept/C119513131>,
+            <https://semopenalex.org/concept/C119867837>,
+            <https://semopenalex.org/concept/C124952713>,
+            <https://semopenalex.org/concept/C125261785>,
+            <https://semopenalex.org/concept/C137355542>,
+            <https://semopenalex.org/concept/C148863701>,
+            <https://semopenalex.org/concept/C157714500>,
+            <https://semopenalex.org/concept/C162853370>,
+            <https://semopenalex.org/concept/C164913051>,
+            <https://semopenalex.org/concept/C17632256>,
+            <https://semopenalex.org/concept/C177897776>,
+            <https://semopenalex.org/concept/C18599908>,
+            <https://semopenalex.org/concept/C186855751>,
+            <https://semopenalex.org/concept/C188985296>,
+            <https://semopenalex.org/concept/C191935318>,
+            <https://semopenalex.org/concept/C201280247>,
+            <https://semopenalex.org/concept/C2776003135>,
+            <https://semopenalex.org/concept/C2776182711>,
+            <https://semopenalex.org/concept/C2776506252>,
+            <https://semopenalex.org/concept/C2776509796>,
+            <https://semopenalex.org/concept/C2776604462>,
+            <https://semopenalex.org/concept/C2777744765>,
+            <https://semopenalex.org/concept/C2777890638>,
+            <https://semopenalex.org/concept/C2778081389>,
+            <https://semopenalex.org/concept/C2778473407>,
+            <https://semopenalex.org/concept/C2778489119>,
+            <https://semopenalex.org/concept/C2778671685>,
+            <https://semopenalex.org/concept/C2778689934>,
+            <https://semopenalex.org/concept/C2778945725>,
+            <https://semopenalex.org/concept/C2779118283>,
+            <https://semopenalex.org/concept/C2779344036>,
+            <https://semopenalex.org/concept/C2779840692>,
+            <https://semopenalex.org/concept/C2780644320>,
+            <https://semopenalex.org/concept/C2780966802>,
+            <https://semopenalex.org/concept/C2781083858>,
+            <https://semopenalex.org/concept/C41022531>,
+            <https://semopenalex.org/concept/C41458344>,
+            <https://semopenalex.org/concept/C43169469>,
+            <https://semopenalex.org/concept/C5021161>,
+            <https://semopenalex.org/concept/C512654426>,
+            <https://semopenalex.org/concept/C513874922>,
+            <https://semopenalex.org/concept/C520712124>,
+            <https://semopenalex.org/concept/C529099274>,
+            <https://semopenalex.org/concept/C529147693>,
+            <https://semopenalex.org/concept/C534859617>,
+            <https://semopenalex.org/concept/C535889608>,
+            <https://semopenalex.org/concept/C536601067>,
+            <https://semopenalex.org/concept/C55322685>,
+            <https://semopenalex.org/concept/C558299567>,
+            <https://semopenalex.org/concept/C65290094>,
+            <https://semopenalex.org/concept/C68476402>,
+            <https://semopenalex.org/concept/C756385>,
+            <https://semopenalex.org/concept/C84933800>,
+            <https://semopenalex.org/concept/C97002063> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/1/1b/The_Caxton_Celebration_-_William_Caxton_showing_specimens_of_his_printing_to_King_Edward_IV_and_his_Queen.jpg" ;
+        ns1:citedByCount 698537 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1517191362012>,
+            <https://semopenalex.org/countsbyyear/C1517191362013>,
+            <https://semopenalex.org/countsbyyear/C1517191362014>,
+            <https://semopenalex.org/countsbyyear/C1517191362015>,
+            <https://semopenalex.org/countsbyyear/C1517191362016>,
+            <https://semopenalex.org/countsbyyear/C1517191362017>,
+            <https://semopenalex.org/countsbyyear/C1517191362018>,
+            <https://semopenalex.org/countsbyyear/C1517191362019>,
+            <https://semopenalex.org/countsbyyear/C1517191362020>,
+            <https://semopenalex.org/countsbyyear/C1517191362021>,
+            <https://semopenalex.org/countsbyyear/C1517191362022>,
+            <https://semopenalex.org/countsbyyear/C1517191362023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/The_Caxton_Celebration_-_William_Caxton_showing_specimens_of_his_printing_to_King_Edward_IV_and_his_Queen.jpg/100px-The_Caxton_Celebration_-_William_Caxton_showing_specimens_of_his_printing_to_King_Edward_IV_and_his_Queen.jpg" ;
+        ns1:level 2 ;
+        ns1:magId 151719136 ;
+        ns1:umlsCui "C0034037" ;
+        ns1:worksCount 318496 .
+
+    <https://semopenalex.org/concept/C69075417> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Linked%20data" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q515701>,
+            <https://makg.org/entity/69075417> ;
+        skos:broader <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C154945302>,
+            <https://semopenalex.org/concept/C2129575>,
+            <https://semopenalex.org/concept/C23123220>,
+            <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "structured data and method for its publication" ;
+        skos:prefLabel "Linked data" ;
+        skos:related <https://semopenalex.org/concept/C101230327>,
+            <https://semopenalex.org/concept/C103692084>,
+            <https://semopenalex.org/concept/C13424479>,
+            <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C138708601>,
+            <https://semopenalex.org/concept/C142210648>,
+            <https://semopenalex.org/concept/C147497476>,
+            <https://semopenalex.org/concept/C148792806>,
+            <https://semopenalex.org/concept/C149672775>,
+            <https://semopenalex.org/concept/C162005631>,
+            <https://semopenalex.org/concept/C167379230>,
+            <https://semopenalex.org/concept/C2129575>,
+            <https://semopenalex.org/concept/C2778816267>,
+            <https://semopenalex.org/concept/C2780535194>,
+            <https://semopenalex.org/concept/C41009113>,
+            <https://semopenalex.org/concept/C65603577>,
+            <https://semopenalex.org/concept/C8797682>,
+            <https://semopenalex.org/concept/C93518851> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/d/dd/Wikidata_in_the_Linked_Open_Data_cloud_2020-08-20.svg" ;
+        ns1:citedByCount 61497 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C690754172012>,
+            <https://semopenalex.org/countsbyyear/C690754172013>,
+            <https://semopenalex.org/countsbyyear/C690754172014>,
+            <https://semopenalex.org/countsbyyear/C690754172015>,
+            <https://semopenalex.org/countsbyyear/C690754172016>,
+            <https://semopenalex.org/countsbyyear/C690754172017>,
+            <https://semopenalex.org/countsbyyear/C690754172018>,
+            <https://semopenalex.org/countsbyyear/C690754172019>,
+            <https://semopenalex.org/countsbyyear/C690754172020>,
+            <https://semopenalex.org/countsbyyear/C690754172021>,
+            <https://semopenalex.org/countsbyyear/C690754172022>,
+            <https://semopenalex.org/countsbyyear/C690754172023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Wikidata_in_the_Linked_Open_Data_cloud_2020-08-20.svg/100px-Wikidata_in_the_Linked_Open_Data_cloud_2020-08-20.svg.png" ;
+        ns1:level 3 ;
+        ns1:magId 69075417 ;
+        ns1:umlsCui "C4505300" ;
+        ns1:worksCount 7936 .
+
+    <https://semopenalex.org/concept/C166957645> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Archaeology" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q23498>,
+            <https://makg.org/entity/166957645> ;
+        skos:broader <https://semopenalex.org/concept/C205649164>,
+            <https://semopenalex.org/concept/C95457728> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "study of human past through material culture" ;
+        skos:prefLabel "Archaeology" ;
+        skos:related <https://semopenalex.org/concept/C100134115>,
+            <https://semopenalex.org/concept/C102690226>,
+            <https://semopenalex.org/concept/C104629281>,
+            <https://semopenalex.org/concept/C105297191>,
+            <https://semopenalex.org/concept/C116856471>,
+            <https://semopenalex.org/concept/C117959457>,
+            <https://semopenalex.org/concept/C118518473>,
+            <https://semopenalex.org/concept/C120876096>,
+            <https://semopenalex.org/concept/C122302079>,
+            <https://semopenalex.org/concept/C123657996>,
+            <https://semopenalex.org/concept/C127313418>,
+            <https://semopenalex.org/concept/C128263622>,
+            <https://semopenalex.org/concept/C129454956>,
+            <https://semopenalex.org/concept/C130056557>,
+            <https://semopenalex.org/concept/C133214962>,
+            <https://semopenalex.org/concept/C134132462>,
+            <https://semopenalex.org/concept/C134387633>,
+            <https://semopenalex.org/concept/C137355542>,
+            <https://semopenalex.org/concept/C139771638>,
+            <https://semopenalex.org/concept/C140505726>,
+            <https://semopenalex.org/concept/C142675635>,
+            <https://semopenalex.org/concept/C143128703>,
+            <https://semopenalex.org/concept/C143700406>,
+            <https://semopenalex.org/concept/C151730666>,
+            <https://semopenalex.org/concept/C160452857>,
+            <https://semopenalex.org/concept/C163276114>,
+            <https://semopenalex.org/concept/C164767435>,
+            <https://semopenalex.org/concept/C16678853>,
+            <https://semopenalex.org/concept/C171878925>,
+            <https://semopenalex.org/concept/C174016839>,
+            <https://semopenalex.org/concept/C176025405>,
+            <https://semopenalex.org/concept/C179454799>,
+            <https://semopenalex.org/concept/C181536285>,
+            <https://semopenalex.org/concept/C18678713>,
+            <https://semopenalex.org/concept/C186897216>,
+            <https://semopenalex.org/concept/C190137741>,
+            <https://semopenalex.org/concept/C19165224>,
+            <https://semopenalex.org/concept/C193798670>,
+            <https://semopenalex.org/concept/C195244886>,
+            <https://semopenalex.org/concept/C196284684>,
+            <https://semopenalex.org/concept/C196977105>,
+            <https://semopenalex.org/concept/C197698901>,
+            <https://semopenalex.org/concept/C198211336>,
+            <https://semopenalex.org/concept/C198647972>,
+            <https://semopenalex.org/concept/C200198126>,
+            <https://semopenalex.org/concept/C204852536>,
+            <https://semopenalex.org/concept/C205649164>,
+            <https://semopenalex.org/concept/C2549261>,
+            <https://semopenalex.org/concept/C2776381685>,
+            <https://semopenalex.org/concept/C2776451536>,
+            <https://semopenalex.org/concept/C2776505523>,
+            <https://semopenalex.org/concept/C2777170306>,
+            <https://semopenalex.org/concept/C2777192895>,
+            <https://semopenalex.org/concept/C2777421203>,
+            <https://semopenalex.org/concept/C2778079442>,
+            <https://semopenalex.org/concept/C2778478046>,
+            <https://semopenalex.org/concept/C2778633791>,
+            <https://semopenalex.org/concept/C2779121571>,
+            <https://semopenalex.org/concept/C2779269003>,
+            <https://semopenalex.org/concept/C2779343474>,
+            <https://semopenalex.org/concept/C2779483780>,
+            <https://semopenalex.org/concept/C2779608229>,
+            <https://semopenalex.org/concept/C2779708316>,
+            <https://semopenalex.org/concept/C2780091996>,
+            <https://semopenalex.org/concept/C2780546114>,
+            <https://semopenalex.org/concept/C2780583484>,
+            <https://semopenalex.org/concept/C2780680389>,
+            <https://semopenalex.org/concept/C2780731216>,
+            <https://semopenalex.org/concept/C2780964940>,
+            <https://semopenalex.org/concept/C2780974818>,
+            <https://semopenalex.org/concept/C2781271316>,
+            <https://semopenalex.org/concept/C29598333>,
+            <https://semopenalex.org/concept/C31858485>,
+            <https://semopenalex.org/concept/C36700096>,
+            <https://semopenalex.org/concept/C41856607>,
+            <https://semopenalex.org/concept/C41895202>,
+            <https://semopenalex.org/concept/C43211506>,
+            <https://semopenalex.org/concept/C4518377>,
+            <https://semopenalex.org/concept/C501303744>,
+            <https://semopenalex.org/concept/C504846192>,
+            <https://semopenalex.org/concept/C507827637>,
+            <https://semopenalex.org/concept/C519517224>,
+            <https://semopenalex.org/concept/C52119013>,
+            <https://semopenalex.org/concept/C521975472>,
+            <https://semopenalex.org/concept/C528414297>,
+            <https://semopenalex.org/concept/C529988629>,
+            <https://semopenalex.org/concept/C53553401>,
+            <https://semopenalex.org/concept/C541743481>,
+            <https://semopenalex.org/concept/C550479007>,
+            <https://semopenalex.org/concept/C58009596>,
+            <https://semopenalex.org/concept/C58051837>,
+            <https://semopenalex.org/concept/C60671577>,
+            <https://semopenalex.org/concept/C60940604>,
+            <https://semopenalex.org/concept/C72423040>,
+            <https://semopenalex.org/concept/C74916050>,
+            <https://semopenalex.org/concept/C85064482>,
+            <https://semopenalex.org/concept/C85735339>,
+            <https://semopenalex.org/concept/C86565373>,
+            <https://semopenalex.org/concept/C93953391>,
+            <https://semopenalex.org/concept/C95457728> ;
+        ns1:citedByCount 45001197 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1669576452012>,
+            <https://semopenalex.org/countsbyyear/C1669576452013>,
+            <https://semopenalex.org/countsbyyear/C1669576452014>,
+            <https://semopenalex.org/countsbyyear/C1669576452015>,
+            <https://semopenalex.org/countsbyyear/C1669576452016>,
+            <https://semopenalex.org/countsbyyear/C1669576452017>,
+            <https://semopenalex.org/countsbyyear/C1669576452018>,
+            <https://semopenalex.org/countsbyyear/C1669576452019>,
+            <https://semopenalex.org/countsbyyear/C1669576452020>,
+            <https://semopenalex.org/countsbyyear/C1669576452021>,
+            <https://semopenalex.org/countsbyyear/C1669576452022>,
+            <https://semopenalex.org/countsbyyear/C1669576452023> ;
+        ns1:level 1 ;
+        ns1:magId 166957645 ;
+        ns1:umlsCui "C0003733" ;
+        ns1:worksCount 9050570 .
+
+    <https://semopenalex.org/concept/C199360897> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Programming%20language" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q9143>,
+            <https://makg.org/entity/199360897> ;
+        skos:broader <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "language designed to communicate instructions to a machine" ;
+        skos:prefLabel "Programming language" ;
+        skos:related <https://semopenalex.org/concept/C111498074>,
+            <https://semopenalex.org/concept/C111919701>,
+            <https://semopenalex.org/concept/C114094675>,
+            <https://semopenalex.org/concept/C11413529>,
+            <https://semopenalex.org/concept/C115903868>,
+            <https://semopenalex.org/concept/C116188536>,
+            <https://semopenalex.org/concept/C118930307>,
+            <https://semopenalex.org/concept/C120314980>,
+            <https://semopenalex.org/concept/C121329065>,
+            <https://semopenalex.org/concept/C122783720>,
+            <https://semopenalex.org/concept/C126707884>,
+            <https://semopenalex.org/concept/C128595289>,
+            <https://semopenalex.org/concept/C128644962>,
+            <https://semopenalex.org/concept/C128838566>,
+            <https://semopenalex.org/concept/C133769200>,
+            <https://semopenalex.org/concept/C134765980>,
+            <https://semopenalex.org/concept/C135257023>,
+            <https://semopenalex.org/concept/C135790938>,
+            <https://semopenalex.org/concept/C138958017>,
+            <https://semopenalex.org/concept/C145428669>,
+            <https://semopenalex.org/concept/C146064661>,
+            <https://semopenalex.org/concept/C146072743>,
+            <https://semopenalex.org/concept/C150495011>,
+            <https://semopenalex.org/concept/C154504017>,
+            <https://semopenalex.org/concept/C154690210>,
+            <https://semopenalex.org/concept/C160145156>,
+            <https://semopenalex.org/concept/C160191386>,
+            <https://semopenalex.org/concept/C162319229>,
+            <https://semopenalex.org/concept/C166955791>,
+            <https://semopenalex.org/concept/C167822520>,
+            <https://semopenalex.org/concept/C168065819>,
+            <https://semopenalex.org/concept/C168781493>,
+            <https://semopenalex.org/concept/C169590947>,
+            <https://semopenalex.org/concept/C172086080>,
+            <https://semopenalex.org/concept/C172658912>,
+            <https://semopenalex.org/concept/C173608175>,
+            <https://semopenalex.org/concept/C175971053>,
+            <https://semopenalex.org/concept/C184337299>,
+            <https://semopenalex.org/concept/C186644900>,
+            <https://semopenalex.org/concept/C190883126>,
+            <https://semopenalex.org/concept/C195324797>,
+            <https://semopenalex.org/concept/C196697905>,
+            <https://semopenalex.org/concept/C197781089>,
+            <https://semopenalex.org/concept/C201677973>,
+            <https://semopenalex.org/concept/C25344961>,
+            <https://semopenalex.org/concept/C2777002779>,
+            <https://semopenalex.org/concept/C2777362769>,
+            <https://semopenalex.org/concept/C2777394884>,
+            <https://semopenalex.org/concept/C2777904410>,
+            <https://semopenalex.org/concept/C2778012447>,
+            <https://semopenalex.org/concept/C2778241615>,
+            <https://semopenalex.org/concept/C2778361913>,
+            <https://semopenalex.org/concept/C2778383056>,
+            <https://semopenalex.org/concept/C2779495148>,
+            <https://semopenalex.org/concept/C2780365114>,
+            <https://semopenalex.org/concept/C2780870223>,
+            <https://semopenalex.org/concept/C2781039887>,
+            <https://semopenalex.org/concept/C32155586>,
+            <https://semopenalex.org/concept/C33857546>,
+            <https://semopenalex.org/concept/C34165917>,
+            <https://semopenalex.org/concept/C34736171>,
+            <https://semopenalex.org/concept/C35390924>,
+            <https://semopenalex.org/concept/C37789001>,
+            <https://semopenalex.org/concept/C40842320>,
+            <https://semopenalex.org/concept/C41008148>,
+            <https://semopenalex.org/concept/C42383842>,
+            <https://semopenalex.org/concept/C43126263>,
+            <https://semopenalex.org/concept/C44779574>,
+            <https://semopenalex.org/concept/C45374587>,
+            <https://semopenalex.org/concept/C49312422>,
+            <https://semopenalex.org/concept/C510870499>,
+            <https://semopenalex.org/concept/C519991488>,
+            <https://semopenalex.org/concept/C52173422>,
+            <https://semopenalex.org/concept/C523747234>,
+            <https://semopenalex.org/concept/C52723943>,
+            <https://semopenalex.org/concept/C544833334>,
+            <https://semopenalex.org/concept/C548217200>,
+            <https://semopenalex.org/concept/C61423126>,
+            <https://semopenalex.org/concept/C65682993>,
+            <https://semopenalex.org/concept/C68859911>,
+            <https://semopenalex.org/concept/C7051814>,
+            <https://semopenalex.org/concept/C7342684>,
+            <https://semopenalex.org/concept/C73752529>,
+            <https://semopenalex.org/concept/C75606506>,
+            <https://semopenalex.org/concept/C77088390>,
+            <https://semopenalex.org/concept/C77781355>,
+            <https://semopenalex.org/concept/C80444323>,
+            <https://semopenalex.org/concept/C80469333>,
+            <https://semopenalex.org/concept/C81721847>,
+            <https://semopenalex.org/concept/C83581934>,
+            <https://semopenalex.org/concept/C83852419>,
+            <https://semopenalex.org/concept/C84211073>,
+            <https://semopenalex.org/concept/C854659>,
+            <https://semopenalex.org/concept/C88482812>,
+            <https://semopenalex.org/concept/C88626702>,
+            <https://semopenalex.org/concept/C89505385>,
+            <https://semopenalex.org/concept/C92400490>,
+            <https://semopenalex.org/concept/C9390403>,
+            <https://semopenalex.org/concept/C96147967>,
+            <https://semopenalex.org/concept/C99613125> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/3/39/C_Hello_World_Program.png" ;
+        ns1:citedByCount 76225528 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1993608972012>,
+            <https://semopenalex.org/countsbyyear/C1993608972013>,
+            <https://semopenalex.org/countsbyyear/C1993608972014>,
+            <https://semopenalex.org/countsbyyear/C1993608972015>,
+            <https://semopenalex.org/countsbyyear/C1993608972016>,
+            <https://semopenalex.org/countsbyyear/C1993608972017>,
+            <https://semopenalex.org/countsbyyear/C1993608972018>,
+            <https://semopenalex.org/countsbyyear/C1993608972019>,
+            <https://semopenalex.org/countsbyyear/C1993608972020>,
+            <https://semopenalex.org/countsbyyear/C1993608972021>,
+            <https://semopenalex.org/countsbyyear/C1993608972022>,
+            <https://semopenalex.org/countsbyyear/C1993608972023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/C_Hello_World_Program.png/100px-C_Hello_World_Program.png" ;
+        ns1:level 1 ;
+        ns1:magId 199360897 ;
+        ns1:umlsCui "C0033348" ;
+        ns1:worksCount 8333043 .
+
+    <https://semopenalex.org/concept/C2129575> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        owl:sameAs <http://www.wikidata.org/entity/Q54837>,
+            <https://makg.org/entity/2129575> ;
+        skos:broader <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C154945302>,
+            <https://semopenalex.org/concept/C23123220>,
+            <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "extension of the Web to facilitate data exchange" ;
+        skos:prefLabel "Semantic Web" ;
+        skos:related <https://semopenalex.org/concept/C101230327>,
+            <https://semopenalex.org/concept/C102993220>,
+            <https://semopenalex.org/concept/C103692084>,
+            <https://semopenalex.org/concept/C110615152>,
+            <https://semopenalex.org/concept/C110875604>,
+            <https://semopenalex.org/concept/C115925183>,
+            <https://semopenalex.org/concept/C120567893>,
+            <https://semopenalex.org/concept/C130318100>,
+            <https://semopenalex.org/concept/C13424479>,
+            <https://semopenalex.org/concept/C136699151>,
+            <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C137314826>,
+            <https://semopenalex.org/concept/C138708601>,
+            <https://semopenalex.org/concept/C147497476>,
+            <https://semopenalex.org/concept/C149672775>,
+            <https://semopenalex.org/concept/C153604712>,
+            <https://semopenalex.org/concept/C154945302>,
+            <https://semopenalex.org/concept/C161301231>,
+            <https://semopenalex.org/concept/C162005631>,
+            <https://semopenalex.org/concept/C162215914>,
+            <https://semopenalex.org/concept/C166423231>,
+            <https://semopenalex.org/concept/C1667742>,
+            <https://semopenalex.org/concept/C1668388>,
+            <https://semopenalex.org/concept/C167379230>,
+            <https://semopenalex.org/concept/C174252522>,
+            <https://semopenalex.org/concept/C182321512>,
+            <https://semopenalex.org/concept/C192800085>,
+            <https://semopenalex.org/concept/C195807954>,
+            <https://semopenalex.org/concept/C201638289>,
+            <https://semopenalex.org/concept/C207685749>,
+            <https://semopenalex.org/concept/C2776288485>,
+            <https://semopenalex.org/concept/C2776321320>,
+            <https://semopenalex.org/concept/C2778431730>,
+            <https://semopenalex.org/concept/C2779247653>,
+            <https://semopenalex.org/concept/C2781252014>,
+            <https://semopenalex.org/concept/C30542707>,
+            <https://semopenalex.org/concept/C30872290>,
+            <https://semopenalex.org/concept/C41008148>,
+            <https://semopenalex.org/concept/C4554734>,
+            <https://semopenalex.org/concept/C503923677>,
+            <https://semopenalex.org/concept/C534406577>,
+            <https://semopenalex.org/concept/C55177894>,
+            <https://semopenalex.org/concept/C56739046>,
+            <https://semopenalex.org/concept/C5894958>,
+            <https://semopenalex.org/concept/C61673122>,
+            <https://semopenalex.org/concept/C65603577>,
+            <https://semopenalex.org/concept/C69075417>,
+            <https://semopenalex.org/concept/C71472368>,
+            <https://semopenalex.org/concept/C77088390>,
+            <https://semopenalex.org/concept/C84685590>,
+            <https://semopenalex.org/concept/C85407183>,
+            <https://semopenalex.org/concept/C8797682>,
+            <https://semopenalex.org/concept/C93518851>,
+            <https://semopenalex.org/concept/C95349148>,
+            <https://semopenalex.org/concept/C9616225> ;
+        ns1:citedByCount 633669 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C21295752012>,
+            <https://semopenalex.org/countsbyyear/C21295752013>,
+            <https://semopenalex.org/countsbyyear/C21295752014>,
+            <https://semopenalex.org/countsbyyear/C21295752015>,
+            <https://semopenalex.org/countsbyyear/C21295752016>,
+            <https://semopenalex.org/countsbyyear/C21295752017>,
+            <https://semopenalex.org/countsbyyear/C21295752018>,
+            <https://semopenalex.org/countsbyyear/C21295752019>,
+            <https://semopenalex.org/countsbyyear/C21295752020>,
+            <https://semopenalex.org/countsbyyear/C21295752021>,
+            <https://semopenalex.org/countsbyyear/C21295752022>,
+            <https://semopenalex.org/countsbyyear/C21295752023> ;
+        ns1:level 2 ;
+        ns1:magId 2129575 ;
+        ns1:umlsCui "C4505300" ;
+        ns1:worksCount 74390 .
+
+    <https://semopenalex.org/concept/C38652104> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Computer%20security" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q3510521>,
+            <https://makg.org/entity/38652104> ;
+        skos:broader <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "the protection of computer systems and networks from theft, damage, misuse or data leak" ;
+        skos:prefLabel "Computer security" ;
+        skos:related <https://semopenalex.org/concept/C107101626>,
+            <https://semopenalex.org/concept/C108827166>,
+            <https://semopenalex.org/concept/C109297577>,
+            <https://semopenalex.org/concept/C110875604>,
+            <https://semopenalex.org/concept/C111498074>,
+            <https://semopenalex.org/concept/C111919701>,
+            <https://semopenalex.org/concept/C113324615>,
+            <https://semopenalex.org/concept/C113863187>,
+            <https://semopenalex.org/concept/C116865082>,
+            <https://semopenalex.org/concept/C121017731>,
+            <https://semopenalex.org/concept/C121822524>,
+            <https://semopenalex.org/concept/C121858775>,
+            <https://semopenalex.org/concept/C123201435>,
+            <https://semopenalex.org/concept/C129230348>,
+            <https://semopenalex.org/concept/C137822555>,
+            <https://semopenalex.org/concept/C140547941>,
+            <https://semopenalex.org/concept/C14331377>,
+            <https://semopenalex.org/concept/C144446859>,
+            <https://semopenalex.org/concept/C144543869>,
+            <https://semopenalex.org/concept/C147494362>,
+            <https://semopenalex.org/concept/C148730421>,
+            <https://semopenalex.org/concept/C154908896>,
+            <https://semopenalex.org/concept/C159234332>,
+            <https://semopenalex.org/concept/C161615301>,
+            <https://semopenalex.org/concept/C165609540>,
+            <https://semopenalex.org/concept/C165696696>,
+            <https://semopenalex.org/concept/C167900197>,
+            <https://semopenalex.org/concept/C171769113>,
+            <https://semopenalex.org/concept/C178489894>,
+            <https://semopenalex.org/concept/C18007350>,
+            <https://semopenalex.org/concept/C182590292>,
+            <https://semopenalex.org/concept/C184297639>,
+            <https://semopenalex.org/concept/C191267431>,
+            <https://semopenalex.org/concept/C19163912>,
+            <https://semopenalex.org/concept/C193519340>,
+            <https://semopenalex.org/concept/C19407854>,
+            <https://semopenalex.org/concept/C201307755>,
+            <https://semopenalex.org/concept/C2776157020>,
+            <https://semopenalex.org/concept/C2776234997>,
+            <https://semopenalex.org/concept/C2776576444>,
+            <https://semopenalex.org/concept/C2776788033>,
+            <https://semopenalex.org/concept/C2776831232>,
+            <https://semopenalex.org/concept/C2776971686>,
+            <https://semopenalex.org/concept/C2776990098>,
+            <https://semopenalex.org/concept/C2777306048>,
+            <https://semopenalex.org/concept/C2777337426>,
+            <https://semopenalex.org/concept/C2777810591>,
+            <https://semopenalex.org/concept/C2777904410>,
+            <https://semopenalex.org/concept/C2778553114>,
+            <https://semopenalex.org/concept/C2779173999>,
+            <https://semopenalex.org/concept/C2780150774>,
+            <https://semopenalex.org/concept/C2780415144>,
+            <https://semopenalex.org/concept/C2780615140>,
+            <https://semopenalex.org/concept/C2780814629>,
+            <https://semopenalex.org/concept/C2780952636>,
+            <https://semopenalex.org/concept/C2781349506>,
+            <https://semopenalex.org/concept/C29852176>,
+            <https://semopenalex.org/concept/C31258907>,
+            <https://semopenalex.org/concept/C32896092>,
+            <https://semopenalex.org/concept/C35525427>,
+            <https://semopenalex.org/concept/C40842320>,
+            <https://semopenalex.org/concept/C41008148>,
+            <https://semopenalex.org/concept/C41065033>,
+            <https://semopenalex.org/concept/C48145219>,
+            <https://semopenalex.org/concept/C522325796>,
+            <https://semopenalex.org/concept/C527648132>,
+            <https://semopenalex.org/concept/C527821871>,
+            <https://semopenalex.org/concept/C541664917>,
+            <https://semopenalex.org/concept/C70118762>,
+            <https://semopenalex.org/concept/C70236469>,
+            <https://semopenalex.org/concept/C71745522>,
+            <https://semopenalex.org/concept/C76178495>,
+            <https://semopenalex.org/concept/C84418412>,
+            <https://semopenalex.org/concept/C86844869>,
+            <https://semopenalex.org/concept/C91262260>,
+            <https://semopenalex.org/concept/C95713431>,
+            <https://semopenalex.org/concept/C99712631> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/3/38/Information_Security_Incidents_by_Category%2C_Fiscal_Year_2014.svg" ;
+        ns1:citedByCount 23346609 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C386521042012>,
+            <https://semopenalex.org/countsbyyear/C386521042013>,
+            <https://semopenalex.org/countsbyyear/C386521042014>,
+            <https://semopenalex.org/countsbyyear/C386521042015>,
+            <https://semopenalex.org/countsbyyear/C386521042016>,
+            <https://semopenalex.org/countsbyyear/C386521042017>,
+            <https://semopenalex.org/countsbyyear/C386521042018>,
+            <https://semopenalex.org/countsbyyear/C386521042019>,
+            <https://semopenalex.org/countsbyyear/C386521042020>,
+            <https://semopenalex.org/countsbyyear/C386521042021>,
+            <https://semopenalex.org/countsbyyear/C386521042022>,
+            <https://semopenalex.org/countsbyyear/C386521042023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Information_Security_Incidents_by_Category%2C_Fiscal_Year_2014.svg/100px-Information_Security_Incidents_by_Category%2C_Fiscal_Year_2014.svg.png" ;
+        ns1:level 1 ;
+        ns1:magId 38652104 ;
+        ns1:umlsCui "C0085097" ;
+        ns1:worksCount 3435812 .
+
+    <https://semopenalex.org/concept/C95457728> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/History" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q309>,
+            <https://makg.org/entity/95457728> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "past events and their tracks or records, studied by various branches of human sciences of history" ;
+        skos:prefLabel "History" ;
+        skos:related <https://semopenalex.org/concept/C107993555>,
+            <https://semopenalex.org/concept/C121332964>,
+            <https://semopenalex.org/concept/C121955636>,
+            <https://semopenalex.org/concept/C124952713>,
+            <https://semopenalex.org/concept/C138885662>,
+            <https://semopenalex.org/concept/C138921699>,
+            <https://semopenalex.org/concept/C142362112>,
+            <https://semopenalex.org/concept/C144024400>,
+            <https://semopenalex.org/concept/C15708023>,
+            <https://semopenalex.org/concept/C15744967>,
+            <https://semopenalex.org/concept/C161191863>,
+            <https://semopenalex.org/concept/C162324750>,
+            <https://semopenalex.org/concept/C166957645>,
+            <https://semopenalex.org/concept/C17744445>,
+            <https://semopenalex.org/concept/C185592680>,
+            <https://semopenalex.org/concept/C19165224>,
+            <https://semopenalex.org/concept/C19417346>,
+            <https://semopenalex.org/concept/C195244886>,
+            <https://semopenalex.org/concept/C199539241>,
+            <https://semopenalex.org/concept/C205649164>,
+            <https://semopenalex.org/concept/C24667770>,
+            <https://semopenalex.org/concept/C2549261>,
+            <https://semopenalex.org/concept/C27206212>,
+            <https://semopenalex.org/concept/C29595303>,
+            <https://semopenalex.org/concept/C3116431>,
+            <https://semopenalex.org/concept/C33923547>,
+            <https://semopenalex.org/concept/C36289849>,
+            <https://semopenalex.org/concept/C41895202>,
+            <https://semopenalex.org/concept/C46312422>,
+            <https://semopenalex.org/concept/C52119013>,
+            <https://semopenalex.org/concept/C53553401>,
+            <https://semopenalex.org/concept/C54750564>,
+            <https://semopenalex.org/concept/C6303427>,
+            <https://semopenalex.org/concept/C74916050>,
+            <https://semopenalex.org/concept/C86803240> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/d/d3/Herodotus_Massimo_Inv124478.jpg" ;
+        ns1:citedByCount 28878913 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C954577282012>,
+            <https://semopenalex.org/countsbyyear/C954577282013>,
+            <https://semopenalex.org/countsbyyear/C954577282014>,
+            <https://semopenalex.org/countsbyyear/C954577282015>,
+            <https://semopenalex.org/countsbyyear/C954577282016>,
+            <https://semopenalex.org/countsbyyear/C954577282017>,
+            <https://semopenalex.org/countsbyyear/C954577282018>,
+            <https://semopenalex.org/countsbyyear/C954577282019>,
+            <https://semopenalex.org/countsbyyear/C954577282020>,
+            <https://semopenalex.org/countsbyyear/C954577282021>,
+            <https://semopenalex.org/countsbyyear/C954577282022>,
+            <https://semopenalex.org/countsbyyear/C954577282023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Herodotus_Massimo_Inv124478.jpg/80px-Herodotus_Massimo_Inv124478.jpg" ;
+        ns1:level 0 ;
+        ns1:magId 95457728 ;
+        ns1:umlsCui "C0019664" ;
+        ns1:worksCount 11678357 .
+
+    <https://semopenalex.org/concept/C199539241> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        owl:sameAs <http://www.wikidata.org/entity/Q7748>,
+            <https://makg.org/entity/199539241> ;
+        skos:broader <https://semopenalex.org/concept/C17744445> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "system of rules and guidelines, generally backed by governmental authority" ;
+        skos:prefLabel "Law" ;
+        skos:related <https://semopenalex.org/concept/C10138342>,
+            <https://semopenalex.org/concept/C10144844>,
+            <https://semopenalex.org/concept/C102587632>,
+            <https://semopenalex.org/concept/C104863432>,
+            <https://semopenalex.org/concept/C107645774>,
+            <https://semopenalex.org/concept/C109986646>,
+            <https://semopenalex.org/concept/C119513131>,
+            <https://semopenalex.org/concept/C120912362>,
+            <https://semopenalex.org/concept/C121426985>,
+            <https://semopenalex.org/concept/C121955636>,
+            <https://semopenalex.org/concept/C123657996>,
+            <https://semopenalex.org/concept/C124952713>,
+            <https://semopenalex.org/concept/C127413603>,
+            <https://semopenalex.org/concept/C128069549>,
+            <https://semopenalex.org/concept/C131932780>,
+            <https://semopenalex.org/concept/C135874517>,
+            <https://semopenalex.org/concept/C136264566>,
+            <https://semopenalex.org/concept/C137355542>,
+            <https://semopenalex.org/concept/C138885662>,
+            <https://semopenalex.org/concept/C14042566>,
+            <https://semopenalex.org/concept/C144024400>,
+            <https://semopenalex.org/concept/C144133560>,
+            <https://semopenalex.org/concept/C149209484>,
+            <https://semopenalex.org/concept/C155785087>,
+            <https://semopenalex.org/concept/C15708023>,
+            <https://semopenalex.org/concept/C15744967>,
+            <https://semopenalex.org/concept/C158129432>,
+            <https://semopenalex.org/concept/C160151201>,
+            <https://semopenalex.org/concept/C162324750>,
+            <https://semopenalex.org/concept/C169437150>,
+            <https://semopenalex.org/concept/C170706310>,
+            <https://semopenalex.org/concept/C17319257>,
+            <https://semopenalex.org/concept/C17744445>,
+            <https://semopenalex.org/concept/C177986884>,
+            <https://semopenalex.org/concept/C178550888>,
+            <https://semopenalex.org/concept/C18650270>,
+            <https://semopenalex.org/concept/C187736073>,
+            <https://semopenalex.org/concept/C190253527>,
+            <https://semopenalex.org/concept/C193235544>,
+            <https://semopenalex.org/concept/C200113983>,
+            <https://semopenalex.org/concept/C202565627>,
+            <https://semopenalex.org/concept/C27206212>,
+            <https://semopenalex.org/concept/C2776119841>,
+            <https://semopenalex.org/concept/C2776154427>,
+            <https://semopenalex.org/concept/C2776205810>,
+            <https://semopenalex.org/concept/C2776218876>,
+            <https://semopenalex.org/concept/C2776893234>,
+            <https://semopenalex.org/concept/C2776949292>,
+            <https://semopenalex.org/concept/C2777134139>,
+            <https://semopenalex.org/concept/C2777351106>,
+            <https://semopenalex.org/concept/C2777381055>,
+            <https://semopenalex.org/concept/C2777480472>,
+            <https://semopenalex.org/concept/C2777701304>,
+            <https://semopenalex.org/concept/C2778049185>,
+            <https://semopenalex.org/concept/C2778063847>,
+            <https://semopenalex.org/concept/C2778272461>,
+            <https://semopenalex.org/concept/C2778348171>,
+            <https://semopenalex.org/concept/C2778375574>,
+            <https://semopenalex.org/concept/C2778415160>,
+            <https://semopenalex.org/concept/C2778449503>,
+            <https://semopenalex.org/concept/C2778770431>,
+            <https://semopenalex.org/concept/C2778958867>,
+            <https://semopenalex.org/concept/C2779010840>,
+            <https://semopenalex.org/concept/C2779018085>,
+            <https://semopenalex.org/concept/C2779614062>,
+            <https://semopenalex.org/concept/C2779845782>,
+            <https://semopenalex.org/concept/C2780070776>,
+            <https://semopenalex.org/concept/C2780510313>,
+            <https://semopenalex.org/concept/C2780560020>,
+            <https://semopenalex.org/concept/C2780656516>,
+            <https://semopenalex.org/concept/C2780928512>,
+            <https://semopenalex.org/concept/C30730545>,
+            <https://semopenalex.org/concept/C3116431>,
+            <https://semopenalex.org/concept/C33923547>,
+            <https://semopenalex.org/concept/C34974158>,
+            <https://semopenalex.org/concept/C36289849>,
+            <https://semopenalex.org/concept/C39549134>,
+            <https://semopenalex.org/concept/C42972112>,
+            <https://semopenalex.org/concept/C46312422>,
+            <https://semopenalex.org/concept/C48764862>,
+            <https://semopenalex.org/concept/C504631918>,
+            <https://semopenalex.org/concept/C504945742>,
+            <https://semopenalex.org/concept/C512654426>,
+            <https://semopenalex.org/concept/C538833194>,
+            <https://semopenalex.org/concept/C54707276>,
+            <https://semopenalex.org/concept/C54750564>,
+            <https://semopenalex.org/concept/C55447825>,
+            <https://semopenalex.org/concept/C58583792>,
+            <https://semopenalex.org/concept/C62100270>,
+            <https://semopenalex.org/concept/C65414064>,
+            <https://semopenalex.org/concept/C70789860>,
+            <https://semopenalex.org/concept/C71043370>,
+            <https://semopenalex.org/concept/C71924100>,
+            <https://semopenalex.org/concept/C73484699>,
+            <https://semopenalex.org/concept/C83009810>,
+            <https://semopenalex.org/concept/C86432685>,
+            <https://semopenalex.org/concept/C94625758>,
+            <https://semopenalex.org/concept/C95457728>,
+            <https://semopenalex.org/concept/C95831776>,
+            <https://semopenalex.org/concept/C97460637> ;
+        ns1:citedByCount 97387842 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1995392412012>,
+            <https://semopenalex.org/countsbyyear/C1995392412013>,
+            <https://semopenalex.org/countsbyyear/C1995392412014>,
+            <https://semopenalex.org/countsbyyear/C1995392412015>,
+            <https://semopenalex.org/countsbyyear/C1995392412016>,
+            <https://semopenalex.org/countsbyyear/C1995392412017>,
+            <https://semopenalex.org/countsbyyear/C1995392412018>,
+            <https://semopenalex.org/countsbyyear/C1995392412019>,
+            <https://semopenalex.org/countsbyyear/C1995392412020>,
+            <https://semopenalex.org/countsbyyear/C1995392412021>,
+            <https://semopenalex.org/countsbyyear/C1995392412022>,
+            <https://semopenalex.org/countsbyyear/C1995392412023> ;
+        ns1:level 1 ;
+        ns1:magId 199539241 ;
+        ns1:umlsCui "C0728724" ;
+        ns1:worksCount 18213464 .
+
+    <https://semopenalex.org/concept/C110875604> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-18"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Internet" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q75>,
+            <https://makg.org/entity/110875604> ;
+        skos:broader <https://semopenalex.org/concept/C111919701>,
+            <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "global system of connected computer networks based on IP addressing and routing protocols" ;
+        skos:prefLabel "The Internet" ;
+        skos:related <https://semopenalex.org/concept/C100335711>,
+            <https://semopenalex.org/concept/C111919701>,
+            <https://semopenalex.org/concept/C112698675>,
+            <https://semopenalex.org/concept/C112968700>,
+            <https://semopenalex.org/concept/C113508815>,
+            <https://semopenalex.org/concept/C11392498>,
+            <https://semopenalex.org/concept/C115163371>,
+            <https://semopenalex.org/concept/C118643609>,
+            <https://semopenalex.org/concept/C120314980>,
+            <https://semopenalex.org/concept/C121017731>,
+            <https://semopenalex.org/concept/C12269588>,
+            <https://semopenalex.org/concept/C136699151>,
+            <https://semopenalex.org/concept/C136764020>,
+            <https://semopenalex.org/concept/C137471899>,
+            <https://semopenalex.org/concept/C138708601>,
+            <https://semopenalex.org/concept/C141121606>,
+            <https://semopenalex.org/concept/C148176105>,
+            <https://semopenalex.org/concept/C148730421>,
+            <https://semopenalex.org/concept/C149672775>,
+            <https://semopenalex.org/concept/C151719136>,
+            <https://semopenalex.org/concept/C152880691>,
+            <https://semopenalex.org/concept/C154945302>,
+            <https://semopenalex.org/concept/C162215914>,
+            <https://semopenalex.org/concept/C162853370>,
+            <https://semopenalex.org/concept/C16443162>,
+            <https://semopenalex.org/concept/C168535184>,
+            <https://semopenalex.org/concept/C169485995>,
+            <https://semopenalex.org/concept/C171246234>,
+            <https://semopenalex.org/concept/C172173386>,
+            <https://semopenalex.org/concept/C173655357>,
+            <https://semopenalex.org/concept/C183512234>,
+            <https://semopenalex.org/concept/C186967261>,
+            <https://semopenalex.org/concept/C191935318>,
+            <https://semopenalex.org/concept/C193427332>,
+            <https://semopenalex.org/concept/C193596192>,
+            <https://semopenalex.org/concept/C19407854>,
+            <https://semopenalex.org/concept/C194232370>,
+            <https://semopenalex.org/concept/C195358072>,
+            <https://semopenalex.org/concept/C201280247>,
+            <https://semopenalex.org/concept/C201374245>,
+            <https://semopenalex.org/concept/C21279758>,
+            <https://semopenalex.org/concept/C21959979>,
+            <https://semopenalex.org/concept/C22561748>,
+            <https://semopenalex.org/concept/C2775910013>,
+            <https://semopenalex.org/concept/C2776849261>,
+            <https://semopenalex.org/concept/C2776855496>,
+            <https://semopenalex.org/concept/C2777352073>,
+            <https://semopenalex.org/concept/C2777421447>,
+            <https://semopenalex.org/concept/C2777500614>,
+            <https://semopenalex.org/concept/C2777756574>,
+            <https://semopenalex.org/concept/C2777904410>,
+            <https://semopenalex.org/concept/C2778059363>,
+            <https://semopenalex.org/concept/C2778835443>,
+            <https://semopenalex.org/concept/C2779298391>,
+            <https://semopenalex.org/concept/C2779776346>,
+            <https://semopenalex.org/concept/C2780102126>,
+            <https://semopenalex.org/concept/C2780154274>,
+            <https://semopenalex.org/concept/C2780391855>,
+            <https://semopenalex.org/concept/C2780405328>,
+            <https://semopenalex.org/concept/C2781241145>,
+            <https://semopenalex.org/concept/C2781301322>,
+            <https://semopenalex.org/concept/C30088001>,
+            <https://semopenalex.org/concept/C31258907>,
+            <https://semopenalex.org/concept/C33588617>,
+            <https://semopenalex.org/concept/C34974158>,
+            <https://semopenalex.org/concept/C35026560>,
+            <https://semopenalex.org/concept/C35341882>,
+            <https://semopenalex.org/concept/C37789001>,
+            <https://semopenalex.org/concept/C38652104>,
+            <https://semopenalex.org/concept/C38822068>,
+            <https://semopenalex.org/concept/C46312422>,
+            <https://semopenalex.org/concept/C49774154>,
+            <https://semopenalex.org/concept/C504131036>,
+            <https://semopenalex.org/concept/C508378895>,
+            <https://semopenalex.org/concept/C509933004>,
+            <https://semopenalex.org/concept/C5119721>,
+            <https://semopenalex.org/concept/C517481932>,
+            <https://semopenalex.org/concept/C518677369>,
+            <https://semopenalex.org/concept/C52930066>,
+            <https://semopenalex.org/concept/C534932454>,
+            <https://semopenalex.org/concept/C539553027>,
+            <https://semopenalex.org/concept/C541664917>,
+            <https://semopenalex.org/concept/C546215728>,
+            <https://semopenalex.org/concept/C551386961>,
+            <https://semopenalex.org/concept/C555944384>,
+            <https://semopenalex.org/concept/C558299567>,
+            <https://semopenalex.org/concept/C59201141>,
+            <https://semopenalex.org/concept/C60229501>,
+            <https://semopenalex.org/concept/C65567647>,
+            <https://semopenalex.org/concept/C67363961>,
+            <https://semopenalex.org/concept/C74558129>,
+            <https://semopenalex.org/concept/C76155785>,
+            <https://semopenalex.org/concept/C77088390>,
+            <https://semopenalex.org/concept/C78597825>,
+            <https://semopenalex.org/concept/C79974875>,
+            <https://semopenalex.org/concept/C83849155>,
+            <https://semopenalex.org/concept/C83860907>,
+            <https://semopenalex.org/concept/C84309077>,
+            <https://semopenalex.org/concept/C84555802>,
+            <https://semopenalex.org/concept/C99574664> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/3/3f/Internet_map_1024_-_transparent%%2C_inverted.png" ;
+        ns1:citedByCount 5755580 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1108756042012>,
+            <https://semopenalex.org/countsbyyear/C1108756042013>,
+            <https://semopenalex.org/countsbyyear/C1108756042014>,
+            <https://semopenalex.org/countsbyyear/C1108756042015>,
+            <https://semopenalex.org/countsbyyear/C1108756042016>,
+            <https://semopenalex.org/countsbyyear/C1108756042017>,
+            <https://semopenalex.org/countsbyyear/C1108756042018>,
+            <https://semopenalex.org/countsbyyear/C1108756042019>,
+            <https://semopenalex.org/countsbyyear/C1108756042020>,
+            <https://semopenalex.org/countsbyyear/C1108756042021>,
+            <https://semopenalex.org/countsbyyear/C1108756042022>,
+            <https://semopenalex.org/countsbyyear/C1108756042023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Internet_map_1024_-_transparent%%2C_inverted.png/100px-Internet_map_1024_-_transparent%%2C_inverted.png" ;
+        ns1:level 2 ;
+        ns1:magId 110875604 ;
+        ns1:umlsCui "C0282111" ;
+        ns1:worksCount 852431 .
+
+    <https://semopenalex.org/concept/C17744445> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Political%20science" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q36442>,
+            <https://makg.org/entity/17744445> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "social science concerned with the study of politics and political systems" ;
+        skos:prefLabel "Political science" ;
+        skos:related <https://semopenalex.org/concept/C107993555>,
+            <https://semopenalex.org/concept/C118084267>,
+            <https://semopenalex.org/concept/C121332964>,
+            <https://semopenalex.org/concept/C138885662>,
+            <https://semopenalex.org/concept/C138921699>,
+            <https://semopenalex.org/concept/C144024400>,
+            <https://semopenalex.org/concept/C15708023>,
+            <https://semopenalex.org/concept/C15744967>,
+            <https://semopenalex.org/concept/C162324750>,
+            <https://semopenalex.org/concept/C178550888>,
+            <https://semopenalex.org/concept/C185592680>,
+            <https://semopenalex.org/concept/C187736073>,
+            <https://semopenalex.org/concept/C19165224>,
+            <https://semopenalex.org/concept/C19417346>,
+            <https://semopenalex.org/concept/C199539241>,
+            <https://semopenalex.org/concept/C205649164>,
+            <https://semopenalex.org/concept/C24667770>,
+            <https://semopenalex.org/concept/C29595303>,
+            <https://semopenalex.org/concept/C3116431>,
+            <https://semopenalex.org/concept/C33923547>,
+            <https://semopenalex.org/concept/C36289849>,
+            <https://semopenalex.org/concept/C39432304>,
+            <https://semopenalex.org/concept/C39549134>,
+            <https://semopenalex.org/concept/C41008148>,
+            <https://semopenalex.org/concept/C45355965>,
+            <https://semopenalex.org/concept/C46312422>,
+            <https://semopenalex.org/concept/C73484699>,
+            <https://semopenalex.org/concept/C77805123>,
+            <https://semopenalex.org/concept/C86803240>,
+            <https://semopenalex.org/concept/C95457728> ;
+        ns1:citedByCount 118631578 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C177444452012>,
+            <https://semopenalex.org/countsbyyear/C177444452013>,
+            <https://semopenalex.org/countsbyyear/C177444452014>,
+            <https://semopenalex.org/countsbyyear/C177444452015>,
+            <https://semopenalex.org/countsbyyear/C177444452016>,
+            <https://semopenalex.org/countsbyyear/C177444452017>,
+            <https://semopenalex.org/countsbyyear/C177444452018>,
+            <https://semopenalex.org/countsbyyear/C177444452019>,
+            <https://semopenalex.org/countsbyyear/C177444452020>,
+            <https://semopenalex.org/countsbyyear/C177444452021>,
+            <https://semopenalex.org/countsbyyear/C177444452022>,
+            <https://semopenalex.org/countsbyyear/C177444452023> ;
+        ns1:level 0 ;
+        ns1:magId 17744445 ;
+        ns1:umlsCui "C0335116" ;
+        ns1:worksCount 34012298 .
+
+    <https://semopenalex.org/concept/C136764020> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/World%20Wide%20Web" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q466>,
+            <https://makg.org/entity/136764020> ;
+        skos:broader <https://semopenalex.org/concept/C41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "system of interlinked hypertext documents accessed via the Internet" ;
+        skos:prefLabel "World Wide Web" ;
+        skos:related <https://semopenalex.org/concept/C108827166>,
+            <https://semopenalex.org/concept/C110875604>,
+            <https://semopenalex.org/concept/C111919701>,
+            <https://semopenalex.org/concept/C113041634>,
+            <https://semopenalex.org/concept/C118643609>,
+            <https://semopenalex.org/concept/C13743948>,
+            <https://semopenalex.org/concept/C144430266>,
+            <https://semopenalex.org/concept/C148863701>,
+            <https://semopenalex.org/concept/C161936438>,
+            <https://semopenalex.org/concept/C162215914>,
+            <https://semopenalex.org/concept/C163339463>,
+            <https://semopenalex.org/concept/C16443162>,
+            <https://semopenalex.org/concept/C164554305>,
+            <https://semopenalex.org/concept/C170130773>,
+            <https://semopenalex.org/concept/C17632256>,
+            <https://semopenalex.org/concept/C178005623>,
+            <https://semopenalex.org/concept/C180505990>,
+            <https://semopenalex.org/concept/C180652500>,
+            <https://semopenalex.org/concept/C182590292>,
+            <https://semopenalex.org/concept/C183003079>,
+            <https://semopenalex.org/concept/C186625053>,
+            <https://semopenalex.org/concept/C195807954>,
+            <https://semopenalex.org/concept/C20136886>,
+            <https://semopenalex.org/concept/C202477664>,
+            <https://semopenalex.org/concept/C2129575>,
+            <https://semopenalex.org/concept/C21959979>,
+            <https://semopenalex.org/concept/C23123220>,
+            <https://semopenalex.org/concept/C2385561>,
+            <https://semopenalex.org/concept/C25493698>,
+            <https://semopenalex.org/concept/C2776187405>,
+            <https://semopenalex.org/concept/C2776293862>,
+            <https://semopenalex.org/concept/C2776854237>,
+            <https://semopenalex.org/concept/C2776911938>,
+            <https://semopenalex.org/concept/C2777064793>,
+            <https://semopenalex.org/concept/C2777381677>,
+            <https://semopenalex.org/concept/C2777646416>,
+            <https://semopenalex.org/concept/C2777715827>,
+            <https://semopenalex.org/concept/C2777904410>,
+            <https://semopenalex.org/concept/C2778132726>,
+            <https://semopenalex.org/concept/C2778165684>,
+            <https://semopenalex.org/concept/C2778315425>,
+            <https://semopenalex.org/concept/C2778431730>,
+            <https://semopenalex.org/concept/C2778616913>,
+            <https://semopenalex.org/concept/C2778695844>,
+            <https://semopenalex.org/concept/C2778781608>,
+            <https://semopenalex.org/concept/C2778805511>,
+            <https://semopenalex.org/concept/C2778940482>,
+            <https://semopenalex.org/concept/C2779167275>,
+            <https://semopenalex.org/concept/C2779172887>,
+            <https://semopenalex.org/concept/C2779298391>,
+            <https://semopenalex.org/concept/C2779344036>,
+            <https://semopenalex.org/concept/C2779576378>,
+            <https://semopenalex.org/concept/C2779786915>,
+            <https://semopenalex.org/concept/C2779790888>,
+            <https://semopenalex.org/concept/C2780102126>,
+            <https://semopenalex.org/concept/C2780103627>,
+            <https://semopenalex.org/concept/C2780126544>,
+            <https://semopenalex.org/concept/C2780154274>,
+            <https://semopenalex.org/concept/C2780328347>,
+            <https://semopenalex.org/concept/C2780416260>,
+            <https://semopenalex.org/concept/C2780644320>,
+            <https://semopenalex.org/concept/C2781168091>,
+            <https://semopenalex.org/concept/C2781455918>,
+            <https://semopenalex.org/concept/C31258907>,
+            <https://semopenalex.org/concept/C31395832>,
+            <https://semopenalex.org/concept/C33039251>,
+            <https://semopenalex.org/concept/C35578498>,
+            <https://semopenalex.org/concept/C41525213>,
+            <https://semopenalex.org/concept/C49774154>,
+            <https://semopenalex.org/concept/C518677369>,
+            <https://semopenalex.org/concept/C521491914>,
+            <https://semopenalex.org/concept/C534932454>,
+            <https://semopenalex.org/concept/C544833334>,
+            <https://semopenalex.org/concept/C554579003>,
+            <https://semopenalex.org/concept/C57374464>,
+            <https://semopenalex.org/concept/C65603577>,
+            <https://semopenalex.org/concept/C71191987>,
+            <https://semopenalex.org/concept/C71901391>,
+            <https://semopenalex.org/concept/C77088390>,
+            <https://semopenalex.org/concept/C78597825>,
+            <https://semopenalex.org/concept/C79974875>,
+            <https://semopenalex.org/concept/C86297840>,
+            <https://semopenalex.org/concept/C8797682>,
+            <https://semopenalex.org/concept/C91093795>,
+            <https://semopenalex.org/concept/C91262260>,
+            <https://semopenalex.org/concept/C93518851>,
+            <https://semopenalex.org/concept/C93906722>,
+            <https://semopenalex.org/concept/C99016210> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/b/b2/WWW_logo_by_Robert_Cailliau.svg" ;
+        ns1:citedByCount 25573261 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C1367640202012>,
+            <https://semopenalex.org/countsbyyear/C1367640202013>,
+            <https://semopenalex.org/countsbyyear/C1367640202014>,
+            <https://semopenalex.org/countsbyyear/C1367640202015>,
+            <https://semopenalex.org/countsbyyear/C1367640202016>,
+            <https://semopenalex.org/countsbyyear/C1367640202017>,
+            <https://semopenalex.org/countsbyyear/C1367640202018>,
+            <https://semopenalex.org/countsbyyear/C1367640202019>,
+            <https://semopenalex.org/countsbyyear/C1367640202020>,
+            <https://semopenalex.org/countsbyyear/C1367640202021>,
+            <https://semopenalex.org/countsbyyear/C1367640202022>,
+            <https://semopenalex.org/countsbyyear/C1367640202023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/WWW_logo_by_Robert_Cailliau.svg/100px-WWW_logo_by_Robert_Cailliau.svg.png" ;
+        ns1:level 1 ;
+        ns1:magId 136764020 ;
+        ns1:umlsCui "C0282111" ;
+        ns1:worksCount 5262908 .
+
+    <https://semopenalex.org/concept/C41008148> a skos:Concept ;
+        dcterms:created "2016-06-24"^^xsd:date ;
+        dcterms:modified "2023-03-13"^^xsd:date ;
+        rdfs:seeAlso "https://en.wikipedia.org/wiki/Computer%20science" ;
+        owl:sameAs <http://www.wikidata.org/entity/Q21198>,
+            <https://makg.org/entity/41008148> ;
+        skos:inScheme <https://docs.openalex.org/about-the-data/concept> ;
+        skos:note "study of computation" ;
+        skos:prefLabel "Computer science" ;
+        skos:related <https://semopenalex.org/concept/C10138342>,
+            <https://semopenalex.org/concept/C105795698>,
+            <https://semopenalex.org/concept/C107053488>,
+            <https://semopenalex.org/concept/C107457646>,
+            <https://semopenalex.org/concept/C110354214>,
+            <https://semopenalex.org/concept/C113775141>,
+            <https://semopenalex.org/concept/C11413529>,
+            <https://semopenalex.org/concept/C114614502>,
+            <https://semopenalex.org/concept/C115903868>,
+            <https://semopenalex.org/concept/C117671659>,
+            <https://semopenalex.org/concept/C118524514>,
+            <https://semopenalex.org/concept/C118615104>,
+            <https://semopenalex.org/concept/C119599485>,
+            <https://semopenalex.org/concept/C119857082>,
+            <https://semopenalex.org/concept/C120314980>,
+            <https://semopenalex.org/concept/C121332964>,
+            <https://semopenalex.org/concept/C121684516>,
+            <https://semopenalex.org/concept/C121955636>,
+            <https://semopenalex.org/concept/C124101348>,
+            <https://semopenalex.org/concept/C12554922>,
+            <https://semopenalex.org/concept/C126255220>,
+            <https://semopenalex.org/concept/C127413603>,
+            <https://semopenalex.org/concept/C133731056>,
+            <https://semopenalex.org/concept/C136229726>,
+            <https://semopenalex.org/concept/C13736549>,
+            <https://semopenalex.org/concept/C138885662>,
+            <https://semopenalex.org/concept/C145420912>,
+            <https://semopenalex.org/concept/C146978453>,
+            <https://semopenalex.org/concept/C147176958>,
+            <https://semopenalex.org/concept/C150903083>,
+            <https://semopenalex.org/concept/C154945302>,
+            <https://semopenalex.org/concept/C15708023>,
+            <https://semopenalex.org/concept/C15744967>,
+            <https://semopenalex.org/concept/C159110408>,
+            <https://semopenalex.org/concept/C161191863>,
+            <https://semopenalex.org/concept/C162118730>,
+            <https://semopenalex.org/concept/C162324750>,
+            <https://semopenalex.org/concept/C16674752>,
+            <https://semopenalex.org/concept/C170154142>,
+            <https://semopenalex.org/concept/C171146098>,
+            <https://semopenalex.org/concept/C173608175>,
+            <https://semopenalex.org/concept/C17744445>,
+            <https://semopenalex.org/concept/C178550888>,
+            <https://semopenalex.org/concept/C180747234>,
+            <https://semopenalex.org/concept/C183696295>,
+            <https://semopenalex.org/concept/C185592680>,
+            <https://semopenalex.org/concept/C187736073>,
+            <https://semopenalex.org/concept/C188147891>,
+            <https://semopenalex.org/concept/C192562407>,
+            <https://semopenalex.org/concept/C19417346>,
+            <https://semopenalex.org/concept/C1965285>,
+            <https://semopenalex.org/concept/C199104240>,
+            <https://semopenalex.org/concept/C199360897>,
+            <https://semopenalex.org/concept/C201995342>,
+            <https://semopenalex.org/concept/C204321447>,
+            <https://semopenalex.org/concept/C21880701>,
+            <https://semopenalex.org/concept/C22212356>,
+            <https://semopenalex.org/concept/C23123220>,
+            <https://semopenalex.org/concept/C24326235>,
+            <https://semopenalex.org/concept/C2522767166>,
+            <https://semopenalex.org/concept/C28490314>,
+            <https://semopenalex.org/concept/C28826006>,
+            <https://semopenalex.org/concept/C30475298>,
+            <https://semopenalex.org/concept/C3116431>,
+            <https://semopenalex.org/concept/C31258907>,
+            <https://semopenalex.org/concept/C31972630>,
+            <https://semopenalex.org/concept/C33923547>,
+            <https://semopenalex.org/concept/C36289849>,
+            <https://semopenalex.org/concept/C37621935>,
+            <https://semopenalex.org/concept/C38652104>,
+            <https://semopenalex.org/concept/C39432304>,
+            <https://semopenalex.org/concept/C42360764>,
+            <https://semopenalex.org/concept/C42475967>,
+            <https://semopenalex.org/concept/C44154836>,
+            <https://semopenalex.org/concept/C459310>,
+            <https://semopenalex.org/concept/C46312422>,
+            <https://semopenalex.org/concept/C49774154>,
+            <https://semopenalex.org/concept/C539667460>,
+            <https://semopenalex.org/concept/C54750564>,
+            <https://semopenalex.org/concept/C56739046>,
+            <https://semopenalex.org/concept/C60644358>,
+            <https://semopenalex.org/concept/C61696701>,
+            <https://semopenalex.org/concept/C66938386>,
+            <https://semopenalex.org/concept/C70721500>,
+            <https://semopenalex.org/concept/C77088390>,
+            <https://semopenalex.org/concept/C78519656>,
+            <https://semopenalex.org/concept/C78762247>,
+            <https://semopenalex.org/concept/C79403827>,
+            <https://semopenalex.org/concept/C80444323>,
+            <https://semopenalex.org/concept/C86803240>,
+            <https://semopenalex.org/concept/C87717796>,
+            <https://semopenalex.org/concept/C88463610>,
+            <https://semopenalex.org/concept/C9390403> ;
+        foaf:depiction "https://upload.wikimedia.org/wikipedia/commons/6/6a/Sorting_quicksort_anim.gif" ;
+        ns1:citedByCount 399515930 ;
+        ns1:countsByYear <https://semopenalex.org/countsbyyear/C410081482012>,
+            <https://semopenalex.org/countsbyyear/C410081482013>,
+            <https://semopenalex.org/countsbyyear/C410081482014>,
+            <https://semopenalex.org/countsbyyear/C410081482015>,
+            <https://semopenalex.org/countsbyyear/C410081482016>,
+            <https://semopenalex.org/countsbyyear/C410081482017>,
+            <https://semopenalex.org/countsbyyear/C410081482018>,
+            <https://semopenalex.org/countsbyyear/C410081482019>,
+            <https://semopenalex.org/countsbyyear/C410081482020>,
+            <https://semopenalex.org/countsbyyear/C410081482021>,
+            <https://semopenalex.org/countsbyyear/C410081482022>,
+            <https://semopenalex.org/countsbyyear/C410081482023> ;
+        ns1:imageThumbnail "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Sorting_quicksort_anim.gif/100px-Sorting_quicksort_anim.gif" ;
+        ns1:level 0 ;
+        ns1:magId 41008148 ;
+        ns1:umlsCui "C0599726" ;
+        ns1:worksCount 77706395 .
+}
+
