@@ -6,39 +6,98 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix sp: <http://spinrdf.org/sp#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix : <#> .
+
+<https://semopenalex.org/vocab#> a owl:Ontology;
+  rdfs:label "SemOpenAlex Ontology"@en;
+  rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en ;
+  dcterms:created "2022-05-12"^^xsd:date ;
+  dcterms:modified "2023-06-20"^^xsd:date ;
+  dcterms:license <http://creativecommons.org/publicdomain/zero/1.0/> ;
+  dcterms:issued "2022-05-12"^^xsd:date ;
+  dcterms:publisher <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology> ;
+  dcterms:publisher <https://www.wikidata.org/wiki/Q22132500> ;
+  dcterms:creator :Michael_Faerber ;
+  dcterms:creator :Johan_Krause ;
+  dcterms:creator :David_Lamprecht ;
+  dcterms:creator :Linn_Aung ;
+  dcterms:creator :Peter_Haase .
+
+:Michael_Faerber a 
+  foaf:Person ;
+  rdfs:label "Michael Färber" ;
+  foaf:homepage <https://www.aifb.kit.edu/web/Michael_Färber>; 
+  foaf:mbox <mailto:michael.faerber@kit.edu> .
+
+:Johan_Krause a 
+  foaf:Person ;
+  rdfs:label "Johan Krause" ;
+  foaf:mbox <mailto:johan.krause@student.kit.edu> .
+
+:David_Lamprecht a 
+  foaf:Person ;
+  rdfs:label "David Lamprecht" ;
+  foaf:mbox <mailto:david.lamprecht@student.kit.edu> .
+
+:Linn_Aung a 
+  foaf:Person ;
+  rdfs:label "Linn Aung" ;
+  foaf:mbox <mailto:la@metaphacts.com> .
+
+:Peter_Haase a 
+  foaf:Person ;
+  rdfs:label "Peter Haase" ;
+  foaf:mbox <mailto:ph@metaphacts.com> .
+
 
 <http://purl.org/dc/terms/creator> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/Author> .
+  rdfs:range <https://semopenalex.org/class/Author>;
+  rdfs:comment "This property specifies the creator of a work."@en;
+  rdfs:label "creator"@en .
 
 <http://purl.org/dc/terms/title> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the title of a work."@en;
+  rdfs:label "title"@en .
 
 rdfs:seeAlso a owl:ObjectProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Institution> skos:Concept)
     ];
-  rdfs:range <http://purl.org/spar/fabio/WikipediaEntry> .
+  rdfs:range <http://purl.org/spar/fabio/WikipediaEntry> ;
+  rdfs:comment "This property specifies a link to a Wikipedia entry."@en;
+  rdfs:label "seeAlso"@en .
 
 skos:Concept a owl:Class;
-  rdfs:label "Concept"@en .
+  rdfs:label "Concept"@en ;
+  rdfs:comment "The class of SKOS concepts."@en.
 
 skos:broader a owl:ObjectProperty;
   rdfs:domain skos:Concept;
-  rdfs:range skos:Concept .
+  rdfs:range skos:Concept ;
+  rdfs:comment "This property specifies a direct hierarchical link between two SKOS concepts."@en;
+  rdfs:label "broader"@en .
 
 skos:note a owl:DatatypeProperty;
   rdfs:domain skos:Concept;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies a note"@en;
+  rdfs:label "note"@en .
 
 skos:prefLabel a owl:DatatypeProperty;
   rdfs:domain skos:Concept;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies a preferred label"@en;
+  rdfs:label "prefLabel"@en .
 
 skos:related a owl:ObjectProperty;
   rdfs:domain skos:Concept;
-  rdfs:range skos:Concept .
+  rdfs:range skos:Concept ;
+  rdfs:comment "This property specifies a direct non-hierarchical (symmetric) link between two SKOS concepts."@en;
+  rdfs:label "related"@en .
 
 <http://purl.org/dc/terms/created> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
@@ -46,7 +105,9 @@ skos:related a owl:ObjectProperty;
           <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
           <https://semopenalex.org/class/Author> <https://semopenalex.org/class/Publisher>)
     ];
-  rdfs:range xsd:date .
+  rdfs:range xsd:date ;
+  rdfs:comment "This property specifies the creation date of a resource."@en;
+  rdfs:label "created"@en .
 
 <http://purl.org/dc/terms/modified> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
@@ -54,70 +115,91 @@ skos:related a owl:ObjectProperty;
           <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
           <https://semopenalex.org/class/Author> <https://semopenalex.org/class/Publisher>)
     ];
-  rdfs:range xsd:date .
+  rdfs:range xsd:date ;
+  rdfs:comment "This property specifies the modification date of a resource."@en;
+  rdfs:label "modified"@en .
 
 foaf:homepage a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Source> <https://semopenalex.org/class/Institution>)
     ];
-  rdfs:range xsd:anyURI .
+  rdfs:range xsd:anyURI;
+  rdfs:comment "This property specifies the homepage of a resource."@en;
+  rdfs:label "homepage"@en .
 
 <https://semopenalex.org/property/hasHostOrganization> a owl:ObjectProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Publisher> <https://semopenalex.org/class/Institution>
           <https://semopenalex.org/class/Source> )
     ];
-  rdfs:range <https://semopenalex.org/class/Source> .
+  rdfs:range <https://semopenalex.org/class/Source> ;
+  rdfs:comment "This property specifies the host organization of a resource."@en;
+  rdfs:label "has host organization"@en .
 
 foaf:name a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Source> <https://semopenalex.org/class/Institution>
           <https://semopenalex.org/class/Author>)
     ];
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the name of a resource."@en;
+  rdfs:label "name"@en .
 
-<https://semopenalex.org/vocab#> a owl:Ontology;
-  rdfs:label "SemOpenAlex Ontology"@en;
-  rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en .
 
 <http://www.w3.org/ns/org#memberOf> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Author>;
-  rdfs:range <https://semopenalex.org/class/Institution> .
+  rdfs:range <https://semopenalex.org/class/Institution> ;
+  rdfs:comment "This property specifies the membership of an author to an institution."@en;
+  rdfs:label "member of"@en .
 
 <https://semopenalex.org/class/Author> a owl:Class;
-  rdfs:label "Author"@en .
+  rdfs:label "Author"@en ;
+  rdfs:comment "This class represents an author."@en.
 
 <https://semopenalex.org/class/Institution> a owl:Class;
-  rdfs:label "Institution"@en .
+  rdfs:label "Institution"@en ;
+  rdfs:comment "This class represents an institution."@en.
 
 <https://semopenalex.org/property/hasRelatedWork> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/Work> .
+  rdfs:range <https://semopenalex.org/class/Work> ;
+  rdfs:comment "This property specifies a related work."@en;
+  rdfs:label "has related work"@en .
 
 <https://semopenalex.org/class/Work> a owl:Class;
   owl:equivalentClass <http://purl.org/spar/fabio/Work>;
-  rdfs:label "Work"@en .
+  rdfs:label "Work"@en ;
+  rdfs:comment "This class represents a work."@en.
 
 <https://semopenalex.org/property/hasAssociatedInstitution> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Institution>;
-  rdfs:range <https://semopenalex.org/class/Institution> .
+  rdfs:range <https://semopenalex.org/class/Institution> ;
+  rdfs:comment "This property specifies an associated institution."@en;
+  rdfs:label "has associated institution"@en .
 
 <https://semopenalex.org/property/hasConcept> a owl:ObjectProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Work> <https://semopenalex.org/class/ConceptScore>)
     ];
-  rdfs:range skos:Concept .
+  rdfs:range skos:Concept ;
+  rdfs:comment "This property specifies a concept."@en;
+  rdfs:label "has concept"@en .
 
 <https://semopenalex.org/class/ConceptScore> a owl:Class;
-  rdfs:label "ConceptScore"@en .
+  rdfs:label "ConceptScore"@en ;
+  rdfs:comment "This class represents a concept score."@en.
 
 <https://semopenalex.org/property/hasConceptScore> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/ConceptScore> .
+  rdfs:range <https://semopenalex.org/class/ConceptScore> ;
+  rdfs:comment "This property specifies a concept score."@en;
+  rdfs:label "has concept score"@en .
 
 <http://purl.org/spar/cito/cites> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/Work> .
+  rdfs:range <https://semopenalex.org/class/Work> ;
+  rdfs:comment "This property specifies a cited work."@en;
+  rdfs:label "cites"@en .
 
 <https://semopenalex.org/property/countsByYear> a owl:ObjectProperty;
   rdfs:domain [ a owl:Class;
@@ -125,69 +207,98 @@ foaf:name a owl:DatatypeProperty;
           <https://semopenalex.org/class/Source> <https://semopenalex.org/class/Work>
                    <https://semopenalex.org/class/Publisher>)
     ];
-  rdfs:range <https://semopenalex.org/class/CountsByYear> .
+  rdfs:range <https://semopenalex.org/class/CountsByYear> ;
+  rdfs:comment "This property specifies the counts by year."@en;
+  rdfs:label "counts by year"@en .
 
 <https://semopenalex.org/class/Concept> a owl:Class;
   rdfs:subClassOf skos:Concept;
-  rdfs:label "Concept"@en .
+  rdfs:label "Concept"@en ;
+  rdfs:comment "This class represents a concept."@en.
 
 <https://semopenalex.org/class/Source> a owl:Class;
-  rdfs:label "Source"@en .
+  rdfs:label "Source"@en ;
+  rdfs:comment "This class represents a source."@en.
 
 <https://semopenalex.org/class/CountsByYear> a owl:Class;
-  rdfs:label "CountsByYear"@en .
+  rdfs:label "CountsByYear"@en ;
+  rdfs:comment "This class represents the counts by year."@en.
 
 <https://semopenalex.org/property/hasPrimaryLocation> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/HostVenue> .
+  rdfs:range <https://semopenalex.org/class/HostVenue> ;
+  rdfs:comment "This property specifies the primary location of a work."@en;
+  rdfs:label "has primary location"@en .
 
 <https://semopenalex.org/class/HostVenue> a owl:Class;
-  rdfs:label "HostVenue"@en .
+  rdfs:label "HostVenue"@en ;
+  rdfs:comment "This class represents a host venue."@en.
 
 <https://semopenalex.org/property/hasLocation> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/HostVenue> .
+  rdfs:range <https://semopenalex.org/class/HostVenue> ;
+  rdfs:comment "This property specifies the location of a work."@en;
+  rdfs:label "has location"@en .
 
 <https://semopenalex.org/property/hasSource> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/HostVenue>;
-  rdfs:range <https://semopenalex.org/class/Source> .
+  rdfs:range <https://semopenalex.org/class/Source> ;
+  rdfs:comment "This property specifies the source of a host venue."@en;
+  rdfs:label "has source"@en .
 
 <https://semopenalex.org/property/hasOpenAccess> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/OpenAccess> .
+  rdfs:range <https://semopenalex.org/class/OpenAccess> ;
+  rdfs:comment "This property specifies the open access status of a work."@en;
+  rdfs:label "has open access"@en .
 
 <https://semopenalex.org/property/hasLocation> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/Location> .
+  rdfs:range <https://semopenalex.org/class/Location> ;
+  rdfs:comment "This property specifies the location of a work."@en;
+  rdfs:label "has location"@en .
 
 <https://semopenalex.org/property/hasBestOaLocation> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/Location> .
+  rdfs:range <https://semopenalex.org/class/Location> ;
+  rdfs:comment "This property specifies the best open access location of a work."@en;
+  rdfs:label "has best open access location"@en .
 
 <https://semopenalex.org/property/hasPrimaryLocation> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/Location> .
+  rdfs:range <https://semopenalex.org/class/Location> ;
+  rdfs:comment "This property specifies the primary location of a work."@en;
+  rdfs:label "has primary location"@en .
 
 <https://semopenalex.org/class/OpenAccess> a owl:Class;
-  rdfs:label "OpenAccess"@en .
+  rdfs:label "OpenAccess"@en ;
+  rdfs:comment "This class represents an open access status."@en.
 
 <http://dbpedia.org/ontology/location> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Institution>;
-  rdfs:range <https://semopenalex.org/class/Geo> .
+  rdfs:range <https://semopenalex.org/class/Geo> ;
+  rdfs:comment "This property specifies the location of an institution."@en;
+  rdfs:label "location"@en .
 
 <https://semopenalex.org/class/Geo> a owl:Class;
-  rdfs:label "Geo"@en .
+  rdfs:label "Geo"@en ;
+  rdfs:comment "This class represents a geo location."@en.
 
 <http://purl.org/spar/fabio/hasPubMedId> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the PubMed ID of a work."@en;
+  rdfs:label "has PubMed ID"@en .
 
 <http://purl.org/spar/fabio/hasPubMedCentralId> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the PubMed Central ID of a work."@en;
+  rdfs:label "has PubMed Central ID"@en .
 
 <https://semopenalex.org/class/Author> a owl:Class;
-  rdfs:label "Location"@en .
+  rdfs:label "Location"@en ;
+  rdfs:comment "This class represents an author."@en.
 
 <https://semopenalex.org/property/worksCount> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
@@ -195,11 +306,15 @@ foaf:name a owl:DatatypeProperty;
           <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Location>
           <https://semopenalex.org/class/CountsByYear>)
     ];
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the number of works of an author, concept, institution, location or counts by year."@en;
+  rdfs:label "works count"@en .
 
 <http://purl.org/dc/terms/abstract> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the abstract of a work."@en;
+  rdfs:label "abstract"@en .
 
 <https://semopenalex.org/property/magId> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
@@ -207,58 +322,84 @@ foaf:name a owl:DatatypeProperty;
           <https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>
           <https://semopenalex.org/class/Author>)
     ];
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the Microsoft Academic Graph ID of a work, location, institution, concept or author."@en;
+  rdfs:label "mag ID"@en .
 
 <http://purl.org/spar/fabio/hasPublicationYear> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the publication year of a work."@en;
+  rdfs:label "has publication year"@en .
 
 <http://prismstandard.org/namespaces/basic/2.0/publicationDate> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:date .
+  rdfs:range xsd:date ;
+  rdfs:comment "This property specifies the publication date of a work."@en;
+  rdfs:label "publication date"@en .
 
 <http://prismstandard.org/namespaces/basic/2.0/doi> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the DOI of a work."@en;
+  rdfs:label "DOI"@en .
 
 <https://semopenalex.org/property/isRetracted> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:boolean .
+  rdfs:range xsd:boolean ;
+  rdfs:comment "This property specifies if a work is retracted."@en;
+  rdfs:label "is retracted"@en .
 
 <https://semopenalex.org/property/isParatext> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:boolean .
+  rdfs:range xsd:boolean ;
+  rdfs:comment "This property specifies if a work is a paratext."@en;
+  rdfs:label "is paratext"@en .
 
 <https://semopenalex.org/property/isOa> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/OpenAccess> <https://semopenalex.org/class/HostVenue>
           <https://semopenalex.org/class/Source>)
     ];
-  rdfs:range xsd:boolean .
+  rdfs:range xsd:boolean ;
+  rdfs:comment "This property specifies if a work is open access."@en;
+  rdfs:label "is OA"@en .
 
 <https://semopenalex.org/property/oaStatus> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/OpenAccess>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the open access status of a work."@en;
+  rdfs:label "OA status"@en .
 
 <https://semopenalex.org/property/oaUrl> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/OpenAccess>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the open access URL of a work."@en;
+  rdfs:label "OA URL"@en .
 
 <http://prismstandard.org/namespaces/basic/2.0/startingPage> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the starting page of a work."@en;
+  rdfs:label "starting page"@en .
 
 <http://prismstandard.org/namespaces/basic/2.0/endingPage> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the ending page of a work."@en;
+  rdfs:label "ending page"@en .
 
 <https://semopenalex.org/property/hasVolume> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the volume of a work."@en;
+  rdfs:label "has volume"@en .
 
 <https://semopenalex.org/property/hasIssue> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the issue of a work."@en;
+  rdfs:label "has issue"@en .
 
 <https://semopenalex.org/property/citedByCount> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
@@ -266,250 +407,374 @@ foaf:name a owl:DatatypeProperty;
           <https://semopenalex.org/class/Concept> <https://semopenalex.org/class/Institution>
           <https://semopenalex.org/class/Source> <https://semopenalex.org/class/CountsByYear>)
     ];
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the number of citations of a work, author, concept, institution, source or year."@en;
+  rdfs:label "cited by count"@en .
 
 <http://purl.org/dc/terms/license> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Location>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the license of a work."@en;
+  rdfs:label "license"@en .
 
 <http://purl.org/spar/fabio/hasURL> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Location>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the URL of a work."@en;
+  rdfs:label "URL"@en .
 
 <http://semopenalex.org/property/pdfUrl> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Location>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the PDF URL of a work."@en;
+  rdfs:label "PDF URL"@en .
 
 <https://semopenalex.org/property/hasVersion> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Location>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the version of a work."@en;
+  rdfs:label "has version"@en .
 
 <http://prismstandard.org/namespaces/basic/2.0/issn> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the ISSN of a work."@en;
+  rdfs:label "ISSN"@en .
 
 <http://purl.org/spar/fabio/hasIssnL> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the ISSN-L of a work."@en;
+  rdfs:label "has IssnL"@en .
 
 <http://semopenalex.org/property/abbreviatedName> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the abbreviated name of a work."@en;
+  rdfs:label "abbreviated name"@en .
+
 
 <https://dbpedia.org/ontology/alternativeName> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the alternative name of a work."@en;
+  rdfs:label "alternative name"@en .
 
 <https://dbpedia.org/property/2YrMeanCitedness> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:float .
+  rdfs:range xsd:float ;
+  rdfs:comment "This property specifies the 2 year mean citedness of a work."@en;
+  rdfs:label "2 year mean citedness"@en .
 
 <http://purl.org/spar/bido/h-index> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the h-index of a work."@en;
+  rdfs:label "h-index"@en .
 
 <https://semopenalex.org/property/i10Index> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the i10-index of a work."@en;
+  rdfs:label "i10-index"@en .
 
 <https://semopenalex.org/property/fatcatId> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the fatcat ID of a work."@en;
+  rdfs:label "fatcat ID"@en .
 
 <https://semopenalex.org/property/sourceType> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the source type of a work."@en;
+  rdfs:label "source type"@en .
 
 <https://semopenalex.org/property/apcUsd> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the APC in USD of a work."@en;
+  rdfs:label "APC in USD"@en .
 
 <http://www.geonames.org/ontology#countryCode> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the country code of a work."@en;
+  rdfs:label "country code"@en .
 
 <https://semopenalex.org/property/isInDoaj> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:boolean .
+  rdfs:range xsd:boolean ;
+  rdfs:comment "This property specifies if a work is in DOAJ."@en;
+  rdfs:label "is in DOAJ"@en .
 
 <http://purl.org/dc/terms/publisher> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the publisher of a work."@en;
+  rdfs:label "publisher"@en .
 
 <http://www.w3.org/2002/07/owl#/sameAs> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Source>;
-  rdfs:range <https://semopenalex.org/class/wikidata> .
+  rdfs:range <https://semopenalex.org/class/wikidata> ;
+  rdfs:comment "This property specifies the wikidata ID of a source."@en;
+  rdfs:label "same as"@en .
+
 
 <http://www.w3.org/2002/07/owl#/sameAs> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range <https://semopenalex.org/class/wikidata> .
+  rdfs:range <https://semopenalex.org/class/wikidata> ;
+  rdfs:comment "This property specifies the wikidata ID of a publisher."@en;
+  rdfs:label "same as"@en .
 
 <https://semopenalex.org/class/Publisher> a owl:Class;
-  rdfs:label "Publisher"@en .
+  rdfs:label "Publisher"@en ;
+  rdfs:comment "This class specifies a publisher."@en .
 
 <https://semopenalex.org/property/hasParentPublisher> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range <https://semopenalex.org/class/Publisher> .
+  rdfs:range <https://semopenalex.org/class/Publisher> ;
+  rdfs:comment "This property specifies the parent publisher of a publisher."@en;
+  rdfs:label "has parent publisher"@en .
 
 <https://semopenalex.org/property/i10Index> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the i10-index of a publisher."@en;
+  rdfs:label "i10-index"@en .
 
 <http://purl.org/spar/bido/h-index> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the h-index of a publisher."@en;
+  rdfs:label "h-index"@en .
 
 <https://dbpedia.org/property/2YrMeanCitedness> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:float .
+  rdfs:range xsd:float ;
+  rdfs:comment "This property specifies the 2 year mean citedness of a publisher."@en;
+  rdfs:label "2 year mean citedness"@en .
 
 <https://semopenalex.org/property/level> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the level of a publisher."@en;
+  rdfs:label "level"@en .
 
 <https://dbpedia.org/property/countryCode> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the country code of a publisher."@en;
+  rdfs:label "country code"@en .
 
 <https://semopenalex.org/property/citedByCount> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the cited by count of a publisher."@en;
+  rdfs:label "cited by count"@en .
 
 <http://xmlns.com/foaf/0.1/displayName> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the display name of a publisher."@en;
+  rdfs:label "display name"@en .
 
 <https://dbpedia.org/ontology/alternateTitles> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the alternate titles of a publisher."@en;
+  rdfs:label "alternate titles"@en .
 
 <https://semopenalex.org/property/ror> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the ror of a publisher."@en;
+  rdfs:label "ror"@en .
 
 <http://purl.org/dc/terms/updated_date> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:date .
+  rdfs:range xsd:date ;
+  rdfs:comment "This property specifies the updated date of a publisher."@en;
+  rdfs:label "updated date"@en .
 
 <http://purl.org/dc/terms/created_date> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Publisher>;
-  rdfs:range xsd:date .
+  rdfs:range xsd:date ;
+  rdfs:comment "This property specifies the created date of a publisher."@en;
+  rdfs:label "created date"@en .
 
 <https://dbpedia.org/property/country> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Geo>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the country of a geo."@en;
+  rdfs:label "country"@en .
 
 <https://dbpedia.org/property/city> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Geo>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the city of a geo."@en;
+  rdfs:label "city"@en .
 
 <http://www.geonames.org/ontology#geonamesID> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Geo>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the geonames ID of a geo."@en;
+  rdfs:label "geonames ID"@en .
 
 <https://dbpedia.org/property/region> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Geo>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the region of a geo."@en;
+  rdfs:label "region"@en .
 
 <http://www.geonames.org/ontology#countryCode> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Geo>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the country code of a geo."@en;
+  rdfs:label "country code"@en .
 
 <http://www.geonames.org/ontology#lat> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Geo>;
-  rdfs:range xsd:float .
+  rdfs:range xsd:float ;
+  rdfs:comment "This property specifies the latitude of a geo."@en;
+  rdfs:label "latitude"@en .
 
 <http://www.geonames.org/ontology#long> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Geo>;
-  rdfs:range xsd:float .
+  rdfs:range xsd:float ;
+  rdfs:comment "This property specifies the longitude of a geo."@en;
+  rdfs:label "longitude"@en .
 
 <https://dbpedia.org/ontology/alternativeName> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Institution>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ; 
+  rdfs:comment "This property specifies the alternative name of an institution."@en;
+  rdfs:label "alternative name"@en .
 
 <https://dbpedia.org/property/acronym> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Institution>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the acronym of an institution."@en;
+  rdfs:label "acronym"@en .
 
 <https://semopenalex.org/property/imageThumbnail> a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>)
     ];
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the image thumbnail of an institution or concept."@en;
+  rdfs:label "image thumbnail"@en .
 
 foaf:depiction a owl:DatatypeProperty;
   rdfs:domain [ a owl:Class;
       owl:unionOf (<https://semopenalex.org/class/Institution> <https://semopenalex.org/class/Concept>)
     ];
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the depiction of an institution or concept."@en;
+  rdfs:label "depiction"@en .
 
 <https://semopenalex.org/property/rorType> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Institution>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the ror type of an institution."@en;
+  rdfs:label "ror type"@en .
 
 <https://dbpedia.org/property/countryCode> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Institution>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the country code of an institution."@en;
+  rdfs:label "country code"@en .
 
 <https://semopenalex.org/property/grid> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Institution>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the grid of an institution."@en;
+  rdfs:label "grid"@en .
 
 <https://semopenalex.org/property/ror> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Institution>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the ror of an institution."@en;
+  rdfs:label "ror"@en .
 
 <https://semopenalex.org/property/year> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/CountsByYear>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the year of a counts by year."@en;
+  rdfs:label "year"@en .
 
 <https://semopenalex.org/property/alternativeName> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Author>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the alternative name of an author."@en;
+  rdfs:label "alternative name"@en .
 
 <https://dbpedia.org/property/twitter> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Author>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the twitter of an author."@en;
+  rdfs:label "twitter"@en .
 
 <https://dbpedia.org/property/scopus> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Author>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the scopus id of an author."@en;
+  rdfs:label "scopus"@en .
 
 <https://dbpedia.org/ontology/orcidId> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Author>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the orcid id of an author."@en;
+  rdfs:label "orcid id"@en .
 
 <https://semopenalex.org/property/level> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Concept>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the level of a concept."@en;
+  rdfs:label "level"@en .
 
 <https://semopenalex.org/property/umlsAui> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Concept>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the umls aui of a concept."@en;
+  rdfs:label "umls aui"@en .
 
 <https://semopenalex.org/property/umlsCui> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Concept>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the umls cui of a concept."@en;
+  rdfs:label "umls cui"@en .
 
 <https://semopenalex.org/property/score> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/ConceptScore>;
-  rdfs:range xsd:integer .
+  rdfs:range xsd:integer ;
+  rdfs:comment "This property specifies the score of a concept score."@en;
+  rdfs:label "score"@en .
 
 <https://semopenalex.org/class/AuthorPosition> a owl:Class;
-  rdfs:label "AuthorPosition"@en .
+  rdfs:label "AuthorPosition"@en ;
+  rdfs:comment "This class represents an author position."@en .
 
 <https://semopenalex.org/property/crossrefType> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the crossref type of a work."@en;
+  rdfs:label "crossref type"@en .
 
 <https://semopenalex.org/property/hasAuthor> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/AuthorPosition>;
-  rdfs:range <https://semopenalex.org/class/Author> .
+  rdfs:range <https://semopenalex.org/class/Author> ;
+  rdfs:comment "This property specifies the author of an author position."@en;
+  rdfs:label "has author"@en .
 
 <https://semopenalex.org/property/hasAuthorPosition> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
-  rdfs:range <https://semopenalex.org/class/AuthorPosition> .
+  rdfs:range <https://semopenalex.org/class/AuthorPosition> ;
+  rdfs:comment "This property specifies the author position of a work."@en;
+  rdfs:label "has author position"@en .
 
 <https://semopenalex.org/property/position> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/class/AuthorPosition>;
-  rdfs:range xsd:string .
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the position of an author position."@en;
+  rdfs:label "position"@en .
