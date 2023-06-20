@@ -54,7 +54,7 @@
 <http://purl.org/dc/terms/creator> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/class/Work>;
   rdfs:range <https://semopenalex.org/class/Author>;
-  rdfs:comment "This property specifies  the creator of a work."@en;
+  rdfs:comment "This property specifies the creator of a work."@en;
   rdfs:label "creator"@en .
 
 <http://purl.org/dc/terms/title> a owl:DatatypeProperty;
