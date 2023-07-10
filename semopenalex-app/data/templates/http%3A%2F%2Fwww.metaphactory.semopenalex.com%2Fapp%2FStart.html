@@ -308,7 +308,7 @@
               {{#case 'search' break=true}}
           
                
-                  <div class='InlineDisambiguation--search'>
+                  <div class='InlineDisambiguation--search' style='justify-content: unset; gap:unset;'>
                     Show results overview for "<span class='InlineDisambiguation--searchTerm'>{{searchTerm}}</span>"
                   </div>
             
@@ -319,7 +319,7 @@
                 </div>
               {{/case}}
               {{#case 'resource' break=true}}
-                <div class='InlineDisambiguation--resource' title='{{resource.iri}}'>
+                <div title='{{resource.iri}}'>
                   <mp-highlight highlight='{{searchTerm}}'>{{resource.label}}</mp-highlight> 
 
                   {{#if (cond-eq domain.label 'Author')}}
@@ -723,7 +723,7 @@
                     {{/if}}
                   {{/if}}
                 </div>
-                <div class="row concepts" style="margin:3px;">
+                <div style="margin:3px;">
                   {{>::work-concepts}}
                 </div>
               </div>
@@ -787,7 +787,7 @@
                 <div>ORCiD: <a href='{{orcidId.value}}' target='_blank'>{{orcidId.value}}</a></div>
               {{/if}}
             </div>
-            <div class="row concepts" style='margin:3px;'>
+            <div style='margin:3px;'>
               {{>::author-concepts}}
             </div>
       
@@ -821,9 +821,10 @@
         
     <template id="tmp">
       {{#each bindings}}
-        <div class="chip" style='font-size: 1.0rem'>
-          <semantic-link class="chip__name" iri="{{concept.value}}"></semantic-link>
-        </div>
+         <span class="badge badge-secondary" style='margin-left:8px;'>
+      
+          <semantic-link iri="{{concept.value}}"></semantic-link>
+        </span>
       {{/each}}
     </template>
   </semantic-query>
@@ -850,9 +851,9 @@
         
     <template id="tmp">
       {{#each bindings}}
-        <div class="chip" style='font-size: 1.0rem'>
-          <semantic-link class="chip__name" iri="{{concept.value}}"></semantic-link>
-        </div>
+        <span class="badge badge-secondary" style='margin-left:8px;'>
+          <semantic-link iri="{{concept.value}}"></semantic-link>
+        </span>
       {{/each}}
     </template>
   </semantic-query>
@@ -870,9 +871,9 @@
         
     <template id="tmp">
       {{#each bindings}}
-        <div class="chip" style='font-size: 1.0rem'>
-          <semantic-link class="chip__name" iri="{{concept.value}}"></semantic-link>
-        </div>
+        <span class="badge badge-secondary" style='margin-left:8px;'>
+          <semantic-link iri="{{concept.value}}"></semantic-link>
+        </span>
       {{/each}}
     </template>
   </semantic-query>
@@ -971,7 +972,7 @@
               {{/if}}
             </div>
             {{#if (cond-or (cond-eq mode "source") (cond-eq mode "institution"))}}
-              <div class="row concepts" style="margin:3px;">
+              <div style="margin:3px;">
                 {{>::source-institution-concepts}}
               </div>
             {{/if}}
@@ -1163,7 +1164,7 @@
                   </mp-text-truncate>
                 {{/if}}
               </div>
-              <div class="row concepts" style="margin:3px;">
+              <div style="margin:3px;">
                 {{>::work-concepts}}
               </div>
               
@@ -1270,7 +1271,7 @@
                 {{/if}}
               </div>
               {{#if (cond-or (cond-eq ../mode "source") (cond-eq ../mode "institution"))}}
-                <div class="row concepts" style="margin:3px;">
+                <div style="margin:3px;">
                   {{>::source-institution-concepts mode=../mode}}
                 </div>
               {{/if}}
@@ -1330,7 +1331,7 @@
                   <div>ORCiD: <a href='{{orcidId.value}}' target='_blank'>{{orcidId.value}}</a></div>
                 {{/if}}
               </div>
-              <div class="row concepts" style='margin:3px;'>
+              <div style='margin:3px;'>
                 {{>::author-concepts}}
               </div>
             </div>
