@@ -3,6 +3,11 @@
 <div class="page">
   <div class='page__body'>
 
+    <div  style='margin-bottom: 16px;' class='abstract'>
+      Welcome to <b><semantic-link iri='{{rdf-resolvePrefix "semopenalex:About"}}'>SemOpenAlex</semantic-link></b>, the world's most extensive scholarly knowledge graph with over <b>26 billion RDF triples</b>. SemOpenAlex provides comprehensive information on <b>scientific publications</b> and related entities. It is built upon <b>OpenAlex</b> and is licensed under CC0, making it free for use in any context. 
+      Use SemOpenAlex to semantically navigate the scholarly space, seamlessly integrate your own data with academic publishing information, and leverage the power of machine learning to identify patterns, make predictions, and generate recommendations based on our <b><a href='https://github.com/metaphacts/semopenalex/tree/main/embeddings-generation' target='_blank'>SemOpenAlex entity embeddings</a></b>. {{>::icon-attribution}}
+    </div>
+
     <semantic-search id='sem-open-alex-universal-search'
       categories='{
         "<http://www.w3.org/2004/02/skos/core#Concept>": [{
@@ -193,3 +198,22 @@
     </semantic-search>
   </div>
 </div>
+
+<template-fragment id='icon-attribution'>
+
+  <mp-overlay-dialog title="Icon Attribution" type="modal" bs-size="large">
+    <mp-overlay-dialog-trigger><a>Icon attribution</a></mp-overlay-dialog-trigger>
+    <mp-overlay-dialog-content>  
+      <ul>
+        <li><a href="https://www.flaticon.com/free-icons/writer" title="writer icons" target='_blank'>Writer icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/paper" title="paper icons" target='_blank'>Paper icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/university" title="university icons" target='_blank'>University icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/idea" title="idea icons" target='_blank'>Idea icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/books" title="books icons" target='_blank'>Books icons created by popo2021 - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/building" title="building icons" target='_blank'>Building icons created by juicy_fish - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/empty" title="empty icons" target='_blank'>Empty icons created by Icon.doit - Flaticon</a></li>
+      </ul>
+    </mp-overlay-dialog-content>
+    </mp-overlay-dialog>
+
+</template-fragment>
