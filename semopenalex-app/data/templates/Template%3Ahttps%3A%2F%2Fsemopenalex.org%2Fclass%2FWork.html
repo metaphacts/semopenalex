@@ -104,7 +104,7 @@
         ?work <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
       }
       OPTIONAL { 
-        ?work <http://prismstandard.org/namespaces/basic/2.0/doi> ?doi .
+        ?work <http://prismstandard.org/namespaces/basic/2.0/doi>|<http://purl.org/spar/datacite/doi> ?doi .
       }              
       OPTIONAL {
         ?work <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
@@ -179,7 +179,7 @@
                 {{/if}}
               </div>
               {{#if doi}}
-                <semantic-link iri="{{doi}}">{{doi.value}}</semantic-link>
+                <a href="{{doi.value}}" target='_blank'>{{doi.value}}</a>
               {{/if}}
             </div>
           </div>
