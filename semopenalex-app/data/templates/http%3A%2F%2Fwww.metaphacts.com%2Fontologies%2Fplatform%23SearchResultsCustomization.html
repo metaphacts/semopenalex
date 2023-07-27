@@ -39,7 +39,7 @@
       for='https://semopenalex.org/class/Work'
       visualization='{
         "disambiguation": {
-          "query": "SELECT * WHERE { ?subject <https://schema.org/affiliation> ?affiliation . }",
+          "query": "SELECT * WHERE {  OPTIONAL { ?subject dct:abstract ?abstract } } LIMIT 1",
           "template": "{{> disambiguationTemplate}}"
         },
         "results": {
@@ -60,7 +60,7 @@
     >
       <template id='disambiguationTemplate'>
         <span class='separator'></span>
-        &nbsp;Affiliation: {{#each bindings}}{{affiliation.value}}{{#unless @last}}, {{/unless}}{{/each}}
+        {{#each bindings}} <mp-highlight highlight='{{../searchKeyword}}' split-token='true'>{{abstract.value}}</mp-highlight>{{/each}}
       </template>
       <template id='resultsTemplate'>
         {{#each bindings}}
