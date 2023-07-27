@@ -1,7 +1,7 @@
 {{> Platform:SearchResultsFragments::defaultStyle}}
 
 <div class="page">
-  <div class='page__body'>
+  <div class='page__body' style='font-size:15px;'>
 
     <div  style='margin-bottom: 16px;'>
       Welcome to <b><semantic-link iri='{{rdf-resolvePrefix "semopenalex:About"}}'>SemOpenAlex</semantic-link></b>, the world's most extensive scholarly knowledge graph with over <b>26 billion RDF triples</b>. SemOpenAlex provides comprehensive information on <b>scientific publications</b> and related entities. It is built upon <b>OpenAlex</b> and is licensed under CC0, making it free for use in any context. 
@@ -187,8 +187,8 @@
         <semantic-search-result-group template='{{> searchResultGroupTemplate}}'>
           <template id='searchResultGroupTemplate'>
             <div class='searchTopMenu'>
-              {{> Platform:SearchResultsFragments::startButton searchId="query-definition"}}
-              {{> Platform:SearchResultsFragments::clearDomain searchId="query-definition"}}
+              {{> Platform:SearchResultsFragments::startButton searchId="query-definition" showKnowledgePanel=false}}
+              {{> Platform:SearchResultsFragments::clearDomain searchId="query-definition" showKnowledgePanel=false}}
             </div>
             {{> Platform:SearchResultsFragments::searchResultGroupTemplate showExplorationFacets=false showKnowledgePanel=false}}
           </template>
