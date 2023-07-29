@@ -23,8 +23,9 @@ We evaluated the generated embeddings using the following set of hyperparameters
 | Filtered evaluation  |  False | 
 | Pipeline sync |  True | 
 
-*Filtered evaluation: *We configure Marius so that edge filtering is deactivated during training and evaluation. This means that the batches of sampled edges are not scanned for false negative edges. We applied this as the filtering process is i) expensive for large graphs and ii) the occurrence of false negative edges uncommon for situations where the number of sampled nodes (n) is significantly smaller than the overall number of nodes (V) in the graph n << |V | (LINK).
-*Pipelining: * Please refer to the Marius paper (LINK) for more details on the pipelining mechanism.
+*Filtered evaluation:* We configure Marius so that edge filtering is deactivated during training and evaluation. This means that the batches of sampled edges are not scanned for false negative edges. We applied this as the filtering process is i) expensive for large graphs and ii) the occurrence of false negative edges uncommon for situations where the number of sampled nodes (n) is significantly smaller than the overall number of nodes (V) in the graph n << |V | (LINK).
+
+*Pipelining:* Please refer to the Marius paper (LINK) for more details on the pipelining mechanism.
 
 
 ### Evaluation results
