@@ -1,0 +1,162 @@
+<template-fragment id='entityInfo' export>
+  <semantic-search-query-universal-entity-infos iri='{{iri}}' type='{{type}}' kind='{{kind}}' default-visualization='{
+    "disambiguation": {
+      "template": "{{> disambiguationDefaultTemplate}}"
+    },
+    "results": {
+      "template": "{{> resultsDefaultTemplate}}"
+    }
+  }'>
+    <template id='disambiguationDefaultTemplate'>
+      <mp-description iri='{{iri}}' template='{{> descriptionTemplate}}'>
+        <template id='descriptionTemplate'>
+          <span class='separator'></span>
+          <span class='SearchQueryUniversal--description'>
+            <mp-highlight highlight='{{searchKeyword}}' split-token='true'>
+              {{description}}
+            </mp-highlight>
+          </span>
+        </template>
+      </mp-description>
+    </template>
+    <template id='resultsDefaultTemplate'>
+      <mp-description iri='{{iri}}' template='{{> disambiguationTemplate}}'>
+        <template id='disambiguationTemplate'>
+          <div class='SearchCardResult--content'>
+            <mp-highlight highlight='{{searchKeyword}}' split-token='true'>
+              {{description}}
+            </mp-highlight>
+          </div>
+        </template>
+      </mp-description>
+    </template>
+
+    [[!--
+      Provide additional information for different types with the semantic-search-query-universal-entity-info
+      component:
+    --]]
+    <semantic-search-query-universal-entity-info
+      for='https://semopenalex.org/class/Work'
+      visualization='{
+        "disambiguation": {
+          "query": "SELECT * WHERE {  OPTIONAL { ?subject dct:abstract ?abstract } } LIMIT 1",
+          "template": "{{> disambiguationTemplate}}"
+        },
+        "results": {
+          "query": "
+            SELECT ?issue ?volume ?venue ?abstract ?datePublished ?cited(group_concat(distinct ?creatorName;separator=\", \") as ?creators) WHERE { 
+              OPTIONAL { ?subject dct:abstract ?abstract }
+              OPTIONAL { ?subject sp:hasIssue ?issue }
+              OPTIONAL { ?subject sp:hasVolume ?volume }
+              OPTIONAL { ?subject dct:creator ?creator . ?creator foaf:name ?creatorName . }
+              OPTIONAL { ?subject sp:hasPrimaryLocation/sp:hasSource/foaf:name ?venue }
+              OPTIONAL { ?subject fabio:hasPublicationYear ?datePublished }
+              OPTIONAL { ?subject sp:citedByCount ?cited }
+            } GROUP BY ?issue ?volume ?venue ?abstract ?datePublished ?cited LIMIT 1
+          ",
+          "template": "{{> resultsTemplate}}"
+        }
+      }'
+    >
+      <template id='disambiguationTemplate'>
+        <span class='separator'></span>
+        {{#each bindings}} <mp-highlight highlight='{{../searchKeyword}}' split-token='true'>{{abstract.value}}</mp-highlight>{{/each}}
+      </template>
+      <template id='resultsTemplate'>
+        {{#each bindings}}
+         
+          {{#if creators}}<mp-text-truncate lines='1' truncate='...'>{{creators.value}}</mp-text-truncate>{{/if}}
+          <div>
+            {{#if volume}}Volume: {{volume.value}}{{/if}}
+          </div>
+          <div>
+            {{#if issue}}Issue: {{issue.value}}{{/if}}
+          </div>
+          <div>
+            {{#if venue}}Source: {{venue.value}}{{/if}}
+          </div>
+          <div>
+            {{datePublished.value}}
+          </div>
+          <div class='SearchCardResult--content'>
+            <mp-highlight highlight='{{../searchKeyword}}' split-token='true'>{{abstract.value}}</mp-highlight>
+          </div>
+        {{/each}}
+      </template>
+    </semantic-search-query-universal-entity-info>
+    
+  </semantic-search-query-universal-entity-infos>
+</template-fragment>
+
+
+
+[[!-- 
+Uncomment and modify this template to customize result cards:
+--]]
+[[!--
+<template-fragment id='resultsTemplate' export>
+  <div class='SearchCardResult--card'>
+    <div class='SearchCardResult--contentWrapper'>
+      <div class='SearchCardResult--title'>
+        {{#if (cond-eq showKnowledgePanel false)}}
+          <semantic-link iri="{{subject.value}}">
+            <mp-highlight-label iri="{{subject.value}}" highlight='{{searchKeyword}}' split-token='true'></mp-highlight-label>
+          </semantic-link>
+        {{else}}
+          <mp-popover class='resultKnowledgePanel'>
+            <mp-popover-trigger placement='right' trigger='["click"]'>
+              <a class="headline" iri="{{subject.value}}">
+                <mp-highlight-label iri='{{subject.value}}' highlight='{{searchKeyword}}' class='title'></mp-highlight-label>
+              </a>
+            </mp-popover-trigger>
+            <mp-popover-content>
+              <div>
+                <mp-knowledge-panel iri='{{subject.value}}'></mp-knowledge-panel>
+              </div>
+            </mp-popover-content>
+          </mp-popover>
+          <semantic-link iri="{{subject.value}}" class='navigateToResourceBtn' title='Navigate to resource'>
+            <span class="material-symbols-outlined">link</span>
+          </semantic-link>
+        {{/if}}
+      </div>
+    </div>
+    <div class='SearchCardResult--buttons'>
+      {{> Platform:SearchResultsFragments::addToSearchButton subject=subject.value}}
+    </div>
+  </div>
+</template-fragment>
+--]]
+
+[[!-- 
+Uncomment and modify this template to customize domain cards:
+--]]
+[[!--
+<template-fragment id='domainCard' export>
+  <button type='button' class='btn btn-secondary SearchQueryUniversal--domainCard {{#if selected}}SearchQueryUniversal--domainCardSelected{{/if}}'>
+    {{> Platform:SearchResultsFragments::domainCardThumbnail}}
+    {{> Platform:SearchResultsFragments::domainCardLabel}}
+    {{> Platform:SearchResultsFragments::domainCardCount}}
+  </button>
+</template-fragment>
+--]]
+
+
+<template-fragment id='work-concepts'>
+  <semantic-query query='
+    SELECT ?concept  {
+      <{{publication.value}}> <https://semopenalex.org/property/hasConcept> ?concept .
+    } LIMIT 10' 
+    template='{{>tmp}}'
+  >
+        
+    <template id="tmp">
+      {{#each bindings}}
+         <span class="badge badge-secondary" style='margin-left:8px;'>
+      
+          <semantic-link iri="{{concept.value}}"></semantic-link>
+        </span>
+      {{/each}}
+    </template>
+  </semantic-query>
+</template-fragment>

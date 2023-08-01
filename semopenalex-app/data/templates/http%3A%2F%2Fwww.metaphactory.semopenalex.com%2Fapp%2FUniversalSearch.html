@@ -1,0 +1,219 @@
+{{> Platform:SearchResultsFragments::defaultStyle}}
+
+<div class="page">
+  <div class='page__body' style='font-size:15px;'>
+
+    <div  style='margin-bottom: 16px;'>
+      Welcome to <b><semantic-link iri='{{rdf-resolvePrefix "semopenalex:About"}}'>SemOpenAlex</semantic-link></b>, the world's most extensive scholarly knowledge graph with over <b>26 billion RDF triples</b>. SemOpenAlex provides comprehensive information on <b>scientific publications</b> and related entities. It is built upon <b>OpenAlex</b> and is licensed under CC0, making it free for use in any context. 
+      Use SemOpenAlex to semantically navigate the scholarly space, seamlessly integrate your own data with academic publishing information, and leverage the power of machine learning to identify patterns, make predictions, and generate recommendations based on our <b><a href='https://github.com/metaphacts/semopenalex/tree/main/embeddings-generation' target='_blank'>SemOpenAlex entity embeddings</a></b>. {{>::icon-attribution}}
+    </div>
+
+    <semantic-search id='sem-open-alex-universal-search'
+      categories='{
+        "<http://www.w3.org/2004/02/skos/core#Concept>": [{
+
+          "kind": "hierarchy",
+          "queryPattern": "$subject ?__relation__ ?__value__",
+          "hierarchyResultSemantics": "individual",
+          "treePatterns": {
+            "kind": "simple",
+            "relationPattern": "?item <http://www.w3.org/2004/02/skos/core#broader> ?parent."
+          }
+        }]
+      }'
+      relations='{
+        "<http://semopenalex.org/has-primary-location-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject <https://semopenalex.org/property/hasPrimaryLocation>/<https://semopenalex.org/property/hasSource> ?__value__ . }"
+        }],
+        "<http://semopenalex.org/has-location-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject <https://semopenalex.org/property/hasLocation>/<https://semopenalex.org/property/hasSource> ?__value__ . }"
+        }],
+        "<http://semopenalex.org/has-best-oa-location-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject <https://semopenalex.org/property/hasBestOaLocation>/<https://semopenalex.org/property/hasSource> ?__value__ . }"
+        }],
+         "<http://semopenalex.org/has-concept-placeholder-inverse>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject ^<https://semopenalex.org/property/hasConcept> ?__value__ . }"
+        }],
+        "<http://semopenalex.org/has-member-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject ^<http://www.w3.org/ns/org#memberOf> ?__value__ . }"
+        }],
+         "<http://semopenalex.org/author-work-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ ?__value__  <https://semopenalex.org/property/hasAuthorPosition> / <https://semopenalex.org/property/hasAuthor> $subject . }"
+        }],
+         "<https://semopenalex.org/property/hostOrganizationOf-placeholder>": [{
+          "kind": "resource",
+          "queryPattern": "{ $subject  ^<https://semopenalex.org/property/hasHostOrganization> ?__value__ . }"
+        }]
+
+      }'
+
+      [[!-- thumbnails are renamed with number and are used for ordering the domains card --]]
+      search-profile='{
+        "categories": [
+        {
+        	"iri": "<http://www.w3.org/2004/02/skos/core#Concept>",
+          "label": "Topic",
+          "thumbnail": "/assets/images/icon-5.png"
+        },
+        {
+          "iri": "<https://semopenalex.org/class/Author>",
+          "label": "Author",
+          "thumbnail": "/assets/images/icon-1.png"
+        },
+        {
+        	"iri": "<https://semopenalex.org/class/Institution>",
+          "label": "Institution",
+          "thumbnail": "/assets/images/icon-3.png"
+        }, 
+        {
+          "iri": "<https://semopenalex.org/class/Source>",
+          "label": "Source",
+          "thumbnail": "/assets/images/icon-6.png"
+        },
+        {
+          "iri": "<https://semopenalex.org/class/Work>",
+          "label": "Work",
+          "thumbnail": "/assets/images/icon-2.png"
+        }, {
+          "iri": "<https://semopenalex.org/class/Publisher>",
+          "label": "Publisher",
+          "thumbnail": "/assets/images/icon-7.png"
+        }
+        ],
+        "relations": [
+          {  
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://purl.org/dc/terms/creator>",
+            "hasRange": "<https://semopenalex.org/class/Author>",
+            "label": "creator"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<https://semopenalex.org/property/hasConcept>",
+            "hasRange": "<http://www.w3.org/2004/02/skos/core#Concept>",
+            "label": "has Topic"
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Author>",
+            "iri": "<http://www.w3.org/ns/org#memberOf>",
+            "hasRange": "<https://semopenalex.org/class/Institution>",
+            "label": "memberOf",
+            "inverse":{
+                "iri": "<http://semopenalex.org/has-member-placeholder>",
+                "label": "has member"
+            }
+          },
+           {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://semopenalex.org/has-primary-location-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Source>",
+            "label": "hasSource (Primary Location)"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://semopenalex.org/has-location-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Source>",
+            "label": "hasSource (Location)"
+          },
+           {
+            "hasDomain": "<https://semopenalex.org/class/Publisher>",
+            "iri": "<https://semopenalex.org/property/hostOrganizationOf-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Source>",
+            "label": "hostOrganizationOf"
+          },
+           {
+            "hasDomain": "<https://semopenalex.org/class/Publisher>",
+            "iri": "<https://semopenalex.org/property/hasParentPublisher>",
+            "hasRange": "<https://semopenalex.org/class/Publisher>",
+            "label": "hasParentPublisher"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Source>",
+            "iri": "<https://semopenalex.org/property/hasHostOrganization>",
+            "hasRange": "<https://semopenalex.org/class/Institution>",
+            "label": "hasHostOrganization"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://semopenalex.org/has-best-oa-location-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Source>",
+            "label": "hasSource (Best OA Location)"
+          },
+           {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<http://prismstandard.org/namespaces/basic/2.0/publicationDate>",
+            "hasRange": "<http://www.w3.org/2001/XMLSchema#dateTime>",
+            "label": "publication date"
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Work>",
+            "iri": "<https://semopenalex.org/property/hasRelatedWork>",
+            "hasRange": "<https://semopenalex.org/class/Work>",
+            "label": "has related work"
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Institution>",
+            "iri": "<https://semopenalex.org/property/hasAssociatedInstitution>",
+            "hasRange": "<https://semopenalex.org/class/Institution>",
+            "label": "has associated institution"
+          }, {
+            "hasDomain": "<http://www.w3.org/2004/02/skos/core#Concept>",
+            "iri": "<http://www.w3.org/2004/02/skos/core#related>",
+            "hasRange": "<http://www.w3.org/2004/02/skos/core#Concept>",
+            "label": "has related topic"
+          }, {
+            "hasDomain": "<https://semopenalex.org/class/Author>",
+            "iri": "<http://semopenalex.org/author-work-placeholder>",
+            "hasRange": "<https://semopenalex.org/class/Work>",
+            "label": "author work"
+          }
+        ]
+      }'>
+
+      <div class='search'>
+        <semantic-search-query-universal id='sem-open-alex-universal-search' initial-count-query='
+          PREFIX sys: <http://www.ontotext.com/owlim/system#>
+          SELECT (COUNT (*) as ?count) FROM sys:statistics {
+            ?subject a ?__domain__ .
+          }'
+          placeholder='Search works, authors, topics etc.'
+
+        >
+        </semantic-search-query-universal>
+        <semantic-search-facet-store id='facet'></semantic-search-facet-store>
+        <semantic-search-result-group template='{{> searchResultGroupTemplate}}'>
+          <template id='searchResultGroupTemplate'>
+            <div class='searchTopMenu'>
+              {{> Platform:SearchResultsFragments::startButton searchId="query-definition" showKnowledgePanel=false}}
+              {{> Platform:SearchResultsFragments::clearDomain searchId="query-definition" showKnowledgePanel=false}}
+            </div>
+            {{> Platform:SearchResultsFragments::searchResultGroupTemplate showExplorationFacets=false showKnowledgePanel=false}}
+          </template>
+        </semantic-search-result-group>
+      </div>
+
+    </semantic-search>
+  </div>
+</div>
+
+<template-fragment id='icon-attribution'>
+
+  <mp-overlay-dialog title="Icon Attribution" type="modal" bs-size="large">
+    <mp-overlay-dialog-trigger><a>Icon attribution</a></mp-overlay-dialog-trigger>
+    <mp-overlay-dialog-content>  
+      <ul>
+        <li><a href="https://www.flaticon.com/free-icons/writer" title="writer icons" target='_blank'>Writer icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/paper" title="paper icons" target='_blank'>Paper icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/university" title="university icons" target='_blank'>University icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/idea" title="idea icons" target='_blank'>Idea icons created by Freepik - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/books" title="books icons" target='_blank'>Books icons created by popo2021 - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/building" title="building icons" target='_blank'>Building icons created by juicy_fish - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/empty" title="empty icons" target='_blank'>Empty icons created by Icon.doit - Flaticon</a></li>
+      </ul>
+    </mp-overlay-dialog-content>
+    </mp-overlay-dialog>
+
+</template-fragment>
