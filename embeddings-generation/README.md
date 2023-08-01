@@ -12,9 +12,24 @@
 
 *05:* Export the embedding vectors for subsequent use using `marius_postprocess`.
 
+### Evaluation hyperparameters
+
+We evaluated the generated embeddings using the following set of hyperparameters in a link prediction setting.
+
+| Parameter  | Value | 
+|---------|-------:|
+| Batch size | 2,000 | 
+| Negative sampling size  |  500 | 
+| Filtered evaluation  |  False | 
+| Pipeline sync |  True | 
+
+Additional information:
+Please refer to the 2021 Marius paper for more details on the pipelining mechanism: [Mohoney et al., 2021](https://www.usenix.org/system/files/osdi21-mohoney.pdf).
+
+
 ### Evaluation results
 
-After training for 3 iterations on the entire training graph, evaluation via a link prediction task yielded the following evaluation scores. The best values for the metrics mean rank (MR), mean reciprocal rank (MRR), and Hits@N are marked bold.
+After training for 3 iterations on the entire training graph, evaluation via the link prediction task yielded the following evaluation scores. The best values for the metrics mean rank (MR), mean reciprocal rank (MRR), and Hits@N are marked bold.
 
 | Metric  | TransE | DistMult | ComplEx | GraphSAGE |   Graph Attention Network   |
 |---------|-------:|---------:|--------:|----------:|--------:|
