@@ -158,10 +158,10 @@
             <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
             ?location <http://www.geonames.org/ontology#lat> ?lat .
             ?location <http://www.geonames.org/ontology#long> ?lng .
-            ?location <https://dbpedia.org/property/city> ?city .
-            ?location <https://dbpedia.org/property/country> ?country .
+            OPTIONAL { ?location <https://dbpedia.org/property/city> ?city . }
+            OPTIONAL { ?location <https://dbpedia.org/property/country> ?country .}
           }' 
-          tuple-template='<b>{{city.value}} ({{country.value}})</b>'>
+          tuple-template='<b>{{#if city}}{{city.value}}{{/if}} {{#if country}}({{country.value}}){{/if}}</b>'>
         </semantic-map>
       </div>
     </div>
