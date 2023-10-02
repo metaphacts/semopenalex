@@ -171,18 +171,17 @@
 <template-fragment id='Concepts'>
   <div class="concepts">
     <semantic-query query='
-      SELECT ?concept WHERE {
+      SELECT DISTINCT ?concept WHERE {
         ?author <http://www.w3.org/ns/org#memberOf> <{{page-resource}}> .
         ?work <http://purl.org/dc/terms/creator> ?author .
         ?work <https://semopenalex.org/property/hasConcept> ?concept
       }
-      LIMIT 20' template='{{>tmp}}'>
+      LIMIT 70' template='{{>tmp}}'>
       <template id="tmp">
         {{#each bindings}}
-          <div class="chip">
-            <semantic-link class="chip__name" iri="{{concept.value}}"></semantic-link>
-            <div class="chip__icon"></div>
-          </div>
+          <span class="badge badge-secondary" style='margin:4px;'>
+            <semantic-link iri="{{concept.value}}"></semantic-link>
+          </span>
         {{/each}}
       </template>
     </semantic-query>
