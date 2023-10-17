@@ -1,2 +1,4 @@
 sparqlMaxExecutionTime = 120
 sparqlHttpReadTimeout = 120
+pathsToRewrite = /author/,/concept/,/countsbyyear/,/geo/,/hostvenue/,/conceptscore/,/openaccess/,/work/,/source/,/publisher/,/institution/
+platformBaseIri = https://semopenalex.org
