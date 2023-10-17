@@ -191,22 +191,23 @@
 
 <template-fragment id="Concepts">
   <div class="row concepts">
-  <semantic-query query='
-    SELECT ?concept {
-      BIND(<{{page-resource}}> as ?work)
-      ?work <https://semopenalex.org/property/hasConcept> ?concept .
-    }
-    LIMIT 20
-  ' template='{{>tmp}}'>
-      <template id="tmp">
-        {{#each bindings}}
-          <div class="chip">
-            <semantic-link class="chip__name" iri="{{concept.value}}"></semantic-link>
-            <div class="chip__icon"></div>
-          </div>
-        {{/each}}
-      </template>
-    </semantic-query>
+    <div>
+      <semantic-query query='
+        SELECT DISTINCT ?concept {
+          BIND(<{{page-resource}}> as ?work)
+          ?work <https://semopenalex.org/property/hasConcept> ?concept .
+        }
+        LIMIT 70
+      ' template='{{>tmp}}'>
+          <template id="tmp">
+            {{#each bindings}}
+              <span class="badge badge-secondary" style='margin: 4px;'>
+                <semantic-link iri="{{concept.value}}"></semantic-link>
+              </span>
+            {{/each}}
+          </template>
+        </semantic-query>
+    </div>
   </div>
 </template-fragment>
 

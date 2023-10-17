@@ -29,15 +29,15 @@
   .citation-count {
     color: var(--soa-color-green);
   }
-  .card.venue-info {
+  .card.source-info {
     font-size: 1rem;
     justify-content: center;
   }
-  .card.venue-info .card__title {
+  .card.source-info .card__title {
     padding-bottom: 0;
     padding-top: 1rem;
   }
-  .card.venue-info .card__title:first-child {
+  .card.source-info .card__title:first-child {
     padding-top: 0;
   }
   .concepts {
@@ -52,12 +52,12 @@
     <div class="header__bottom">
       <semantic-query query='
         SELECT ?publisher ?name ?isOa ?isInDoaj WHERE {
-          BIND(<{{page-resource}}> as ?venue)
-          ?venue <http://purl.org/dc/terms/publisher> ?publisher ;
+          BIND(<{{page-resource}}> as ?source)
+          ?source <https://semopenalex.org/property/hasHostOrganization> ?publisher ;
                  <http://xmlns.com/foaf/0.1/name> ?name ;
                  <https://semopenalex.org/property/isOa> ?isOa .
           OPTIONAL {
-            ?venue <https://semopenalex.org/property/isInDoaj> ?isInDoaj
+            ?source <https://semopenalex.org/property/isInDoaj> ?isInDoaj
           }
         }
       ' template='{{> tmp}}'>
@@ -123,18 +123,18 @@
         >
         </semantic-chart>
       </div>
-      <div class="card venue-info">
+      <div class="card source-info">
         <semantic-query query='
           SELECT ?homepage ?issnL (group_concat(DISTINCT ?issn) as ?issns) WHERE {
-            BIND(<{{page-resource}}> as ?venue)
+            BIND(<{{page-resource}}> as ?source)
               OPTIONAL {
-                ?venue <http://prismstandard.org/namespaces/basic/2.0/issn> ?issn .
+                ?source <http://prismstandard.org/namespaces/basic/2.0/issn> ?issn .
             }
               OPTIONAL {
-                ?venue <http://xmlns.com/foaf/0.1/homepage> ?homepage .
+                ?source <http://xmlns.com/foaf/0.1/homepage> ?homepage .
             }            
               OPTIONAL {
-                ?venue <http://purl.org/spar/fabio/hasIssnL> ?issnL
+                ?source <http://purl.org/spar/fabio/hasIssnL> ?issnL
             }
           }
           GROUP BY ?homepage ?issnL
@@ -165,19 +165,18 @@
     <div class="concepts">
       <semantic-query query='
         SELECT DISTINCT ?concept WHERE {
-          BIND(<{{page-resource}}> as ?venue)
-          ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
-          ?work <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
+          BIND(<{{page-resource}}> as ?source)
+          ?hostsource <https://semopenalex.org/property/hasSource> ?source .
+          ?work <https://semopenalex.org/property/hasLocation>|<https://semopenalex.org/property/hasPrimaryLocation>|<https://semopenalex.org/property/hasBestOaLocation> ?hostsource .
           ?work <https://semopenalex.org/property/hasConcept> ?concept  
         }
-        LIMIT 20
+        LIMIT 70
       ' template='{{> tmp}}'>
         <template id="tmp">
           {{#each bindings}}
-            <div class="chip">
-              <semantic-link class="chip__name" iri="{{concept.value}}">{{concept.value}}</semantic-link>
-              <div class="chip__icon"></div>
-            </div>
+            <span class="badge badge-secondary" style='margin:4px;'>
+              <semantic-link  iri="{{concept.value}}"></semantic-link>
+            </span>
           {{/each}}
         </template>
       </semantic-query>
@@ -198,17 +197,19 @@
           </div>
           <semantic-table query='
             SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) WHERE {
-              BIND(<{{page-resource}}> as ?venue)
-              ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
-              ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue . 
-              ?publication <http://purl.org/dc/terms/creator> ?author . 
-              ?publication <http://purl.org/dc/terms/title> ?title .
-              ?author <http://xmlns.com/foaf/0.1/name> ?name .
-              ?publication <https://semopenalex.org/property/citedByCount> ?cited .
+              BIND(<{{page-resource}}> as ?source)
+              ?hostsource <https://semopenalex.org/property/hasSource> ?source .
+              ?publication <https://semopenalex.org/property/hasLocation>|<https://semopenalex.org/property/hasPrimaryLocation>|<https://semopenalex.org/property/hasBestOaLocation> ?hostsource .
+          
+              
+              OPTIONAL { 
+                ?publication <http://purl.org/dc/terms/creator> ?author . 
+                ?author <http://xmlns.com/foaf/0.1/name> ?name .
+              }
+              OPTIONAL {   ?publication <https://semopenalex.org/property/citedByCount> ?cited . }
               OPTIONAL {
-                ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
-                ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
-                ?venue <http://purl.org/dc/terms/publisher> ?publisher .
+               
+                ?source <https://semopenalex.org/property/hasHostOrganization> ?publisher .
               }
               OPTIONAL {
                 ?publication <https://semopenalex.org/property/hasVolume> ?volume .
@@ -227,7 +228,6 @@
               <div class="publication">
                 <div class="publication__top">
                   <semantic-link iri="{{publication.value}}">
-                    <div class="publication__title">{{title.value}}</div>
                   </semantic-link>
                   <div class="publication__author" style="width: 100%;">
                     <mp-text-truncate truncate="..." style="width: inherit;">
@@ -235,7 +235,7 @@
                     </mp-text-truncate>
                   </div>
                   <div class="publication__info">
-                    {{#if publisher}}{{publisher.value}}, {{/if}}
+                    {{#if publisher}}<semantic-link iri="{{publisher.value}}"></semantic-link>, {{/if}}
                     {{#if volume}}Volume {{volume.value}}, {{/if}}
                     {{#if issue}}Issue {{issue.value}}, {{/if}}
                     {{publicationYear.value}}
