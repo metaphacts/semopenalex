@@ -1,0 +1,335 @@
+<style>
+  .soa {
+    padding: 2rem;
+  }
+  .soa .header {
+    border-bottom: none;
+  }
+  .soa .header__title-sub {
+    font-size: 1.6rem;
+    color: var(--soa-color-blue);
+  }
+  .nav {
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  .nav-tabs .nav-item {
+    font-size: 1.2rem;
+    background: var(--soa-color-brown);
+    color: var(--soa-color-brown-darker);
+  }
+  .soa .body {
+    gap: 0;
+    padding: 0;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .card.publication-chart, .card.location {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .publications__label, .publications__value {
+    color: #000000;
+  }
+  .citations__label, .citations__value {
+    color: var(--soa-color-green);
+  }
+  .publications__label, .citations__label {
+    font-size: 1.3rem;
+  }
+  .publications__value, .citations__value {
+    font-size: 3.2rem;
+    font-weight: 700;
+  }
+  .card.location .card__title {
+    padding-bottom: 0;
+    padding-top: 1rem;
+  }
+  .concepts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .publications .card__title {
+    text-transform: uppercase;
+  }
+  .tab-pane > div {
+    padding-bottom: 2rem;
+  }
+</style>
+
+<template-fragment id='Cards'>
+  <div class="cards">
+    <div class="card publication-chart">
+      <div>
+        <div>
+          <div class="publications__label">Publications</div>
+          <semantic-query query='
+            SELECT ?count WHERE { <{{page-resource}}> <https://semopenalex.org/property/worksCount> ?count}' template='{{> tmp}}'>
+              <template id="tmp">
+                {{#each bindings}}
+                  <div class="publications__value">{{count.value}}</div>
+                {{/each}}
+              </template>
+          </semantic-query>
+        </div>
+        <div>
+          <div class="citations__label">Citations</div>
+          <semantic-query query='
+            SELECT ?cited WHERE {
+	            <{{page-resource}}> <https://semopenalex.org/property/citedByCount> ?cited
+            }' template='{{> tmp}}'>
+              <template id="tmp">
+                {{#each bindings}}
+                  <div class="citations__value">{{cited.value}}</div>
+                {{/each}}
+              </template>
+          </semantic-query>
+        </div>
+      </div>
+      <semantic-chart type="bar" query="
+        SELECT ?year ?work WHERE {
+          <{{page-resource}}> <https://semopenalex.org/property/countsByYear> ?count .
+          ?count <https://semopenalex.org/property/year> ?year .
+          ?count <https://semopenalex.org/property/worksCount> ?work .
+        } ORDER BY ASC(?year)
+      " sets='[{"dataSetName": "Publications", "category": "year", "x": "year", "y": "work"}]'
+        styles='[{
+          "provider": "highcharts",
+          "style": {
+            "series": [
+              {"type": "column", "showInLegend": false}
+            ]
+          }
+        }]'
+        style-highcharts='{
+          "legend": "hide",
+          "caption": {"align": "center", "text": "The last 10 years of publications."}
+        }'
+        dimensions='{"height": 180}'
+      >
+      </semantic-chart>
+    </div>
+    <div class="card location">
+      <div>
+       
+        <semantic-query query='SELECT ?ror ?city ?country WHERE {
+          <{{page-resource}}> <http://www.geonames.org/ontology#countryCode> ?country .
+          OPTIONAL { <{{page-resource}}> <https://semopenalex.org/property/ror> ?ror . }
+        } LIMIT 1' template="{{> tmp}}" no-result-template='Location not available.'>
+          <template id="tmp">
+            {{#each bindings}}
+               {{#if ror}}
+                  <div>
+                 
+                    <div class="card__title">ROR</div>
+                    <a href='{{ror.value}}' target='_blank'>{{ror.value}}</a>
+                  </div>
+                {{/if}}
+                {{#if country}}
+                  <div>
+                      <div class="card__title">Country Code</div>
+                      {{country.value}}
+                  </div>  
+                {{/if}}          
+            
+            {{/each}}
+          </template>
+        </semantic-query>
+        <semantic-query query='SELECT ?homepage WHERE {
+          <{{page-resource}}> <http://xmlns.com/foaf/0.1/homepage> ?homepage
+        }' template="{{> tmp}}">
+          <template id="tmp">
+            {{#each bindings}}
+              {{#if homepage}}
+                <div class="card__title">Home Page</div>
+                <a href="{{homepage.value}}">{{homepage.value}}</a>
+              {{/if}}
+            {{/each}}
+          </template>
+        </semantic-query>
+      </div>
+     
+    </div>
+  </div>
+</template-fragment>
+
+<template-fragment id='Concepts'>
+  <div class="concepts">
+    <semantic-query query='
+      SELECT DISTINCT ?concept WHERE {
+       BIND(<{{page-resource}}> as ?publisher)
+        ?work <https://semopenalex.org/property/hasLocation>|<https://semopenalex.org/property/hasPrimaryLocation>|<https://semopenalex.org/property/hasBestOaLocation> ?location .
+        ?location <https://semopenalex.org/property/hasSource>/<https://semopenalex.org/property/hasHostOrganization> ?publisher .
+        ?work <https://semopenalex.org/property/hasConcept> ?concept
+      }
+      LIMIT 70' template='{{>tmp}}'>
+      <template id="tmp">
+        {{#each bindings}}
+          <span class="badge badge-secondary" style='margin:4px;'>
+            <semantic-link iri="{{concept.value}}"></semantic-link>
+          </span>
+        {{/each}}
+      </template>
+    </semantic-query>
+  </div>
+</template-fragment>
+
+<template-fragment id="List">
+  <div class="card publications publishers">
+    <mp-event-target-template-render id="list" template='{{>tmp}}'>
+      <template id="tmp">
+        <div class="publications__header">
+          <div class="card__title">{{tab}}</div>
+          {{#ifCond tab "===" "Publications"}}
+            <div class="buttons">
+              <mp-event-trigger type='Component.TemplateUpdate' data='{"sort":"DESC (?cited)", "all": "{{all}}"}' targets='["list"]'>
+                <button class='{{#unless sort}}selected{{/unless}}{{#ifCond sort "===" "DESC (?cited)"}}selected{{/ifCond}}'>Most cited</button>
+              </mp-event-trigger>
+              <mp-event-trigger type='Component.TemplateUpdate' data='{"sort":"DESC (?publicationYear)", "all": "{{all}}"}' targets='["list"]'>
+                <button class='{{#ifCond sort "===" "DESC (?publicationYear)"}}selected{{/ifCond}}'>Latest</button>
+              </mp-event-trigger>
+            </div>
+          {{/ifCond}}
+        </div>
+          {{#ifCond tab "===" "Publications"}}
+            <semantic-table query='
+              SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) WHERE {
+                {
+                  SELECT DISTINCT ?publication WHERE {
+                    BIND(<{{page-resource}}> as ?publisher)
+                    ?publication <https://semopenalex.org/property/hasLocation>|<https://semopenalex.org/property/hasPrimaryLocation>|<https://semopenalex.org/property/hasBestOaLocation> ?location .
+                    ?location <https://semopenalex.org/property/hasSource>/<https://semopenalex.org/property/hasHostOrganization> ?publisher .
+                  
+                  }
+                  LIMIT {{#ifCond all "===" "true"}}1001{{else}}10{{/ifCond}}
+                }
+                ?publication <http://purl.org/dc/terms/creator> ?author .
+                ?publication <https://semopenalex.org/property/citedByCount> ?cited .
+                OPTIONAL { ?author <http://xmlns.com/foaf/0.1/name> ?name . }
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
+                  ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
+                  ?venue <http://purl.org/dc/terms/publisher> ?publisher .
+                }
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasVolume> ?volume .
+                }
+                OPTIONAL {
+                  ?publication <https://semopenalex.org/property/hasIssue> ?issue .
+                }
+                OPTIONAL {
+                  ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
+                }
+              } 
+              GROUP BY ?member ?title ?publication ?publicationYear ?cited ?publisher ?volume ?issue
+              ORDER BY {{#if sort}}{{sort}}{{else}}DESC(?cited){{/if}}
+              ' number-of-displayed-rows="10" tuple-template='
+                <div class="publication">
+                  <div class="publication__top">
+                    <semantic-link iri="{{publication.value}}"></semantic-link>
+                    <div class="publication__author" style="width: 100%;">
+                      <mp-text-truncate truncate="..." style="width: inherit;">
+                        By {{authors.value}}
+                      </mp-text-truncate>
+                    </div>
+                    <div class="publication__info">
+                      {{#if publisher}}<semantic-link iri="{{publisher.value}}"></semantic-link>, {{/if}}
+                      {{#if volume}}Volume {{volume.value}}, {{/if}}
+                      {{#if issue}}Issue {{issue.value}}, {{/if}}
+                      {{publicationYear.value}}
+                    </div>
+                  </div>
+                  <div class="publication__bottom">
+                    <div class="publication__year">{{publicationYear.value}}</div>
+                    <div class="publication__citation">
+                      <div class="publication__citation-icon"></div>
+                      <div class="publication__citation-value">{{cited.value}}</div>
+                    </div>
+                  </div>
+                </div>
+            ' options='{"showFilter":false}'
+            no-result-template='No publications.'>
+            </semantic-table>
+            <mp-event-trigger type='Component.TemplateUpdate' data='{"all": "true", "sort": "{{sort}}"}' targets='["list"]'>
+              <button class='publications__foot-button {{#ifCond all "===" "true"}}publications__foot-button--disabled{{/ifCond}}'>ALL PUBLICATIONS</button>
+            </mp-event-trigger>
+          {{else}}
+            <semantic-table query='
+              SELECT ?associatedInstitution ?name ?alternativeName ?city ?country WHERE {
+                BIND(<{{page-resource}}> as ?publisher)
+                ?publisher <https://semopenalex.org/property/hasAssociatedInstitution> ?associatedInstitution .
+                ?associatedInstitution <http://xmlns.com/foaf/0.1/name> ?name .
+                OPTIONAL {
+                  ?associatedInstitution <https://dbpedia.org/ontology/alternativeName> ?alternativeName .
+                }
+                OPTIONAL {
+                  ?associatedInstitution <https://dbpedia.org/ontology/location> ?location .
+                
+                  ?location <https://dbpedia.org/property/city> ?city .
+               
+                  ?location <https://dbpedia.org/property/country> ?country .
+                }
+              }'
+              number-of-displayed-rows="10" tuple-template='
+                <div class="publication">
+                  <div class="publication__top">
+                    <semantic-link iri="{{associatedInstitution.value}}">
+                      <div class="publication__title">{{name.value}}</div>
+                    </semantic-link>
+                    <div class="publication__info">
+                      {{#if alternativeName}}
+                        {{alternativeName.value}}{{#unless @last}}, {{/unless}}
+                      {{/if}}
+                      {{#if city}}
+                        {{city.value}}{{#unless @last}}, {{/unless}}
+                      {{/if}}
+                      {{#if country}}{{country.value}}{{/if}}
+                    </div>
+                  </div>
+                </div>
+            ' options='{"showFilter":false}'
+            no-result-template='No associated institutions.'>
+            </semantic-table>
+          {{/ifCond}}
+      </template>
+    </mp-event-target-template-render>
+  </div>
+</template-fragment>
+
+<div class="soa">
+  <div class="header">
+    <mp-label iri='{{page-resource}}' class="header__title-main"></mp-label>
+    <semantic-query query='
+      SELECT ?alternativeName WHERE { <{{page-resource}}> <https://dbpedia.org/ontology/alternativeName> ?alternativeName }
+      ' template='{{> tmp}}'>
+      <template id="tmp">
+        {{#each bindings}}
+          {{#if alternativeName}}
+            <div class="header__title-sub">{{alternativeName.value}}</div>
+          {{/if}}
+        {{/each}}
+      </template>
+    </semantic-query>
+  </div>
+  <div class="body">
+    <bs-tabs id="tabs" mount-on-enter=true default-active-key='1'>
+      <bs-tab event-key="1" title="Publications">
+        {{> ::Cards}}
+        {{> ::Concepts}}
+        {{> ::List tab="Publications"}}
+      </bs-tab>
+      <bs-tab event-key="2" title="Associated Institutions">
+        {{> ::Cards}}
+        {{> ::Concepts}}
+        {{> ::List tab="Associated institutions"}}
+      </bs-tab>
+    </bs-tabs>
+  </div>
+</div>
