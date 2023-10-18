@@ -1,916 +1,932 @@
+@prefix soa: <https://semopenalex.org/ontology/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix sp: <http://spinrdf.org/sp#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
-<https://semopenalex.org/vocab#> a owl:Ontology;
-  <http://purl.org/dc/terms/title> "SemOpenAlex Ontology"@en;
-  rdfs:label "SemOpenAlex Ontology"@en;
+<https://semopenalex.org/ontology/> a owl:Ontology;
+  dct:created "2022-05-12"^^xsd:date;
+  dct:creator <https://orcid.org/0000-0001-5458-8645>, <https://orcid.org/0000-0002-5080-3587>,
+    <https://orcid.org/0000-0002-7561-7000>, <https://orcid.org/0000-0002-9098-5389>,
+    <https://orcid.org/0009-0009-4338-0983>;
+  dct:issued "2022-05-12"^^xsd:date;
+  dct:license <http://creativecommons.org/publicdomain/zero/1.0/>;
+  dct:modified "2023-06-20"^^xsd:date;
+  dct:publisher <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology>, <http://www.wikidata.org/entity/Q22132500>;
+  dct:title "SemOpenAlex Ontology"@en;
   rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en;
+  rdfs:label "SemOpenAlex Ontology"@en;
   owl:versionInfo "2.0.0" .
-  
-<http://purl.org/dc/terms/creator> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
 
-<http://purl.org/dc/terms/title> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+<https://orcid.org/0000-0001-5458-8645> a foaf:Person;
+  rdfs:label "Michael Färber";
+  foaf:homepage <https://www.aifb.kit.edu/web/Michael_Färber>;
+  foaf:mbox <mailto:michael.faerber@kit.edu> .
 
-rdfs:seeAlso a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+<https://orcid.org/0000-0002-5080-3587> a foaf:Person;
+  rdfs:label "Johan Krause";
+  foaf:mbox <mailto:johan.krause@student.kit.edu> .
 
-skos:Concept a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "Concept"@en .
+<https://orcid.org/0000-0002-7561-7000> a foaf:Person;
+  rdfs:label "Peter Haase";
+  foaf:mbox <mailto:ph@metaphacts.com> .
 
-skos:broader a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+<https://orcid.org/0000-0002-9098-5389> a foaf:Person;
+  rdfs:label "David Lamprecht";
+  foaf:mbox <mailto:david.lamprecht@student.kit.edu> .
 
-skos:note a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-skos:prefLabel a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-skos:related a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://purl.org/dc/terms/created> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://purl.org/dc/terms/modified> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-foaf:homepage a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-foaf:name a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://www.w3.org/ns/org#memberOf> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/class/Author> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "Author"@en .
-
-<https://semopenalex.org/class/Institution> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "Institution"@en .
-
-<https://semopenalex.org/property/hasRelatedWork> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/class/Work> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "Work"@en .
-
-<https://semopenalex.org/property/hasAssociatedInstitution> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/hasConcept> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/class/ConceptScore> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "ConceptScore"@en .
-
-<https://semopenalex.org/property/hasConceptScore> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://purl.org/spar/cito/cites> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/countsByYear> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/class/Concept> a owl:Class;
-  rdfs:subClassOf skos:Concept;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "Concept"@en .
-
-<https://semopenalex.org/class/CountsByYear> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "CountsByYear"@en .
-
-<https://semopenalex.org/property/hasOpenAccess> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/class/OpenAccess> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "OpenAccess"@en .
+<https://orcid.org/0009-0009-4338-0983> a foaf:Person;
+  rdfs:label "Linn Aung";
+  foaf:mbox <mailto:la@metaphacts.com> .
 
 <http://dbpedia.org/ontology/location> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/class/Geo> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "Geo"@en .
-
-<http://purl.org/spar/fabio/hasPubMedId> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://purl.org/spar/fabio/hasPubMedCentralId> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/worksCount> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://purl.org/dc/terms/abstract> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/magId> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://purl.org/spar/fabio/hasPublicationYear> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://prismstandard.org/namespaces/basic/2.0/publicationDate> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 <http://prismstandard.org/namespaces/basic/2.0/doi> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/isRetracted> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/isParatext> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/isOa> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/oaStatus> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/oaUrl> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://prismstandard.org/namespaces/basic/2.0/startingPage> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 <http://prismstandard.org/namespaces/basic/2.0/endingPage> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/hasVolume> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/hasIssue> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/citedByCount> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://purl.org/dc/terms/license> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://purl.org/spar/fabio/hasURL> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/hasVersion> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 <http://prismstandard.org/namespaces/basic/2.0/issn> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<http://purl.org/spar/fabio/hasIssnL> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+<http://prismstandard.org/namespaces/basic/2.0/publicationDate> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://semopenalex.org/property/isInDoaj> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+<http://prismstandard.org/namespaces/basic/2.0/startingPage> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<http://purl.org/dc/terms/publisher> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+dct:abstract a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://dbpedia.org/property/country> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+dct:created a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://dbpedia.org/property/city> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+dct:creator a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<http://www.geonames.org/ontology#geonamesID> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+dct:license a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://dbpedia.org/property/region> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+dct:modified a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<http://www.geonames.org/ontology#countryCode> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+dct:publisher a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<http://www.geonames.org/ontology#lat> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<http://www.geonames.org/ontology#long> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://dbpedia.org/ontology/alternativeName> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://dbpedia.org/property/acronym> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/imageThumbnail> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-foaf:depiction a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/rorType> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://dbpedia.org/property/countryCode> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/grid> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/ror> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/year> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/alternativeName> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://dbpedia.org/property/twitter> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://dbpedia.org/property/scopus> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://dbpedia.org/ontology/orcidId> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/level> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/umlsAui> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/umlsCui> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/score> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/class/Publisher> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "Publisher"@en .
+dct:title a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 <http://purl.org/spar/bido/h-index> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "h-index"@en .
 
-<https://semopenalex.org/property/i10Index> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "i10Index"@en .
+<http://purl.org/spar/cito/cites> a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://semopenalex.org/property/2YrMeanCitedness> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "2YrMeanCitedness"@en .
+fabio:hasIssnL a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://semopenalex.org/property/hasParentPublisher> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "hasParentPublisher"@en .
+fabio:hasPubMedCentralId a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+fabio:hasPubMedId a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+fabio:hasPublicationYear a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+fabio:hasURL a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<http://www.geonames.org/ontology#countryCode> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<http://www.geonames.org/ontology#geonamesID> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<http://www.geonames.org/ontology#lat> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<http://www.geonames.org/ontology#long> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+rdfs:seeAlso a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+skos:Concept a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Concept"@en .
 
 skos:ConceptShape a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#0505f27824e6216f6cefdbd4e005817d>, <https://semopenalex.org/vocab#09f17fcc61f87f9692f33bab42323734>,
-    <https://semopenalex.org/vocab#7e72e214b08c0478192cb924f8fdd396>, <https://semopenalex.org/vocab#8a9c850e30c57eeae19bc32d2ab5aea0>,
-    <https://semopenalex.org/vocab#8d3b7b435bad00f06370e5537dceb0ca>;
+  sh:property soa:0505f27824e6216f6cefdbd4e005817d, soa:09f17fcc61f87f9692f33bab42323734,
+    soa:7e72e214b08c0478192cb924f8fdd396, soa:8a9c850e30c57eeae19bc32d2ab5aea0, soa:8d3b7b435bad00f06370e5537dceb0ca;
   sh:targetClass skos:Concept .
 
-<https://semopenalex.org/vocab#0505f27824e6216f6cefdbd4e005817d> a sh:PropertyShape .
+skos:broader a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://semopenalex.org/vocab#09f17fcc61f87f9692f33bab42323734> a sh:PropertyShape .
+skos:note a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://semopenalex.org/vocab#7e72e214b08c0478192cb924f8fdd396> a sh:PropertyShape;
-  sh:path rdfs:seeAlso;
-  sh:class <http://purl.org/spar/fabio/WikipediaEntry>;
+skos:prefLabel a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+skos:related a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<http://www.w3.org/ns/org#memberOf> a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+foaf:depiction a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+foaf:homepage a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+foaf:name a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/ontology/alternativeName> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/ontology/orcidId> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/property/acronym> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/property/city> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/property/country> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/property/countryCode> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/property/region> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/property/scopus> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+<https://dbpedia.org/property/twitter> a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:008cf57371f432ebda26fe0792875368 a sh:PropertyShape;
+  sh:datatype xsd:boolean;
+  sh:path soa:isInDoaj .
+
+soa:013f2f63f0b01681bb2b6bee1410bea9 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/doi> .
+
+soa:031c9716dcc41536893fe766a943dca2 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <http://www.geonames.org/ontology#countryCode> .
+
+soa:0505f27824e6216f6cefdbd4e005817d a sh:PropertyShape .
+
+soa:07fe8d090dee52aa25cacf9ba01c537d a sh:PropertyShape;
+  sh:datatype xsd:string;
   sh:or ([
-        sh:class <https://semopenalex.org/class/Institution>
+        sh:class soa:Institution
+      ] [
+        sh:class soa:Concept
+      ]);
+  sh:path foaf:depiction .
+
+soa:0946e3c3725f942fa0f94070bc836046 a sh:PropertyShape;
+  sh:class soa:OpenAccess;
+  sh:path soa:hasOpenAccess .
+
+soa:09f17fcc61f87f9692f33bab42323734 a sh:PropertyShape .
+
+soa:0afadfc52ce5c45fda6af85a1577dff5 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/twitter> .
+
+soa:0d30180e88607a9b9f3e7efdf6a5a920 a sh:PropertyShape;
+  sh:datatype xsd:anyURI;
+  sh:or ([
+        sh:class soa:Source
+      ] [
+        sh:class soa:Institution
+      ]);
+  sh:path foaf:homepage .
+
+soa:1332c0bb9ba85ee3d259b28b69384e8d a sh:PropertyShape;
+  sh:datatype xsd:float;
+  sh:path <http://www.geonames.org/ontology#lat> .
+
+soa:189d841b1771b070e525aa80a66987e5 a sh:PropertyShape;
+  sh:class soa:Source;
+  sh:path soa:hasSource .
+
+soa:1bb749c62c841583be769092b22db6b8 a sh:PropertyShape;
+  sh:datatype xsd:integer;
+  sh:path soa:level .
+
+soa:1c15feb6789e3ab6b591b6963f5fabd8 a sh:PropertyShape;
+  sh:datatype xsd:float;
+  sh:path <http://www.geonames.org/ontology#long> .
+
+soa:2183731b5316d244e42f7f4bb5d53178 a sh:PropertyShape .
+
+soa:23348fdc99b5798e624fe091e0b4709d a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path fabio:hasURL .
+
+soa:2YrMeanCitedness a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "2YrMeanCitedness"@en .
+
+soa:2b3c29e0b34e9bc29556f5229eb14a97 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/city> .
+
+soa:2ba3dadbe01db17d6fcc5148f697478d a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:umlsCui .
+
+soa:32acd9478deb48037209d21c271560b9 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:ror .
+
+soa:330235a73dd4a216315cf40345bf056b a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:hasVersion .
+
+soa:3494e2ce7122eeac1b765ba1aa7e89f7 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path dct:license .
+
+soa:382cdef124935b924eda1ae67588390d a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/scopus> .
+
+soa:3e2f60daa912b4bbfdda79d75fe2752b a sh:PropertyShape;
+  sh:datatype xsd:date;
+  sh:or ([
+        sh:class soa:Work
+      ] [
+        sh:class soa:Source
+      ] [
+        sh:class soa:Institution
+      ] [
+        sh:class soa:Concept
+      ] [
+        sh:class soa:Author
+      ]);
+  sh:path dct:modified .
+
+soa:3f2ae919e9c05cd1b735ab4f438ab19b a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path dct:title .
+
+soa:451627809f2e7ca7411918e1373143f6 a sh:PropertyShape;
+  sh:class soa:ConceptScore;
+  sh:path soa:hasConceptScore .
+
+soa:4664cd9b195ba95e5b19f26ac9baf427 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/ontology/alternativeName> .
+
+soa:4832ab1df642e9e99ed61f38e2431b26 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/acronym> .
+
+soa:4c142e0a4b580c4693dc5c02d5f5f9c9 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:position .
+
+soa:501183b9442fb859868a671f76a92e9c a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:oaStatus .
+
+soa:534f665d25d906da0a8c33c199207f86 a sh:PropertyShape;
+  sh:datatype xsd:integer;
+  sh:or ([
+        sh:class soa:Work
+      ] [
+        sh:class soa:Author
+      ] [
+        sh:class soa:Concept
+      ] [
+        sh:class soa:Institution
+      ] [
+        sh:class soa:Source
+      ] [
+        sh:class soa:CountsByYear
+      ]);
+  sh:path soa:citedByCount .
+
+soa:5df0270ce3d36a8313b64ffa0e70c36e a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path fabio:hasPubMedCentralId .
+
+soa:643f980183729bdf11919a5652a68f8e a sh:PropertyShape;
+  sh:class soa:CountsByYear;
+  sh:or ([
+        sh:class soa:Concept
+      ] [
+        sh:class soa:Author
+      ] [
+        sh:class soa:Source
+      ] [
+        sh:class soa:Work
+      ]);
+  sh:path soa:countsByYear .
+
+soa:6477781c0083ed6ae289b7101034070e a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/ontology/orcidId> .
+
+soa:678c7bb050e904f051e8aa8c79a790d9 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:hasVolume .
+
+soa:68d76519ea51413696d6257797eb19a3 a sh:PropertyShape;
+  sh:datatype xsd:boolean;
+  sh:path soa:isRetracted .
+
+soa:6b4b1e8fa9567cd1c95c68eb908526cb a sh:PropertyShape;
+  sh:datatype xsd:date;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/publicationDate> .
+
+soa:6ea4e05d3608eb027517e565a2f1103c a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/region> .
+
+soa:6ea9822eaeb42efcce076ee379679293 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:grid .
+
+soa:7be29003021a1fdaae34cd12cee08682 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:crossrefType .
+
+soa:7e72e214b08c0478192cb924f8fdd396 a sh:PropertyShape;
+  sh:class fabio:WikipediaEntry;
+  sh:or ([
+        sh:class soa:Institution
       ] [
         sh:class skos:Concept
-      ]) .
+      ]);
+  sh:path rdfs:seeAlso .
 
-<https://semopenalex.org/vocab#8a9c850e30c57eeae19bc32d2ab5aea0> a sh:PropertyShape;
-  sh:path skos:note;
-  sh:datatype xsd:string .
+soa:80210bf1e2b1e8d223b924567b6bad92 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path fabio:hasIssnL .
 
-<https://semopenalex.org/vocab#8d3b7b435bad00f06370e5537dceb0ca> a sh:PropertyShape;
-  sh:path skos:prefLabel;
-  sh:datatype xsd:string .
+soa:893797ba8898177df5b817ba86554a38 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:or ([
+        sh:class soa:Source
+      ] [
+        sh:class soa:Institution
+      ] [
+        sh:class soa:Author
+      ]);
+  sh:path foaf:name .
 
-<https://semopenalex.org/class/AuthorPosition> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
+soa:8a8aecaca1e42caa6994bd80a9188415 a sh:PropertyShape;
+  sh:class soa:Institution;
+  sh:path <http://www.w3.org/ns/org#memberOf> .
+
+soa:8a9c850e30c57eeae19bc32d2ab5aea0 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path skos:note .
+
+soa:8cbd77d5d0589157b939473be95d0a12 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path dct:abstract .
+
+soa:8d3b7b435bad00f06370e5537dceb0ca a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path skos:prefLabel .
+
+soa:8d659e64665e42d94499977b0d77daf6 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/issn> .
+
+soa:9247a869288e14c7ff8b4c758e404c13 a sh:PropertyShape;
+  sh:datatype xsd:integer;
+  sh:path soa:year .
+
+soa:9259d4c1ba62f9565e7a21a70687ecb1 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path dct:publisher .
+
+soa:95f65df7978b8aef6ba01ac9c93e820b a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:hasIssue .
+
+soa:99e3c941a405656773ad39ea7e98232e a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/countryCode> .
+
+soa:9b582e6e5bb30180322da25c6cf5135e a sh:PropertyShape;
+  sh:datatype xsd:integer;
+  sh:path fabio:hasPublicationYear .
+
+soa:Author a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Author"@en .
+
+soa:AuthorPosition a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "AuthorPosition"@en .
 
-<https://semopenalex.org/class/AuthorPositionShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#4c142e0a4b580c4693dc5c02d5f5f9c9>, <https://semopenalex.org/vocab#e87cdd7b584967125d063d517eed6e4e>;
-  sh:targetClass <https://semopenalex.org/class/AuthorPosition> .
-
-<https://semopenalex.org/vocab#4c142e0a4b580c4693dc5c02d5f5f9c9> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/position>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#e87cdd7b584967125d063d517eed6e4e> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasAuthor>;
-  sh:class <https://semopenalex.org/class/Author> .
-
-<https://semopenalex.org/class/AuthorShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#0afadfc52ce5c45fda6af85a1577dff5>, <https://semopenalex.org/vocab#382cdef124935b924eda1ae67588390d>,
-    <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>, <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>,
-    <https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e>, <https://semopenalex.org/vocab#6477781c0083ed6ae289b7101034070e>,
-    <https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38>, <https://semopenalex.org/vocab#8a8aecaca1e42caa6994bd80a9188415>,
-    <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>, <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>,
-    <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>, <https://semopenalex.org/vocab#f57e4f3f58c25d6efcedbe15d8b0dea7>;
-  sh:targetClass <https://semopenalex.org/class/Author> .
-
-<https://semopenalex.org/vocab#0afadfc52ce5c45fda6af85a1577dff5> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/property/twitter>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#382cdef124935b924eda1ae67588390d> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/property/scopus>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b> a sh:PropertyShape;
-  sh:path <http://purl.org/dc/terms/modified>;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
-        sh:class <https://semopenalex.org/class/Source>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Author>
-      ]);
-  sh:datatype xsd:date .
-
-<https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/citedByCount>;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
-        sh:class <https://semopenalex.org/class/Author>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
-        sh:class <https://semopenalex.org/class/Source>
-      ] [
-        sh:class <https://semopenalex.org/class/CountsByYear>
-      ]);
-  sh:datatype xsd:integer .
-
-<https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/countsByYear>;
-  sh:class <https://semopenalex.org/class/CountsByYear>;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Author>
-      ] [
-        sh:class <https://semopenalex.org/class/Source>
-      ] [
-        sh:class <https://semopenalex.org/class/Work>
-      ]) .
-
-<https://semopenalex.org/vocab#6477781c0083ed6ae289b7101034070e> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/ontology/orcidId>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38> a sh:PropertyShape;
-  sh:path foaf:name;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Source>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
-        sh:class <https://semopenalex.org/class/Author>
-      ]);
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#8a8aecaca1e42caa6994bd80a9188415> a sh:PropertyShape;
-  sh:path <http://www.w3.org/ns/org#memberOf>;
-  sh:class <https://semopenalex.org/class/Institution> .
-
-<https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/magId>;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
-        sh:class <https://semopenalex.org/class/Source>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Author>
-      ]);
-  sh:datatype xsd:integer .
-
-<https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/worksCount>;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Author>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
-        sh:class <https://semopenalex.org/class/Source>
-      ] [
-        sh:class <https://semopenalex.org/class/CountsByYear>
-      ]);
-  sh:datatype xsd:integer .
-
-<https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7> a sh:PropertyShape;
-  sh:path <http://purl.org/dc/terms/created>;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Work>
-      ] [
-        sh:class <https://semopenalex.org/class/Source>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ] [
-        sh:class <https://semopenalex.org/class/Author>
-      ]);
-  sh:datatype xsd:date .
-
-<https://semopenalex.org/vocab#f57e4f3f58c25d6efcedbe15d8b0dea7> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/alternativeName>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/class/ConceptScoreShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#2183731b5316d244e42f7f4bb5d53178>, <https://semopenalex.org/vocab#aea2f1abde128f871dee5d3bfe5e02fa>,
-    [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/hasConcept>;
-      sh:class skos:Concept
-    ];
-  sh:targetClass <https://semopenalex.org/class/ConceptScore> .
-
-<https://semopenalex.org/vocab#2183731b5316d244e42f7f4bb5d53178> a sh:PropertyShape .
-
-<https://semopenalex.org/vocab#aea2f1abde128f871dee5d3bfe5e02fa> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/score>;
-  sh:datatype xsd:integer .
-
-<https://semopenalex.org/class/ConceptShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>, <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>,
-    <https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e>, <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>,
-    <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>, <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>,
-    <https://semopenalex.org/vocab#07fe8d090dee52aa25cacf9ba01c537d>, <https://semopenalex.org/vocab#1bb749c62c841583be769092b22db6b8>,
-    <https://semopenalex.org/vocab#2ba3dadbe01db17d6fcc5148f697478d>, <https://semopenalex.org/vocab#d780b88e0412f91d5725d74b7b2da814>,
-    <https://semopenalex.org/vocab#ddcebb3ed512f8f49c20e7d8d168d087>;
-  sh:targetClass <https://semopenalex.org/class/Concept> .
-
-<https://semopenalex.org/vocab#07fe8d090dee52aa25cacf9ba01c537d> a sh:PropertyShape;
-  sh:path foaf:depiction;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ]);
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#1bb749c62c841583be769092b22db6b8> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/level>;
-  sh:datatype xsd:integer .
-
-<https://semopenalex.org/vocab#2ba3dadbe01db17d6fcc5148f697478d> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/umlsCui>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#d780b88e0412f91d5725d74b7b2da814> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/imageThumbnail>;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Institution>
-      ] [
-        sh:class <https://semopenalex.org/class/Concept>
-      ]);
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#ddcebb3ed512f8f49c20e7d8d168d087> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/umlsAui>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/class/CountsByYearShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>, <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>,
-    <https://semopenalex.org/vocab#9247a869288e14c7ff8b4c758e404c13>;
-  sh:targetClass <https://semopenalex.org/class/CountsByYear> .
-
-<https://semopenalex.org/vocab#9247a869288e14c7ff8b4c758e404c13> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/year>;
-  sh:datatype xsd:integer .
-
-<https://semopenalex.org/class/GeoShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#031c9716dcc41536893fe766a943dca2>, <https://semopenalex.org/vocab#1332c0bb9ba85ee3d259b28b69384e8d>,
-    <https://semopenalex.org/vocab#1c15feb6789e3ab6b591b6963f5fabd8>, <https://semopenalex.org/vocab#2b3c29e0b34e9bc29556f5229eb14a97>,
-    <https://semopenalex.org/vocab#6ea4e05d3608eb027517e565a2f1103c>, <https://semopenalex.org/vocab#e38f3b3c38e508f7aa6cceb7394b6c8b>,
-    <https://semopenalex.org/vocab#eb7e6709e5e9634bfcc6232b56028bce>;
-  sh:targetClass <https://semopenalex.org/class/Geo> .
-
-<https://semopenalex.org/vocab#031c9716dcc41536893fe766a943dca2> a sh:PropertyShape;
-  sh:path <http://www.geonames.org/ontology#countryCode>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#1332c0bb9ba85ee3d259b28b69384e8d> a sh:PropertyShape;
-  sh:path <http://www.geonames.org/ontology#lat>;
-  sh:datatype xsd:float .
-
-<https://semopenalex.org/vocab#1c15feb6789e3ab6b591b6963f5fabd8> a sh:PropertyShape;
-  sh:path <http://www.geonames.org/ontology#long>;
-  sh:datatype xsd:float .
-
-<https://semopenalex.org/vocab#2b3c29e0b34e9bc29556f5229eb14a97> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/property/city>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#6ea4e05d3608eb027517e565a2f1103c> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/property/region>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#e38f3b3c38e508f7aa6cceb7394b6c8b> a sh:PropertyShape;
-  sh:path <http://www.geonames.org/ontology#geonamesID>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#eb7e6709e5e9634bfcc6232b56028bce> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/property/country>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/class/HostVenueShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#189d841b1771b070e525aa80a66987e5>, <https://semopenalex.org/vocab#23348fdc99b5798e624fe091e0b4709d>,
-    <https://semopenalex.org/vocab#330235a73dd4a216315cf40345bf056b>, <https://semopenalex.org/vocab#3494e2ce7122eeac1b765ba1aa7e89f7>,
-    <https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c>, [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/vocab#pdfUrl>;
-      sh:datatype xsd:string
-    ];
-  sh:targetClass <https://semopenalex.org/class/Location> .
-
-<https://semopenalex.org/vocab#189d841b1771b070e525aa80a66987e5> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasSource>;
-  sh:class <https://semopenalex.org/class/Source> .
-
-<https://semopenalex.org/vocab#23348fdc99b5798e624fe091e0b4709d> a sh:PropertyShape;
-  sh:path <http://purl.org/spar/fabio/hasURL>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#330235a73dd4a216315cf40345bf056b> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasVersion>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#3494e2ce7122eeac1b765ba1aa7e89f7> a sh:PropertyShape;
-  sh:path <http://purl.org/dc/terms/license>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/isOa>;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/OpenAccess>
-      ] [
-        sh:class <https://semopenalex.org/class/Location>
-      ] [
-        sh:class <https://semopenalex.org/class/Source>
-      ]);
-  sh:datatype xsd:boolean .
-
-<https://semopenalex.org/class/InstitutionShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#7e72e214b08c0478192cb924f8fdd396>, <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>,
-    <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>, <https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38>,
-    <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>, <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>,
-    <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>, <https://semopenalex.org/vocab#07fe8d090dee52aa25cacf9ba01c537d>,
-    <https://semopenalex.org/vocab#d780b88e0412f91d5725d74b7b2da814>, <https://semopenalex.org/vocab#0d30180e88607a9b9f3e7efdf6a5a920>,
-    <https://semopenalex.org/vocab#32acd9478deb48037209d21c271560b9>, <https://semopenalex.org/vocab#4664cd9b195ba95e5b19f26ac9baf427>,
-    <https://semopenalex.org/vocab#4832ab1df642e9e99ed61f38e2431b26>, <https://semopenalex.org/vocab#6ea9822eaeb42efcce076ee379679293>,
-    <https://semopenalex.org/vocab#99e3c941a405656773ad39ea7e98232e>, <https://semopenalex.org/vocab#cd3685d05f804b6eb5d2ec436d6302d4>,
-    <https://semopenalex.org/vocab#e6d6f1fbf0cd5a66ac9208072882dea6>, <https://semopenalex.org/vocab#fe3d9ddc90fd4837401ab65fb4f1b962>;
-  sh:targetClass <https://semopenalex.org/class/Institution> .
-
-<https://semopenalex.org/vocab#0d30180e88607a9b9f3e7efdf6a5a920> a sh:PropertyShape;
-  sh:path foaf:homepage;
-  sh:or ([
-        sh:class <https://semopenalex.org/class/Source>
-      ] [
-        sh:class <https://semopenalex.org/class/Institution>
-      ]);
-  sh:datatype xsd:anyURI .
-
-<https://semopenalex.org/vocab#32acd9478deb48037209d21c271560b9> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/ror>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#4664cd9b195ba95e5b19f26ac9baf427> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/ontology/alternativeName>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#4832ab1df642e9e99ed61f38e2431b26> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/property/acronym>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#6ea9822eaeb42efcce076ee379679293> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/grid>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#99e3c941a405656773ad39ea7e98232e> a sh:PropertyShape;
-  sh:path <https://dbpedia.org/property/countryCode>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#cd3685d05f804b6eb5d2ec436d6302d4> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/rorType>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#e6d6f1fbf0cd5a66ac9208072882dea6> a sh:PropertyShape;
-  sh:path <http://dbpedia.org/ontology/location>;
-  sh:class <https://semopenalex.org/class/Geo> .
-
-<https://semopenalex.org/vocab#fe3d9ddc90fd4837401ab65fb4f1b962> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasAssociatedInstitution>;
-  sh:class <https://semopenalex.org/class/Institution> .
-
-<https://semopenalex.org/class/OpenAccessShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c>, <https://semopenalex.org/vocab#501183b9442fb859868a671f76a92e9c>,
-    <https://semopenalex.org/vocab#a2804bb1472c2af20af91a224eaef1ef>;
-  sh:targetClass <https://semopenalex.org/class/OpenAccess> .
-
-<https://semopenalex.org/vocab#501183b9442fb859868a671f76a92e9c> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/oaStatus>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#a2804bb1472c2af20af91a224eaef1ef> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/oaUrl>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/class/VenueShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>, <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>,
-    <https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e>, <https://semopenalex.org/vocab#893797ba8898177df5b817ba86554a38>,
-    <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>, <https://semopenalex.org/vocab#bb72667cc1ad07ac0375082b6b947fe1>,
-    <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>, <https://semopenalex.org/vocab#f560b07f741a900b03806de5c0ba9e2c>,
-    <https://semopenalex.org/vocab#0d30180e88607a9b9f3e7efdf6a5a920>, <https://semopenalex.org/vocab#008cf57371f432ebda26fe0792875368>,
-    <https://semopenalex.org/vocab#80210bf1e2b1e8d223b924567b6bad92>, <https://semopenalex.org/vocab#8d659e64665e42d94499977b0d77daf6>,
-    <https://semopenalex.org/vocab#9259d4c1ba62f9565e7a21a70687ecb1>, [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/abbreviatedName>;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/sourceType>;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/hasHostOrganization>;
-      sh:class <https://semopenalex.org/class/Publisher>
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/hasHostOrganization>;
-      sh:class <https://semopenalex.org/class/Institution>
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/apcUsd>;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/fatcatId>;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <http://www.geonames.org/ontology#countryCode>;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <https://dbpedia.org/ontology/alternativeName>;
-      sh:datatype xsd:string
-    ];
-  sh:targetClass <https://semopenalex.org/class/Source> .
-
-<https://semopenalex.org/vocab#008cf57371f432ebda26fe0792875368> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/isInDoaj>;
-  sh:datatype xsd:boolean .
-
-<https://semopenalex.org/vocab#80210bf1e2b1e8d223b924567b6bad92> a sh:PropertyShape;
-  sh:path <http://purl.org/spar/fabio/hasIssnL>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#8d659e64665e42d94499977b0d77daf6> a sh:PropertyShape;
-  sh:path <http://prismstandard.org/namespaces/basic/2.0/issn>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#9259d4c1ba62f9565e7a21a70687ecb1> a sh:PropertyShape;
-  sh:path <http://purl.org/dc/terms/publisher>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/class/WorkShape> a sh:NodeShape;
-  sh:property <https://semopenalex.org/vocab#3e2f60daa912b4bbfdda79d75fe2752b>, <https://semopenalex.org/vocab#534f665d25d906da0a8c33c199207f86>,
-    <https://semopenalex.org/vocab#643f980183729bdf11919a5652a68f8e>, <https://semopenalex.org/vocab#b24dbbf3333905048d57498219f7c8c2>,
-    <https://semopenalex.org/vocab#f31288f45557f654fc2db4a369bebfa7>, <https://semopenalex.org/vocab#2183731b5316d244e42f7f4bb5d53178>,
-    <https://semopenalex.org/vocab#013f2f63f0b01681bb2b6bee1410bea9>, <https://semopenalex.org/vocab#0946e3c3725f942fa0f94070bc836046>,
-    <https://semopenalex.org/vocab#3f2ae919e9c05cd1b735ab4f438ab19b>, <https://semopenalex.org/vocab#451627809f2e7ca7411918e1373143f6>,
-    <https://semopenalex.org/vocab#5df0270ce3d36a8313b64ffa0e70c36e>, <https://semopenalex.org/vocab#678c7bb050e904f051e8aa8c79a790d9>,
-    <https://semopenalex.org/vocab#68d76519ea51413696d6257797eb19a3>, <https://semopenalex.org/vocab#6b4b1e8fa9567cd1c95c68eb908526cb>,
-    <https://semopenalex.org/vocab#7be29003021a1fdaae34cd12cee08682>, <https://semopenalex.org/vocab#8cbd77d5d0589157b939473be95d0a12>,
-    <https://semopenalex.org/vocab#95f65df7978b8aef6ba01ac9c93e820b>, <https://semopenalex.org/vocab#9b582e6e5bb30180322da25c6cf5135e>,
-    <https://semopenalex.org/vocab#a66c22bb2050fc16b609acf54adf821a>, <https://semopenalex.org/vocab#abcbc6c65cb325168fe715e373960e7c>,
-    <https://semopenalex.org/vocab#ad4739516afbc43b5b3ab535bc5b81ef>, <https://semopenalex.org/vocab#af99a5a81b65696be8c769bf36a9b633>,
-    <https://semopenalex.org/vocab#b05af3d161aa7b1cbc624e43d5713970>, <https://semopenalex.org/vocab#d186da23412071992d2c55668fbdd101>,
-    <https://semopenalex.org/vocab#d206e9f60b0f09d55eaf45500c6eb411>, <https://semopenalex.org/vocab#e8a0e16f9a3195b262e677cac1e8ac67>,
-    <https://semopenalex.org/vocab#efa5ac5368669aaecc31eabadf5219f5>, <https://semopenalex.org/vocab#fe5d6c5f112271527e2c7abee8c5ea22>,
-    [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/hasConcept>;
-      sh:class skos:Concept
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/hasBestOaLocation>;
-      sh:class <https://semopenalex.org/class/Location>
-    ];
-  sh:targetClass <https://semopenalex.org/class/Work> .
-
-<https://semopenalex.org/vocab#013f2f63f0b01681bb2b6bee1410bea9> a sh:PropertyShape;
-  sh:path <http://prismstandard.org/namespaces/basic/2.0/doi>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#0946e3c3725f942fa0f94070bc836046> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasOpenAccess>;
-  sh:class <https://semopenalex.org/class/OpenAccess> .
-
-<https://semopenalex.org/vocab#3f2ae919e9c05cd1b735ab4f438ab19b> a sh:PropertyShape;
-  sh:path <http://purl.org/dc/terms/title>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#451627809f2e7ca7411918e1373143f6> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasConceptScore>;
-  sh:class <https://semopenalex.org/class/ConceptScore> .
-
-<https://semopenalex.org/vocab#5df0270ce3d36a8313b64ffa0e70c36e> a sh:PropertyShape;
-  sh:path <http://purl.org/spar/fabio/hasPubMedCentralId>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#678c7bb050e904f051e8aa8c79a790d9> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasVolume>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#68d76519ea51413696d6257797eb19a3> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/isRetracted>;
-  sh:datatype xsd:boolean .
-
-<https://semopenalex.org/vocab#6b4b1e8fa9567cd1c95c68eb908526cb> a sh:PropertyShape;
-  sh:path <http://prismstandard.org/namespaces/basic/2.0/publicationDate>;
-  sh:datatype xsd:date .
-
-<https://semopenalex.org/vocab#7be29003021a1fdaae34cd12cee08682> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/crossrefType>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#8cbd77d5d0589157b939473be95d0a12> a sh:PropertyShape;
-  sh:path <http://purl.org/dc/terms/abstract>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#95f65df7978b8aef6ba01ac9c93e820b> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasIssue>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#9b582e6e5bb30180322da25c6cf5135e> a sh:PropertyShape;
-  sh:path <http://purl.org/spar/fabio/hasPublicationYear>;
-  sh:datatype xsd:integer .
-
-<https://semopenalex.org/vocab#a66c22bb2050fc16b609acf54adf821a> a sh:PropertyShape;
-  sh:path <http://prismstandard.org/namespaces/basic/2.0/endingPage>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#abcbc6c65cb325168fe715e373960e7c> a sh:PropertyShape;
-  sh:path <http://purl.org/dc/terms/creator>;
-  sh:class <https://semopenalex.org/class/Author> .
-
-<https://semopenalex.org/vocab#ad4739516afbc43b5b3ab535bc5b81ef> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/isParatext>;
-  sh:datatype xsd:boolean .
-
-<https://semopenalex.org/vocab#af99a5a81b65696be8c769bf36a9b633> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasAuthorPosition>;
-  sh:class <https://semopenalex.org/class/AuthorPosition> .
-
-<https://semopenalex.org/vocab#b05af3d161aa7b1cbc624e43d5713970> a sh:PropertyShape;
-  sh:path <http://purl.org/spar/cito/cites>;
-  sh:class <https://semopenalex.org/class/Work> .
-
-<https://semopenalex.org/vocab#d186da23412071992d2c55668fbdd101> a sh:PropertyShape;
-  sh:path <http://purl.org/spar/fabio/hasPubMedId>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#d206e9f60b0f09d55eaf45500c6eb411> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasPrimaryLocation>;
-  sh:class <https://semopenalex.org/class/Location> .
-
-<https://semopenalex.org/vocab#e8a0e16f9a3195b262e677cac1e8ac67> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasLocation>;
-  sh:class <https://semopenalex.org/class/Location> .
-
-<https://semopenalex.org/vocab#efa5ac5368669aaecc31eabadf5219f5> a sh:PropertyShape;
-  sh:path <http://prismstandard.org/namespaces/basic/2.0/startingPage>;
-  sh:datatype xsd:string .
-
-<https://semopenalex.org/vocab#fe5d6c5f112271527e2c7abee8c5ea22> a sh:PropertyShape;
-  sh:path <https://semopenalex.org/property/hasRelatedWork>;
-  sh:class <https://semopenalex.org/class/Work> .
-
-<https://semopenalex.org/property/crossrefType> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/hasAuthor> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/hasAuthorPosition> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/property/position> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
-
-<https://semopenalex.org/class/Source> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "Source"@en .
-
-<https://semopenalex.org/class/Location> a owl:Class;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
+soa:AuthorPositionShape a sh:NodeShape;
+  sh:property soa:4c142e0a4b580c4693dc5c02d5f5f9c9, soa:e87cdd7b584967125d063d517eed6e4e;
+  sh:targetClass soa:AuthorPosition .
+
+soa:AuthorShape a sh:NodeShape;
+  sh:property soa:0afadfc52ce5c45fda6af85a1577dff5, soa:382cdef124935b924eda1ae67588390d,
+    soa:3e2f60daa912b4bbfdda79d75fe2752b, soa:534f665d25d906da0a8c33c199207f86, soa:643f980183729bdf11919a5652a68f8e,
+    soa:6477781c0083ed6ae289b7101034070e, soa:893797ba8898177df5b817ba86554a38, soa:8a8aecaca1e42caa6994bd80a9188415,
+    soa:b24dbbf3333905048d57498219f7c8c2, soa:bb72667cc1ad07ac0375082b6b947fe1, soa:f31288f45557f654fc2db4a369bebfa7,
+    soa:f57e4f3f58c25d6efcedbe15d8b0dea7;
+  sh:targetClass soa:Author .
+
+soa:Concept a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Concept"@en;
+  rdfs:subClassOf skos:Concept .
+
+soa:ConceptScore a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "ConceptScore"@en .
+
+soa:ConceptScoreShape a sh:NodeShape;
+  sh:property [ a sh:PropertyShape;
+      sh:class skos:Concept;
+      sh:path soa:hasConcept
+    ], soa:2183731b5316d244e42f7f4bb5d53178, soa:aea2f1abde128f871dee5d3bfe5e02fa;
+  sh:targetClass soa:ConceptScore .
+
+soa:ConceptShape a sh:NodeShape;
+  sh:property soa:07fe8d090dee52aa25cacf9ba01c537d, soa:1bb749c62c841583be769092b22db6b8,
+    soa:2ba3dadbe01db17d6fcc5148f697478d, soa:3e2f60daa912b4bbfdda79d75fe2752b, soa:534f665d25d906da0a8c33c199207f86,
+    soa:643f980183729bdf11919a5652a68f8e, soa:b24dbbf3333905048d57498219f7c8c2, soa:bb72667cc1ad07ac0375082b6b947fe1,
+    soa:d780b88e0412f91d5725d74b7b2da814, soa:ddcebb3ed512f8f49c20e7d8d168d087, soa:f31288f45557f654fc2db4a369bebfa7;
+  sh:targetClass soa:Concept .
+
+soa:CountsByYear a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "CountsByYear"@en .
+
+soa:CountsByYearShape a sh:NodeShape;
+  sh:property soa:534f665d25d906da0a8c33c199207f86, soa:9247a869288e14c7ff8b4c758e404c13,
+    soa:bb72667cc1ad07ac0375082b6b947fe1;
+  sh:targetClass soa:CountsByYear .
+
+soa:Geo a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Geo"@en .
+
+soa:GeoShape a sh:NodeShape;
+  sh:property soa:031c9716dcc41536893fe766a943dca2, soa:1332c0bb9ba85ee3d259b28b69384e8d,
+    soa:1c15feb6789e3ab6b591b6963f5fabd8, soa:2b3c29e0b34e9bc29556f5229eb14a97, soa:6ea4e05d3608eb027517e565a2f1103c,
+    soa:e38f3b3c38e508f7aa6cceb7394b6c8b, soa:eb7e6709e5e9634bfcc6232b56028bce;
+  sh:targetClass soa:Geo .
+
+soa:HostVenueShape a sh:NodeShape;
+  sh:property [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path soa:pdfUrl
+    ], soa:189d841b1771b070e525aa80a66987e5, soa:23348fdc99b5798e624fe091e0b4709d, soa:330235a73dd4a216315cf40345bf056b,
+    soa:3494e2ce7122eeac1b765ba1aa7e89f7, soa:f560b07f741a900b03806de5c0ba9e2c;
+  sh:targetClass soa:Location .
+
+soa:Institution a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Institution"@en .
+
+soa:InstitutionShape a sh:NodeShape;
+  sh:property soa:07fe8d090dee52aa25cacf9ba01c537d, soa:0d30180e88607a9b9f3e7efdf6a5a920,
+    soa:32acd9478deb48037209d21c271560b9, soa:3e2f60daa912b4bbfdda79d75fe2752b, soa:4664cd9b195ba95e5b19f26ac9baf427,
+    soa:4832ab1df642e9e99ed61f38e2431b26, soa:534f665d25d906da0a8c33c199207f86, soa:6ea9822eaeb42efcce076ee379679293,
+    soa:7e72e214b08c0478192cb924f8fdd396, soa:893797ba8898177df5b817ba86554a38, soa:99e3c941a405656773ad39ea7e98232e,
+    soa:b24dbbf3333905048d57498219f7c8c2, soa:bb72667cc1ad07ac0375082b6b947fe1, soa:cd3685d05f804b6eb5d2ec436d6302d4,
+    soa:d780b88e0412f91d5725d74b7b2da814, soa:e6d6f1fbf0cd5a66ac9208072882dea6, soa:f31288f45557f654fc2db4a369bebfa7,
+    soa:fe3d9ddc90fd4837401ab65fb4f1b962;
+  sh:targetClass soa:Institution .
+
+soa:Location a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "Location"@en .
 
-<https://semopenalex.org/property/hasSource> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+soa:OpenAccess a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "OpenAccess"@en .
 
-<https://semopenalex.org/property/hasLocation> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+soa:OpenAccessShape a sh:NodeShape;
+  sh:property soa:501183b9442fb859868a671f76a92e9c, soa:a2804bb1472c2af20af91a224eaef1ef,
+    soa:f560b07f741a900b03806de5c0ba9e2c;
+  sh:targetClass soa:OpenAccess .
 
-<https://semopenalex.org/property/hasPrimaryLocation> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#> .
+soa:Publisher a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Publisher"@en .
 
-<https://semopenalex.org/property/hasBestOaLocation> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "hasBestOaLocation"@en .
+soa:PublisherShape a sh:NodeShape;
+  sh:property [ a sh:PropertyShape;
+      sh:datatype xsd:integer;
+      sh:path soa:citedByCount
+    ], [ a sh:PropertyShape;
+      sh:class soa:CountsByYear;
+      sh:path soa:countsByYear
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path <http://www.geonames.org/ontology#countryCode>
+    ], [ a sh:PropertyShape;
+      sh:class soa:Publisher;
+      sh:path soa:hasParentPublisher
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:date;
+      sh:path dct:created
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:integer;
+      sh:path soa:level
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path foaf:name
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:integer;
+      sh:path <http://purl.org/spar/bido/h-index>
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:integer;
+      sh:path soa:i10Index
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path soa:ror
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:date;
+      sh:path dct:modified
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:float;
+      sh:path soa:2YrMeanCitedness
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path <https://dbpedia.org/ontology/alternativeName>
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:integer;
+      sh:path soa:worksCount
+    ];
+  sh:targetClass soa:Publisher .
 
-<https://semopenalex.org/property/sourceType> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "sourceType"@en .
+soa:Source a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Source"@en .
 
-<https://semopenalex.org/property/apcUsd> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "apcUsd"@en;
-  rdfs:comment "Source's article processing charge in US Dollars, if available from DOAJ"@en .
+soa:VenueShape a sh:NodeShape;
+  sh:property [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path soa:abbreviatedName
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path soa:sourceType
+    ], [ a sh:PropertyShape;
+      sh:class soa:Publisher;
+      sh:path soa:hasHostOrganization
+    ], [ a sh:PropertyShape;
+      sh:class soa:Institution;
+      sh:path soa:hasHostOrganization
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path soa:apcUsd
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path soa:fatcatId
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path <http://www.geonames.org/ontology#countryCode>
+    ], [ a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path <https://dbpedia.org/ontology/alternativeName>
+    ], soa:008cf57371f432ebda26fe0792875368, soa:0d30180e88607a9b9f3e7efdf6a5a920, soa:3e2f60daa912b4bbfdda79d75fe2752b,
+    soa:534f665d25d906da0a8c33c199207f86, soa:643f980183729bdf11919a5652a68f8e, soa:80210bf1e2b1e8d223b924567b6bad92,
+    soa:893797ba8898177df5b817ba86554a38, soa:8d659e64665e42d94499977b0d77daf6, soa:9259d4c1ba62f9565e7a21a70687ecb1,
+    soa:b24dbbf3333905048d57498219f7c8c2, soa:bb72667cc1ad07ac0375082b6b947fe1, soa:f31288f45557f654fc2db4a369bebfa7,
+    soa:f560b07f741a900b03806de5c0ba9e2c;
+  sh:targetClass soa:Source .
 
-<https://semopenalex.org/property/fatcatId> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
-  rdfs:label "fatcatId"@en .
+soa:Work a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Work"@en .
 
-<https://semopenalex.org/property/abbreviatedName> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
+soa:WorkShape a sh:NodeShape;
+  sh:property [ a sh:PropertyShape;
+      sh:class skos:Concept;
+      sh:path soa:hasConcept
+    ], [ a sh:PropertyShape;
+      sh:class soa:Location;
+      sh:path soa:hasBestOaLocation
+    ], soa:013f2f63f0b01681bb2b6bee1410bea9, soa:0946e3c3725f942fa0f94070bc836046, soa:2183731b5316d244e42f7f4bb5d53178,
+    soa:3e2f60daa912b4bbfdda79d75fe2752b, soa:3f2ae919e9c05cd1b735ab4f438ab19b, soa:451627809f2e7ca7411918e1373143f6,
+    soa:534f665d25d906da0a8c33c199207f86, soa:5df0270ce3d36a8313b64ffa0e70c36e, soa:643f980183729bdf11919a5652a68f8e,
+    soa:678c7bb050e904f051e8aa8c79a790d9, soa:68d76519ea51413696d6257797eb19a3, soa:6b4b1e8fa9567cd1c95c68eb908526cb,
+    soa:7be29003021a1fdaae34cd12cee08682, soa:8cbd77d5d0589157b939473be95d0a12, soa:95f65df7978b8aef6ba01ac9c93e820b,
+    soa:9b582e6e5bb30180322da25c6cf5135e, soa:a66c22bb2050fc16b609acf54adf821a, soa:abcbc6c65cb325168fe715e373960e7c,
+    soa:ad4739516afbc43b5b3ab535bc5b81ef, soa:af99a5a81b65696be8c769bf36a9b633, soa:b05af3d161aa7b1cbc624e43d5713970,
+    soa:b24dbbf3333905048d57498219f7c8c2, soa:d186da23412071992d2c55668fbdd101, soa:d206e9f60b0f09d55eaf45500c6eb411,
+    soa:e8a0e16f9a3195b262e677cac1e8ac67, soa:efa5ac5368669aaecc31eabadf5219f5, soa:f31288f45557f654fc2db4a369bebfa7,
+    soa:fe5d6c5f112271527e2c7abee8c5ea22;
+  sh:targetClass soa:Work .
+
+soa:a2804bb1472c2af20af91a224eaef1ef a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:oaUrl .
+
+soa:a66c22bb2050fc16b609acf54adf821a a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/endingPage> .
+
+soa:abbreviatedName a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "abbreviatedName"@en .
 
-<https://semopenalex.org/property/hasHostOrganization> a owl:ObjectProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
+soa:abcbc6c65cb325168fe715e373960e7c a sh:PropertyShape;
+  sh:class soa:Author;
+  sh:path dct:creator .
+
+soa:ad4739516afbc43b5b3ab535bc5b81ef a sh:PropertyShape;
+  sh:datatype xsd:boolean;
+  sh:path soa:isParatext .
+
+soa:aea2f1abde128f871dee5d3bfe5e02fa a sh:PropertyShape;
+  sh:datatype xsd:integer;
+  sh:path soa:score .
+
+soa:af99a5a81b65696be8c769bf36a9b633 a sh:PropertyShape;
+  sh:class soa:AuthorPosition;
+  sh:path soa:hasAuthorPosition .
+
+soa:alternativeName a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:apcUsd a owl:DatatypeProperty;
+  rdfs:comment "Source's article processing charge in US Dollars, if available from DOAJ"@en;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "apcUsd"@en .
+
+soa:b05af3d161aa7b1cbc624e43d5713970 a sh:PropertyShape;
+  sh:class soa:Work;
+  sh:path <http://purl.org/spar/cito/cites> .
+
+soa:b24dbbf3333905048d57498219f7c8c2 a sh:PropertyShape;
+  sh:datatype xsd:integer;
+  sh:or ([
+        sh:class soa:Work
+      ] [
+        sh:class soa:Source
+      ] [
+        sh:class soa:Institution
+      ] [
+        sh:class soa:Concept
+      ] [
+        sh:class soa:Author
+      ]);
+  sh:path soa:magId .
+
+soa:bb72667cc1ad07ac0375082b6b947fe1 a sh:PropertyShape;
+  sh:datatype xsd:integer;
+  sh:or ([
+        sh:class soa:Author
+      ] [
+        sh:class soa:Concept
+      ] [
+        sh:class soa:Institution
+      ] [
+        sh:class soa:Source
+      ] [
+        sh:class soa:CountsByYear
+      ]);
+  sh:path soa:worksCount .
+
+soa:cd3685d05f804b6eb5d2ec436d6302d4 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:rorType .
+
+soa:citedByCount a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:countsByYear a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:crossrefType a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:d186da23412071992d2c55668fbdd101 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path fabio:hasPubMedId .
+
+soa:d206e9f60b0f09d55eaf45500c6eb411 a sh:PropertyShape;
+  sh:class soa:Location;
+  sh:path soa:hasPrimaryLocation .
+
+soa:d780b88e0412f91d5725d74b7b2da814 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:or ([
+        sh:class soa:Institution
+      ] [
+        sh:class soa:Concept
+      ]);
+  sh:path soa:imageThumbnail .
+
+soa:ddcebb3ed512f8f49c20e7d8d168d087 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:umlsAui .
+
+soa:e38f3b3c38e508f7aa6cceb7394b6c8b a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <http://www.geonames.org/ontology#geonamesID> .
+
+soa:e6d6f1fbf0cd5a66ac9208072882dea6 a sh:PropertyShape;
+  sh:class soa:Geo;
+  sh:path <http://dbpedia.org/ontology/location> .
+
+soa:e87cdd7b584967125d063d517eed6e4e a sh:PropertyShape;
+  sh:class soa:Author;
+  sh:path soa:hasAuthor .
+
+soa:e8a0e16f9a3195b262e677cac1e8ac67 a sh:PropertyShape;
+  sh:class soa:Location;
+  sh:path soa:hasLocation .
+
+soa:eb7e6709e5e9634bfcc6232b56028bce a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/country> .
+
+soa:efa5ac5368669aaecc31eabadf5219f5 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <http://prismstandard.org/namespaces/basic/2.0/startingPage> .
+
+soa:f31288f45557f654fc2db4a369bebfa7 a sh:PropertyShape;
+  sh:datatype xsd:date;
+  sh:or ([
+        sh:class soa:Work
+      ] [
+        sh:class soa:Source
+      ] [
+        sh:class soa:Institution
+      ] [
+        sh:class soa:Concept
+      ] [
+        sh:class soa:Author
+      ]);
+  sh:path dct:created .
+
+soa:f560b07f741a900b03806de5c0ba9e2c a sh:PropertyShape;
+  sh:datatype xsd:boolean;
+  sh:or ([
+        sh:class soa:OpenAccess
+      ] [
+        sh:class soa:Location
+      ] [
+        sh:class soa:Source
+      ]);
+  sh:path soa:isOa .
+
+soa:f57e4f3f58c25d6efcedbe15d8b0dea7 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:alternativeName .
+
+soa:fatcatId a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "fatcatId"@en .
+
+soa:fe3d9ddc90fd4837401ab65fb4f1b962 a sh:PropertyShape;
+  sh:class soa:Institution;
+  sh:path soa:hasAssociatedInstitution .
+
+soa:fe5d6c5f112271527e2c7abee8c5ea22 a sh:PropertyShape;
+  sh:class soa:Work;
+  sh:path soa:hasRelatedWork .
+
+soa:grid a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasAssociatedInstitution a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasAuthor a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasAuthorPosition a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasBestOaLocation a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "hasBestOaLocation"@en .
+
+soa:hasConcept a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasConceptScore a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasHostOrganization a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "hasHostOrganization"@en .
 
-<https://semopenalex.org/class/PublisherShape> a sh:NodeShape;
-  sh:property [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/citedByCount>;
-      sh:datatype xsd:integer
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/countsByYear>;
-      sh:class <https://semopenalex.org/class/CountsByYear>
-    ], [ a sh:PropertyShape;
-      sh:path <http://www.geonames.org/ontology#countryCode>;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/hasParentPublisher>;
-      sh:class <https://semopenalex.org/class/Publisher>
-    ], [ a sh:PropertyShape;
-      sh:path <http://purl.org/dc/terms/created>;
-      sh:datatype xsd:date
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/level>;
-      sh:datatype xsd:integer
-    ], [ a sh:PropertyShape;
-      sh:path foaf:name;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <http://purl.org/spar/bido/h-index>;
-      sh:datatype xsd:integer
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/i10Index>;
-      sh:datatype xsd:integer
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/ror>;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <http://purl.org/dc/terms/modified>;
-      sh:datatype xsd:date
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/2YrMeanCitedness>;
-      sh:datatype xsd:float
-    ], [ a sh:PropertyShape;
-      sh:path <https://dbpedia.org/ontology/alternativeName>;
-      sh:datatype xsd:string
-    ], [ a sh:PropertyShape;
-      sh:path <https://semopenalex.org/property/worksCount>;
-      sh:datatype xsd:integer
-    ];
-  sh:targetClass <https://semopenalex.org/class/Publisher> .
+soa:hasIssue a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-<https://semopenalex.org/vocab#pdfUrl> a owl:DatatypeProperty;
-  rdfs:isDefinedBy <https://semopenalex.org/vocab#>;
+soa:hasLocation a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasOpenAccess a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasParentPublisher a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "hasParentPublisher"@en .
+
+soa:hasPrimaryLocation a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasRelatedWork a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasSource a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasVersion a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasVolume a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:i10Index a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "i10Index"@en .
+
+soa:imageThumbnail a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:isInDoaj a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:isOa a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:isParatext a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:isRetracted a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:level a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:magId a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:oaStatus a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:oaUrl a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:pdfUrl a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "pdfUrl"@en .
+
+soa:position a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:ror a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:rorType a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:score a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:sourceType a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "sourceType"@en .
+
+soa:umlsAui a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:umlsCui a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:worksCount a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:year a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
