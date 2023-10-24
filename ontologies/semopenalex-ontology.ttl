@@ -742,6 +742,12 @@ foaf:depiction a owl:DatatypeProperty;
   rdfs:comment "This property specifies the crossref type of a work."@en;
   rdfs:label "crossref type"@en .
 
+<https://semopenalex.org/ontology/workType> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/ontology/Work>;
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the type of a work."@en;
+  rdfs:label "workType"@en .
+
 <https://semopenalex.org/ontology/hasAuthor> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/ontology/AuthorPosition>;
   rdfs:range <https://semopenalex.org/ontology/Author> ;

@@ -374,6 +374,10 @@ soa:7be29003021a1fdaae34cd12cee08682 a sh:PropertyShape;
   sh:datatype xsd:string;
   sh:path soa:crossrefType .
 
+soa:681e1009ca9b4b72b066e51723ee8a27 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path soa:workType .
+
 soa:7e72e214b08c0478192cb924f8fdd396 a sh:PropertyShape;
   sh:class fabio:WikipediaEntry;
   sh:or ([
@@ -641,7 +645,8 @@ soa:WorkShape a sh:NodeShape;
     soa:ad4739516afbc43b5b3ab535bc5b81ef, soa:af99a5a81b65696be8c769bf36a9b633, soa:b05af3d161aa7b1cbc624e43d5713970,
     soa:b24dbbf3333905048d57498219f7c8c2, soa:d186da23412071992d2c55668fbdd101, soa:d206e9f60b0f09d55eaf45500c6eb411,
     soa:e8a0e16f9a3195b262e677cac1e8ac67, soa:efa5ac5368669aaecc31eabadf5219f5, soa:f31288f45557f654fc2db4a369bebfa7,
-    soa:fe5d6c5f112271527e2c7abee8c5ea22;
+    soa:fe5d6c5f112271527e2c7abee8c5ea22,
+    soa:681e1009ca9b4b72b066e51723ee8a27;
   sh:targetClass soa:Work .
 
 soa:a2804bb1472c2af20af91a224eaef1ef a sh:PropertyShape;
