@@ -146,7 +146,7 @@ def inverted_to_plain_text(invertedIndex):
 
 
 # info for namespaces used in SOA
-soa_namespace_class = "https://semopenalex.org/class/"
+soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_authors = "https://semopenalex.org/author/"
 soa_namespace_author_position = "https://semopenalex.org/authorposition/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
@@ -170,39 +170,39 @@ soa_class_concept_score = URIRef(soa_namespace_class + "ConceptScore")
 # SOA predicates
 doi_predicate = URIRef("http://purl.org/spar/datacite/doi")
 publication_year_predicate = URIRef("http://purl.org/spar/fabio/hasPublicationYear")
-mag_id_predicate = URIRef("https://semopenalex.org/property/magId")
+mag_id_predicate = URIRef("https://semopenalex.org/ontology/magId")
 pubmed_id_predicate = URIRef("http://purl.org/spar/fabio/hasPubMedId")
 pubmed_central_predicate = URIRef("http://purl.org/spar/fabio/hasPubMedCentralId")
 url_predicate = URIRef("http://purl.org/spar/fabio/hasURL")
-is_oa_predicate = URIRef("https://semopenalex.org/property/isOa")
-has_oa_predicate = URIRef("https://semopenalex.org/property/hasOpenAccess")
-oa_status_predicate = URIRef("https://semopenalex.org/property/oaStatus")
-oa_url_predicate = URIRef("https://semopenalex.org/property/oaUrl")
-version_predicate = URIRef("https://semopenalex.org/property/hasVersion")
-crossref_type_predicate = URIRef("https://semopenalex.org/property/crossrefType")
-has_author_position_predicate = URIRef("https://semopenalex.org/property/hasAuthorPosition")
-author_position_predicate = URIRef("https://semopenalex.org/property/position")
-has_author_predicate = URIRef("https://semopenalex.org/property/hasAuthor")
-cited_by_count_predicate = URIRef("https://semopenalex.org/property/citedByCount")
-counts_by_year_predicate = URIRef("https://semopenalex.org/property/countsByYear")
-has_volume_predicate = URIRef("https://semopenalex.org/property/hasVolume")
-has_issue_predicate = URIRef("https://semopenalex.org/property/hasIssue")
+is_oa_predicate = URIRef("https://semopenalex.org/ontology/isOa")
+has_oa_predicate = URIRef("https://semopenalex.org/ontology/hasOpenAccess")
+oa_status_predicate = URIRef("https://semopenalex.org/ontology/oaStatus")
+oa_url_predicate = URIRef("https://semopenalex.org/ontology/oaUrl")
+version_predicate = URIRef("https://semopenalex.org/ontology/hasVersion")
+crossref_type_predicate = URIRef("https://semopenalex.org/ontology/crossrefType")
+has_author_position_predicate = URIRef("https://semopenalex.org/ontology/hasAuthorPosition")
+author_position_predicate = URIRef("https://semopenalex.org/ontology/position")
+has_author_predicate = URIRef("https://semopenalex.org/ontology/hasAuthor")
+cited_by_count_predicate = URIRef("https://semopenalex.org/ontology/citedByCount")
+counts_by_year_predicate = URIRef("https://semopenalex.org/ontology/countsByYear")
+has_volume_predicate = URIRef("https://semopenalex.org/ontology/hasVolume")
+has_issue_predicate = URIRef("https://semopenalex.org/ontology/hasIssue")
 starting_page_predicate = URIRef("http://prismstandard.org/namespaces/basic/2.0/startingPage")
 ending_page_predicate = URIRef("http://prismstandard.org/namespaces/basic/2.0/endingPage")
-is_retracted_predicate = URIRef("https://semopenalex.org/property/isRetracted")
-is_paratext_predicate = URIRef("https://semopenalex.org/property/isParatext")
-has_concept_predicate = URIRef("https://semopenalex.org/property/hasConcept")
-has_concept_score_predicate = URIRef("https://semopenalex.org/property/hasConceptScore")
-score_predicate = URIRef("https://semopenalex.org/property/score")
+is_retracted_predicate = URIRef("https://semopenalex.org/ontology/isRetracted")
+is_paratext_predicate = URIRef("https://semopenalex.org/ontology/isParatext")
+has_concept_predicate = URIRef("https://semopenalex.org/ontology/hasConcept")
+has_concept_score_predicate = URIRef("https://semopenalex.org/ontology/hasConceptScore")
+score_predicate = URIRef("https://semopenalex.org/ontology/score")
 cites_predicate = URIRef("http://purl.org/spar/cito/cites")
-related_work_predicate = URIRef("https://semopenalex.org/property/hasRelatedWork")
-year_predicate = URIRef("https://semopenalex.org/property/year")
+related_work_predicate = URIRef("https://semopenalex.org/ontology/hasRelatedWork")
+year_predicate = URIRef("https://semopenalex.org/ontology/year")
 ## changed:
-has_location_predicate = URIRef("https://semopenalex.org/property/hasLocation")
-has_primary_location_predicate = URIRef("https://semopenalex.org/property/hasPrimaryLocation")
-has_best_oa_location_predicate = URIRef("https://semopenalex.org/property/hasBestOaLocation")
-pdf_url_predicate = URIRef("https://semopenalex.org/property/pdfUrl")
-has_source_predicate = URIRef("https://semopenalex.org/property/hasSource")
+has_location_predicate = URIRef("https://semopenalex.org/ontology/hasLocation")
+has_primary_location_predicate = URIRef("https://semopenalex.org/ontology/hasPrimaryLocation")
+has_best_oa_location_predicate = URIRef("https://semopenalex.org/ontology/hasBestOaLocation")
+pdf_url_predicate = URIRef("https://semopenalex.org/ontology/pdfUrl")
+has_source_predicate = URIRef("https://semopenalex.org/ontology/hasSource")
 
 # works entity context
 context = URIRef("https://semopenalex.org/works/context")
@@ -369,13 +369,19 @@ def transform_gz_file(gz_file_path):
                                             soa_namespace_sources + str(work_location_source_id))
                                         works_graph.add(
                                             (work_location_uri, has_source_predicate, work_location_source_uri))
-
                         # type
                         work_type = json_data['type']
                         if not work_type is None:
-                            work_type = str("https://api.crossref.org/types/" + str(work_type))
+                            work_type = str(work_type)
                             works_graph.add(
                                 (work_uri, crossref_type_predicate, Literal(work_type, datatype=XSD.string)))
+
+                        # crossref_type
+                        work_crossref_type = json_data['type_crossref']
+                        if not work_crossref_type is None:
+                            work_crossref_type = str(work_crossref_type)
+                            works_graph.add(
+                                (work_uri, crossref_type_predicate, Literal(work_crossref_type, datatype=XSD.string)))
 
                         # open_access
                         work_open_access = json_data['open_access']
