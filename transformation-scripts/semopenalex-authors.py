@@ -151,6 +151,9 @@ twitter_predicate = URIRef("https://dbpedia.org/property/twitter")
 scopus_predicate = URIRef("https://dbpedia.org/property/scopus")
 counts_by_year_predicate = URIRef("https://semopenalex.org/property/countsByYear")
 year_predicate = URIRef("https://semopenalex.org/property/year")
+mean_citedness_predicate = URIRef("https://semopenalex.org/property/2YrMeanCitedness")
+h_index_predicate = URIRef("http://purl.org/spar/bido/h-index")
+i10_index_predicate = URIRef("https://semopenalex.org/property/i10Index")
 
 # authors entity context
 context = URIRef("https://semopenalex.org/authors/context")
@@ -229,6 +232,23 @@ def transform_gz_file(gz_file_path):
                         for alt_name in author_display_name_alternatives:
                             alt_name = clean(alt_name)
                             author_graph.add((author_uri, alt_name_predicate, Literal(alt_name, datatype=XSD.string)))
+
+                    # summary stats
+                    author_2yr_mean_citedness = json_data.get('summary_stats').get('2yr_mean_citedness')
+                    if not author_2yr_mean_citedness is None:
+                        author_graph.add((author_uri, mean_citedness_predicate,
+                                             Literal(author_2yr_mean_citedness, datatype=XSD.float)))
+
+                    author_h_index = json_data.get('summary_stats').get('h_index')
+                    if not author_h_index is None:
+                        author_graph.add(
+                            (author_uri, h_index_predicate, Literal(author_h_index, datatype=XSD.integer)))
+
+                    author_i10_index = json_data.get('summary_stats').get('i10_index')
+                    if not author_i10_index is None:
+                        author_graph.add(
+                            (author_uri, i10_index_predicate, Literal(author_i10_index, datatype=XSD.integer)))
+
 
                     # works_count
                     author_works_count = json_data['works_count']

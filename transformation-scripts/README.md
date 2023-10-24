@@ -72,6 +72,9 @@ The tables below contain the mapping that is executed in the transformation scri
 | counts_by_year (cited_by_count) | `<https://semopenalex.org/ontology/citedByCount>` |
 | updated_date | `<http://purl.org/dc/terms/modified>` |
 | created_date | `<http://purl.org/dc/terms/created>` |
+| summary_stats (2yr_mean_citedness) | `<https://semopenalex.org/ontology/2YrMeanCitedness>` |
+| summary_stats (h_index) | `<http://purl.org/spar/bido/h-index>` |
+| summary_stats (i10_index) | `<https://semopenalex.org/ontology/i10Index>` |
 
 
 ## Mapping of the Institution Entities

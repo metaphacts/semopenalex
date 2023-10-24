@@ -17,7 +17,7 @@
     <https://orcid.org/0009-0009-4338-0983>;
   dct:issued "2022-05-12"^^xsd:date;
   dct:license <http://creativecommons.org/publicdomain/zero/1.0/>;
-  dct:modified "2023-06-20"^^xsd:date;
+  dct:modified "2023-10-24"^^xsd:date;
   dct:publisher <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology>, <http://www.wikidata.org/entity/Q22132500>;
   dct:title "SemOpenAlex Ontology"@en;
   rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en;
@@ -474,7 +474,11 @@ soa:AuthorShape a sh:NodeShape;
     soa:3e2f60daa912b4bbfdda79d75fe2752b, soa:534f665d25d906da0a8c33c199207f86, soa:643f980183729bdf11919a5652a68f8e,
     soa:6477781c0083ed6ae289b7101034070e, soa:893797ba8898177df5b817ba86554a38, soa:8a8aecaca1e42caa6994bd80a9188415,
     soa:b24dbbf3333905048d57498219f7c8c2, soa:bb72667cc1ad07ac0375082b6b947fe1, soa:f31288f45557f654fc2db4a369bebfa7,
-    soa:f57e4f3f58c25d6efcedbe15d8b0dea7;
+    soa:f57e4f3f58c25d6efcedbe15d8b0dea7, 
+    [ a sh:PropertyShape; sh:datatype xsd:float; sh:path soa:2YrMeanCitedness ],
+    [ a sh:PropertyShpae; sh:datetype xsd:integer; sh:path <http://purl.org/spar/bido/h-index> ],
+    [ a sh:PropertyShpae; sh:datetype xsd:integer; sh:path soa:i10Index ]; 
+
   sh:targetClass soa:Author .
 
 soa:Concept a owl:Class;
