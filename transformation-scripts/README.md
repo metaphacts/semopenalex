@@ -31,7 +31,10 @@ The tables below contain the mapping that is executed in the transformation scri
 |open_access_is_oa                    |`<https://semopenalex.org/ontology/isOa>`                              |
 |open_access_oa_status                    |   `<https://semopenalex.org/ontology/oaStatus>`                           |
 | open_access_oa_url                   |  `<https://semopenalex.org/ontology/oaUrl>`                            |
-|authorships_author_position | `<https://semopenalex.org/ontology/hasAuthorPosition>`, `<https://semopenalex.org/ontology/position>`  |
+|authorships_author_position | `<https://semopenalex.org/ontology/hasAuthorship>`, `<https://semopenalex.org/ontology/position>`  |
+|authorships_raw_affiliation_string | `<https://semopenalex.org/ontology/hasAuthorship>`, `<https://semopenalex.org/ontology/rawAffiliation>`  |
+|authorships_is_corresponding | `<https://semopenalex.org/ontology/hasAuthorship>`, `<https://semopenalex.org/ontology/isCorresponding>`  |
+|authorships_institutions_id | `<https://semopenalex.org/ontology/hasOrganization>`  |
 |authorships_author_id                    |   `<https://semopenalex.org/ontology/hasAuthor>`                               |
 |cited_by_count                    |   `<https://semopenalex.org/ontology/citedByCount>`                           |
 |biblio_volume                    |  `<https://semopenalex.org/ontology/hasVolume>`                            |
@@ -72,6 +75,9 @@ The tables below contain the mapping that is executed in the transformation scri
 | counts_by_year (cited_by_count) | `<https://semopenalex.org/ontology/citedByCount>` |
 | updated_date | `<http://purl.org/dc/terms/modified>` |
 | created_date | `<http://purl.org/dc/terms/created>` |
+| summary_stats (2yr_mean_citedness) | `<https://semopenalex.org/ontology/2YrMeanCitedness>` |
+| summary_stats (h_index) | `<http://purl.org/spar/bido/h-index>` |
+| summary_stats (i10_index) | `<https://semopenalex.org/ontology/i10Index>` |
 
 
 ## Mapping of the Institution Entities
