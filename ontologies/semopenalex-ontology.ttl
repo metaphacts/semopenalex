@@ -775,11 +775,11 @@ foaf:depiction a owl:DatatypeProperty;
 <https://semopenalex.org/ontology/isCorresponding> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Authorship>;
   rdfs:range xsd:boolean ;
-  rdfs:comment "This property specifies authorship corresponding."@en;
+  rdfs:comment "This property specifies whether the given authorship is the corresponding author."@en;
   rdfs:label "isCorresponding"@en .
 
 <https://semopenalex.org/ontology/rawAffiliation> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Authorship>;
   rdfs:range xsd:string ;
-  rdfs:comment "This property specifies authorship raw affiliation."@en;
+  rdfs:comment "This property specifies the raw affiliation of an authorship."@en;
   rdfs:label "rawAffiliation"@en .
