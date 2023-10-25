@@ -441,7 +441,7 @@ foaf:name a owl:DatatypeProperty;
   rdfs:comment "This property specifies the alternative name of a work."@en;
   rdfs:label "alternative name"@en .
 
-<https://dbpedia.org/property/2YrMeanCitedness> a owl:DatatypeProperty;
+<https://semopenalex.org/ontology/2YrMeanCitedness> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Source>, <https://semopenalex.org/ontology/Author>;
   rdfs:range xsd:float ;
   rdfs:comment "This property specifies the 2 year mean citedness of a work."@en;
@@ -530,7 +530,7 @@ foaf:name a owl:DatatypeProperty;
   rdfs:comment "This property specifies the h-index of a publisher."@en;
   rdfs:label "h-index"@en .
 
-<https://dbpedia.org/property/2YrMeanCitedness> a owl:DatatypeProperty;
+<https://semopenalex.org/ontology/2YrMeanCitedness> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Publisher>;
   rdfs:range xsd:float ;
   rdfs:comment "This property specifies the 2 year mean citedness of a publisher."@en;
