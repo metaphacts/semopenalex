@@ -535,6 +535,65 @@ soa:Institution a owl:Class;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "Institution"@en .
 
+soa:Funder a owl:Class;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "Funder"@en .
+
+soa:FunderShape a sh:NodeShape;
+  sh:property [
+      sh:datatype xsd:string;
+      sh:path <https://dbpedia.org/property/countryCode>
+    ], [
+      sh:datatype xsd:anyURI;
+      sh:path foaf:homepage
+    ], [
+      sh:datatype xsd:string;
+      sh:path soa:crossref
+    ], [
+      sh:datatype xsd:anyURI;
+      sh:path <http://prismstandard.org/namespaces/basic/2.0/doi>
+    ], [
+      sh:datatype xsd:string;
+      sh:path soa:alternativeName
+    ], [
+      sh:datatype xsd:integer;
+      sh:path soa:i10Index
+    ], [
+      sh:datatype xsd:integer;
+      sh:path <http://purl.org/spar/bido/h-index>
+    ], [
+      sh:class soa:CountsByYear;
+      sh:path soa:countsByYear
+    ], [
+      sh:datatype xsd:date;
+      sh:path dct:created
+    ], [
+      sh:datatype xsd:date;
+      sh:path dct:modified
+    ], [
+      sh:datatype xsd:integer;
+      sh:path soa:citedByCount
+    ], [
+      sh:datatype xsd:string;
+      sh:path foaf:name
+    ], [
+      sh:datatype xsd:anyURI;
+      sh:path soa:ror
+    ], [
+      sh:datatype xsd:string;
+      sh:path dct:description
+    ], [
+      sh:datatype xsd:integer;
+      sh:path soa:grantsCount
+    ], [
+      sh:datatype xsd:float;
+      sh:path soa:2YrMeanCitedness
+    ], [
+      sh:datatype xsd:integer;
+      sh:path soa:worksCount
+    ];
+  sh:targetClass soa:Funder .
+
 soa:InstitutionShape a sh:NodeShape;
   sh:property soa:07fe8d090dee52aa25cacf9ba01c537d, soa:0d30180e88607a9b9f3e7efdf6a5a920,
     soa:32acd9478deb48037209d21c271560b9, soa:3e2f60daa912b4bbfdda79d75fe2752b, soa:4664cd9b195ba95e5b19f26ac9baf427,
@@ -655,6 +714,9 @@ soa:WorkShape a sh:NodeShape;
     ], [ a sh:PropertyShape;
       sh:class soa:Location;
       sh:path soa:hasBestOaLocation
+    ], [ a sh:PropertyShape;
+      sh:class soa:Funder;
+      sh:path soa:hasFunder
     ], soa:013f2f63f0b01681bb2b6bee1410bea9, soa:0946e3c3725f942fa0f94070bc836046, soa:2183731b5316d244e42f7f4bb5d53178,
     soa:3e2f60daa912b4bbfdda79d75fe2752b, soa:3f2ae919e9c05cd1b735ab4f438ab19b, soa:451627809f2e7ca7411918e1373143f6,
     soa:534f665d25d906da0a8c33c199207f86, soa:5df0270ce3d36a8313b64ffa0e70c36e, soa:643f980183729bdf11919a5652a68f8e,
@@ -750,6 +812,14 @@ soa:countsByYear a owl:ObjectProperty;
 
 soa:crossrefType a owl:DatatypeProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:crossref a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "crossref"@en .
+
+soa:grantsCount a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
+  rdfs:label "grantsCount"@en .
 
 soa:d186da23412071992d2c55668fbdd101 a sh:PropertyShape;
   sh:datatype xsd:string;
@@ -851,6 +921,9 @@ soa:hasOrganization a owl:ObjectProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 soa:hasAuthorship a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasFunder a owl:ObjectProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 soa:hasBestOaLocation a owl:ObjectProperty;
