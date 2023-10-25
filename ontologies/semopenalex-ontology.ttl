@@ -442,21 +442,36 @@ foaf:name a owl:DatatypeProperty;
   rdfs:label "alternative name"@en .
 
 <https://semopenalex.org/ontology/2YrMeanCitedness> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Source>, <https://semopenalex.org/ontology/Author>;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (
+        <https://semopenalex.org/ontology/Source> <https://semopenalex.org/ontology/Author>
+        <https://semopenalex.org/ontology/Publisher>
+      )
+    ];
   rdfs:range xsd:float ;
-  rdfs:comment "This property specifies the 2 year mean citedness of a work."@en;
+  rdfs:comment "This property specifies the 2 year mean citedness of a source, author or publisher."@en;
   rdfs:label "2 year mean citedness"@en .
 
 <http://purl.org/spar/bido/h-index> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Source>, <https://semopenalex.org/ontology/Author>;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (
+        <https://semopenalex.org/ontology/Source> <https://semopenalex.org/ontology/Author>
+        <https://semopenalex.org/ontology/Publisher>
+      )
+    ];
   rdfs:range xsd:integer ;
-  rdfs:comment "This property specifies the h-index of a work."@en;
+  rdfs:comment "This property specifies the h-index of a source, author or publisher."@en;
   rdfs:label "h-index"@en .
 
 <https://semopenalex.org/ontology/i10Index> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Source>, <https://semopenalex.org/ontology/Author>;
+  rdfs:domain [ a owl:Class;
+      owl:unionOf (
+        <https://semopenalex.org/ontology/Source> <https://semopenalex.org/ontology/Author>
+        <https://semopenalex.org/ontology/Publisher>
+      )
+    ]; 
   rdfs:range xsd:integer ;
-  rdfs:comment "This property specifies the i10-index of a work."@en;
+  rdfs:comment "This property specifies the i10-index of a source, author or publisher."@en;
   rdfs:label "i10-index"@en .
 
 <https://semopenalex.org/ontology/fatcatId> a owl:DatatypeProperty;
@@ -517,24 +532,6 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range <https://semopenalex.org/ontology/Publisher> ;
   rdfs:comment "This property specifies the parent publisher of a publisher."@en;
   rdfs:label "has parent publisher"@en .
-
-<https://semopenalex.org/ontology/i10Index> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Publisher>;
-  rdfs:range xsd:integer ;
-  rdfs:comment "This property specifies the i10-index of a publisher."@en;
-  rdfs:label "i10-index"@en .
-
-<http://purl.org/spar/bido/h-index> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Publisher>;
-  rdfs:range xsd:integer ;
-  rdfs:comment "This property specifies the h-index of a publisher."@en;
-  rdfs:label "h-index"@en .
-
-<https://semopenalex.org/ontology/2YrMeanCitedness> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Publisher>;
-  rdfs:range xsd:float ;
-  rdfs:comment "This property specifies the 2 year mean citedness of a publisher."@en;
-  rdfs:label "2 year mean citedness"@en .
 
 <https://semopenalex.org/ontology/level> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Publisher>;
