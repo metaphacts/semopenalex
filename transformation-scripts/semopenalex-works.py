@@ -424,7 +424,6 @@ def transform_gz_file(gz_file_path):
                             index = 0
                             for authorship in work_authorships:
                                 author_isCorresponding = authorship["is_corresponding"]
-                                author_raw_affiliation_string = authorship["raw_affiliation_string"]
                                 authorship_id = authorship["author"]["id"].replace("https://openalex.org/", "")
                                 work_authorship_uri = URIRef(
                                     soa_namespace_authorship + str(work_id) + str(authorship_id))
@@ -434,8 +433,9 @@ def transform_gz_file(gz_file_path):
                                                  Literal(index, datatype=XSD.integer)))
                                 works_graph.add((work_authorship_uri, author_corresponding_predicate,
                                                  Literal(author_isCorresponding, datatype=XSD.boolean)))
-                                works_graph.add((work_authorship_uri, author_raw_affiliation_predicate,
-                                                 Literal(author_raw_affiliation_string, datatype=XSD.string)))
+                                author_raw_affiliation_string = authorship["raw_affiliation_string"]
+                                if not author_raw_affiliation_string is None:
+                                    works_graph.add((work_authorship_uri, author_raw_affiliation_predicate, Literal(author_raw_affiliation_string, datatype=XSD.string)))
                                 work_author_uri = URIRef(soa_namespace_authors + str(authorship_id))
                                 works_graph.add((work_authorship_uri, has_author_predicate, work_author_uri))
                                 index += 1
