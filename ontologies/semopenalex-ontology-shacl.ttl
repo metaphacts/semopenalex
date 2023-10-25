@@ -305,7 +305,7 @@ soa:4832ab1df642e9e99ed61f38e2431b26 a sh:PropertyShape;
   sh:path <https://dbpedia.org/property/acronym> .
 
 soa:4c142e0a4b580c4693dc5c02d5f5f9c9 a sh:PropertyShape;
-  sh:datatype xsd:string;
+  sh:datatype xsd:integer;
   sh:path soa:position .
 
 soa:501183b9442fb859868a671f76a92e9c a sh:PropertyShape;
@@ -446,13 +446,28 @@ soa:Author a owl:Class;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "Author"@en .
 
-soa:AuthorPosition a owl:Class;
+soa:Authorship a owl:Class;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
-  rdfs:label "AuthorPosition"@en .
+  rdfs:label "Authorship"@en .
 
-soa:AuthorPositionShape a sh:NodeShape;
-  sh:property soa:4c142e0a4b580c4693dc5c02d5f5f9c9, soa:e87cdd7b584967125d063d517eed6e4e;
-  sh:targetClass soa:AuthorPosition .
+soa:AuthorshipShape a sh:NodeShape;
+  sh:property soa:4c142e0a4b580c4693dc5c02d5f5f9c9, soa:e87cdd7b584967125d063d517eed6e4e, 
+  [ 
+    a sh:PropertyShape;
+      sh:class soa:Institution;
+      sh:path soa:hasOrganization 
+  ], 
+  [
+    a sh:PropertyShape;
+      sh:datatype xsd:string;
+      sh:path soa:rawAffiliation
+  ], 
+  [
+    a sh:PropertyShape;
+      sh:datatype xsd:boolean;
+      sh:path soa:isCorresponding
+  ];
+  sh:targetClass soa:Authorship .
 
 soa:AuthorShape a sh:NodeShape;
   sh:property soa:0afadfc52ce5c45fda6af85a1577dff5, soa:382cdef124935b924eda1ae67588390d,
@@ -674,8 +689,8 @@ soa:aea2f1abde128f871dee5d3bfe5e02fa a sh:PropertyShape;
   sh:path soa:score .
 
 soa:af99a5a81b65696be8c769bf36a9b633 a sh:PropertyShape;
-  sh:class soa:AuthorPosition;
-  sh:path soa:hasAuthorPosition .
+  sh:class soa:Authorship;
+  sh:path soa:hasAuthorship .
 
 soa:alternativeName a owl:DatatypeProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
@@ -828,7 +843,10 @@ soa:hasAssociatedInstitution a owl:ObjectProperty;
 soa:hasAuthor a owl:ObjectProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
-soa:hasAuthorPosition a owl:ObjectProperty;
+soa:hasOrganization a owl:ObjectProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:hasAuthorship a owl:ObjectProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 soa:hasBestOaLocation a owl:ObjectProperty;
@@ -909,6 +927,12 @@ soa:pdfUrl a owl:DatatypeProperty;
   rdfs:label "pdfUrl"@en .
 
 soa:position a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:rawAffiliation a owl:DatatypeProperty;
+  rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
+
+soa:isCorresponding a owl:DatatypeProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 soa:ror a owl:DatatypeProperty;

@@ -732,9 +732,9 @@ foaf:depiction a owl:DatatypeProperty;
   rdfs:comment "This property specifies the score of a concept score."@en;
   rdfs:label "score"@en .
 
-<https://semopenalex.org/ontology/AuthorPosition> a owl:Class;
-  rdfs:label "AuthorPosition"@en ;
-  rdfs:comment "This class represents an author position."@en .
+<https://semopenalex.org/ontology/Authorship> a owl:Class;
+  rdfs:label "Authorship"@en ;
+  rdfs:comment "This class represents an authorship."@en .
 
 <https://semopenalex.org/ontology/crossrefType> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Work>;
@@ -749,19 +749,37 @@ foaf:depiction a owl:DatatypeProperty;
   rdfs:label "workType"@en .
 
 <https://semopenalex.org/ontology/hasAuthor> a owl:ObjectProperty;
-  rdfs:domain <https://semopenalex.org/ontology/AuthorPosition>;
+  rdfs:domain <https://semopenalex.org/ontology/Authorship>;
   rdfs:range <https://semopenalex.org/ontology/Author> ;
   rdfs:comment "This property specifies the author of an author position."@en;
   rdfs:label "has author"@en .
 
-<https://semopenalex.org/ontology/hasAuthorPosition> a owl:ObjectProperty;
+<https://semopenalex.org/ontology/hasOrganization> a owl:ObjectProperty;
+  rdfs:domain <https://semopenalex.org/ontology/Authorship>;
+  rdfs:range <https://semopenalex.org/ontology/Institution> ;
+  rdfs:comment "This property specifies the author institution."@en;
+  rdfs:label "has organization"@en .
+
+<https://semopenalex.org/ontology/hasAuthorship> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/ontology/Work>;
-  rdfs:range <https://semopenalex.org/ontology/AuthorPosition> ;
-  rdfs:comment "This property specifies the author position of a work."@en;
-  rdfs:label "has author position"@en .
+  rdfs:range <https://semopenalex.org/ontology/Authorship> ;
+  rdfs:comment "This property specifies the authorship of a work."@en;
+  rdfs:label "has authorship"@en .
 
 <https://semopenalex.org/ontology/position> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/AuthorPosition>;
-  rdfs:range xsd:string ;
+  rdfs:domain <https://semopenalex.org/ontology/Authorship>;
+  rdfs:range xsd:integer ;
   rdfs:comment "This property specifies the position of an author position."@en;
   rdfs:label "position"@en .
+
+<https://semopenalex.org/ontology/isCorresponding> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/ontology/Authorship>;
+  rdfs:range xsd:boolean ;
+  rdfs:comment "This property specifies whether the given authorship is the corresponding author."@en;
+  rdfs:label "isCorresponding"@en .
+
+<https://semopenalex.org/ontology/rawAffiliation> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/ontology/Authorship>;
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the raw affiliation of an authorship."@en;
+  rdfs:label "rawAffiliation"@en .

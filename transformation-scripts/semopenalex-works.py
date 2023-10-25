@@ -148,7 +148,7 @@ def inverted_to_plain_text(invertedIndex):
 # info for namespaces used in SOA
 soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_authors = "https://semopenalex.org/author/"
-soa_namespace_author_position = "https://semopenalex.org/authorposition/"
+soa_namespace_authorship = "https://semopenalex.org/authorship/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
 soa_namespace_works = "https://semopenalex.org/work/"
 soa_namespace_institutions = "https://semopenalex.org/institution/"
@@ -162,7 +162,7 @@ soa_namespace_locations = "https://semopenalex.org/location/"
 soa_class_work = URIRef(soa_namespace_class + "Work")
 soa_class_location = URIRef(soa_namespace_class + "Location")
 soa_class_open_access = URIRef(soa_namespace_class + "OpenAccess")
-soa_class_author_position = URIRef(soa_namespace_class + "AuthorPosition")
+soa_class_authorship = URIRef(soa_namespace_class + "Authorship")
 soa_class_counts_by_year = URIRef(soa_namespace_class + "CountsByYear")
 soa_class_concept = URIRef(soa_namespace_class + "Concept")
 soa_class_concept_score = URIRef(soa_namespace_class + "ConceptScore")
@@ -180,8 +180,12 @@ oa_status_predicate = URIRef("https://semopenalex.org/ontology/oaStatus")
 oa_url_predicate = URIRef("https://semopenalex.org/ontology/oaUrl")
 version_predicate = URIRef("https://semopenalex.org/ontology/hasVersion")
 crossref_type_predicate = URIRef("https://semopenalex.org/ontology/crossrefType")
-has_author_position_predicate = URIRef("https://semopenalex.org/ontology/hasAuthorPosition")
+work_type_predicate = URIRef("https://semopenalex.org/ontology/workType")
+has_authorship_predicate = URIRef("https://semopenalex.org/ontology/hasAuthorship")
+has_organization_predicate = URIRef("https://semopenalex.org/ontology/hasOrganization")
 author_position_predicate = URIRef("https://semopenalex.org/ontology/position")
+author_corresponding_predicate = URIRef("https://semopenalex.org/ontology/isCorresponding")
+author_raw_affiliation_predicate = URIRef("https://semopenalex.org/ontology/rawAffiliation")
 has_author_predicate = URIRef("https://semopenalex.org/ontology/hasAuthor")
 cited_by_count_predicate = URIRef("https://semopenalex.org/ontology/citedByCount")
 counts_by_year_predicate = URIRef("https://semopenalex.org/ontology/countsByYear")
@@ -374,7 +378,7 @@ def transform_gz_file(gz_file_path):
                         if not work_type is None:
                             work_type = str(work_type)
                             works_graph.add(
-                                (work_uri, crossref_type_predicate, Literal(work_type, datatype=XSD.string)))
+                                (work_uri, work_type_predicate, Literal(work_type, datatype=XSD.string)))
 
                         # crossref_type
                         work_crossref_type = json_data['type_crossref']
@@ -414,20 +418,34 @@ def transform_gz_file(gz_file_path):
                                 authorship_uri = URIRef(soa_namespace_authors + str(authorship_id))
                                 works_graph.add((work_uri, DCTERMS.creator, authorship_uri))
 
-                        # author position
+                        # authorship
                         work_authorships = json_data['authorships']
                         if not work_authorships is None:
+                            index = 0
                             for authorship in work_authorships:
-                                author_position = authorship["author_position"]
+                                author_isCorresponding = authorship["is_corresponding"]
                                 authorship_id = authorship["author"]["id"].replace("https://openalex.org/", "")
-                                work_author_position_uri = URIRef(
-                                    soa_namespace_author_position + str(work_id) + str(authorship_id))
-                                works_graph.add((work_author_position_uri, RDF.type, soa_class_author_position))
-                                works_graph.add((work_uri, has_author_position_predicate, work_author_position_uri))
-                                works_graph.add((work_author_position_uri, author_position_predicate,
-                                                 Literal(author_position, datatype=XSD.string)))
+                                work_authorship_uri = URIRef(
+                                    soa_namespace_authorship + str(work_id) + str(authorship_id))
+                                works_graph.add((work_authorship_uri, RDF.type, soa_class_authorship))
+                                works_graph.add((work_uri, has_authorship_predicate, work_authorship_uri))
+                                works_graph.add((work_authorship_uri, author_position_predicate,
+                                                 Literal(index, datatype=XSD.integer)))
+                                works_graph.add((work_authorship_uri, author_corresponding_predicate,
+                                                 Literal(author_isCorresponding, datatype=XSD.boolean)))
+                                author_raw_affiliation_string = authorship["raw_affiliation_string"]
+                                if not author_raw_affiliation_string is None:
+                                    works_graph.add((work_authorship_uri, author_raw_affiliation_predicate, Literal(author_raw_affiliation_string, datatype=XSD.string)))
                                 work_author_uri = URIRef(soa_namespace_authors + str(authorship_id))
-                                works_graph.add((work_author_position_uri, has_author_predicate, work_author_uri))
+                                works_graph.add((work_authorship_uri, has_author_predicate, work_author_uri))
+                                index += 1
+                                #institutions
+                                institutions = authorship['institutions']
+                                for institution in institutions:
+                                    institution_id = institution["id"].replace("https://openalex.org/", "")
+                                    institution_uri = URIRef(soa_namespace_institutions + str(institution_id))
+                                    works_graph.add((work_authorship_uri, has_organization_predicate, institution_uri))
+
 
                         # cited_by_count
                         work_cited_by_count = json_data['cited_by_count']
