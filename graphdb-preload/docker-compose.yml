@@ -2,7 +2,7 @@ version: "3"
 services:
   graphdb:
     container_name: graphdb-preload
-    image: ontotext/graphdb:10.2.2
+    image: ontotext/graphdb:10.3.2
     mem_limit: 250g
     mem_reservation: 250g
 
