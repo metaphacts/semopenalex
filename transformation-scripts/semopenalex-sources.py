@@ -136,7 +136,7 @@ def clean_url(nameStr):
 
 
 # info for namespaces used in SOA
-soa_namespace_class = "https://semopenalex.org/class/"
+soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_authors = "https://semopenalex.org/author/"
 soa_namespace_sources = "https://semopenalex.org/source/"
 soa_namespace_publishers = "https://semopenalex.org/publisher/"  # new
@@ -150,24 +150,24 @@ soa_class_counts_by_year = URIRef(soa_namespace_class + "CountsByYear")
 # SOA predicates
 has_issnl_predicate = URIRef("http://purl.org/spar/fabio/hasIssnL")
 has_issn_predicate = URIRef("http://prismstandard.org/namespaces/basic/2.0/issn")
-works_count_predicate = URIRef("https://semopenalex.org/property/worksCount")
-cited_by_count_predicate = URIRef("https://semopenalex.org/property/citedByCount")
-is_in_doaj_predicate = URIRef("https://semopenalex.org/property/isInDoaj")
-is_oa_predicate = URIRef("https://semopenalex.org/property/isOa")
-mag_id_predicate = URIRef("https://semopenalex.org/property/magId")
-counts_by_year_predicate = URIRef("https://semopenalex.org/property/countsByYear")
-year_predicate = URIRef("https://semopenalex.org/property/year")
+works_count_predicate = URIRef("https://semopenalex.org/ontology/worksCount")
+cited_by_count_predicate = URIRef("https://semopenalex.org/ontology/citedByCount")
+is_in_doaj_predicate = URIRef("https://semopenalex.org/ontology/isInDoaj")
+is_oa_predicate = URIRef("https://semopenalex.org/ontology/isOa")
+mag_id_predicate = URIRef("https://semopenalex.org/ontology/magId")
+counts_by_year_predicate = URIRef("https://semopenalex.org/ontology/countsByYear")
+year_predicate = URIRef("https://semopenalex.org/ontology/year")
 # modified:
-has_host_organization_predicate = URIRef("https://semopenalex.org/property/hasHostOrganization")
+has_host_organization_predicate = URIRef("https://semopenalex.org/ontology/hasHostOrganization")
 country_code_geo_predicate = URIRef("http://www.geonames.org/ontology#countryCode")
-apc_usd_predicate = URIRef("https://semopenalex.org/property/apcUsd")
-source_type_predicate = URIRef("https://semopenalex.org/property/sourceType")
-fatcat_id_predicate = URIRef("https://semopenalex.org/property/fatcatId")
+apc_usd_predicate = URIRef("https://semopenalex.org/ontology/apcUsd")
+source_type_predicate = URIRef("https://semopenalex.org/ontology/sourceType")
+fatcat_id_predicate = URIRef("https://semopenalex.org/ontology/fatcatId")
 alt_name_predicate = URIRef("https://dbpedia.org/ontology/alternativeName")
-abbreviated_name_predicate = URIRef("https://semopenalex.org/property/abbreviatedName")
-mean_citedness_predicate = URIRef("https://semopenalex.org/property/2YrMeanCitedness")
+abbreviated_name_predicate = URIRef("https://semopenalex.org/ontology/abbreviatedName")
+mean_citedness_predicate = URIRef("https://semopenalex.org/ontology/2YrMeanCitedness")
 h_index_predicate = URIRef("http://purl.org/spar/bido/h-index")
-i10_index_predicate = URIRef("https://semopenalex.org/property/i10Index")
+i10_index_predicate = URIRef("https://semopenalex.org/ontology/i10Index")
 
 # sources entity context
 context = URIRef("https://semopenalex.org/sources/context")
@@ -193,13 +193,7 @@ print('sources entity files started to download at: ' + data_dump_start_time)
 # Copy sources entity snapshot
 client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 file_names, folders = get_file_folders(client, "openalex", "data/sources/")
-download_files(
-    client,
-    "openalex",
-    data_dump_input_root_dir,
-    file_names,
-    folders
-)
+download_files(client, "openalex", data_dump_input_root_dir, file_names, folders)
 print('sources entity files finished to download.')
 
 start_time = time.ctime()

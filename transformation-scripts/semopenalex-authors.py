@@ -131,7 +131,7 @@ def clean_url(nameStr):
     return cleaned_str
 
 # info for namespaces used in SOA
-soa_namespace_class = "https://semopenalex.org/class/"
+soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_authors = "https://semopenalex.org/author/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
 soa_namespace_works = "https://semopenalex.org/work/"
@@ -143,17 +143,17 @@ soa_class_counts_by_year = URIRef(soa_namespace_class+"CountsByYear")
 
 # SOA predicates
 orcid_predicate = URIRef("https://dbpedia.org/ontology/orcidId")
-alt_name_predicate = URIRef("https://semopenalex.org/property/alternativeName")
-works_count_predicate = URIRef("https://semopenalex.org/property/worksCount")
-cited_by_count_predicate = URIRef("https://semopenalex.org/property/citedByCount")
-mag_id_predicate = URIRef("https://semopenalex.org/property/magId")
+alt_name_predicate = URIRef("https://semopenalex.org/ontology/alternativeName")
+works_count_predicate = URIRef("https://semopenalex.org/ontology/worksCount")
+cited_by_count_predicate = URIRef("https://semopenalex.org/ontology/citedByCount")
+mag_id_predicate = URIRef("https://semopenalex.org/ontology/magId")
 twitter_predicate = URIRef("https://dbpedia.org/property/twitter")
 scopus_predicate = URIRef("https://dbpedia.org/property/scopus")
-counts_by_year_predicate = URIRef("https://semopenalex.org/property/countsByYear")
-year_predicate = URIRef("https://semopenalex.org/property/year")
-mean_citedness_predicate = URIRef("https://semopenalex.org/property/2YrMeanCitedness")
+counts_by_year_predicate = URIRef("https://semopenalex.org/ontology/countsByYear")
+year_predicate = URIRef("https://semopenalex.org/ontology/year")
+mean_citedness_predicate = URIRef("https://semopenalex.org/ontology/2YrMeanCitedness")
 h_index_predicate = URIRef("http://purl.org/spar/bido/h-index")
-i10_index_predicate = URIRef("https://semopenalex.org/property/i10Index")
+i10_index_predicate = URIRef("https://semopenalex.org/ontology/i10Index")
 
 # authors entity context
 context = URIRef("https://semopenalex.org/authors/context")
@@ -178,13 +178,7 @@ print('authors entity files started to download at: '+ data_dump_start_time)
 # Copy authors entity snapshot
 client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 file_names, folders = get_file_folders(client, "openalex", "data/authors/")
-download_files(
-    client,
-    "openalex",
-    data_dump_input_root_dir,
-    file_names,
-    folders
-)
+download_files(client, "openalex", data_dump_input_root_dir, file_names, folders)
 print('authors entity files finished to download.')
 
 start_time = time.ctime()

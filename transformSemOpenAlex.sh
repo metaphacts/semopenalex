@@ -6,13 +6,14 @@ echo "SemOpenAlex transformation script started at: " $(date -u)
 
 # Data transformation from OpenAlex to RDF data dump
 # Running a series of python scripts one after another
-python3 ./transformation-scripts/semopenalex-authors.py;
 python3 ./transformation-scripts/semopenalex-concepts.py;
-python3 ./transformation-scripts/semopenalex-dataset.py;
+python3 ./transformation-scripts/semopenalex-funders.py; 
 python3 ./transformation-scripts/semopenalex-institutions.py; 
 python3 ./transformation-scripts/semopenalex-publishers.py; 
 python3 ./transformation-scripts/semopenalex-sources.py; 
+python3 ./transformation-scripts/semopenalex-authors.py;
 python3 ./transformation-scripts/semopenalex-works.py;
+python3 ./transformation-scripts/semopenalex-dataset.py;
 
 # make sure to clean graphdb storage folder before ingesting data
 rm -rf ./graphdb-preload/graphdb-home/data/repositories/metaphactory/storage
