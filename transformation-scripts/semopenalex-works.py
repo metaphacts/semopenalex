@@ -156,6 +156,7 @@ soa_namespace_open_access = "https://semopenalex.org/openaccess/"
 soa_namespace_concept = "https://semopenalex.org/concept/"
 soa_namespace_concept_score = "https://semopenalex.org/conceptscore/"
 soa_namespace_sources = "https://semopenalex.org/source/"
+soa_namespace_funders = "https://semopenalex.org/funder/"
 soa_namespace_locations = "https://semopenalex.org/location/"
 
 # SOA classes used in this file
@@ -227,13 +228,7 @@ print('works entity files started to download at: ' + data_dump_start_time)
 # Copy works entity snapshot
 client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 file_names, folders = get_file_folders(client, "openalex", "data/works/")
-download_files(
-    client,
-    "openalex",
-    data_dump_input_root_dir,
-    file_names,
-    folders
-)
+download_files(client, "openalex", data_dump_input_root_dir, file_names, folders)
 print('works entity files finished to download.')
 
 start_time = time.ctime()
@@ -373,6 +368,13 @@ def transform_gz_file(gz_file_path):
                                             soa_namespace_sources + str(work_location_source_id))
                                         works_graph.add(
                                             (work_location_uri, has_source_predicate, work_location_source_uri))
+                        # grants
+                        work_grants = json_data.get('grants')
+                        for grant in work_grants:
+                            grant_id = grant.get('funder').replace("https://openalex.org/", "")
+                            grant_uri = URIRef(soa_namespace_funders + str(grant_id))
+                            works_graph.add((work_uri, URIRef("https://semopenalex.org/ontology/hasFunder"), grant_uri))
+
                         # type
                         work_type = json_data['type']
                         if not work_type is None:
@@ -381,7 +383,7 @@ def transform_gz_file(gz_file_path):
                                 (work_uri, work_type_predicate, Literal(work_type, datatype=XSD.string)))
 
                         # crossref_type
-                        work_crossref_type = json_data['type_crossref']
+                        work_crossref_type = json_data.get('type_crossref')
                         if not work_crossref_type is None:
                             work_crossref_type = str(work_crossref_type)
                             works_graph.add(
