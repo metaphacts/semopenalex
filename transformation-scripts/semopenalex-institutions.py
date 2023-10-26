@@ -131,7 +131,7 @@ def clean_url(nameStr):
 
 
 # info for namespaces used in SOA
-soa_namespace_class = "https://semopenalex.org/class/"
+soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_geo = "https://semopenalex.org/geo/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
 soa_namespace_institutions = "https://semopenalex.org/institution/"
@@ -142,17 +142,17 @@ soa_class_geo = URIRef(soa_namespace_class+"Geo")
 soa_class_counts_by_year = URIRef(soa_namespace_class+"CountsByYear")
 
 # SOA predicates
-ror_predicate = URIRef("https://semopenalex.org/property/ror")
+ror_predicate = URIRef("https://semopenalex.org/ontology/ror")
 country_code_dbpedia_predicate = URIRef("https://dbpedia.org/property/countryCode")
-ror_type_predicate = URIRef("https://semopenalex.org/property/rorType")
-image_thumbnail_predicate = URIRef("https://semopenalex.org/property/imageThumbnail")
+ror_type_predicate = URIRef("https://semopenalex.org/ontology/rorType")
+image_thumbnail_predicate = URIRef("https://semopenalex.org/ontology/imageThumbnail")
 acronym_predicate = URIRef("https://dbpedia.org/property/acronym")
 alt_name_predicate = URIRef("https://dbpedia.org/ontology/alternativeName")
-works_count_predicate = URIRef("https://semopenalex.org/property/worksCount")
-cited_by_count_predicate = URIRef("https://semopenalex.org/property/citedByCount")
-counts_by_year_predicate = URIRef("https://semopenalex.org/property/countsByYear")
-mag_id_predicate = URIRef("https://semopenalex.org/property/magId")
-grid_property = URIRef("https://semopenalex.org/property/grid")
+works_count_predicate = URIRef("https://semopenalex.org/ontology/worksCount")
+cited_by_count_predicate = URIRef("https://semopenalex.org/ontology/citedByCount")
+counts_by_year_predicate = URIRef("https://semopenalex.org/ontology/countsByYear")
+mag_id_predicate = URIRef("https://semopenalex.org/ontology/magId")
+grid_property = URIRef("https://semopenalex.org/ontology/grid")
 location_predicate = URIRef("https://dbpedia.org/ontology/location")
 geoname_id_predicate = URIRef("http://www.geonames.org/ontology#geonamesID")
 city_predicate = URIRef("https://dbpedia.org/property/city")
@@ -161,8 +161,8 @@ country_predicate = URIRef("https://dbpedia.org/property/country")
 country_code_geo_predicate = URIRef("http://www.geonames.org/ontology#countryCode")
 lat_geo_predicate = URIRef("http://www.geonames.org/ontology#lat")
 long_geo_predicate = URIRef("http://www.geonames.org/ontology#long")
-associated_institution_predicate = URIRef("https://semopenalex.org/property/hasAssociatedInstitution")
-year_predicate = URIRef("https://semopenalex.org/property/year")
+associated_institution_predicate = URIRef("https://semopenalex.org/ontology/hasAssociatedInstitution")
+year_predicate = URIRef("https://semopenalex.org/ontology/year")
 
 # institutions entity context
 context = URIRef("https://semopenalex.org/institutions/context")
@@ -188,13 +188,7 @@ print('institutions entity files started to download at: '+ data_dump_start_time
 # Copy institutions entity snapshot
 client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 file_names, folders = get_file_folders(client, "openalex", "data/institutions/")
-download_files(
-    client,
-    "openalex",
-    data_dump_input_root_dir,
-    file_names,
-    folders
-)
+download_files(client, "openalex", data_dump_input_root_dir, file_names, folders)
 print('institutions entity files finished to download.')
 
 start_time = time.ctime()

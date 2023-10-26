@@ -136,7 +136,7 @@ def clean_url(nameStr):
 
 
 # info for namespaces used in SOA
-soa_namespace_class = "https://semopenalex.org/class/"
+soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_publishers = "https://semopenalex.org/publisher/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
 
@@ -145,18 +145,18 @@ soa_class_publisher = URIRef(soa_namespace_class + "Publisher")
 soa_class_counts_by_year = URIRef(soa_namespace_class + "CountsByYear")
 
 # SOA predicates
-level_predicate = URIRef("https://semopenalex.org/property/level")
-has_parent_publisher_predicate = URIRef("https://semopenalex.org/property/hasParentPublisher")
-counts_by_year_predicate = URIRef("https://semopenalex.org/property/countsByYear")
+level_predicate = URIRef("https://semopenalex.org/ontology/level")
+has_parent_publisher_predicate = URIRef("https://semopenalex.org/ontology/hasParentPublisher")
+counts_by_year_predicate = URIRef("https://semopenalex.org/ontology/countsByYear")
 country_code_geo_predicate = URIRef("http://www.geonames.org/ontology#countryCode")
-cited_by_count_predicate = URIRef("https://semopenalex.org/property/citedByCount")
-works_count_predicate = URIRef("https://semopenalex.org/property/worksCount")
+cited_by_count_predicate = URIRef("https://semopenalex.org/ontology/citedByCount")
+works_count_predicate = URIRef("https://semopenalex.org/ontology/worksCount")
 alt_name_predicate = URIRef("https://dbpedia.org/ontology/alternativeName")
-ror_predicate = URIRef("https://semopenalex.org/property/ror")
-mean_citedness_predicate = URIRef("https://semopenalex.org/property/2YrMeanCitedness")
+ror_predicate = URIRef("https://semopenalex.org/ontology/ror")
+mean_citedness_predicate = URIRef("https://semopenalex.org/ontology/2YrMeanCitedness")
 h_index_predicate = URIRef("http://purl.org/spar/bido/h-index")
-i10_index_predicate = URIRef("https://semopenalex.org/property/i10Index")
-year_predicate = URIRef("https://semopenalex.org/property/year")
+i10_index_predicate = URIRef("https://semopenalex.org/ontology/i10Index")
+year_predicate = URIRef("https://semopenalex.org/ontology/year")
 
 # publishers entity context
 context = URIRef("https://semopenalex.org/publishers/context")
@@ -182,13 +182,7 @@ print('publishers entity files started to download at: ' + data_dump_start_time)
 # Copy publishers entity snapshot
 client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 file_names, folders = get_file_folders(client, "openalex", "data/publishers/")
-download_files(
-    client,
-    "openalex",
-    data_dump_input_root_dir,
-    file_names,
-    folders
-)
+download_files(client, "openalex", data_dump_input_root_dir, file_names, folders)
 print('publishers entity files finished to download.')
 
 start_time = time.ctime()

@@ -131,7 +131,7 @@ def clean_url(nameStr):
 
 
 # info for namespaces used in SOA
-soa_namespace_class = "https://semopenalex.org/class/"
+soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_concepts = "https://semopenalex.org/concept/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
 
@@ -139,21 +139,21 @@ soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
 soa_class_counts_by_year = URIRef(soa_namespace_class+"CountsByYear")
 
 # SOA predicates
-counts_by_year_predicate = URIRef("https://semopenalex.org/property/countsByYear")
-year_predicate = URIRef("https://semopenalex.org/property/year")
-level_predicate = URIRef("https://semopenalex.org/property/level")
-works_count_predicate = URIRef("https://semopenalex.org/property/worksCount")
-cited_by_count_predicate = URIRef("https://semopenalex.org/property/citedByCount")
-mag_id_predicate = URIRef("https://semopenalex.org/property/magId")
-umls_aui_predicate = URIRef("https://semopenalex.org/property/umlsAui")
-umls_cui_predicate = URIRef("https://semopenalex.org/property/umlsCui")
-image_thumbnail_predicate = URIRef("https://semopenalex.org/property/imageThumbnail")
+counts_by_year_predicate = URIRef("https://semopenalex.org/ontology/countsByYear")
+year_predicate = URIRef("https://semopenalex.org/ontology/year")
+level_predicate = URIRef("https://semopenalex.org/ontology/level")
+works_count_predicate = URIRef("https://semopenalex.org/ontology/worksCount")
+cited_by_count_predicate = URIRef("https://semopenalex.org/ontology/citedByCount")
+mag_id_predicate = URIRef("https://semopenalex.org/ontology/magId")
+umls_aui_predicate = URIRef("https://semopenalex.org/ontology/umlsAui")
+umls_cui_predicate = URIRef("https://semopenalex.org/ontology/umlsCui")
+image_thumbnail_predicate = URIRef("https://semopenalex.org/ontology/imageThumbnail")
 
 #concepts entity context
 context = URIRef("https://semopenalex.org/concepts/context")
 
 #concept scheme URI
-concept_scheme_uri = URIRef("https://docs.openalex.org/about-the-data/concept")
+concept_scheme_uri = URIRef("https://semopenalex.org/concepts")
 
 i = 0
 error_count = 0
@@ -176,13 +176,7 @@ print('concepts entity files started to download at: '+ data_dump_start_time)
 # Copy concepts entity snapshot
 client = boto3.client("s3", config=Config(signature_version=UNSIGNED))
 file_names, folders = get_file_folders(client, "openalex", "data/concepts/")
-download_files(
-    client,
-    "openalex",
-    data_dump_input_root_dir,
-    file_names,
-    folders
-)
+download_files(client, "openalex", data_dump_input_root_dir, file_names, folders)
 print('concepts entity files finished to download.')
 
 start_time = time.ctime()
@@ -195,6 +189,8 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
 
     # initialize and add concept scheme URI
     concept_graph.add((concept_scheme_uri, RDF.type, SKOS.ConceptScheme))
+    concept_graph.add((concept_scheme_uri, SKOS.prefLabel, Literal("SemOpenAlex Concepts", datatype = XSD.string)))
+    concept_graph.add((concept_scheme_uri, URIRef("http://purl.org/dc/terms/description"), Literal("SemOpenAlex concepts are abstract ideas that works are about.", datatype = XSD.string)))
 
     for filename in glob.glob(os.path.join(data_dump_input_entity_dir, '*.gz')):
         with gzip.open(filename, 'r') as f:
