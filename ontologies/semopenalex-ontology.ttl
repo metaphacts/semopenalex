@@ -446,7 +446,7 @@ foaf:name a owl:DatatypeProperty;
   rdfs:label "abbreviated name"@en .
 
 
-<https://dbpedia.org/ontologyFunderName> a owl:DatatypeProperty;
+<https://dbpedia.org/ontology/alternativeName> a owl:DatatypeProperty;
   rdfs:domain  [ a owl:Class;
       owl:unionOf (
         <https://semopenalex.org/ontology/Source> <https://semopenalex.org/ontology/Institution>
