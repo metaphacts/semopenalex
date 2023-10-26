@@ -261,7 +261,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                             
                     wikidata = json_data.get('ids').get('wikidata')
                     if not wikidata is None:
-                        funders_graph.add((funder_uri, OWL.sameAs, Literal(wikidata, datatype= XSD.anyURI)))
+                        funders_graph.add((funder_uri, OWL.sameAs, URIRef(wikidata)))
                             
                     crossref = json_data.get('ids').get('crossref')
                     if not crossref is None:
