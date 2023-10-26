@@ -165,7 +165,7 @@ today = date.today()
 ENTITY_TYPE = 'concepts'
 ##########
 
-data_dump_input_root_dir = '/Users/linnaung/open-alex'
+data_dump_input_root_dir = '/opt/openalex-snapshot'
 
 absolute_path = os.path.dirname(__file__)
 trig_output_dir_path = os.path.join(absolute_path, '../graphdb-preload/graphdb-import/') 
