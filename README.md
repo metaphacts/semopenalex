@@ -18,6 +18,7 @@ produces a RDF document in the TRIG format.
 3. [semopenalex-publishers.py](./transformation-scripts/semopenalex-publishers.py)
 3. [semopenalex-sources.py](./transformation-scripts/semopenalex-sources.py)
 5. [semopenalex-works.py](./transformation-scripts/semopenalex-works.py)
+6. [semopenalex-funders.py](./transformation-scripts/semopenalex-funders.py)
 
 Note that the [semopenalex-dataset.py](./transformation-scripts/semopenalex-dataset.py) script is used to capture metadata about SemOpenAlex dataset (e.g. when it was loaded).
 

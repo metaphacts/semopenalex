@@ -79,6 +79,35 @@ The tables below contain the mapping that is executed in the transformation scri
 | summary_stats (h_index) | `<http://purl.org/spar/bido/h-index>` |
 | summary_stats (i10_index) | `<https://semopenalex.org/ontology/i10Index>` |
 
+## Mapping of the Funder Entities
+
+| OpenAlex Attribut | SemOpenAlex Ontology (RDF Property) |
+|-------------------|--------------------------|
+| funder | `<https://semopenalex.org/funder/ + id.replace("https://openalex.org/", "")>` |
+| display_name                   |`<http://xmlns.com/foaf/0.1/name>`                          |
+| alternate_titles                   | `<https://semopenalex.org/ontology/alternativeName>`                          |
+| country_code                   |`<https://dbpedia.org/property/countryCode>`                          |
+| description                   |`<http://purl.org/dc/terms/description>`                          |
+| homepage_url                   |`<http://xmlns.com/foaf/0.1/homepage>`                          |
+| image_url                   |`<http://xmlns.com/foaf/0.1/depiction>`                          |
+| image_thumbnail_url                   |`<https://semopenalex.org/ontology/imageThumbnail>`                          |
+| grants_count                   |`<https://semopenalex.org/ontology/grantsCount>`                          |
+| works_count                   |`<https://semopenalex.org/ontology/worksCount>`                          |
+| cited_by_count                   |`<https://semopenalex.org/ontology/citedByCount>`| 
+| summary_stats (2yr_mean_citedness) | `<https://semopenalex.org/ontology/2YrMeanCitedness>` |
+| summary_stats (h_index) | `<http://purl.org/spar/bido/h-index>` |
+| summary_stats (i10_index) | `<https://semopenalex.org/ontology/i10Index>` |
+| ids (ror)                |`<https://semopenalex.org/ontology/ror>`|
+| ids (wikidata)  | `<http://www.w3.org/2002/07/owl#sameAs>`  | 
+| ids (crossref)  | `<https://semopenalex.org/ontology/crossref>`  | 
+| ids (doi)  | `<http://prismstandard.org/namespaces/basic/2.0/doi>`  | 
+| counts_by_year                   |`<https://semopenalex.org/ontology/countsByYear>`| 
+| counts_by_year (year)                   |   `<https://semopenalex.org/ontology/year>`                |
+| counts_by_year (works_count)                  |    `<https://semopenalex.org/ontology/worksCount>`               |
+| counts_by_year (cited_by_count)                   |   `<https://semopenalex.org/ontology/citedByCount>`                |
+| updated_date                  |    `<http://purl.org/dc/terms/modified>`               |
+| created_date                 |   `<http://purl.org/dc/terms/created>`                |
+
 
 ## Mapping of the Institution Entities
 
