@@ -53,11 +53,11 @@
       <semantic-query query='
         SELECT ?publisher ?name ?isOa ?isInDoaj WHERE {
           BIND(<{{page-resource}}> as ?source)
-          ?source <https://semopenalex.org/property/hasHostOrganization> ?publisher ;
+          ?source <https://semopenalex.org/ontology/hasHostOrganization> ?publisher ;
                  <http://xmlns.com/foaf/0.1/name> ?name ;
-                 <https://semopenalex.org/property/isOa> ?isOa .
+                 <https://semopenalex.org/ontology/isOa> ?isOa .
           OPTIONAL {
-            ?source <https://semopenalex.org/property/isInDoaj> ?isInDoaj
+            ?source <https://semopenalex.org/ontology/isInDoaj> ?isInDoaj
           }
         }
       ' template='{{> tmp}}'>
@@ -85,7 +85,7 @@
           <div class="value publication-count">
             <semantic-query query='
               SELECT ?publications WHERE {
-                <{{page-resource}}> <https://semopenalex.org/property/worksCount> ?publications
+                <{{page-resource}}> <https://semopenalex.org/ontology/worksCount> ?publications
               }'>
                 {{publications.value}}
             </semantic-query>
@@ -94,7 +94,7 @@
           <div class="value citation-count">
             <semantic-query query='
               SELECT ?citations WHERE {
-                <{{page-resource}}> <https://semopenalex.org/property/citedByCount> ?citations
+                <{{page-resource}}> <https://semopenalex.org/ontology/citedByCount> ?citations
               }'>
                 {{citations.value}}
             </semantic-query>
@@ -102,9 +102,9 @@
         </div>
         <semantic-chart type="bar" query="
           SELECT ?year ?publications WHERE {
-            <{{page-resource}}> <https://semopenalex.org/property/countsByYear> ?countsByYear .
-            ?countsByYear <https://semopenalex.org/property/year> ?year ;
-                          <https://semopenalex.org/property/worksCount> ?publications
+            <{{page-resource}}> <https://semopenalex.org/ontology/countsByYear> ?countsByYear .
+            ?countsByYear <https://semopenalex.org/ontology/year> ?year ;
+                          <https://semopenalex.org/ontology/worksCount> ?publications
           } ORDER BY ASC(?year)
         " sets='[{"dataSetName": "Citations", "category": "year", "x": "year", "y": "publications"}]'
           styles='[{
@@ -166,9 +166,9 @@
       <semantic-query query='
         SELECT DISTINCT ?concept WHERE {
           BIND(<{{page-resource}}> as ?source)
-          ?hostsource <https://semopenalex.org/property/hasSource> ?source .
-          ?work <https://semopenalex.org/property/hasLocation>|<https://semopenalex.org/property/hasPrimaryLocation>|<https://semopenalex.org/property/hasBestOaLocation> ?hostsource .
-          ?work <https://semopenalex.org/property/hasConcept> ?concept  
+          ?hostsource <https://semopenalex.org/ontology/hasSource> ?source .
+          ?work <https://semopenalex.org/ontology/hasLocation>|<https://semopenalex.org/ontology/hasPrimaryLocation>|<https://semopenalex.org/ontology/hasBestOaLocation> ?hostsource .
+          ?work <https://semopenalex.org/ontology/hasConcept> ?concept  
         }
         LIMIT 70
       ' template='{{> tmp}}'>
@@ -198,24 +198,24 @@
           <semantic-table query='
             SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) WHERE {
               BIND(<{{page-resource}}> as ?source)
-              ?hostsource <https://semopenalex.org/property/hasSource> ?source .
-              ?publication <https://semopenalex.org/property/hasLocation>|<https://semopenalex.org/property/hasPrimaryLocation>|<https://semopenalex.org/property/hasBestOaLocation> ?hostsource .
+              ?hostsource <https://semopenalex.org/ontology/hasSource> ?source .
+              ?publication <https://semopenalex.org/ontology/hasLocation>|<https://semopenalex.org/ontology/hasPrimaryLocation>|<https://semopenalex.org/ontology/hasBestOaLocation> ?hostsource .
           
               
               OPTIONAL { 
                 ?publication <http://purl.org/dc/terms/creator> ?author . 
                 ?author <http://xmlns.com/foaf/0.1/name> ?name .
               }
-              OPTIONAL {   ?publication <https://semopenalex.org/property/citedByCount> ?cited . }
+              OPTIONAL {   ?publication <https://semopenalex.org/ontology/citedByCount> ?cited . }
               OPTIONAL {
                
-                ?source <https://semopenalex.org/property/hasHostOrganization> ?publisher .
+                ?source <https://semopenalex.org/ontology/hasHostOrganization> ?publisher .
               }
               OPTIONAL {
-                ?publication <https://semopenalex.org/property/hasVolume> ?volume .
+                ?publication <https://semopenalex.org/ontology/hasVolume> ?volume .
               }
               OPTIONAL {
-                ?publication <https://semopenalex.org/property/hasIssue> ?issue .
+                ?publication <https://semopenalex.org/ontology/hasIssue> ?issue .
               }
               OPTIONAL {
                 ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  

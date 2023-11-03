@@ -36,7 +36,7 @@
       component:
     --]]
     <semantic-search-query-universal-entity-info
-      for='https://semopenalex.org/class/Work'
+      for='https://semopenalex.org/ontology/Work'
       visualization='{
         "disambiguation": {
           "query": "SELECT * WHERE {  OPTIONAL { ?subject dct:abstract ?abstract } } LIMIT 1",
@@ -46,12 +46,12 @@
           "query": "
             SELECT ?issue ?volume ?venue ?abstract ?datePublished ?cited(group_concat(distinct ?creatorName;separator=\", \") as ?creators) WHERE { 
               OPTIONAL { ?subject dct:abstract ?abstract }
-              OPTIONAL { ?subject sp:hasIssue ?issue }
-              OPTIONAL { ?subject sp:hasVolume ?volume }
+              OPTIONAL { ?subject soa:hasIssue ?issue }
+              OPTIONAL { ?subject soa:hasVolume ?volume }
               OPTIONAL { ?subject dct:creator ?creator . ?creator foaf:name ?creatorName . }
-              OPTIONAL { ?subject sp:hasPrimaryLocation/sp:hasSource/foaf:name ?venue }
+              OPTIONAL { ?subject soa:hasPrimaryLocation/soa:hasSource/foaf:name ?venue }
               OPTIONAL { ?subject fabio:hasPublicationYear ?datePublished }
-              OPTIONAL { ?subject sp:citedByCount ?cited }
+              OPTIONAL { ?subject soa:citedByCount ?cited }
             } GROUP BY ?issue ?volume ?venue ?abstract ?datePublished ?cited LIMIT 1
           ",
           "template": "{{> resultsTemplate}}"
@@ -145,7 +145,7 @@ Uncomment and modify this template to customize domain cards:
 <template-fragment id='work-concepts'>
   <semantic-query query='
     SELECT ?concept  {
-      <{{publication.value}}> <https://semopenalex.org/property/hasConcept> ?concept .
+      <{{publication.value}}> <https://semopenalex.org/ontology/hasConcept> ?concept .
     } LIMIT 10' 
     template='{{>tmp}}'
   >

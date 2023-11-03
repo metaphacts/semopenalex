@@ -105,7 +105,7 @@
           <div class="publications__label">Publications</div>
           <semantic-query query='
             SELECT ?count WHERE {
-              <{{page-resource}}> <https://semopenalex.org/property/worksCount> ?count
+              <{{page-resource}}> <https://semopenalex.org/ontology/worksCount> ?count
             }' template='{{>tmp}}'>
             <template id="tmp">
               {{#each bindings}}
@@ -118,7 +118,7 @@
           <div class="citations__label">Citation</div>
           <semantic-query query='
             SELECT ?count WHERE {
-              <{{page-resource}}> <https://semopenalex.org/property/citedByCount> ?count  
+              <{{page-resource}}> <https://semopenalex.org/ontology/citedByCount> ?count  
             }
           ' template="{{> tmp}}">
             <template id="tmp">
@@ -131,9 +131,9 @@
       </div>
       <semantic-chart type="bar" query="
         SELECT ?year ?work WHERE {
-          <{{page-resource}}> <https://semopenalex.org/property/countsByYear> ?count .
-          ?count <https://semopenalex.org/property/year> ?year .
-          ?count <https://semopenalex.org/property/worksCount> ?work .
+          <{{page-resource}}> <https://semopenalex.org/ontology/countsByYear> ?count .
+          ?count <https://semopenalex.org/ontology/year> ?year .
+          ?count <https://semopenalex.org/ontology/worksCount> ?work .
         } ORDER BY ASC(?year)
       " sets='[{"dataSetName": "Publications", "category": "year", "x": "year", "y": "work"}]'
         styles='[{
@@ -289,24 +289,24 @@
           SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) (COUNT(?publication) as ?count) WHERE {
             {
               SELECT * WHERE {
-                ?publication <https://semopenalex.org/property/hasConcept> <{{page-resource}}> .  
+                ?publication <https://semopenalex.org/ontology/hasConcept> <{{page-resource}}> .  
               }
               LIMIT 1001
             }
             ?publication <http://purl.org/dc/terms/creator> ?author . 
             ?publication <http://purl.org/dc/terms/title> ?title .
             ?author <http://xmlns.com/foaf/0.1/name> ?name .
-            ?publication <https://semopenalex.org/property/citedByCount> ?cited .
+            ?publication <https://semopenalex.org/ontology/citedByCount> ?cited .
             OPTIONAL {
-              ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
-              ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
+              ?publication <https://semopenalex.org/ontology/hasHostVenue> ?hostVenue .
+              ?hostVenue <https://semopenalex.org/ontology/hasVenue> ?venue .
               ?venue <http://purl.org/dc/terms/publisher> ?publisher .
             }
             OPTIONAL {
-              ?publication <https://semopenalex.org/property/hasVolume> ?volume .
+              ?publication <https://semopenalex.org/ontology/hasVolume> ?volume .
             }
             OPTIONAL {
-              ?publication <https://semopenalex.org/property/hasIssue> ?issue .
+              ?publication <https://semopenalex.org/ontology/hasIssue> ?issue .
             }
             OPTIONAL {
               ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
@@ -349,7 +349,7 @@
         <semantic-query query='SELECT (COUNT(*) as ?count) WHERE {
           {
             SELECT * WHERE {
-              ?publication <https://semopenalex.org/property/hasConcept> <{{page-resource}}> .  
+              ?publication <https://semopenalex.org/ontology/hasConcept> <{{page-resource}}> .  
             }
             LIMIT 1001
           }
