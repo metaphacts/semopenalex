@@ -249,17 +249,7 @@
               <div>
                 <span style="font-style: italic;">h</span>
                 <span>-index: </span>
-                <semantic-query query='
-                  PREFIX jsfn:<http://www.ontotext.com/js#>
-                  SELECT ?hIndex WHERE { 
-                    { select (group_concat(?cited;separator=",") as ?citedArray)  where {
-                      { select (COUNT(?work) as ?cited) where {
-                        ?work  <http://purl.org/dc/terms/creator> <{{page-resource}}> .
-                        ?work2 <http://purl.org/spar/cito/cites> ?work  .
-                      } group by ?work }
-                    } }
-                    BIND (xsd:integer(jsfn:findHIndex(?citedArray)) as ?hIndex)
-                  }
+                <semantic-query query=' SELECT ?hIndex WHERE {  <{{page-resource}}> <http://purl.org/spar/bido/h-index> ?hIndex . }
                 ' template='{{>tmp}}'>
                   <template id='tmp'>
                     {{#each bindings}}
@@ -270,10 +260,10 @@
               </div>
               <div class="citation-chart">
                 <semantic-chart type="bar" query="
-                  select ?work (COUNT(?work) as ?citations) where {
+                  select ?work ?citations where {
                     ?work  <http://purl.org/dc/terms/creator> <{{page-resource}}> .
-                    ?work2 <http://purl.org/spar/cito/cites> ?work  .
-                  } group by ?work ORDER BY ASC(?citations)
+                    ?work <https://semopenalex.org/ontology/citedByCount> ?citations .
+                  } ORDER BY ASC(?citations)
                 " sets='[{"dataSetName": "Citations", "category": "work", "value": "citations"}]'
                   styles='[{
                     "provider": "highcharts",
@@ -318,8 +308,8 @@
             <div class="publications-count">
               <div class="publications-citations__label">Publications</div>
               <semantic-query query='
-                SELECT (COUNT(distinct ?publication) as ?count) WHERE {
-                  ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}>
+                SELECT ?count WHERE {
+                  <{{page-resource}}> <https://semopenalex.org/ontology/worksCount> ?count .
                 }
               ' template='{{>tmp}}'>
                 <template id='tmp'>
@@ -334,7 +324,7 @@
               <semantic-query query='
                 SELECT ?cited WHERE {
                   <{{page-resource}}> a ?author ;
-                  <https://semopenalex.org/property/citedByCount> ?cited ;
+                  <https://semopenalex.org/ontology/citedByCount> ?cited ;
                 }
               ' template='{{>citations}}'>
                 <template id='citations'>
@@ -350,9 +340,9 @@
               {
                 select ?year (sum (?cites) as ?cites ) {
                   ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
-                  ?publication <https://semopenalex.org/property/countsByYear> ?count .
-                  ?count <https://semopenalex.org/property/year> ?year .
-                  ?count <https://semopenalex.org/property/citedByCount> ?cites .
+                  ?publication <https://semopenalex.org/ontology/countsByYear> ?count .
+                  ?count <https://semopenalex.org/ontology/year> ?year .
+                  ?count <https://semopenalex.org/ontology/citedByCount> ?cites .
                 } group by ?year order by asc(?year)
               } union {
                 select ?year (count (distinct ?publication) as ?publications ) {
@@ -408,14 +398,14 @@
               ?work <http://purl.org/dc/terms/creator> <{{page-resource}}>;
               { SELECT ?count WHERE {
                 ?work <http://purl.org/dc/terms/creator> <{{page-resource}}> ;
-                  <https://semopenalex.org/property/citedByCount> ?count.
+                  <https://semopenalex.org/ontology/citedByCount> ?count.
             
               } ORDER BY DESC (?count) }
                 ?work2 <http://purl.org/spar/cito/cites> ?work.
               ?publication <http://purl.org/dc/terms/creator> ?coauthor.
               FILTER(?coauthor != <{{page-resource}}>)
               <{{page-resource}}> <http://www.w3.org/ns/org#memberOf> ?institution.
-              ?work <https://semopenalex.org/property/hasConcept> ?concept.
+              ?work <https://semopenalex.org/ontology/hasConcept> ?concept.
               
             }  LIMIT 1
           ' template='{{>tmp}}'>
@@ -449,7 +439,7 @@
           <semantic-query query='
             SELECT DISTINCT ?concept (COUNT (distinct ?publication) as ?count) {
               ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
-              ?publication <https://semopenalex.org/property/hasConcept> ?concept .
+              ?publication <https://semopenalex.org/ontology/hasConcept> ?concept .
             }
             GROUP BY ?concept
             ORDER BY desc(?count)
@@ -551,17 +541,17 @@
                 ?publication <http://purl.org/dc/terms/creator> ?author . 
                 ?publication <http://purl.org/dc/terms/title> ?title .
                 ?author <http://xmlns.com/foaf/0.1/name> ?name .
-                ?publication <https://semopenalex.org/property/citedByCount> ?cited .
+                ?publication <https://semopenalex.org/ontology/citedByCount> ?cited .
                 OPTIONAL {
-                  ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
-                  ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
+                  ?publication <https://semopenalex.org/ontology/hasHostVenue> ?hostVenue .
+                  ?hostVenue <https://semopenalex.org/ontology/hasVenue> ?venue .
                   ?venue <http://purl.org/dc/terms/publisher> ?publisher .
                 }
                 OPTIONAL {
-                  ?publication <https://semopenalex.org/property/hasVolume> ?volume .
+                  ?publication <https://semopenalex.org/ontology/hasVolume> ?volume .
                 }
                 OPTIONAL {
-                  ?publication <https://semopenalex.org/property/hasIssue> ?issue .
+                  ?publication <https://semopenalex.org/ontology/hasIssue> ?issue .
                 }
                 OPTIONAL {
                   ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  

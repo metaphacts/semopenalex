@@ -71,7 +71,7 @@
         <div>
           <div class="publications__label">Publications</div>
           <semantic-query query='
-            SELECT ?count WHERE { <{{page-resource}}> <https://semopenalex.org/property/worksCount> ?count}' template='{{> tmp}}'>
+            SELECT ?count WHERE { <{{page-resource}}> <https://semopenalex.org/ontology/worksCount> ?count}' template='{{> tmp}}'>
               <template id="tmp">
                 {{#each bindings}}
                   <div class="publications__value">{{count.value}}</div>
@@ -83,7 +83,7 @@
           <div class="citations__label">Citations</div>
           <semantic-query query='
             SELECT ?cited WHERE {
-	            <{{page-resource}}> <https://semopenalex.org/property/citedByCount> ?cited
+	            <{{page-resource}}> <https://semopenalex.org/ontology/citedByCount> ?cited
             }' template='{{> tmp}}'>
               <template id="tmp">
                 {{#each bindings}}
@@ -95,9 +95,9 @@
       </div>
       <semantic-chart type="bar" query="
         SELECT ?year ?work WHERE {
-          <{{page-resource}}> <https://semopenalex.org/property/countsByYear> ?count .
-          ?count <https://semopenalex.org/property/year> ?year .
-          ?count <https://semopenalex.org/property/worksCount> ?work .
+          <{{page-resource}}> <https://semopenalex.org/ontology/countsByYear> ?count .
+          ?count <https://semopenalex.org/ontology/year> ?year .
+          ?count <https://semopenalex.org/ontology/worksCount> ?work .
         } ORDER BY ASC(?year)
       " sets='[{"dataSetName": "Publications", "category": "year", "x": "year", "y": "work"}]'
         styles='[{
@@ -121,8 +121,8 @@
         <div class="card__title">LOCATED IN</div>
         <semantic-query query='SELECT ?location ?city ?country WHERE {
           <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
-          ?location <https://dbpedia.org/property/city> ?city ;
-                    <https://dbpedia.org/property/country> ?country
+          ?location <https://dbpedia.org/ontology/city> ?city ;
+                    <https://dbpedia.org/ontology/country> ?country
         }' template="{{> tmp}}" no-result-template='Location not available.'>
           <template id="tmp">
             {{#each bindings}}
@@ -158,8 +158,8 @@
             <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
             ?location <http://www.geonames.org/ontology#lat> ?lat .
             ?location <http://www.geonames.org/ontology#long> ?lng .
-            OPTIONAL { ?location <https://dbpedia.org/property/city> ?city . }
-            OPTIONAL { ?location <https://dbpedia.org/property/country> ?country .}
+            OPTIONAL { ?location <https://dbpedia.org/ontology/city> ?city . }
+            OPTIONAL { ?location <https://dbpedia.org/ontology/country> ?country .}
           }' 
           tuple-template='<b>{{#if city}}{{city.value}}{{/if}} {{#if country}}({{country.value}}){{/if}}</b>'>
         </semantic-map>
@@ -174,7 +174,7 @@
       SELECT DISTINCT ?concept WHERE {
         ?author <http://www.w3.org/ns/org#memberOf> <{{page-resource}}> .
         ?work <http://purl.org/dc/terms/creator> ?author .
-        ?work <https://semopenalex.org/property/hasConcept> ?concept
+        ?work <https://semopenalex.org/ontology/hasConcept> ?concept
       }
       LIMIT 70' template='{{>tmp}}'>
       <template id="tmp">
@@ -219,17 +219,17 @@
                 ?publication <http://purl.org/dc/terms/creator> ?author .
                 ?publication <http://purl.org/dc/terms/title> ?title .
                 ?author <http://xmlns.com/foaf/0.1/name> ?name .
-                ?publication <https://semopenalex.org/property/citedByCount> ?cited .
+                ?publication <https://semopenalex.org/ontology/citedByCount> ?cited .
                 OPTIONAL {
-                  ?publication <https://semopenalex.org/property/hasHostVenue> ?hostVenue .
-                  ?hostVenue <https://semopenalex.org/property/hasVenue> ?venue .
+                  ?publication <https://semopenalex.org/ontology/hasHostVenue> ?hostVenue .
+                  ?hostVenue <https://semopenalex.org/ontology/hasVenue> ?venue .
                   ?venue <http://purl.org/dc/terms/publisher> ?publisher .
                 }
                 OPTIONAL {
-                  ?publication <https://semopenalex.org/property/hasVolume> ?volume .
+                  ?publication <https://semopenalex.org/ontology/hasVolume> ?volume .
                 }
                 OPTIONAL {
-                  ?publication <https://semopenalex.org/property/hasIssue> ?issue .
+                  ?publication <https://semopenalex.org/ontology/hasIssue> ?issue .
                 }
                 OPTIONAL {
                   ?publication <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
@@ -273,7 +273,7 @@
             <semantic-table query='
               SELECT ?associatedInstitution ?name ?alternativeName ?city ?country WHERE {
                 BIND(<{{page-resource}}> as ?institution)
-                ?institution <https://semopenalex.org/property/hasAssociatedInstitution> ?associatedInstitution .
+                ?institution <https://semopenalex.org/ontology/hasAssociatedInstitution> ?associatedInstitution .
                 ?associatedInstitution <http://xmlns.com/foaf/0.1/name> ?name .
                 OPTIONAL {
                   ?associatedInstitution <https://dbpedia.org/ontology/alternativeName> ?alternativeName .
@@ -282,10 +282,10 @@
                   ?associatedInstitution <https://dbpedia.org/ontology/location> ?location .
                 }
                 OPTIONAL {
-                  ?location <https://dbpedia.org/property/city> ?city .
+                  ?location <https://dbpedia.org/ontology/city> ?city .
                 }
                 OPTIONAL {
-                  ?location <https://dbpedia.org/property/country> ?country .
+                  ?location <https://dbpedia.org/ontology/country> ?country .
                 }
               }'
               number-of-displayed-rows="10" tuple-template='

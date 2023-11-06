@@ -20,14 +20,15 @@
       <div style='margin-top:8px;'>
         <bs-row>
           <bs-col md="6">
-            {{>::count-entity type='https://semopenalex.org/class/Work' image='/assets/images/icon-2.png' label='works'}}
-            {{>::count-entity type='https://semopenalex.org/class/Author' image='/assets/images/icon-1.png' label='authors'}}
-            {{>::count-entity type='https://semopenalex.org/class/Institution' image='/assets/images/icon-3.png' label='institutions'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Work' image='/assets/images/icon-2.png' label='works'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Author' image='/assets/images/icon-1.png' label='authors'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Institution' image='/assets/images/icon-3.png' label='institutions'}}
           </bs-col>
           <bs-col md="6">
             {{>::count-entity type='http://www.w3.org/2004/02/skos/core#Concept' image='/assets/images/icon-5.png' label='topics'}}
-            {{>::count-entity type='https://semopenalex.org/class/Source' image='/assets/images/icon-6.png' label='sources'}}
-            {{>::count-entity type='https://semopenalex.org/class/Publisher' image='/assets/images/icon-7.png' label='publishers'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Source' image='/assets/images/icon-6.png' label='sources'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Publisher' image='/assets/images/icon-7.png' label='publishers'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Funder' image='/assets/images/funding.png' label='funders'}}
           </bs-col>
         </bs-row>
       </div>
@@ -131,7 +132,7 @@ PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#> 
 PREFIX fabio: &lt;http://purl.org/spar/fabio/>
 PREFIX dcterms: &lt;http://purl.org/dc/terms/>
-PREFIX soa: &lt;https://semopenalex.org/property/>
+PREFIX soa: &lt;https://semopenalex.org/ontology/>
 PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
 
 SELECT DISTINCT ?paperTitle ?paper ?oaUrl WHERE {
@@ -151,11 +152,11 @@ SELECT DISTINCT ?paperTitle ?paper ?oaUrl WHERE {
 PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/>
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
-PREFIX soa: &lt;https://semopenalex.org/property/>
+PREFIX soa: &lt;https://semopenalex.org/ontology/>
 
 SELECT ?institution ?institutionName ?worksCount WHERE {
 
-  ?institution rdf:type &lt;https://semopenalex.org/class/Institution> . 
+  ?institution rdf:type &lt;https://semopenalex.org/ontology/Institution> . 
   ?institution foaf:name ?institutionName .
   ?institution soa:countsByYear ?countsByYear .
   ?countsByYear soa:year "2021"^^xsd:integer .
@@ -170,7 +171,7 @@ SELECT ?institution ?institutionName ?worksCount WHERE {
 PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/> 
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
 PREFIX dcterms: &lt;http://purl.org/dc/terms/>
-PREFIX soa: &lt;https://semopenalex.org/property/> 
+PREFIX soa: &lt;https://semopenalex.org/ontology/> 
 PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
 
 SELECT ?paperTitle ?citedByCount ?firstAuthorName WHERE {
