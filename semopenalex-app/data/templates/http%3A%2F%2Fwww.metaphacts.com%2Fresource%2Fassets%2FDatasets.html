@@ -1,0 +1,693 @@
+
+
+<style type='text/css'>
+  .SemanticSearchFacet--relationAndContent:not(:first-child) {
+    border: 1px solid var(--mp-color-primary-100);
+    margin-top: 8px;
+  }
+
+ .dataset .table-custom-row {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  .dataset .card {
+    border-radius: 10px
+  }
+
+  .catalogueActions {
+    position: relative;
+    right: 190px;
+  }
+
+  .dataset button.btnAddDataset {
+    margin-left: 10px;
+  }
+
+  dataset .largeDialog .modal-dialog {
+    max-width: 1200px;
+  }
+
+  .dataset .moreActions > .dropdown-toggle::after {
+    display: none;
+  }
+
+  .dataset .moreActions > button {
+    margin-right: 7px;
+    margin-top: 2px;
+    /* small button to be aligned with other buttons, but use default icon size */
+    --mp-icon-size: 18px;
+  }
+
+  .datasetDistribution .maincontent {
+    flex: 1;
+    max-width: 860px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .datasetDistribution .distribution-content-info {
+    background-color: var(--mp-color-primary-100);
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+  .dataset .card.version-of {
+    border: 2px solid #F5F5EB;
+    margin-left: 10px;
+  }
+
+</style>
+
+<ol class="page-breadcrumb">
+  <li>
+    <mp-link title="Home" url="/">Home</mp-link>
+  </li>
+  <li><semantic-link title="Assets" iri='{{rdf-resolvePrefix "Assets:"}}'>Assets</semantic-link></li>
+  <li class="active">Datasets</li>
+</ol>
+
+[[#if (hasPermission "datasets:")]]
+<div class="page">
+  <div class="page__header">
+    <div class='page__header-thumbnail'>
+      <h2><span class="material-symbols-outlined">folder</span></h2>
+    </div>
+    <div class='page__header-body'>
+      <h2>Datasets</h2>
+      <p>This is the entry page to the data catalog.</p>
+    </div>
+
+    [[#if (hasPermission "sparql:graphstore:update")]]
+    <div class="catalogueActions">
+      <div data-flex-layout="row top-stretch">
+        <mp-overlay-dialog title="Create new Dataset" type="modal" bs-size="large" class='new-dataset-dialog'>
+          <mp-overlay-dialog-trigger>
+            <button class="btnAddDataset btn btn-primary">Create</button>
+          </mp-overlay-dialog-trigger>
+          <mp-overlay-dialog-content>
+            {{> Platform:AddDatasetMetadata}}
+          </mp-overlay-dialog-content>
+        </mp-overlay-dialog>
+
+      </div>
+    </div>
+    [[/if]]
+
+  </div>
+  <div class='dataset page__body'>
+
+    <semantic-search selector-mode='dropdown' optimizer='none'
+      relations='{
+          "<http://purl.org/dc/terms/publisher-name>": [{
+            "kind": "literal",
+            "queryPattern": "{ $subject <http://purl.org/dc/terms/publisher>/<http://xmlns.com/foaf/0.1/name> ?__literal__ . }"
+          }]
+      }'
+
+      search-profile='{
+        "categories": [
+          {"iri": "<http://www.w3.org/ns/dcat#Dataset>", "label": "Dataset"},
+          {"iri": "<http://www.w3.org/2000/01/rdf-schema#Resource>", "label": "Resource"},
+          {"iri": "<http://www.w3.org/2001/XMLSchema#string>", "label": "String"},
+          {"iri": "<http://www.w3.org/2001/XMLSchema#dateTime>", "label": "Date"}
+        ],
+        "relations": [
+          {
+            "iri": "<http://purl.org/dc/terms/issued>",
+            "label": "Release Date",
+            "hasDomain": "<http://www.w3.org/ns/dcat#Dataset>",
+            "hasRange": "<http://www.w3.org/2001/XMLSchema#dateTime>"
+          },
+          {
+            "iri": "<http://www.w3.org/ns/dcat#keyword>",
+            "label": "Keyword",
+            "hasDomain": "<http://www.w3.org/ns/dcat#Dataset>",
+            "hasRange": "<http://www.w3.org/2001/XMLSchema#string>"
+          },
+          {
+            "iri": "<http://purl.org/dc/terms/license>",
+            "label": "License",
+            "hasDomain": "<http://www.w3.org/ns/dcat#Dataset>",
+            "hasRange": "<http://www.w3.org/2000/01/rdf-schema#Resource>"
+          },
+          {
+            "iri": "<http://purl.org/dc/terms/modified>",
+            "label": "Last Modified",
+            "hasDomain": "<http://www.w3.org/ns/dcat#Dataset>",
+            "hasRange": "<http://www.w3.org/2001/XMLSchema#dateTime>"
+          },
+          {
+            "iri": "<http://purl.org/dc/terms/publisher-name>",
+            "label": "Publisher",
+            "hasDomain": "<http://www.w3.org/ns/dcat#Dataset>",
+            "hasRange": "<http://www.w3.org/2001/XMLSchema#string>"
+          },
+          {
+            "iri": "<http://www.w3.org/ns/dcat#theme>",
+            "label": "Theme",
+            "hasDomain": "<http://www.w3.org/ns/dcat#Dataset>",
+            "hasRange": "<http://www.w3.org/2000/01/rdf-schema#Resource>"
+          }
+          ]
+      }'
+    >
+        <semantic-search-query-keyword
+          domain='<http://www.w3.org/ns/dcat#Dataset>'
+               placeholder='Search for datasets by keyword, title or description'
+               min-search-term-length=2
+               query='
+                PREFIX dcat: <http://www.w3.org/ns/dcat#>
+                 SELECT ?subject {
+                   ?subject a dcat:Dataset .
+                   OPTIONAL {
+                     ?subject ?property ?attribute .
+                     FILTER (?property IN (<http://purl.org/dc/terms/title>, <http://purl.org/dc/terms/description>, dcat:keyword) )
+                     FILTER (isLiteral(?attribute))
+                   }
+                   FILTER regex(COALESCE(STR(?attribute), STR(?subject)), ?__token__, "i") .
+                 }
+               '
+               default-query='
+                 PREFIX dcat: <http://www.w3.org/ns/dcat#>
+                 SELECT ?subject {
+                   ?subject a dcat:Dataset .
+                 }
+               '
+             >
+        </semantic-search-query-keyword>
+
+        <semantic-search-facet-store id='facet'></semantic-search-facet-store>
+
+        <div style='display: flex;'>
+          <semantic-search-facet-holder style='flex: 0.33; padding-right: 16px;' collapsible='none'>
+              <semantic-search-facet-group show-header='false' allow-multiple-open='true' show-inactive-relations='false'></semantic-search-facet-group>
+          </semantic-search-facet-holder>
+
+          <semantic-search-result-holder>
+            <div style='flex: 1;'>
+              <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
+              <semantic-search-result>
+
+                <semantic-table
+                  id='field-results'
+                  number-of-displayed-rows=10
+                  query='PREFIX dcat: <http://www.w3.org/ns/dcat#>
+                    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                    PREFIX dct: <http://purl.org/dc/terms/>
+                    SELECT DISTINCT ?subject (SAMPLE(?g) as ?graph) ?hasDistributions ?hasNamedGraphs ?parentDataset ?hasChildDataset WHERE {
+                      FILTER(isIRI(?subject)) .
+                      GRAPH ?g {
+                        ?subject a dcat:Dataset .
+                      }
+
+                      BIND (IF(EXISTS {
+                        ?subject dcat:distribution ?distribution .
+                      }, true, false) AS ?hasDistributions)
+
+                      BIND (IF(EXISTS {
+                        ?subject <http://www.w3.org/ns/sparql-service-description#namedGraph> ?ng .
+                      }, true, false) AS ?hasNamedGraphs)
+
+                      OPTIONAL { ?subject ^dcat:hasVersion ?parentDataset . }
+
+                      BIND (IF(EXISTS {
+                        ?subject dcat:hasVersion ?hasChildDataset .
+                      }, true, false) AS ?hasChildDataset)
+
+                    } GROUP BY ?subject ?hasDistributions ?hasNamedGraphs ?parentDataset ?hasChildDataset LIMIT 100'
+                  tuple-template='{{> datasetTemplate }}'
+                  no-result-template='No Datasets found. Add a Dataset using the provided actions.'
+                  options='{"showFilter": false}'
+                >
+
+                  <template id='datasetTemplate'>
+                    <mp-event-target-refresh id="refresh_{{subject.value}}">
+                      <mp-panel class='{{#if parentDataset}}version-of{{/if}}'>
+                        <mp-panel-body>
+                          <div data-flex-layout="column justify-justify" style="min-height: 100px;">
+                            <div class='row' data-flex-layout="row top-spread">
+                              <div class='col-sm-8' style='border-right: 1px solid #dddd'>
+                                <div style='font-size:18px;'>
+                                  {{#if (cond-eq hasDistributions.value "true")}}
+                                    {{> ::dataset-distribution-badge}}
+                                  {{/if}}
+
+                                  {{> ::dataset-namedgraphs-badge}}
+
+                                  {{> Assets:DatasetsHelpers::dataset-link dataset=subject.value}}
+                                </div>
+                                <p style='font-size:10px;'>{{subject.value}}</p>
+
+                                {{> Platform:AssetFragments::assetDescription assetIri=subject.value}}
+
+                                <div class='row' data-flex-layout="row center-left">
+                                  <div class='col-sm-12'>
+                                    {{> ::datasetInfo
+                                        label='Keywords:'
+                                        dataset=subject.value
+                                        property='http://www.w3.org/ns/dcat#keyword'
+                                      }}
+                                  </div>
+                                  <div class='col-sm-12'>
+                                    {{> ::datasetInfo
+                                        label='Themes:'
+                                        dataset=subject.value
+                                        property='http://www.w3.org/ns/dcat#theme'
+                                    }}
+                                  </div>
+
+                                  {{#if parentDataset}}
+                                    <div class='col-sm-12'>
+                                      <b style='font-size:12px;margin:5px'>Version of: </b>
+                                      <div style='font-size:12px;margin-left:10px'>
+                                        {{> Assets:DatasetsHelpers::dataset-link dataset=parentDataset.value}}
+                                      </div>
+                                    </div>
+                                  {{/if}}
+
+                                  {{#if (cond-eq hasChildDataset.value "true")}}
+                                    <div class='col-sm-12'>
+                                      <b style='font-size:12px;margin:5px'>Has Version: </b>
+                                      <div style='font-size:12px;margin-left:10px'>
+                                        {{> ::child-dataset dataset=subject.value}}
+                                      </div>
+                                    </div>
+                                  {{/if}}
+                                </div>
+                              </div>
+                              <div class='col-sm-4 datasetActions'>
+                                <div class='row'>
+                                  <div class='col-sm-10'>
+                                    {{> ::datasetContent }}
+                                  </div>
+                                  <div class='col-sm-2'>
+                                    <div style='margin-bottom: 0px'>
+                                      <div style='margin-right:-30px; display: flex;justify-content: flex-end;'>
+
+                                        [[#if (hasPermission "sparql:graphstore:update")]]
+                                        <bs-dropdown class='moreActions'>
+                                          <bs-dropdown-toggle id='' class='btn-sm btn-icon' variant='transparent'>
+                                            <span class="material-symbols-outlined" aria-label="Actions">more_vert</span>
+                                          </bs-dropdown-toggle>
+                                          <bs-dropdown-menu>
+
+
+                                            <mp-overlay-dialog title="Edit metadata" type="modal" bs-size="large">
+                                              <mp-overlay-dialog-trigger>
+                                                <bs-dropdown-item>Edit metadata</bs-dropdown-item>
+                                              </mp-overlay-dialog-trigger>
+                                              <mp-overlay-dialog-content>
+                                                {{> Platform:DatasetMetadataForm datasetIri=subject.value reload=true}}
+                                              </mp-overlay-dialog-content>
+                                            </mp-overlay-dialog>
+
+                                            <mp-overlay-dialog title="Link Named Graphs" type="modal" bs-size="large">
+                                              <mp-overlay-dialog-trigger>
+                                                <bs-dropdown-item>Link Named Graphs</bs-dropdown-item>
+                                              </mp-overlay-dialog-trigger>
+                                              <mp-overlay-dialog-content>
+                                                {{> Platform:LinkNamedGraphForm iri=subject.value edit=true}}
+                                              </mp-overlay-dialog-content>
+                                            </mp-overlay-dialog>
+
+                                              <mp-overlay-dialog title="Delete Dataset" type="modal">
+                                                <mp-overlay-dialog-trigger>
+                                                  <bs-dropdown-item>Delete</bs-dropdown-item>
+                                                </mp-overlay-dialog-trigger>
+                                                <mp-overlay-dialog-content>
+                                                  {{> ::delete-dataset dataset=subject.value}}
+                                                </mp-overlay-dialog-content>
+                                              </mp-overlay-dialog>
+
+                                          </bs-dropdown-menu>
+                                        </bs-dropdown>
+                                        [[/if]]
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mp-panel-body>
+                      </mp-panel>
+                    </mp-event-target-refresh>
+                  </template>
+                </semantic-table>
+              </semantic-search-result>
+            </div>
+          </semantic-search-result-holder>
+        </div>
+    </semantic-search>
+  </div>
+</div>
+[[else]]
+<div class='page__body'>
+  <bs-alert variant="warning" style="margin-top: 50px;">
+    <strong>Warning!</strong><br/>
+    <p>You do not seem to have permissions for viewing & authoring datasets. Please contact your administrator.</p>
+  </bs-alert>
+</div>
+[[/if]]
+
+<template-fragment id='child-dataset'>
+  <semantic-query
+    query='
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+			SELECT ?childDataset WHERE {
+        GRAPH ?g {
+          <{{dataset}}> dcat:hasVersion ?childDataset .
+        }
+      }'
+    template='{{> tmpl}}'
+  >
+    <template id='tmpl'>
+      {{#each bindings}}
+        {{> Assets:DatasetsHelpers::dataset-link dataset=childDataset.value}}
+        {{#if @last}}
+        {{else}},
+        {{/if}}
+      {{/each}}
+    </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id='dataset-distribution-badge'>
+  <semantic-query
+    query='
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+			SELECT (COUNT(DISTINCT *) as ?count) WHERE {
+        GRAPH ?g {
+          <{{subject.value}}> a dcat:Dataset .
+          <{{subject.value}}> dcat:distribution ?item .
+          FILTER(!isBlank(?item)) .
+        }
+      }'
+    template='{{> itemCounts numberOfDistributions=bindings.0.count.value}}'
+  >
+    <template id='itemCounts'>
+      <mp-overlay-dialog title="Dataset Distributions" type="modal" bs-size="large">
+        <mp-overlay-dialog-trigger>
+          <div class='assetStyles' style='float:right; margin-left: 5px'>
+            {{#if (cond-gt numberOfDistributions 0)}}
+              <button
+                class='btn btn-secondary btn-sm'
+              >
+              {{numberOfDistributions}} Distribution{{#if (cond-gt numberOfDistributions 1)}}s{{/if}}
+             </button>
+            {{/if}}
+          </div>
+        </mp-overlay-dialog-trigger>
+        <mp-overlay-dialog-content>
+           {{> ::dataset-distribution-content dataset=subject.value}}
+
+          <div class='assetStyles' style='display: flex;justify-content: flex-end;' >
+            <mp-event-trigger type='Dialog.HideAll'>
+              <button style='font-weight: bold;margin-left:5px;' class='btn btn-secondary'>Close</button>
+            </mp-event-trigger>
+          </div>
+        </mp-overlay-dialog-content>
+      </mp-overlay-dialog>
+    </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id='dataset-namedgraphs-badge'>
+  <semantic-query
+    query='
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+			SELECT (COUNT(DISTINCT *) as ?count) WHERE {
+        GRAPH ?g {
+          <{{subject.value}}> a dcat:Dataset .
+          <{{subject.value}}> <http://www.w3.org/ns/sparql-service-description#namedGraph> ?ng .
+          FILTER(!isBlank(?ng)) .
+        }
+      }'
+    template='{{> itemCounts numberOfNamedGraphs=bindings.0.count.value}}'
+  >
+    <template id='itemCounts'>
+      <mp-overlay-dialog title="Linked Named Graphs" type="modal" bs-size="large">
+        <mp-overlay-dialog-trigger>
+          <div style='float:right;'>
+            {{#if (cond-gt numberOfNamedGraphs 0)}}
+              <button
+                class='btn btn-secondary btn-sm'
+              >
+              {{numberOfNamedGraphs}} Named Graph{{#if (cond-gt numberOfNamedGraphs 1)}}s{{/if}}
+             </button>
+            {{/if}}
+          </div>
+        </mp-overlay-dialog-trigger>
+        <mp-overlay-dialog-content>
+          [[#if (hasPermission "sparql:graphstore:update")]]
+            {{> Platform:LinkNamedGraphForm iri=subject.value edit=true}}
+          [[else]]
+            {{> Platform:LinkNamedGraphForm iri=subject.value edit=false}}
+          [[/if]]
+        </mp-overlay-dialog-content>
+      </mp-overlay-dialog>
+    </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id='datasetInfo'>
+  <semantic-query
+    query='
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+			SELECT DISTINCT ?data WHERE {
+        GRAPH ?g {
+          <{{dataset}}> a dcat:Dataset .
+          <{{dataset}}> <{{property}}> ?data .
+        }
+      } ORDER BY ?data'
+    template='{{> dataset-info-template }}'
+  >
+    <template id='dataset-info-template'>
+      <b style='font-size:12px;margin:5px'>{{label}}</b>
+      <div>
+      {{#each bindings}}
+        <span class="badge badge-secondary" style='margin: 4px;'>
+          {{#if (isIri data)}}
+            <mp-label iri="{{data.value}}"></mp-label>
+          {{else}}
+            {{data.value}}
+          {{/if}}
+        </span>
+      {{/each}}
+      </div>
+    </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id="datasetContent">
+  <semantic-query
+    query='
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+			SELECT DISTINCT ?dataset (SAMPLE(?ver) AS ?version) ?license ?issued ?modified ?publisherName
+      (GROUP_CONCAT( ?crName; SEPARATOR=", ") AS ?creatorName) WHERE {
+
+        BIND (<{{subject.value}}> AS ?dataset )
+
+        ?dataset a dcat:Dataset .
+        OPTIONAL { ?dataset dcat:version ?ver . }
+        OPTIONAL { ?dataset dct:license ?license . }
+        OPTIONAL { ?dataset dct:issued ?issued . }
+        OPTIONAL { ?dataset dct:modified ?modified . }
+        OPTIONAL { SELECT (SAMPLE(?pName) AS ?publisherName) WHERE { <{{subject.value}}> dct:publisher ?publisher . ?publisher foaf:name|rdfs:label ?pName . } }
+        OPTIONAL { SELECT ?creator (SAMPLE(?cName) AS ?crName) WHERE { <{{subject.value}}> dct:creator ?creator . ?creator foaf:name|rdfs:label ?cName . } GROUP BY ?creator}
+
+      } GROUP BY ?dataset ?license ?issued ?modified ?publisherName'
+    template='{{> dataset-content-template }}'
+  >
+    <template id='dataset-content-template'>
+      {{#each bindings}}
+        <p style='font-size: 12px; margin-bottom: 5px'>
+          <b>Release Date: </b>{{#if issued}}<span>{{dateTimeFormat issued.value}}</span>{{else}}N/A{{/if}}
+        </p>
+        <p style='font-size: 12px; margin-bottom: 5px'>
+          <b>Last Modified: </b>{{#if modified}}<span>{{dateTimeFormat modified.value}}</span>{{else}}N/A{{/if}}
+        </p>
+        <p style='font-size: 12px; margin-bottom: 5px'>
+          <b>Version: </b>{{#if version}}<span>{{version.value}}</span>{{else}}N/A{{/if}}
+        </p>
+        <p style='font-size: 12px; margin-bottom: 5px'>
+          <b>Creator: </b>{{#if (cond-neq creatorName.value "")}}<span>{{creatorName.value}}</span>{{else}}N/A{{/if}}
+        </p>
+        <p style='font-size: 12px; margin-bottom: 5px'>
+          <b>Publisher: </b>{{#if publisherName}}<span>{{publisherName.value}}</span>{{else}}N/A{{/if}}
+        </p>
+        <p style='font-size: 12px; margin-bottom: 5px'>
+          <b>License: </b>{{#if license}}<span>{{license.value}}</span>{{else}}N/A{{/if}}
+        </p>
+      {{/each}}
+    </template>
+  </semantic-query>
+</template-fragment>
+
+
+<template-fragment export id='dataset-distribution-content'>
+  <semantic-query
+    query='
+      PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+      PREFIX dct: <http://purl.org/dc/terms/>
+      PREFIX dcat: <http://www.w3.org/ns/dcat#>
+		  SELECT DISTINCT ?dataset ?distribution ?description ?accessURL
+        (GROUP_CONCAT( ?ft; SEPARATOR=", ") AS ?format)
+        (GROUP_CONCAT( ?mt; SEPARATOR=", ") AS ?mediaType) ?issued ?modified WHERE {
+
+        BIND (<{{dataset}}> AS ?dataset )
+
+        ?dataset a dcat:Dataset ;
+          dcat:distribution ?distribution .
+
+        ?distribution a dcat:Distribution .
+
+        OPTIONAL { ?distribution dct:description ?description FILTER(LANG(?description) IN ("en", "")) }
+        OPTIONAL { ?distribution dcat:accessURL ?accessURL}
+        OPTIONAL { ?distribution dcat:mediaType ?mt}
+        OPTIONAL { ?distribution dct:format ?ft}
+        OPTIONAL { ?distribution dct:issued ?issued . }
+        OPTIONAL { ?distribution dct:modified ?modified . }
+
+      } GROUP BY ?dataset ?distribution ?description ?accessURL ?issued ?modified ORDER BY DESC(?issued) LIMIT 100'
+
+    template='{{> tmpl }}'
+    no-result-template='<span>No distribution found.</span>'
+  >
+    <template id='tmpl'>
+    {{#each bindings}}
+      <div class='datasetDistribution'>
+        <div class='maincontent'>
+
+          <div class='row'>
+            <div class='col-sm-6'>
+              <b style='font-size:14px;'>
+              {{> Assets:DatasetsHelpers::dataset-title dataset=distribution.value}}
+              </b>
+            </div>
+            <div class='col-sm-6' data-flex-layout="row center-right">
+              {{#if issued}}
+                <span style='font-size:12px;padding-right:5px;'><b>Release Date:</b> {{dateTimeFormat issued.value}}</span>
+              {{/if}}
+
+              {{#if modified}}
+                <span style='font-size: 12px;'><b>Last Modified:</b> {{dateTimeFormat modified.value}}</span>
+              {{/if}}
+            </div>
+
+          </div>
+
+          <div class='distribution-content-info'>
+
+            {{#if description}}
+              <div style='font-size: 12px;margin: 4px;'>
+                <mp-text-truncate lines=4 truncate='...'
+                  expand='<button class="btn btn-link">read more</button>'
+                  collapse='<button class="btn btn-link">less</button>'
+                >
+                  {{description.value}}
+                </mp-text-truncate>
+              </div>
+            {{/if}}
+
+            <p style='font-size: 12px; margin: 4px;'>
+              <b>Access URL: </b>{{#if accessURL}}<a href='{{accessURL.value}}' target='_blank'>
+                {{accessURL.value }}</a>{{else}}N/A{{/if}}
+            </p>
+            <p style='font-size: 12px; margin: 4px;'>
+              <b>Format: </b>{{#if format}}<span>{{format.value}}</span>{{else}}N/A{{/if}}
+            </p>
+
+            {{#if mediaType}}
+            <p style='font-size: 12px; margin: 4px;'>
+              <b>Media Type: </b><span>{{mediaType.value}}</span>
+            </p>
+            {{/if}}
+
+
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </template>
+  </semantic-query>
+</template-fragment>
+
+<template-fragment id='delete-dataset'>
+  <semantic-query
+  query='PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    SELECT ?graph ?datasetCount ?isCreatedViaUI {
+
+      { SELECT  (COUNT (DISTINCT(?dataset)) as ?datasetCount) {
+          GRAPH ?g {
+         	  <{{dataset}}> a dcat:Dataset .
+            OPTIONAL { ?dataset a dcat:Dataset . }
+   			  }
+      } }
+
+      BIND ( IF ( EXISTS {
+        <{{dataset}}> <http://purl.org/pav/createdWith> <http://www.metaphacts.com/ontologies/platform#metaphactory> .
+      }, true, false ) as ?isCreatedViaUI )
+
+      GRAPH ?graph {
+        <{{dataset}}> a dcat:Dataset .
+   	  }
+  } LIMIT 1'
+  template='{{> tmpl
+    datasetCount=bindings.0.datasetCount.value
+    graph=bindings.0.graph.value
+    isCreatedViaUI=bindings.0.isCreatedViaUI.value
+  }}'
+  >
+    <template id='tmpl'>
+
+      {{#if (cond-and (cond-eq datasetCount "1") (cond-eq isCreatedViaUI "true"))}}
+        <p>
+          Are you sure you want to delete the dataset <b>"{{> Assets:DatasetsHelpers::dataset-title dataset=dataset}}"</b>? Note that this will only delete the dataset description and not any potentially linked data.
+        </p>
+      {{else}}
+
+        <p>
+          <bs-alert variant="danger">
+            The dataset <b>"{{> Assets:DatasetsHelpers::dataset-title dataset=dataset}}"</b> cannot be deleted.
+          </bs-alert>
+        </p>
+
+        {{#if (cond-gt datasetCount "1")}}
+          <p><b>Details:</b> The dataset's graph seems to contain multiple dataset descriptions. This may for instance be the case if the dataset is part of a catalog.</p>
+          <p>If you  still want to delete this dataset, you may pursue to modify the catalog at its source and re-import it to the database.</p>
+        {{else}}
+          {{#if (cond-eq isCreatedViaUI "false")}}
+            <p><b>Details:</b> The dataset description seems to be loaded as part of an external process (e.g. as a result of the ETL import process). Deletion of dataset descriptions is only possible for datasets created in metaphactory.</p>
+            <p>If you  still want to delete this dataset, you may pursue to modify the description at its source and re-import it to the database.</p>
+          {{/if}}
+        {{/if}}
+
+      {{/if}}
+
+      <div style="display: flex;justify-content: flex-end;margin-top:10px;">
+
+        {{#if (cond-and (cond-eq datasetCount "1") (cond-eq isCreatedViaUI "true"))}}
+          <mp-graph-store-action action="DELETE" graphuri="{{graph}}" show-confirmation=false>
+            <button class='btn btn-danger' style='font-weight: bold;'>Confirm</button>
+          </mp-graph-store-action>
+        {{/if}}
+
+        <mp-event-trigger type='Dialog.HideAll'>
+          <button class='btn btn-secondary' style='font-weight: bold;margin-left:5px;'>Cancel</button>
+        </mp-event-trigger>
+
+      </div>
+    </template>
+  </semantic-query>
+</template-fragment>

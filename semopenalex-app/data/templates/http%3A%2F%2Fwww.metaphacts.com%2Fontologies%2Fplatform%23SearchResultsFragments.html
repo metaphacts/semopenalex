@@ -1,0 +1,1050 @@
+[[!-- 
+=============================================================================================================
+
+██╗███╗░░░███╗██████╗░░█████╗░██████╗░████████╗░█████╗░███╗░░██╗████████╗
+██║████╗░████║██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗████╗░██║╚══██╔══╝
+██║██╔████╔██║██████╔╝██║░░██║██████╔╝░░░██║░░░███████║██╔██╗██║░░░██║░░░
+██║██║╚██╔╝██║██╔═══╝░██║░░██║██╔══██╗░░░██║░░░██╔══██║██║╚████║░░░██║░░░
+██║██║░╚═╝░██║██║░░░░░╚█████╔╝██║░░██║░░░██║░░░██║░░██║██║░╚███║░░░██║░░░
+╚═╝╚═╝░░░░░╚═╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝░░░╚═╝░░░
+
+This file provides templates for the base functionality of the <semantic-search-query-universal> component
+and we do not recommend to modify these templates, as they are shared by all components.
+Modifications can result in functional and visual problems.
+
+Customization of results can be applied in the Platform:SearchResultsCustomization template.
+
+=============================================================================================================
+--]]
+<template-fragment export id='defaultStyle'>
+  [[!--
+    Note that it's not recommended to modify this fragment.
+    Refer to the top of the page for more information.
+  --]]
+  <style>
+    .search {
+      display: grid;
+    }
+    .resultTemplate {
+      display: grid;
+    }
+    .resultHeader {
+      display: flex;
+      align-items: center;
+      padding-bottom: 8px;
+      font-size: 16px;
+      grid-area: 1;
+    }
+    a.resultHeader:hover {
+      text-decoration: none;
+    }
+    a.resultHeader:hover .resultCount, 
+    a.resultHeader:hover .SearchQueryUniversalExplanation--domain,
+    a.resultHeader:hover .SearchQueryUniversalExplanation--entity {
+      text-decoration: underline;
+    }
+    .loaded-counts-explanation ~ .loading-counts-explanation {
+      display: none;
+    }
+    .resultCountInfo {
+      color: var(--mp-color-info-500)
+    }
+    button:hover > .resultCountInfo {
+      color: var(--mp-color-info-700)
+    }
+    .resultFooter {
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+    .resultCount {
+      flex-shrink: 0;
+    }
+    .table-no-result ~ .resultFooter, .table-no-result ~ .resultHeader {
+      display: none;
+    }
+    .DataTable--footer {
+      padding-top: 10px;
+    }
+    .domainSelectorAndFacets {
+      display: flex;
+      align-items: center;
+      padding: 16px 0;
+      gap: 8px;
+    }
+    .domainSelectorAndFacets > div:nth-child(2) {
+      border-left: 1px solid var(--mp-color-primary-100);
+      padding-left: 8px;
+    }
+    .SearchQueryUniversalDomainSelector--component {
+      align-self: flex-start;
+    }
+    .searchTopMenu {
+      display: flex;
+      grid-area: 1;
+      padding-bottom: 16px;
+    }
+    .mainButton {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding-right: 16px;
+    }
+    .mainButton .mp-icon {
+      color: var(--mp-color-dark-500);
+      --mp-icon-top: 1px;
+    }
+    .clearDomain {
+      padding-left: 16px;
+      border-left: 1px solid var(--mp-color-dark-100);
+    }
+    a.mainButton:hover, a.headline:hover, a.navigateToResourceBtn:hover {
+      text-decoration: none;
+    }
+    a.mainButton:hover .mainButton--label, a.headline:hover .title {
+      text-decoration: underline;
+    }
+    .search .separator::after {
+      content: '|';
+      color: var(--mp-color-dark-200);
+      margin: 0 4px;
+    }
+    .search .SearchQueryUniversal--resourceItem:hover .separator::after {
+      color: var(--mp-color-dark-400);
+    }
+    .resultKnowledgePanel {
+      max-width: 400px;
+    }
+    .resultKnowledgePanel .popover-body {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .navigateToResourceBtn {
+      display: none;
+      padding-left: 8px;
+    }
+    .SearchCardResult--title:hover .navigateToResourceBtn {
+      display: initial;
+    }
+    .saveSearchAsSet {
+      margin-top: 8px;
+    }
+
+    .vocabularySelector {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .vocabularySelector .tab-content {
+      flex: 1 1 auto;
+      overflow: auto;
+    }
+
+    .vocabularySelectorTab {
+      height: 100%;
+    }
+
+    .vocabularySelectorDialog .modal-header {
+      padding: 16px 16px 0;
+    }
+
+    .vocabularySelectorDialog .modal-body {
+      padding: 8px 8px 16px;
+      overflow: auto;
+    }
+
+    .vocabularySelectorHeader {
+      padding: 0 0 16px 8px;
+    }
+
+    .vocabularySelectorHeader > *:not(:last-child)::after {
+      content: '|';
+      color: var(--mp-color-dark-200);
+      font-size: 11.67px;
+      margin: 0 8px;
+    }
+
+    .vocabularySelectorHeaderType {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--mp-color-dark-400);
+    }
+
+    .vocabularySelectorHeaderLink {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .vocabularySelectorHeaderLink.navigateToResourceLink {
+      white-space: nowrap;
+    }
+
+    .vocabularySelectorHierarachy {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .vocabularySelectorHierarachy .LazyTreeSelector--itemContent {
+      flex: 1;
+    }
+    .vocabularySelectorHierarachy .moreActions {
+      margin-right: 8px;
+    }
+    .vocabularySelectorHierarachy .moreActions > .dropdown-toggle::after {
+      display: none;
+    }
+
+    .vocabularySelectorTabKnowledgePanel {
+      padding: 16px 8px;
+    }
+
+    .vocabularySelectorTabKnowledgePanel .knowledge-panel__header {
+      display: none;
+    }
+
+    .vocabularySelectorTabKnowledgePanel .knowledge-panel__link {
+      display: none;
+    }
+
+    .vocabularySelectorTabKnowledgePanel .knowledge-panel__content {
+      padding: 0;
+    }
+    .vocabularySelectorItem {
+      display: grid;
+      grid-template-columns: 1fr 24px;
+    }
+
+    .vocabularySelectorItemLabel {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .summaryItem {
+      margin-bottom: 16px;
+    }
+    .summaryItemTitle {
+      color: var(--mp-color-dark-400);
+      margin-bottom: 8px;
+    }
+    
+    .resultContainer {
+      display: flex;
+      gap: 10px;
+    }
+
+    .resultContainer .DataTable--semantic-data-table {
+      flex: 1 1;
+    }
+
+    .selectedEntities {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      height: fit-content;
+    }
+
+    .selectedEntitiesCardContainer {
+      position: relative;
+      height: 100%;
+    }
+
+    .selectedEntitiesCard {
+      position: sticky;
+      top: calc(8px + var(--mp-header-height));
+    }
+    .page-breadcrumb + .page .selectedEntitiesCard {
+      top: calc(8px + var(--mp-header-height) + var(--mp-breadcrumb-height));
+    }
+
+    .selectedEntitiesCard.selectedEntities {
+      width: 300px;
+      padding: 16px;
+      border-radius: 4px;
+      border: 1px solid var(--mp-color-info-100);
+      background: var(--mp-color-info-50);
+    }
+
+    .selectedEntities > *  {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .selectedEntity {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .selectedEntityLabel {
+      width: 235px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .selectedEntitiesDialog {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .entitySelectorDialog .selectedEntityLabel {
+      width: 330px;
+    }
+
+    .entitySelectorButtons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .selectionLimitAlert {
+       --bs-alert-padding-y: 8px;
+       --bs-alert-margin-bottom: 8px;
+       margin-left: var(--bs-dropdown-item-padding-x);
+       margin-right: var(--bs-dropdown-item-padding-x);
+       white-space: nowrap;
+    }
+  </style>
+</template-fragment>
+
+<template-fragment export id='searchResultGroupTemplate' params='{
+  "showExplorationFacets": {
+    "required": false,
+    "type":"boolean",
+    "default": true,
+    "description": "If enabled, facets will be shown when exploring all entities of a domain without further search conditions being formulated. Consider to disable this option to improve performance on large datasets with millions of entities."
+  },
+  "showDomainSelector": {
+    "required": false,
+    "type":"boolean",
+    "default": true,
+    "description": "If enabled, the domain selector will be shown in the search results for configured categories."
+  },
+  "showKnowledgePanel": {
+    "required": false,
+    "type": "boolean",
+    "default": false,
+    "description": "If enabled, the knowledge panel for a corresponding resource will be shown when clicking on the title of a search result item."
+  },
+  "showSaveSearchResultActions": {
+    "required": false,
+    "type": "boolean",
+    "default": false,
+    "description": "If enabled, the search result action \"Save Set\" will be shown when a domain is selected."
+  },
+  "enableMultiExploreRelated": {
+    "required": false,
+    "type": "boolean",
+    "default": "true",
+    "description": "If enabled, search results can be selected to explore results for any of them."
+  }
+}'>
+  [[!--
+    Note that it's not recommended to modify this fragment.
+    Refer to the top of the page for more information.
+  --]]
+  <div class='domainSelectorAndFacets'>
+    {{#if (cond-not hasConjuncts)}}
+      {{#unless (cond-eq showDomainSelector false)}}
+      <semantic-search-query-universal-domain-selector target='{{queryFormulationComponentId}}'></semantic-search-query-universal-domain-selector>
+      {{/unless}}
+    {{/if}}
+    {{#if (cond-or (cond-neq showExplorationFacets false) keyword hasConjuncts)}}
+      <semantic-search-facet-holder>
+        <semantic-search-facet-group variant='horizontal'></semantic-search-facet-group>
+      </semantic-search-facet-holder>
+    {{/if}}
+  </div>
+  <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
+  <semantic-search-result-holder>
+    {{#if domain}}
+      <semantic-search-result domain='{{domain.iri}}'>
+        <div class='resultTemplate'>
+          {{#> @partial-block category=domain selected=true searchKeyword=keyword}}
+            {{> ::defaultResultsTemplate}}
+          {{/@partial-block}}
+        </div>
+      </semantic-search-result>
+      {{#if showSaveSearchResultActions}}
+        {{>::search-result-save-set-action}}
+      {{/if}} 
+    {{else}}
+      {{#each categories as |category|}}
+        <div class='resultTemplate'>
+          <semantic-search-result domain='{{category.iri}}'>
+            {{#> @partial-block category=category selected=false searchKeyword=../keyword searchId=../searchId queryFormulationComponentId=../queryFormulationComponentId hasConjuncts=../hasConjuncts limit=../limit}}
+              {{> ::defaultResultsTemplate}}
+            {{/@partial-block}}
+          </semantic-search-result>
+        </div>
+      {{/each}}
+    {{/if}}
+  </semantic-search-result-holder>
+</template-fragment>
+
+<template-fragment id='search-result-save-set-action'>
+  <div class='saveSearchAsSet'>
+    <semantic-search-action-save-set-result id='save-set-result-action'>
+      <button class="btn btn-outline-secondary">Save As Set</button>
+    </semantic-search-action-save-set-result>
+  </div>
+</template-fragment>
+
+<template-fragment export id='defaultResultsTemplate'>
+  <div class="resultContainer">
+    <mp-event-combine listen-events='[
+      {"property": "selectEntityCheckbox", "source": "selectEntityCheckbox"},
+      {"property": "unselectedEntity", "source": "unselectEntityButton"}
+    ]' trigger-template='{{> t}}'>
+      <template id='t'>
+        {{#if (cond-eq cause "selectEntityCheckbox")}}
+          {{#if state.selectEntityCheckbox.checked}}
+            <mp-event-combine-set
+              property='selectedEntities'
+              value='{{pass-value (array-concat (if state.selectedEntities state.selectedEntities (array-of)) (array-of state.selectEntityCheckbox.iri))}}'>
+            </mp-event-combine-set>
+          {{else}}
+            <mp-event-combine-set
+              property='selectedEntities'
+              value='{{pass-value (array-filter state.selectedEntities (func topic (cond-neq topic state.selectEntityCheckbox.iri)))}}'>
+            </mp-event-combine-set>
+          {{/if}}
+        {{/if}}
+
+        {{#if (cond-eq cause "unselectedEntity")}}
+          <mp-event-combine-set
+            property='selectedEntities'
+            value='{{pass-value (array-filter state.selectedEntities (func topic (cond-neq topic state.unselectedEntity.iri)))}}'>
+          </mp-event-combine-set>
+          <mp-event-combine-emit
+            event-type='Component.TemplateUpdate' targets='["selectEntityCheckboxTemplate-{{state.unselectedEntity.iri}}"]' data='{"checked": false}'>
+          </mp-event-combine-emit>
+        {{/if}}
+
+        <mp-event-combine-emit event-type='Component.TemplateUpdate' targets='["selectedEntitiesCard"]' data='{
+          "selectedEntities": "{{pass-value state.selectedEntities}}"
+        }'></mp-event-combine-emit>
+      </template>
+    </mp-event-combine>
+    <semantic-table
+      id='search-result-table'
+      query='
+        SELECT DISTINCT * WHERE {}
+        {{#if searchKeyword}}ORDER BY DESC(?score){{/if}} {{#unless selected}}LIMIT 4{{/unless}}
+      '
+      options='{"showFilter": false}'
+      tuple-template='{{> template}}'
+      no-result-template='{{#if domain}}{{> ::noResultTemplate}}{{/if}}'
+      class='SearchCardResult--table'
+      prefetch-labels='false'
+    >
+      <template id='template'>
+        {{#> Platform:SearchResultsCustomization::resultsTemplate}}
+          {{#if (isIri subject)}}
+            <div class='SearchCardResult--card'>
+              <div class='SearchCardResult--contentWrapper'>
+                <div class='SearchCardResult--title'>
+                  {{#if (cond-eq showKnowledgePanel true)}}
+                    <mp-popover class='resultKnowledgePanel'>
+                      <mp-popover-trigger placement='right' trigger='["click"]'>
+                        <a class="headline" iri="{{subject.value}}">
+                          <mp-highlight-label iri='{{subject.value}}' highlight='{{searchKeyword}}' split-token='true' class='title'></mp-highlight-label>
+                        </a>
+                      </mp-popover-trigger>
+                      <mp-popover-content>
+                        <div>
+                          <mp-knowledge-panel iri='{{subject.value}}'></mp-knowledge-panel>
+                        </div>
+                      </mp-popover-content>
+                    </mp-popover>
+                    <semantic-link iri="{{subject.value}}" class='navigateToResourceBtn' title='Navigate to resource'>
+                      <span class="material-symbols-outlined">link</span>
+                    </semantic-link>
+                  {{else}}
+                    <semantic-link iri="{{subject.value}}">
+                      <mp-highlight-label iri="{{subject.value}}" highlight='{{searchKeyword}}' split-token='true'></mp-highlight-label>
+                    </semantic-link>
+                  {{/if}}
+                </div>
+                {{> Platform:SearchResultsCustomization::entityInfo kind="results" iri=subject.value type=category.iri}}
+              </div>
+              <div class='SearchCardResult--buttons'>
+                {{> ::selectEntityCheckbox}}
+                {{> ::addToSearchButton subject=subject.value}}
+              </div>
+            </div>
+          {{else}}
+            <div class='SearchCardResult--card'>
+              <div class='SearchCardResult--contentWrapper'>
+                <div class='SearchCardResult--title'>
+                  {{subject.value}}
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        {{/Platform:SearchResultsCustomization::resultsTemplate}}
+      </template>
+    </semantic-table>
+    {{> ::selectedEntitiesCard}}
+  </div>
+  {{> ::searchResultsHeader}}
+  {{> ::searchResultsFooter}}
+</template-fragment>
+
+<template-fragment export id="noResultTemplate">
+  <div class='SearchQueryUniversal--noResultTemplate'>
+    <div class='material-symbols-outlined SearchQueryUniversal--noResultTemplateIcon' aria-hidden="true">
+      hide_source
+    </div>
+    <div class='SearchQueryUniversal--noResultTemplateTitle'>
+      {{#if latestSearchTerm}}
+        No results for “{{latestSearchTerm}}”
+      {{else}}
+        No results for your criteria
+      {{/if}}
+    </div>
+    <div>
+      {{#if latestSearchTerm}}
+        Consider rephrasing or clearing your search
+      {{else}}
+        Consider revising or clearing your search
+      {{/if}}
+    </div>
+    <mp-event-trigger type='UniversalSearch.ClearSearch' targets='["{{queryFormulationComponentId}}"]'>
+      <button class='btn btn-sm btn-outline-danger SearchQueryUniversal--noResultTemplateButton'>
+        Clear search
+      </button>
+    </mp-event-trigger>
+  </div>
+</template-fragment>
+
+<template-fragment export id="addToSearchButton">
+  {{#if (cond-or (cond-not hasConjuncts) show)}}
+    <mp-event-trigger
+      type='UniversalSearch.ShowRelated'
+      targets='["{{queryFormulationComponentId}}"]'
+      data='{"entityIris": "{{pass-value (if selectedEntities selectedEntities (array-of subject))}}"}'>
+      <button class='btn btn-link btn-unsized SearchCardResult--rightArrowButton'>
+        Explore related
+      </button>
+    </mp-event-trigger>
+  {{/if}}
+</template-fragment>
+
+<template-fragment id="selectedEntitiesCard">
+  <mp-event-target-template-render id='selectedEntitiesCard' template='{{>t}}'>
+    <template id='t'>
+      {{#if selectedEntities}}
+        <div class="selectedEntitiesCardContainer">
+          <div class="selectedEntitiesCard selectedEntities">
+            <div class="lead" style="font-weight: 500;">Entities</div>
+            {{#each selectedEntities as |entity|}}
+              <div>
+                <mp-label iri='{{entity}}' class='selectedEntityLabel'></mp-label>
+                <mp-event-trigger
+                  id="unselectEntityButton"
+                  type='Component.TemplateUpdate'
+                  data='{"iri": "{{entity}}"}'>
+                  <button class="btn btn-sm btn-icon btn-outline-danger" style="flex: 0 0 24px;"><span class="material-symbols-outlined" aria-hidden='true' title='delete'>delete</span></button>
+                </mp-event-trigger>
+              </div>
+            {{/each}}
+            <div class="mt-2">
+              <div>{{selectedEntities.length}} {{#if (cond-neq selectedEntities.length 1)}}Entities{{else}}Entity{{/if}}</div>
+              {{> ::addToSearchButton show=true selectedEntities=selectedEntities}}
+            </div>
+          </div>
+        </div>
+      {{/if}}
+    </template>
+  </mp-event-target-template-render>
+</template-fragment>
+
+<template-fragment id="selectEntityCheckbox">
+  {{#if (cond-and domain (cond-not hasConjuncts) (cond-or (cond-eq enableMultiExploreRelated undefined) enableMultiExploreRelated))}}
+    <mp-event-target-template-render id='selectEntityCheckboxTemplate-{{subject.value}}' template='{{>t}}'>
+      <template id='t'>
+        <div style="min-width: 110px;">
+          <mp-event-trigger
+            id="selectEntityCheckbox"
+            type='Component.TemplateUpdate'
+            targets='["selectEntityCheckboxTemplate-{{subject.value}}"]'
+            data='{"checked": "{{#if (cond-eq checked true)}}{{pass-value false}}{{else}}{{pass-value true}}{{/if}}", "iri": "{{subject.value}}"}'>
+            {{#if checked}}
+              <label class="form-check SearchCardResult--selectEntityCheckbox SearchCardResult--selected mb-2">
+                <input type="checkbox" class="form-check-input" value='{{subject.value}}' defaultChecked />
+                <span class="small">Selected</span>
+              </label>
+            {{else}}
+              <label class="form-check SearchCardResult--selectEntityCheckbox mb-2">
+                <input type="checkbox" class="form-check-input" value='{{subject.value}}' />
+                <span class="small">Select entity</span>
+              </label>
+            {{/if}}
+          </mp-event-trigger>
+        </div>
+      </template>
+    </mp-event-target-template-render>
+  {{/if}}
+</template-fragment>
+
+<template-fragment export id='searchResultsHeader'>
+  {{#if selected}}
+    <div class='resultHeader selected'>
+      {{> ::searchResultsHeaderInner}}
+    </div>
+  {{else}}
+    <mp-event-trigger
+      type='UniversalSearch.SelectDomain'
+      targets='["{{queryFormulationComponentId}}"]'
+      data='{"domainIri": "{{category.iri}}"}'>
+      <a href='#' class='resultHeader'>
+        {{> ::searchResultsHeaderInner}}
+      </a>
+    </mp-event-trigger>
+  {{/if}}
+</template-fragment>
+
+<template-fragment id='searchResultsHeaderInner'>
+  <div class='resultHeader {{#if (cond-eq selected true)}}selected{{/if}}'>
+    {{#if selected}}
+      <semantic-search-result-count result-id='search-result-table'
+        template='{{> counts}}'>
+        <template id='counts'>
+          <div class='resultCount'>
+            {{#if (cond-gte numberOfResults limit)}}
+              {{number-format limit locale='en' notation='compact' compactDisplay='long'}}+
+            {{else}}
+              {{number-format numberOfResults locale='en'}}
+            {{/if}}
+            {{#if (cond-eq numberOfResults 1)}}
+              result in&nbsp;
+            {{else}}
+              results in&nbsp;
+            {{/if}}
+          </div>
+          <div class='loaded-counts-explanation'>
+            <semantic-search-query-universal-explanation domain-iri='{{category.iri}}'>
+            </semantic-search-query-universal-explanation>
+          </div>
+          {{#if (cond-gte numberOfResults limit)}}
+            <div>
+              &nbsp;<mp-popover>
+                <mp-popover-trigger placement="top"
+                  trigger='["click", "hover", "focus"]'
+                  root-close='false'>
+                  <button class="btn btn-sm btn-icon btn-transparent">
+                      <span class="material-symbols-outlined resultCountInfo">info</span>
+                    </button>
+                </mp-popover-trigger>
+                <mp-popover-content>Only the first {{number-format limit locale='en' notation='compact' compactDisplay='long'}} results are shown</mp-popover-content>
+              </mp-popover>
+            </div>
+          {{/if}}
+        </template>
+      </semantic-search-result-count>
+    {{else}}
+      <mp-sparql-result-counts
+        id='result-counts'
+        query='SELECT DISTINCT * {}'
+        hard-limit='{{number-add limit 1}}'
+        template='{{> counts}}'>
+        <template id='counts'>
+          <div class='resultCount'>
+            {{#if (cond-gte numberOfResults limit)}}
+              {{number-format limit locale='en' notation='compact' compactDisplay='long'}}+
+            {{else}}
+              {{number-format numberOfResults locale='en'}}
+            {{/if}}
+            {{#if (cond-eq numberOfResults 1)}}
+              result in&nbsp;
+            {{else}}
+              results in&nbsp;
+            {{/if}}
+          </div>
+          <div class='loaded-counts-explanation'>
+            <semantic-search-query-universal-explanation domain-iri='{{category.iri}}'>
+            </semantic-search-query-universal-explanation>
+          </div>
+          {{#if (cond-gte numberOfResults 10000)}}
+            <div>
+              &nbsp;<mp-popover>
+                <mp-popover-trigger placement="top"
+                  trigger='["click", "hover", "focus"]'
+                  root-close='false'>
+                  <button class="btn btn-sm btn-icon btn-transparent">
+                      <span class="material-symbols-outlined resultCountInfo">info</span>
+                    </button>
+                </mp-popover-trigger>
+                <mp-popover-content>Only the first {{number-format limit locale='en' notation='compact' compactDisplay='long'}} results are shown</mp-popover-content>
+              </mp-popover>
+            </div>
+          {{/if}}
+        </template>
+      </mp-sparql-result-counts>
+    {{/if}}
+    <div class='loading-counts-explanation'>
+      <semantic-search-query-universal-explanation domain-iri='{{category.iri}}'>
+      </semantic-search-query-universal-explanation>
+    </div>
+  </div>
+</template-fragment>
+
+<template-fragment export id='searchResultsFooter'>
+  {{#if (cond-neq selected true)}}
+    <div class='resultFooter'>
+      <mp-event-trigger
+        type='UniversalSearch.SelectDomain'
+        targets='["{{queryFormulationComponentId}}"]'
+        data='{"domainIri": "{{category.iri}}"}'>
+        <button class='btn btn-link btn-unsized SearchCardResult--rightArrowButton SearchCardResult--viewAllButton'>
+          View all
+        </button>
+      </mp-event-trigger>
+    </div>
+  {{/if}}
+</template-fragment>
+
+<template-fragment export id='startButton'>
+  [[!--
+    Note that this fragment is not supposed to be modified.
+    Refer to the top of the page for more information.
+  --]]
+  <mp-event-trigger
+    type='UniversalSearch.ClearSearch'
+    targets='["{{queryFormulationComponentId}}"]'>
+    {{#if (cond-or domain hasConjuncts keyword)}}
+      <a href='#' class='mainButton'>
+        <span class='mp-icon' aria-hidden='true'>main_search</span>
+        <span class='mainButton--label'>Start</span>
+      </a>
+    {{else}}
+      <div class='mainButton'>
+        <span class='mp-icon' aria-hidden='true'>main_search</span>
+        <span class='mainButton--label'>Start</span>
+      </div>
+    {{/if}}
+  </mp-event-trigger>
+</template-fragment>
+
+<template-fragment export id='clearDomain'>
+  [[!--
+    Note that this fragment is not supposed to be modified.
+    Refer to the top of the page for more information.
+  --]]
+  {{#if (cond-and keyword domain)}}
+    <mp-event-trigger
+      type='UniversalSearch.ClearDomain'
+      targets='["{{queryFormulationComponentId}}"]'>
+      <a href='#' class='clearDomain'>All results for {{keyword}}</a>
+    </mp-event-trigger>
+  {{/if}}
+</template-fragment>
+
+<template-fragment export id='domainCards'>
+  [[!--
+    Note that it's not recommended to modify this fragment.
+    Refer to the top of the page for more information.
+  --]]
+  {{#if showDomains}}
+    <div class='SearchQueryUniversal--domainCards'>
+      <div data-flex-layout='rows stretch-stretch'>
+        {{#bind showThumbnail=(bind
+          (with thumbnails=(array-filter domains (func domain domain.thumbnail)))
+          (cond-gt thumbnails.length 0)
+        )}}
+          {{#each domains}}
+            {{#ifCond count "||" ../loadingCounts}}
+              <div data-flex-self='size-1of4 md-half sm-full' class='SearchQueryUniversal--domainCardItem'>
+                <mp-event-trigger
+                  type='UniversalSearch.SelectDomain'
+                  targets='["{{../componentId}}"]'
+                  data='{"domainIri": "{{iri}}"}'>
+                  {{> ::domainCard showThumbnail=../showThumbnail specificSearchExecuted=../specificSearchExecuted loadingCounts=../loadingCounts}}
+                </mp-event-trigger>
+              </div>
+            {{/ifCond}}
+          {{/each}}
+        {{/bind}}
+      </div>
+    </div>
+  {{/if}}
+</template-fragment>
+
+<template-fragment export id='domainCard'>
+  [[!--
+    Note that it's not recommended to modify this fragment.
+    Refer to the top of the page for more information.
+  --]]
+  {{#> Platform:SearchResultsCustomization::domainCard}}
+    <button type=button class='btn btn-secondary SearchQueryUniversal--domainCard {{#if selected}}SearchQueryUniversal--domainCardSelected{{/if}}'>
+      {{> ::domainCardThumbnail}}
+      {{> ::domainCardLabel}}
+      {{> ::domainCardCount}}
+    </button>
+  {{/Platform:SearchResultsCustomization::domainCard}}
+</template-fragment>
+
+<template-fragment export id='domainCardThumbnail'>
+  [[!--
+    Note that it's not recommended to modify this fragment.
+    Refer to the top of the page for more information.
+  --]]
+  {{#if showThumbnail}}
+    <span class='SearchQueryUniversal--domainThumbnail'>
+      {{#if thumbnail}}
+        <img src='{{thumbnail}}' alt='{{label}}' />
+      {{else}}
+        <span class='material-symbols-outlined'>grid_guides</span>
+      {{/if}}
+    </span>
+  {{/if}}
+</template-fragment>
+
+<template-fragment export id='domainCardLabel'>
+  [[!--
+    Note that it's not recommended to modify this fragment.
+    Refer to the top of the page for more information.
+  --]]
+  <span class='SearchQueryUniversal--domainLabel'>{{label}}</span>
+</template-fragment>
+
+<template-fragment export id='domainCardCount'>
+  [[!--
+    Note that it's not recommended to modify this fragment.
+    Refer to the top of the page for more information.
+  --]]
+  {{#if count}}
+    <span class='SearchQueryUniversal--domainCount'>
+      <span class='badge badge-secondary'>
+        {{#if specificSearchExecuted}}
+          {{#if (cond-gte count 10000)}}
+            {{number-format count locale='en' notation='compact' compactDisplay='long'}}+
+          {{else}}
+            {{number-format count locale="en"}}
+          {{/if}}
+        {{else}}
+          {{#if (cond-gte count 10000)}}
+            ~{{number-format count locale="en" notation="compact" compactDisplay="long"}}
+          {{else}}
+            {{number-format count locale="en"}}
+          {{/if}}
+        {{/if}}
+      </span>
+    </span>
+  {{/if}}
+  {{#if loadingCounts}}
+    <span class='SearchQueryUniversal--domainCount'>
+      <span class='badge badge-secondary spinner-dots'>
+        <span>.</span><span>.</span><span>.</span>
+      </span>
+    </span>
+  {{/if}}
+</template-fragment>
+
+<template-fragment export id='vocabularySelector'>
+  {{#if hasNarrowerTerms}}
+    <mp-overlay-dialog class='vocabularySelectorDialog' title='{{label}}' type='sidebar-right'>
+      <mp-overlay-dialog-trigger>
+        <button title='Select additional narrower terms' class='btn btn-secondary btn-icon btn-sm mr-1'>T</button>
+      </mp-overlay-dialog-trigger>
+      <mp-overlay-dialog-content>
+        <div class='vocabularySelector'>
+          <div class='vocabularySelectorHeader'>
+            <span class='vocabularySelectorHeaderType'>
+              {{typeLabel}}
+            </span>
+            <span class='vocabularySelectorHeaderLink'>
+              {{> Platform:AssetFragments::assetTitle assetIri=vocabularyIri.value showIRIAsTitle=true}}
+            </span>          
+            <semantic-link iri='{{iri.value}}' class='vocabularySelectorHeaderLink navigateToResourceLink'>
+              <span aria-hidden="true" class="material-symbols-outlined">link</span> Navigate to resource
+            </semantic-link>
+          </div>
+          <bs-tabs id='vocabularySelectorTabs'>
+            <bs-tab class='vocabularySelectorTab' event-key='hierarchy' title='Hierarchy'>
+              {{#bind upperIri=iri}}
+                <mp-vocabulary-selector id='vocabularySelector-{{conjunctUniqueId}}' vocabulary-iri='{{vocabularyIri}}' initial-selection='{{pass-value initialSelection}}' limit-upper-term='{{iri}}' class='vocabularySelectorHierarachy' node-template='{{>t}}'>
+                  <template id='t'>
+                    <div class='vocabularySelectorItem'>
+                      <div className='vocabularySelectorItemLabel'>{{#if label}}{{label}}{{else}}<mp-label iri='{{iri}}'></mp-label>{{/if}}</div>
+                      {{#if hasChildren}}
+                        {{#if isLoadingSelection}}
+                          <div class='moreActions'>
+                            <button class='btn btn-transparent btn-sm btn-icon' disabled>
+                              <span class="material-symbols-outlined" aria-label="Actions">more_vert</span>
+                            </button>
+                          </div>
+                        {{else}}
+                          <bs-dropdown class='moreActions'>
+                            <bs-dropdown-toggle id='termSelectorToggle' class='btn-sm btn-icon' variant='transparent'>
+                              <span class="material-symbols-outlined" aria-label="Actions">more_vert</span>
+                            </bs-dropdown-toggle>
+                            <bs-dropdown-menu>
+                              <bs-alert variant='info' class='alert-icon selectionLimitAlert'>Up to {{selectionLimit}} terms will be selected</bs-alert>
+                              <mp-event-trigger type='VocabularySelector.SelectNarrowerTerms' targets='["vocabularySelector"]' data='{
+                                "term": "{{#if (cond-neq iri upperIri.value)}}{{iri}}{{/if}}",
+                                "recursive": true
+                                }'>
+                                <bs-dropdown-item>Select all narrower terms</bs-dropdown-item>
+                              </mp-event-trigger>
+                              <mp-event-trigger type='VocabularySelector.SelectNarrowerTerms' targets='["vocabularySelector"]' data='{
+                                "term": "{{#if (cond-neq iri upperIri.value)}}{{iri}}{{/if}}"
+                                }'>
+                                <bs-dropdown-item>Select direct narrower terms</bs-dropdown-item>
+                              </mp-event-trigger>
+                              <mp-event-trigger type='VocabularySelector.UnselectNarrowerTerms' targets='["vocabularySelector"]' data='{
+                                "term": "{{#if (cond-neq iri upperIri.value)}}{{iri}}{{/if}}"
+                                }'>
+                                <bs-dropdown-item>Unselect all</bs-dropdown-item>
+                              </mp-event-trigger>
+                            </bs-dropdown-menu>
+                          </bs-dropdown>
+                        {{/if}}
+                      {{/if}}
+
+                    </div>
+                  </template>
+                </mp-vocabulary-selector>
+              {{/bind}}
+            </bs-tab>
+            <bs-tab class='vocabularySelectorTab vocabularySelectorTabKnowledgePanel' event-key='summary' title='Summary'>
+              <semantic-query query='
+                SELECT DISTINCT ?description WHERE {
+                  BIND (<{{iri.value}}> AS ?term) .
+                  ?term <http://www.w3.org/2004/02/skos/core#definition> ?description .
+                }' template='{{> tmpl}}'>
+                <template id='tmpl'>
+                  {{#bind description=(rdf-selectLangLiteral
+                    (array-filter
+                      (array-map bindings (func b b.description))
+                      (func description (isLiteral description))
+                    )
+                  )}}
+                    <div class="summaryItem">
+                      <div class="summaryItemTitle">Description</div>
+                      <div>{{description.value}}</div>
+                    </div>
+                  {{/bind}}
+                </template>
+              </semantic-query>
+              <div class="summaryItem">
+                <div class="summaryItemTitle">Hierarchy</div>
+                <semantic-query query='
+                  SELECT DISTINCT ?immediateParent WHERE {
+                    <{{iri.value}}> skos:broader|^skos:narrower ?immediateParent .
+                  }' template='{{> tmpl}}' no-result-template="<span><mp-label iri='{{iri.value}}'></mp-label> does not have any broader term</span>">
+                  <template id='tmpl'>
+                    <div style='margin-bottom: 8px;'>
+                      <mp-label iri='{{iri.value}}'></mp-label> has the following broader term{{#if (cond-gt bindings.length 1)}}s{{/if}}:
+                    </div>
+                    {{#each bindings}}
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        {{>Template:skos:ConceptScheme::trigger-term-hierarchy-branch-view iri=../iri.value immediateParent=immediateParent.value btnClass='btn-outline-secondary btn-sm' hidePopover=true}}
+                        <mp-label iri="{{immediateParent.value}}"></mp-label>
+                      </div>
+                    {{/each}}
+                  </template>
+                </semantic-query>
+              </div>
+            </bs-tab>
+          </bs-tabs>
+        </div>
+      </mp-overlay-dialog-content>
+    </mp-overlay-dialog>
+  {{else}}
+    <span title='Term does no have any narrower terms'>
+      <button class='btn btn-secondary btn-icon btn-sm mr-1' disabled='true'>T</button>
+    </span>
+  {{/if}}
+  <mp-event-combine listen-events='[{
+    "property": "selection",
+    "source": "vocabularySelector-{{conjunctUniqueId}}",
+    "type": "VocabularySelector.SelectionApplied"
+  }]'
+  trigger-template='{{> trigger}}'>
+    <template id='trigger'>
+      <mp-event-combine-emit
+        targets='["{{queryFormulationComponentId}}"]'
+        event-type='UniversalSearch.UpdateDisjunct'
+        data='{
+          "conjunctUniqueId": "{{conjunctUniqueId}}",
+          "selection": "{{pass-value (array-concat (array-of iri.value) state.selection.selection)}}",
+          "conjunctType": "Vocabulary"
+        }'>
+      </mp-event-combine-emit>
+      <mp-event-combine-emit event-type='Dialog.HideAll'>
+      </mp-event-combine-emit>
+    </template>
+  </mp-event-combine>
+</template-fragment>
+
+<template-fragment export id='entitySelector'>
+  <mp-overlay-dialog class='entitySelectorDialog' title='Entities' type='sidebar-right'>
+    <mp-overlay-dialog-trigger>
+      <button class='btn btn-sm btn-icon btn-outline-secondary mr-1'>
+        <span className='material-symbols-outlined' aria-hidden='true'>
+          library_add_check
+        </span>
+      </button>
+    </mp-overlay-dialog-trigger>
+    <mp-overlay-dialog-content>
+      <mp-event-target-template-render id="selectedEntitiesDialog" template='{{>t}}'>
+        <template id="t">
+          <div class="selectedEntitiesDialog">
+            <div class="selectedEntities">
+              {{#each selectedEntities as |entity|}}
+                {{#if (cond-or
+                  (cond-eq ../deletedEntities undefined)
+                  (cond-not (array-has (if ../deletedEntities ../deletedEntities (array-of)) entity))
+                )}}
+                  <div class="selectedEntity">
+                    <mp-label iri="{{entity}}" class="selectedEntityLabel"></mp-label>
+                    <mp-event-trigger
+                      type='Component.TemplateUpdate'
+                      targets='["selectedEntitiesDialog"]'
+                      data='{"deletedEntities": "{{pass-value (array-concat (if ../deletedEntities ../deletedEntities (array-of)) (array-of entity))}}"}'>
+                      <button class="btn btn-sm btn-icon btn-outline-danger" style="flex: 0 0 24px;"><span class="material-symbols-outlined" aria-hidden='true' title='delete'>delete</span></button>
+                    </mp-event-trigger>
+                  </div>
+                {{/if}}
+              {{/each}}
+            </div>
+            <div class="entitySelectorButtons">
+              {{#bind numberOfEntities=(number-sub selectedEntities.length (if deletedEntities deletedEntities.length 0))}}
+                <div>{{numberOfEntities}} {{#if (cond-gt numberOfEntities 1)}}Entities{{else}}Entity{{/if}}</div>
+              {{/bind}}
+              <div>
+                <mp-event-trigger
+                  type='Component.TemplateUpdate'
+                  targets='["selectedEntitiesDialog"]'
+                  data='{"selectedEntities": "{{pass-value selectedEntities}}"}'>
+                  <button class='btn btn-secondary mr-2'>Reset</button>
+                </mp-event-trigger>
+                <mp-event-trigger
+                  id="apply-{{conjunctUniqueId}}"
+                  type='UniversalSearch.UpdateDisjunct'
+                  targets='["{{queryFormulationComponentId}}"]'
+                  data='{
+                    "conjunctUniqueId": "{{conjunctUniqueId}}",
+                    "selection": "{{pass-value (array-filter selectedEntities (func item (cond-neq (array-has (if deletedEntities deletedEntities (array-of)) item) true)))}}"
+                  }'>
+                  <button class='btn btn-primary'>Apply</button>
+                </mp-event-trigger>
+                <mp-event-proxy on-event-source='apply-{{conjunctUniqueId}}' proxy-event-type='Dialog.HideAll'></mp-event-proxy>
+              </div>
+            </div>
+          </div>
+        </template>
+      </mp-event-target-template-render>
+    </mp-overlay-dialog-content>
+  </mp-overlay-dialog>
+</template-fragment>
+
+
