@@ -121,8 +121,8 @@
         <div class="card__title">LOCATED IN</div>
         <semantic-query query='SELECT ?location ?city ?country WHERE {
           <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
-          ?location <https://dbpedia.org/ontology/city> ?city ;
-                    <https://dbpedia.org/ontology/country> ?country
+          ?location <https://dbpedia.org/property/city> ?city ;
+                    <https://dbpedia.org/property/country> ?country
         }' template="{{> tmp}}" no-result-template='Location not available.'>
           <template id="tmp">
             {{#each bindings}}
@@ -158,8 +158,8 @@
             <{{page-resource}}> <https://dbpedia.org/ontology/location> ?location .
             ?location <http://www.geonames.org/ontology#lat> ?lat .
             ?location <http://www.geonames.org/ontology#long> ?lng .
-            OPTIONAL { ?location <https://dbpedia.org/ontology/city> ?city . }
-            OPTIONAL { ?location <https://dbpedia.org/ontology/country> ?country .}
+            OPTIONAL { ?location <https://dbpedia.org/property/city> ?city . }
+            OPTIONAL { ?location <https://dbpedia.org/property/country> ?country .}
           }' 
           tuple-template='<b>{{#if city}}{{city.value}}{{/if}} {{#if country}}({{country.value}}){{/if}}</b>'>
         </semantic-map>
@@ -282,10 +282,10 @@
                   ?associatedInstitution <https://dbpedia.org/ontology/location> ?location .
                 }
                 OPTIONAL {
-                  ?location <https://dbpedia.org/ontology/city> ?city .
+                  ?location <https://dbpedia.org/property/city> ?city .
                 }
                 OPTIONAL {
-                  ?location <https://dbpedia.org/ontology/country> ?country .
+                  ?location <https://dbpedia.org/property/country> ?country .
                 }
               }'
               number-of-displayed-rows="10" tuple-template='
