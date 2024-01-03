@@ -133,7 +133,7 @@ def clean_url(nameStr):
 # info for namespaces used in SOA
 soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_authors = "https://semopenalex.org/author/"
-soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
+soa_namespace_countsbyyear = "https://semopenalex.org/countsByYear/"
 soa_namespace_works = "https://semopenalex.org/work/"
 soa_namespace_institutions = "https://semopenalex.org/institution/"
 
@@ -286,7 +286,7 @@ def transform_gz_file(gz_file_path):
                     if not author_counts_by_year is None:
                         for count_year in author_counts_by_year:  # iterate through yearly dicts
                             count_year_year = count_year["year"]
-                            count_year_uri = URIRef(soa_namespace_countsbyyear + author_id + str(count_year_year))
+                            count_year_uri = URIRef(soa_namespace_countsbyyear + author_id + 'Y' + str(count_year_year))
                             author_graph.add((count_year_uri, RDF.type, soa_class_counts_by_year))
                             author_graph.add((author_uri, counts_by_year_predicate, count_year_uri))
                             author_graph.add((count_year_uri, year_predicate, Literal(count_year_year, datatype=XSD.integer)))

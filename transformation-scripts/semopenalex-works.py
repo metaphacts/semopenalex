@@ -149,7 +149,7 @@ def inverted_to_plain_text(invertedIndex):
 soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_authors = "https://semopenalex.org/author/"
 soa_namespace_authorship = "https://semopenalex.org/authorship/"
-soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
+soa_namespace_countsbyyear = "https://semopenalex.org/countsByYear/"
 soa_namespace_works = "https://semopenalex.org/work/"
 soa_namespace_institutions = "https://semopenalex.org/institution/"
 soa_namespace_open_access = "https://semopenalex.org/openaccess/"
@@ -532,7 +532,7 @@ def transform_gz_file(gz_file_path):
                         if not work_counts_by_year is None:
                             for count_year in work_counts_by_year:
                                 count_year_year = count_year["year"]
-                                count_year_uri = URIRef(soa_namespace_countsbyyear + work_id + str(count_year_year))
+                                count_year_uri = URIRef(soa_namespace_countsbyyear + work_id + 'Y' + str(count_year_year))
 
                                 works_graph.add((count_year_uri, RDF.type, soa_class_counts_by_year))
                                 works_graph.add((work_uri, counts_by_year_predicate, count_year_uri))

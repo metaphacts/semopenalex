@@ -141,7 +141,7 @@ soa_namespace_authors = "https://semopenalex.org/author/"
 soa_namespace_sources = "https://semopenalex.org/source/"
 soa_namespace_publishers = "https://semopenalex.org/publisher/"  # new
 soa_namespace_institutions = "https://semopenalex.org/institution/"
-soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
+soa_namespace_countsbyyear = "https://semopenalex.org/countsByYear/"
 
 # SOA classes used in this file
 soa_class_source = URIRef(soa_namespace_class + "Source")
@@ -347,7 +347,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     if not source_counts_by_year is None:
                         for count_year in source_counts_by_year:
                             count_year_year = count_year["year"]
-                            count_year_uri = URIRef(soa_namespace_countsbyyear + source_id + str(count_year_year))
+                            count_year_uri = URIRef(soa_namespace_countsbyyear + source_id + 'Y' + str(count_year_year))
 
                             source_graph.add((count_year_uri, RDF.type, soa_class_counts_by_year))
                             source_graph.add((source_uri, counts_by_year_predicate, count_year_uri))
