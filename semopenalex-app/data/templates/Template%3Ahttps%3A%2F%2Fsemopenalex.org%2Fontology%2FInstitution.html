@@ -179,8 +179,8 @@
       LIMIT 70' template='{{>tmp}}'>
       <template id="tmp">
         {{#each bindings}}
-          <span class="badge badge-secondary" style='margin:4px;'>
-            <semantic-link iri="{{concept.value}}"></semantic-link>
+          <span class="badge badge-secondary">
+            <semantic-link iri="{{concept.value}}"></semantic-link>&nbsp;
           </span>
         {{/each}}
       </template>
