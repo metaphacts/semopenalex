@@ -191,7 +191,7 @@ soa:013f2f63f0b01681bb2b6bee1410bea9 a sh:PropertyShape;
 
 soa:031c9716dcc41536893fe766a943dca2 a sh:PropertyShape;
   sh:datatype xsd:string;
-  sh:path <http://www.geonames.org/ontology#countryCode> .
+  sh:path <http://dbpedia.org/property/countryCode> .
 
 soa:0505f27824e6216f6cefdbd4e005817d a sh:PropertyShape .
 
@@ -225,7 +225,7 @@ soa:0d30180e88607a9b9f3e7efdf6a5a920 a sh:PropertyShape;
 
 soa:1332c0bb9ba85ee3d259b28b69384e8d a sh:PropertyShape;
   sh:datatype xsd:float;
-  sh:path <http://www.geonames.org/ontology#lat> .
+  sh:path <http://www.w3.org/2003/01/geo/wgs84_pos#lat> .
 
 soa:189d841b1771b070e525aa80a66987e5 a sh:PropertyShape;
   sh:class soa:Source;
@@ -237,7 +237,7 @@ soa:1bb749c62c841583be769092b22db6b8 a sh:PropertyShape;
 
 soa:1c15feb6789e3ab6b591b6963f5fabd8 a sh:PropertyShape;
   sh:datatype xsd:float;
-  sh:path <http://www.geonames.org/ontology#long> .
+  sh:path <http://www.w3.org/2003/01/geo/wgs84_pos#long> .
 
 soa:2183731b5316d244e42f7f4bb5d53178 a sh:PropertyShape .
 
@@ -248,10 +248,6 @@ soa:23348fdc99b5798e624fe091e0b4709d a sh:PropertyShape;
 soa:2YrMeanCitedness a owl:DatatypeProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "2YrMeanCitedness"@en .
-
-soa:2b3c29e0b34e9bc29556f5229eb14a97 a sh:PropertyShape;
-  sh:datatype xsd:string;
-  sh:path <https://dbpedia.org/property/city> .
 
 soa:2ba3dadbe01db17d6fcc5148f697478d a sh:PropertyShape;
   sh:datatype xsd:string;
@@ -361,10 +357,6 @@ soa:68d76519ea51413696d6257797eb19a3 a sh:PropertyShape;
 soa:6b4b1e8fa9567cd1c95c68eb908526cb a sh:PropertyShape;
   sh:datatype xsd:date;
   sh:path <http://prismstandard.org/namespaces/basic/2.0/publicationDate> .
-
-soa:6ea4e05d3608eb027517e565a2f1103c a sh:PropertyShape;
-  sh:datatype xsd:string;
-  sh:path <https://dbpedia.org/property/region> .
 
 soa:6ea9822eaeb42efcce076ee379679293 a sh:PropertyShape;
   sh:datatype xsd:string;
@@ -519,8 +511,7 @@ soa:Geo a owl:Class;
 
 soa:GeoShape a sh:NodeShape;
   sh:property soa:031c9716dcc41536893fe766a943dca2, soa:1332c0bb9ba85ee3d259b28b69384e8d,
-    soa:1c15feb6789e3ab6b591b6963f5fabd8, soa:2b3c29e0b34e9bc29556f5229eb14a97, soa:6ea4e05d3608eb027517e565a2f1103c,
-    soa:e38f3b3c38e508f7aa6cceb7394b6c8b, soa:eb7e6709e5e9634bfcc6232b56028bce;
+    soa:1c15feb6789e3ab6b591b6963f5fabd8 ;
   sh:targetClass soa:Geo .
 
 soa:HostVenueShape a sh:NodeShape;
@@ -842,10 +833,6 @@ soa:ddcebb3ed512f8f49c20e7d8d168d087 a sh:PropertyShape;
   sh:datatype xsd:string;
   sh:path soa:umlsAui .
 
-soa:e38f3b3c38e508f7aa6cceb7394b6c8b a sh:PropertyShape;
-  sh:datatype xsd:string;
-  sh:path <http://www.geonames.org/ontology#geonamesID> .
-
 soa:e6d6f1fbf0cd5a66ac9208072882dea6 a sh:PropertyShape;
   sh:class soa:Geo;
   sh:path <http://dbpedia.org/ontology/location> .
@@ -857,10 +844,6 @@ soa:e87cdd7b584967125d063d517eed6e4e a sh:PropertyShape;
 soa:e8a0e16f9a3195b262e677cac1e8ac67 a sh:PropertyShape;
   sh:class soa:Location;
   sh:path soa:hasLocation .
-
-soa:eb7e6709e5e9634bfcc6232b56028bce a sh:PropertyShape;
-  sh:datatype xsd:string;
-  sh:path <https://dbpedia.org/property/country> .
 
 soa:efa5ac5368669aaecc31eabadf5219f5 a sh:PropertyShape;
   sh:datatype xsd:string;

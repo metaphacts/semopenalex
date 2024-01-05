@@ -594,43 +594,19 @@ foaf:name a owl:DatatypeProperty;
   rdfs:comment "This property specifies the ror of a publisher, institution or funder."@en;
   rdfs:label "ror"@en .
 
-<https://dbpedia.org/property/country> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Geo>;
-  rdfs:range xsd:string ;
-  rdfs:comment "This property specifies the country of a geo."@en;
-  rdfs:label "country"@en .
-
-<https://dbpedia.org/property/city> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Geo>;
-  rdfs:range xsd:string ;
-  rdfs:comment "This property specifies the city of a geo."@en;
-  rdfs:label "city"@en .
-
-<http://www.geonames.org/ontology#geonamesID> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Geo>;
-  rdfs:range xsd:string ;
-  rdfs:comment "This property specifies the geonames ID of a geo."@en;
-  rdfs:label "geonames ID"@en .
-
-<https://dbpedia.org/property/region> a owl:DatatypeProperty;
-  rdfs:domain <https://semopenalex.org/ontology/Geo>;
-  rdfs:range xsd:string ;
-  rdfs:comment "This property specifies the region of a geo."@en;
-  rdfs:label "region"@en .
-
-<http://www.geonames.org/ontology#countryCode> a owl:DatatypeProperty;
+<https://dbpedia.org/property/countryCode> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Geo>;
   rdfs:range xsd:string ;
   rdfs:comment "This property specifies the country code of a geo."@en;
   rdfs:label "country code"@en .
 
-<http://www.geonames.org/ontology#lat> a owl:DatatypeProperty;
+<http://www.w3.org/2003/01/geo/wgs84_pos#lat> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Geo>;
   rdfs:range xsd:float ;
   rdfs:comment "This property specifies the latitude of a geo."@en;
   rdfs:label "latitude"@en .
 
-<http://www.geonames.org/ontology#long> a owl:DatatypeProperty;
+<http://www.w3.org/2003/01/geo/wgs84_pos#long> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Geo>;
   rdfs:range xsd:float ;
   rdfs:comment "This property specifies the longitude of a geo."@en;
