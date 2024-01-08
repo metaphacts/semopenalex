@@ -131,7 +131,7 @@ def clean_url(nameStr):
 # info for namespaces used in SOA
 soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_geo = "https://semopenalex.org/geo/"
-soa_namespace_countsbyyear = "https://semopenalex.org/countsbyyear/"
+soa_namespace_countsbyyear = "https://semopenalex.org/countsByYear/"
 soa_namespace_funders = "https://semopenalex.org/funder/"
 
 # SOA classes used in this file
@@ -278,7 +278,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                             count_year_year = count_year["year"]
                             count_year_works_count = count_year["works_count"]
                             count_year_cited_by_count =  count_year["cited_by_count"]
-                            count_year_uri = URIRef(soa_namespace_countsbyyear + funder_id + str(count_year_year))
+                            count_year_uri = URIRef(soa_namespace_countsbyyear + funder_id + 'Y' + str(count_year_year))
 
                             funders_graph.add((count_year_uri,RDF.type,soa_class_counts_by_year))
                             funders_graph.add((funder_uri, URIRef("https://semopenalex.org/ontology/countsByYear"), count_year_uri))
