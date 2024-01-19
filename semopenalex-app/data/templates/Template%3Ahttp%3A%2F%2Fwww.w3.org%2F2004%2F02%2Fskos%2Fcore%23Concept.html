@@ -263,8 +263,8 @@
       ' template='{{>tmp}}' no-result-template='<span>No related concepts found.</span>'>
         <template id="tmp">
           {{#each bindings}}
-             <span class="badge badge-secondary" style='margin:4px;'>
-              <semantic-link iri="{{relatedConcept.value}}"></semantic-link> 
+             <span class="badge badge-secondary" >
+              <semantic-link iri="{{relatedConcept.value}}"></semantic-link>&nbsp;
             </span> 
           {{/each}}
         </template>
