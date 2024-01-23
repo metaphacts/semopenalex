@@ -90,114 +90,203 @@
     padding: 2.3rem;
     line-height: 32px;
   }
+  .text-truncate {
+    max-width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 </style>
 
+<div class="soa">
+  <div class="header">
+    <div>
+      <mp-label iri='{{page-resource}}' class="header__title-main"></mp-label>
+      <div class="header__title-sub" style="margin-bottom:16px;">
+        <semantic-query
+          query="SELECT * WHERE {
+            BIND(<{{page-resource}}> as ?work)
+            ?work <https://semopenalex.org/ontology/hasAuthorship> ?authorShip .
+            ?authorShip <https://semopenalex.org/ontology/position> ?position .
+            ?authorShip <https://semopenalex.org/ontology/hasAuthor> ?author.
+          } ORDER BY ?position " template='{{>authors}}'>
+          <template id='authors'>
+            {{#each bindings}}
+              <semantic-link iri='{{author.value}}'>{{author.value}}</semantic-link>
+              {{#unless @last}}, {{/unless}}
+            {{/each}}
+          </template>
+        </semantic-query>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    {{> ::Cards}}
+    {{> ::Concepts}}
+    <bs-tabs id="tabs" mount-on-enter=true default-active-key='1'>
+      <bs-tab event-key="1" title="Publication">
+        <div class="row card abstract">
+          <semantic-query
+            query='SELECT ?abstract WHERE {
+              BIND(<{{page-resource}}> as ?work) .
+              OPTIONAL { 
+                ?work <http://purl.org/dc/terms/abstract> ?abstract .
+              }
+            }' template='{{>tmp}}'>
+            <template id="tmp">
+              {{#each bindings}}
+                <div>
+                  <div class="card__title">ABSTRACT</div>
+                  {{abstract.value}}
+                </div>
+              {{/each}}
+            </template>
+          </semantic-query>
+        </div>
+      </bs-tab>
+      <bs-tab event-key="2" title="Citations">
+        {{> ::Publications tab="citations"}}
+      </bs-tab>
+      <bs-tab event-key="3" title="Related publications">
+        {{> ::Publications tab="related-publications"}}
+      </bs-tab>
+      <bs-tab event-key="4" title="Computer Science Knowledge Graph">
+        {{> ::computer-science-knowledge-graph}}
+      </bs-tab>
+    </bs-tabs>    
+  </div>
+</div>
+
 <template-fragment id='Cards'>
-  <semantic-query
-    query="SELECT * WHERE {
-      BIND(<{{page-resource}}> as ?work) .
-      ?work <https://semopenalex.org/ontology/citedByCount> ?citedByCount .
-      OPTIONAL { 
-        ?work <http://prismstandard.org/namespaces/basic/2.0/publicationDate> ?publicationDate .
-      }
-      OPTIONAL {
-        ?work <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
-      }
-      OPTIONAL { 
-        ?work <http://prismstandard.org/namespaces/basic/2.0/doi>|<http://purl.org/spar/datacite/doi> ?doi .
-      }              
-      OPTIONAL {
-        ?work <https://semopenalex.org/ontology/hasHostVenue> ?hostVenue .
-        ?hostVenue <https://semopenalex.org/ontology/hasVenue> ?venue .
-        ?venue <http://purl.org/dc/terms/publisher> ?publisher .
-      }
-      OPTIONAL {
-        ?work <https://semopenalex.org/ontology/hasVolume> ?volume .
-      }
-      OPTIONAL {
-        ?work <https://semopenalex.org/ontology/hasIssue> ?issue .
-      }
-    }" template='{{>tmp}}'>
-    <template id='tmp'>
-      {{#each bindings}}
-        <div class="row cards">
-          <div class="card citations-chart">
-            <div class="publication_year_citations">
-              <div class="publication_year">
-                <div class="publication_year__label">Published in</div>
-                <div class="publication_year__value">
-                  {{publicationYear.value}}
+  <div class="cards" style="grid-template-columns: 1fr;">
+    <div class="row">
+      <div class="col-sm-12 col-lg-8">
+        <semantic-query
+          query="SELECT * WHERE {
+            BIND(<{{page-resource}}> as ?work) .
+            ?work <https://semopenalex.org/ontology/citedByCount> ?citedByCount .
+            
+            OPTIONAL {
+              ?work <http://purl.org/spar/fabio/hasPublicationYear> ?publicationYear .  
+            }
+           
+          }" template='{{>tmp}}'>
+            <template id='tmp'>
+              <div class="card" style="height:250px">
+                <div class="row">
+                  <div class="col-sm-12 col-lg-2">
+                    <div>
+                      {{#each bindings}}
+                  
+                        <div class="publication_year">
+                          <div class="publication_year__label" style="padding:unset">Published in</div>
+                          <div class="publication_year__value">
+                            {{publicationYear.value}}
+                          </div>
+                        </div>
+                          <div class="citations">
+                            <div class="citations__label" style="padding:unset">Citations</div>
+                            <div class="citations__value">{{number-format citedByCount.value locale="en"}}</div>                  
+                          </div>
+                      {{/each}}
+
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-lg-10">
+                    <semantic-chart type="bar" query="
+                      SELECT ?year ?citations WHERE {
+                        <{{page-resource}}> <https://semopenalex.org/ontology/countsByYear> ?count .
+                        ?count <https://semopenalex.org/ontology/year> ?year .
+                        ?count <https://semopenalex.org/ontology/citedByCount> ?citations .
+                      } ORDER BY ASC(?year)
+                    " sets='[{"dataSetName": "Citations", "category": "year", "x": "year", "y": "citations"}]'
+                      styles='[{
+                        "provider": "highcharts",
+                        "style": {
+                          "series": [
+                            {"type": "column", "showInLegend": false}
+                          ]
+                        }
+                      }]'
+                      
+                      dimensions='{"height": 180}'
+                    >
+                    </semantic-chart>
+                  </div>
                 </div>
               </div>
-              <div class="citations">
-                <div class="citations__label">Citations</div>
-                <div class="citations__value">{{citedByCount.value}}</div>                  
+            </template>
+        </semantic-query>
+      </div>
+      <div class="col-sm-12 col-lg-4">
+        <semantic-query query="
+          SELECT * WHERE {
+            BIND(<{{page-resource}}> as ?work) .
+               
+            OPTIONAL {
+              ?work <https://semopenalex.org/ontology/hasLocation>|<https://semopenalex.org/ontology/hasPrimaryLocation>|<https://semopenalex.org/ontology/hasBestOaLocation> ?location .
+              OPTIONAL { ?location <http://purl.org/spar/fabio/hasURL> ?locationUrl .}
+              OPTIONAL {
+                ?location <https://semopenalex.org/ontology/hasSource>/<https://semopenalex.org/ontology/hasHostOrganization> ?publisher .
+              }
+            }
+            OPTIONAL { 
+              ?work <http://prismstandard.org/namespaces/basic/2.0/doi>|<http://purl.org/spar/datacite/doi> ?doi .
+            } 
+            OPTIONAL {
+              ?work <https://semopenalex.org/ontology/hasVolume> ?volume .
+            }
+            OPTIONAL {
+              ?work <https://semopenalex.org/ontology/hasIssue> ?issue .
+            }
+          } LIMIT 1" template='{{>tmp}}'>
+            <template id='tmp'>
+              <div class="card" style="height:250px">
+                <div>
+                  {{#each bindings}}
+                    
+                    {{#if publisher}}
+                      <div style='margin-bottom:4px;'>
+                        <div class="card__title" style="padding:unset">PUBLISHER</div>
+                        <semantic-link iri="{{publisher.value}}"></semantic-link>
+                        {{#if volume}}
+                          <span style='color:var(--mp-color-dark-400)'> Volume {{volume.value}},</span>
+                        {{/if}}
+                        {{#if issue}}
+                          <span style='color:var(--mp-color-dark-400)'> Issue {{issue.value}}</span>
+                        {{/if}}
+                      </div>
+                    {{/if}}
+                    
+                    {{#if doi}}
+                      <div style='margin-bottom:4px;'>
+                        <div class="card__title" style="padding:unset">DOI</div>
+                        <a href="{{doi.value}}" target='_blank'><div class="text-truncate">{{doi.value}}</div></a>
+                      </div>
+                    {{/if}}
+                  {{/each}}
+                </div>
+              
               </div>
-            </div>
-            <semantic-chart type="bar" query="
-              SELECT ?year ?citations WHERE {
-                <{{page-resource}}> <https://semopenalex.org/ontology/countsByYear> ?count .
-                ?count <https://semopenalex.org/ontology/year> ?year .
-                ?count <https://semopenalex.org/ontology/citedByCount> ?citations .
-              } ORDER BY ASC(?year)
-            " sets='[{"dataSetName": "Citations", "category": "year", "x": "year", "y": "citations"}]'
-              styles='[{
-                "provider": "highcharts",
-                "style": {
-                  "series": [
-                    {"type": "column", "showInLegend": false}
-                  ]
-                }
-              }]'
-              style-highcharts='{
-                "chart": {
-                  "margin": [20, 0, 20, 40]
-                },
-                "legend": "hide"
-              }'
-              dimensions='{"height": 180}'
-            >
-            </semantic-chart>
-          </div>
-          <div class="card">
-            <div>
-              <div class="card__title">PUBLISHED IN</div>
-              <div class="publication-info">
-                {{#if publisher}}
-                  <semantic-link iri="{{publisher.value}}">{{publisher.value}},</semantic-link>
-                {{/if}}
-                {{#if volume}}
-                  <div>Volume {{volume.value}},</div>
-                {{/if}}
-                {{#if issue}}
-                  <div>Issue {{issue.value}},</div>
-                {{/if}}
-                {{#if publicationDate}}
-                  <div>{{publicationDate.value}}</div>
-                {{else}}
-                  <div>{{publicationYear.value}}</div>
-                {{/if}}
-              </div>
-              {{#if doi}}
-                <a href="{{doi.value}}" target='_blank'>{{doi.value}}</a>
-              {{/if}}
-            </div>
-          </div>
-        </div>
-      {{/each}}
-    </template>        
-  </semantic-query>
+            </template>
+        </semantic-query>
+      </div>
+            
+                   
+    </div>
+  
+  </div>
 </template-fragment>
 
 <template-fragment id="Concepts">
   <div class="row concepts">
-    <div>
+    <div style="margin-top:16px;">
       <semantic-query query='
         SELECT DISTINCT ?concept {
           BIND(<{{page-resource}}> as ?work)
           ?work <https://semopenalex.org/ontology/hasConcept> ?concept .
-        }
-        LIMIT 70
+          ?concept skos:prefLabel ?label .
+        } ORDER BY LCASE (?label) LIMIT 70
       ' template='{{>tmp}}'>
           <template id="tmp">
             {{#each bindings}}
@@ -298,62 +387,107 @@
   </div>
 </template-fragment>
 
-<div class="soa">
-  <div class="header">
+<template-fragment id='computer-science-knowledge-graph'>
+  
+  <div> 
     <div>
-      <mp-label iri='{{page-resource}}' class="header__title-main"></mp-label>
-      <div class="header__title-sub">
-        <semantic-query
-          query="SELECT * WHERE {
-            BIND(<{{page-resource}}> as ?work)
-            ?work <https://semopenalex.org/ontology/hasAuthorship> ?authorShip .
-            ?authorShip <https://semopenalex.org/ontology/position> ?position .
-            ?authorShip <https://semopenalex.org/ontology/hasAuthor> ?author.
-          } ORDER BY ?position " template='{{>authors}}'>
-          <template id='authors'>
-            {{#each bindings}}
-              <semantic-link iri='{{author.value}}'>{{author.value}}</semantic-link>
-              {{#unless @last}}, {{/unless}}
-            {{/each}}
-          </template>
-        </semantic-query>
-      </div>
+      The following statements are obtained from <a href="http://scholkg.kmi.open.ac.uk/" target='_blank'>Computer Science Knowledge Graph</a>.
     </div>
+
+
+    <h3>Outgoing Statements</h3>
+    
+    <semantic-table
+      query='
+        SELECT ?property ?object WHERE {
+          SERVICE  Repository:computer-science-knowledge-graph {
+            BIND ( REPLACE ( STR(<{{page-resource}}>), "https://semopenalex.org/work/", "") as ?workdId )
+ 	          BIND ( IRI(CONCAT ("https://w3id.org/cskg/resource/", ?workdId)) as ?cskgPaper)
+             ?cskgPaper ?property ?object .
+          }
+        } LIMIT 1000'
+      options='{"showFilter": false, "stickyHeader": true, "stickyColumn": true}'
+      column-configuration='[
+        {"variableName":"property", "displayName":"Property", "cellTemplate": "{{> propTmpl}}"},
+        {"variableName":"object", "displayName":"Object", "cellTemplate": "{{> subTmpl}}"}
+      ]'
+      no-result-template='<span>No results found.</span>'
+    >
+        <template id="propTmpl">
+        <semantic-context repository='wikidata'>
+          {{#if (isIri property)}}
+
+             <semantic-context repository='computer-science-knowledge-graph'>
+              <semantic-link iri="{{property.value}}"></semantic-link>
+            </semantic-context>
+            
+          {{else}}
+            {{property.value}}
+          {{/if}}
+        </semantic-context>
+      
+      </template>
+      <template id="subTmpl">
+        <semantic-context repository='wikidata'>
+          {{#if (isIri object)}}
+             <semantic-context repository='computer-science-knowledge-graph'>
+              <semantic-link iri="{{property.value}}"></semantic-link>
+            </semantic-context>
+          {{else}}
+            {{object.value}}
+          {{/if}}
+        </semantic-context>
+      </template>
+
+    </semantic-table>
+    
+    <h2>Incoming Statements</h2>
+    <semantic-table
+      query='
+        SELECT ?property ?subject WHERE {
+          SERVICE  Repository:computer-science-knowledge-graph {
+   	        BIND ( REPLACE ( STR(<{{page-resource}}>), "https://semopenalex.org/work/", "") as ?workdId )
+ 	          BIND ( IRI(CONCAT ("https://w3id.org/cskg/resource/", ?workdId)) as ?cskgPaper)
+            ?subject ?property ?cskgPaper .
+          }
+        } LIMIT 1000'
+      options='{"showFilter": false, "stickyHeader": true, "stickyColumn": true}'
+      column-configuration='[
+        {"variableName":"property", "displayName":"Property", "cellTemplate": "{{> propTmpl}}"},
+        {"variableName":"subject", "displayName":"Subject", "cellTemplate": "{{> subTmpl}}" }
+      ]'
+      no-result-template='<span>No results found.</span>'
+    >
+      <template id="propTmpl">
+        <semantic-context repository='wikidata'>
+          {{#if (isIri property)}}
+            <semantic-context repository='computer-science-knowledge-graph'>
+              <semantic-link iri="{{property.value}}"></semantic-link>
+            </semantic-context>
+         
+          {{else}}
+            {{property.value}}
+          {{/if}}
+        </semantic-context>
+      
+      </template>
+      <template id="subTmpl">
+        <semantic-context repository='wikidata'>
+          {{#if (isIri subject)}}
+            <semantic-context repository='computer-science-knowledge-graph'>
+              <semantic-link iri="{{subject.value}}"></semantic-link>
+            </semantic-context>
+          {{else}}
+            {{subject.value}}
+          {{/if}}
+        </semantic-context>
+      </template>
+    </semantic-table>
+
+    <div style='margin-top:8px;'>
+      <i>Please note that the tables above are limted to 1000 statements. </i>
+    </div>
+
   </div>
-  <div class="body">
-    <bs-tabs id="tabs" mount-on-enter=true default-active-key='1'>
-      <bs-tab event-key="1" title="Publication">
-        {{> ::Cards}}
-        {{> ::Concepts}}
-        <div class="row card abstract">
-          <semantic-query
-            query='SELECT ?abstract WHERE {
-              BIND(<{{page-resource}}> as ?work) .
-              OPTIONAL { 
-                ?work <http://purl.org/dc/terms/abstract> ?abstract .
-              }
-            }' template='{{>tmp}}'>
-            <template id="tmp">
-              {{#each bindings}}
-                <div>
-                  <div class="card__title">ABSTRACT</div>
-                  {{abstract.value}}
-                </div>
-              {{/each}}
-            </template>
-          </semantic-query>
-        </div>
-      </bs-tab>
-      <bs-tab event-key="2" title="Citations">
-        {{> ::Cards}}
-        {{> ::Concepts}}
-        {{> ::Publications tab="citations"}}
-      </bs-tab>
-      <bs-tab event-key="3" title="Related publications">
-        {{> ::Cards}}
-        {{> ::Concepts}}
-        {{> ::Publications tab="related-publications"}}
-      </bs-tab>
-    </bs-tabs>    
-  </div>
-</div>
+             
+</template-fragment>

@@ -437,13 +437,10 @@
       <div class="row concepts">
         <div>
           <semantic-query query='
-            SELECT DISTINCT ?concept (COUNT (distinct ?publication) as ?count) {
+            SELECT DISTINCT ?concept  {
               ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
-              ?publication <https://semopenalex.org/ontology/hasConcept> ?concept .
-            }
-            GROUP BY ?concept
-            ORDER BY desc(?count)
-            LIMIT 70
+             
+            } LIMIT 70
           ' template='{{>tmp}}'>
             <template id="tmp">
               {{#each bindings}}
@@ -467,7 +464,7 @@
               {
                 VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
               } UNION {          
-                { select ?parent ?node (count (distinct ?otherPublication) as ?count) {
+                { select ?parent ?node (count (?otherPublication) as ?count) {
                     BIND ( <{{page-resource}}> as ?parent)
                     ?publication <http://purl.org/dc/terms/creator> ?parent .
                     ?publication <http://purl.org/spar/cito/cites> ?otherPublication .
@@ -501,7 +498,7 @@
               {
                 VALUES (?parent ?node) { ( UNDEF <{{page-resource}}>)}
               } UNION {
-                  { select ?parent ?node (count (distinct ?publication2) as ?count) {
+                  { select ?parent ?node (count ( ?publication2) as ?count) {
                       BIND ( <{{page-resource}}> as ?parent)
                       ?publication <http://purl.org/dc/terms/creator> ?parent .
                       ?publication2 <http://purl.org/spar/cito/cites> ?publication .
