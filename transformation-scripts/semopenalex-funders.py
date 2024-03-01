@@ -133,10 +133,12 @@ soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_geo = "https://semopenalex.org/geo/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsByYear/"
 soa_namespace_funders = "https://semopenalex.org/funder/"
+soa_namespace_publishers = "https://semopenalex.org/publisher/"
+soa_namespace_institutions = "https://semopenalex.org/institution/"
 
 # SOA classes used in this file
-soa_class_funder = URIRef(soa_namespace_class+"Funder")
-soa_class_counts_by_year = URIRef(soa_namespace_class+"CountsByYear")
+soa_class_funder = URIRef(soa_namespace_class + "Funder")
+soa_class_counts_by_year = URIRef(soa_namespace_class + "CountsByYear")
 
 # institutions entity context
 context = URIRef("https://semopenalex.org/funders/context")
@@ -285,6 +287,24 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                             funders_graph.add((count_year_uri, URIRef("https://semopenalex.org/ontology/year"), Literal(count_year_year,datatype=XSD.integer)))
                             funders_graph.add((count_year_uri, URIRef("https://semopenalex.org/ontology/worksCount"), Literal(count_year_works_count,datatype=XSD.integer)))
                             funders_graph.add((count_year_uri, URIRef("https://semopenalex.org/ontology/citedByCount"), Literal(count_year_cited_by_count,datatype=XSD.integer)))
+
+                    #roles
+                    funder_roles = json_data['roles']
+                    if not funder_roles is None:
+                        for role in funder_roles:
+                            role_role = role["role"]
+
+                            # publisher
+                            if role_role == "publisher":
+                                role_id = role["id"].replace("https://openalex.org/", "")
+                                role_uri = URIRef(soa_namespace_publishers + role_id)
+                                funders_graph.add((funder_uri, OWL.sameAs, role_uri))
+
+                            # institution
+                            if role_role == "institution":
+                                role_id = role["id"].replace("https://openalex.org/", "")
+                                role_uri = URIRef(soa_namespace_institutions + role_id)
+                                funders_graph.add((funder_uri, OWL.sameAs, role_uri))
 
                     #updated_date
                     funder_updated_date = json_data['updated_date']
