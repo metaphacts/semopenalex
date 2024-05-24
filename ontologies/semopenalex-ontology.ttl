@@ -12,7 +12,7 @@
   rdfs:label "SemOpenAlex Ontology"@en;
   rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en ;
   dcterms:created "2022-05-12"^^xsd:date ;
-  dcterms:modified "2023-10-24"^^xsd:date ;
+  dcterms:modified "2024-05-24"^^xsd:date ;
   dcterms:license <http://creativecommons.org/publicdomain/zero/1.0/> ;
   dcterms:issued "2023-10-18"^^xsd:date ;
   dcterms:publisher <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology> ;
@@ -593,6 +593,18 @@ foaf:name a owl:DatatypeProperty;
   rdfs:range xsd:anyURI ;
   rdfs:comment "This property specifies the ror of a publisher, institution or funder."@en;
   rdfs:label "ror"@en .
+
+<https://dbpedia.org/property/country> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/ontology/Geo>;
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the country of a geo."@en;
+  rdfs:label "country"@en .
+
+<https://dbpedia.org/property/city> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/ontology/Geo>;
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the city of a geo."@en;
+  rdfs:label "city"@en .
 
 <https://dbpedia.org/property/countryCode> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Geo>;

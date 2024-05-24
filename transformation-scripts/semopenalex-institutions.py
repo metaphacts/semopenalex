@@ -177,7 +177,7 @@ today = date.today()
 ENTITY_TYPE = 'institutions'
 ##########
 
-data_dump_input_root_dir = '/Users/linnaung/open-alex'
+data_dump_input_root_dir = '/opt/openalex-snapshot'
 
 absolute_path = os.path.dirname(__file__)
 trig_output_dir_path = os.path.join(absolute_path, '../graphdb-preload/graphdb-import/') 
@@ -298,6 +298,10 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         institutions_graph.add((geo_uri,RDF.type,soa_class_geo))
                         institutions_graph.add((institution_uri,location_predicate,geo_uri))
 
+                        geo_city = institution_geo['city']
+                        if not geo_city is None:
+                            institutions_graph.add((geo_uri,city_predicate,Literal(geo_city,datatype=XSD.string)))
+
                         geo_country_code = institution_geo['country_code']
                         if not geo_country_code is None:
                             institutions_graph.add((geo_uri,country_code_geo_predicate,Literal(geo_country_code,datatype=XSD.string)))
@@ -314,6 +318,9 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         if not geo_longitude == None:
                             institutions_graph.add((geo_uri,long_geo_predicate,Literal(geo_longitude,datatype=XSD.float)))
 
+                        geo_country = institution_geo['country']
+                        if not geo_country is None:
+                            institutions_graph.add((geo_uri,country_predicate,Literal(geo_country,datatype=XSD.string)))
 
                     #international
                     #to do

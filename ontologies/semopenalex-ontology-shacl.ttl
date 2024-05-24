@@ -17,7 +17,7 @@
     <https://orcid.org/0009-0009-4338-0983>;
   dct:issued "2022-05-12"^^xsd:date;
   dct:license <http://creativecommons.org/publicdomain/zero/1.0/>;
-  dct:modified "2023-10-24"^^xsd:date;
+  dct:modified "2024-05-24"^^xsd:date;
   dct:publisher <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology>, <http://www.wikidata.org/entity/Q22132500>;
   dct:title "SemOpenAlex Ontology"@en;
   rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en;
@@ -248,6 +248,10 @@ soa:23348fdc99b5798e624fe091e0b4709d a sh:PropertyShape;
 soa:2YrMeanCitedness a owl:DatatypeProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/>;
   rdfs:label "2YrMeanCitedness"@en .
+
+soa:2b3c29e0b34e9bc29556f5229eb14a97 a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/city> .
 
 soa:2ba3dadbe01db17d6fcc5148f697478d a sh:PropertyShape;
   sh:datatype xsd:string;
@@ -510,8 +514,8 @@ soa:Geo a owl:Class;
   rdfs:label "Geo"@en .
 
 soa:GeoShape a sh:NodeShape;
-  sh:property soa:031c9716dcc41536893fe766a943dca2, soa:1332c0bb9ba85ee3d259b28b69384e8d,
-    soa:1c15feb6789e3ab6b591b6963f5fabd8 ;
+  sh:property soa:031c9716dcc41536893fe766a943dca2, soa:1332c0bb9ba85ee3d259b28b69384e8d, soa:2b3c29e0b34e9bc29556f5229eb14a97, 
+    soa:1c15feb6789e3ab6b591b6963f5fabd8, soa:eb7e6709e5e9634bfcc6232b56028bce ;
   sh:targetClass soa:Geo .
 
 soa:HostVenueShape a sh:NodeShape;
@@ -844,6 +848,10 @@ soa:e87cdd7b584967125d063d517eed6e4e a sh:PropertyShape;
 soa:e8a0e16f9a3195b262e677cac1e8ac67 a sh:PropertyShape;
   sh:class soa:Location;
   sh:path soa:hasLocation .
+
+soa:eb7e6709e5e9634bfcc6232b56028bce a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/country> .
 
 soa:efa5ac5368669aaecc31eabadf5219f5 a sh:PropertyShape;
   sh:datatype xsd:string;
