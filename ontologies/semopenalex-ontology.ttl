@@ -262,7 +262,7 @@ foaf:name a owl:DatatypeProperty;
   rdfs:label "OpenAccess"@en ;
   rdfs:comment "This class represents an open access status."@en.
 
-<http://dbpedia.org/ontology/location> a owl:ObjectProperty;
+<https://dbpedia.org/ontology/location> a owl:ObjectProperty;
   rdfs:domain <https://semopenalex.org/ontology/Institution>;
   rdfs:range <https://semopenalex.org/ontology/Geo> ;
   rdfs:comment "This property specifies the location of an institution."@en;

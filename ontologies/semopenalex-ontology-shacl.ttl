@@ -45,7 +45,7 @@
   rdfs:label "Linn Aung";
   foaf:mbox <mailto:la@metaphacts.com> .
 
-<http://dbpedia.org/ontology/location> a owl:ObjectProperty;
+<https://dbpedia.org/ontology/location> a owl:ObjectProperty;
   rdfs:isDefinedBy <https://semopenalex.org/ontology/> .
 
 <http://prismstandard.org/namespaces/basic/2.0/doi> a owl:DatatypeProperty;
@@ -191,7 +191,7 @@ soa:013f2f63f0b01681bb2b6bee1410bea9 a sh:PropertyShape;
 
 soa:031c9716dcc41536893fe766a943dca2 a sh:PropertyShape;
   sh:datatype xsd:string;
-  sh:path <http://dbpedia.org/property/countryCode> .
+  sh:path <https://dbpedia.org/property/countryCode> .
 
 soa:0505f27824e6216f6cefdbd4e005817d a sh:PropertyShape .
 
@@ -839,7 +839,7 @@ soa:ddcebb3ed512f8f49c20e7d8d168d087 a sh:PropertyShape;
 
 soa:e6d6f1fbf0cd5a66ac9208072882dea6 a sh:PropertyShape;
   sh:class soa:Geo;
-  sh:path <http://dbpedia.org/ontology/location> .
+  sh:path <https://dbpedia.org/ontology/location> .
 
 soa:e87cdd7b584967125d063d517eed6e4e a sh:PropertyShape;
   sh:class soa:Author;
