@@ -362,6 +362,10 @@ soa:6b4b1e8fa9567cd1c95c68eb908526cb a sh:PropertyShape;
   sh:datatype xsd:date;
   sh:path <http://prismstandard.org/namespaces/basic/2.0/publicationDate> .
 
+soa:6ea4e05d3608eb027517e565a2f1103c a sh:PropertyShape;
+  sh:datatype xsd:string;
+  sh:path <https://dbpedia.org/property/region> .
+
 soa:6ea9822eaeb42efcce076ee379679293 a sh:PropertyShape;
   sh:datatype xsd:string;
   sh:path soa:grid .
@@ -515,7 +519,7 @@ soa:Geo a owl:Class;
 
 soa:GeoShape a sh:NodeShape;
   sh:property soa:031c9716dcc41536893fe766a943dca2, soa:1332c0bb9ba85ee3d259b28b69384e8d, soa:2b3c29e0b34e9bc29556f5229eb14a97, 
-    soa:1c15feb6789e3ab6b591b6963f5fabd8, soa:eb7e6709e5e9634bfcc6232b56028bce ;
+    soa:1c15feb6789e3ab6b591b6963f5fabd8, soa:eb7e6709e5e9634bfcc6232b56028bce, soa:6ea4e05d3608eb027517e565a2f1103c ;
   sh:targetClass soa:Geo .
 
 soa:HostVenueShape a sh:NodeShape;

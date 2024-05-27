@@ -606,6 +606,12 @@ foaf:name a owl:DatatypeProperty;
   rdfs:comment "This property specifies the city of a geo."@en;
   rdfs:label "city"@en .
 
+<https://dbpedia.org/property/region> a owl:DatatypeProperty;
+  rdfs:domain <https://semopenalex.org/ontology/Geo>;
+  rdfs:range xsd:string ;
+  rdfs:comment "This property specifies the region of a geo."@en;
+  rdfs:label "region"@en .
+
 <https://dbpedia.org/property/countryCode> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Geo>;
   rdfs:range xsd:string ;

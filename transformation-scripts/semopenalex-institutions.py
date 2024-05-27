@@ -310,6 +310,10 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         if not geo_geonames_city_id is None:
                             institutions_graph.add((geo_uri, OWL.sameAs, URIRef('https://sws.geonames.org/' + geo_geonames_city_id)))
 
+                        geo_region = institution_geo['region']
+                        if not geo_region is None:
+                            institutions_graph.add((geo_uri,region_predicate,Literal(geo_region,datatype=XSD.string)))
+
                         geo_latitude = institution_geo['latitude']
                         if not geo_latitude is None:
                             institutions_graph.add((geo_uri,lat_geo_predicate,Literal(geo_latitude,datatype=XSD.float)))
