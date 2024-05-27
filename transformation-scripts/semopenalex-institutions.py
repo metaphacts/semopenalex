@@ -158,9 +158,9 @@ geoname_id_predicate = URIRef("http://www.geonames.org/ontology#geonamesID")
 city_predicate = URIRef("https://dbpedia.org/property/city")
 region_predicate = URIRef("https://dbpedia.org/property/region")
 country_predicate = URIRef("https://dbpedia.org/property/country")
-country_code_geo_predicate = URIRef("http://www.geonames.org/ontology#countryCode")
-lat_geo_predicate = URIRef("http://www.geonames.org/ontology#lat")
-long_geo_predicate = URIRef("http://www.geonames.org/ontology#long")
+country_code_geo_predicate = URIRef("https://dbpedia.org/property/countryCode")
+lat_geo_predicate = URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat")
+long_geo_predicate = URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#long")
 associated_institution_predicate = URIRef("https://semopenalex.org/ontology/hasAssociatedInstitution")
 year_predicate = URIRef("https://semopenalex.org/ontology/year")
 
@@ -302,21 +302,17 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         if not geo_city is None:
                             institutions_graph.add((geo_uri,city_predicate,Literal(geo_city,datatype=XSD.string)))
 
-                        geo_geonames_city_id = institution_geo['geonames_city_id']
-                        if not geo_geonames_city_id is None:
-                            institutions_graph.add((geo_uri,geoname_id_predicate,Literal(geo_geonames_city_id,datatype=XSD.string)))
-
-                        geo_region = institution_geo['region']
-                        if not geo_region is None:
-                            institutions_graph.add((geo_uri,region_predicate,Literal(geo_region,datatype=XSD.string)))
-
                         geo_country_code = institution_geo['country_code']
                         if not geo_country_code is None:
                             institutions_graph.add((geo_uri,country_code_geo_predicate,Literal(geo_country_code,datatype=XSD.string)))
 
-                        geo_country = institution_geo['country']
-                        if not geo_country is None:
-                            institutions_graph.add((geo_uri,country_predicate,Literal(geo_country,datatype=XSD.string)))
+                        geo_geonames_city_id = institution_geo['geonames_city_id']
+                        if not geo_geonames_city_id is None:
+                            institutions_graph.add((geo_uri, OWL.sameAs, URIRef('https://sws.geonames.org/' + geo_geonames_city_id)))
+
+                        geo_region = institution_geo['region']
+                        if not geo_region is None:
+                            institutions_graph.add((geo_uri,region_predicate,Literal(geo_region,datatype=XSD.string)))
 
                         geo_latitude = institution_geo['latitude']
                         if not geo_latitude is None:
@@ -326,6 +322,9 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         if not geo_longitude == None:
                             institutions_graph.add((geo_uri,long_geo_predicate,Literal(geo_longitude,datatype=XSD.float)))
 
+                        geo_country = institution_geo['country']
+                        if not geo_country is None:
+                            institutions_graph.add((geo_uri,country_predicate,Literal(geo_country,datatype=XSD.string)))
 
                     #international
                     #to do
