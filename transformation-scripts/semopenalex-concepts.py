@@ -190,7 +190,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
     # initialize and add concept scheme URI
     concept_graph.add((concept_scheme_uri, RDF.type, SKOS.ConceptScheme))
     concept_graph.add((concept_scheme_uri, SKOS.prefLabel, Literal("SemOpenAlex Concepts", datatype = XSD.string)))
-    concept_graph.add((concept_scheme_uri, URIRef("http://purl.org/dc/terms/description"), Literal("SemOpenAlex concepts are abstract ideas that works are about.", datatype = XSD.string)))
+    concept_graph.add((concept_scheme_uri, URIRef("http://purl.org/dc/terms/description"), Literal("SemOpenAlex concepts are abstract ideas that works are about. Concepts are structured in a hierarchical tree. There are 19 top-level concepts, and six layers of descendants branching off from them. ", datatype = XSD.string)))
 
     for filename in glob.glob(os.path.join(data_dump_input_entity_dir, '*.gz')):
         with gzip.open(filename, 'r') as f:
