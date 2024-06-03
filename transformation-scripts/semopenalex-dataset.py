@@ -54,7 +54,7 @@ g.add((dataset, DCTERMS.issued, Literal(data_issued_time, datatype = XSD.dateTim
 g.add((dataset, DCTERMS.license, Literal("https://creativecommons.org/publicdomain/zero/1.0/legalcode", datatype = XSD.anyURI)))
 
 # keywords 
-g.add((dataset, DCAT.version, Literal("3.0.1", datatype = XSD.string)))
+g.add((dataset, DCAT.version, Literal("5.0.0", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("concepts", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("topics", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("keywords", datatype = XSD.string)))
@@ -124,7 +124,7 @@ g.add((dist_v3, DCAT.accessURL, Literal("https://semopenalex.s3.amazonaws.com/br
 dist_v4 = URIRef("http://datasets.semopenalex.org/v4/semopenalex-distribution")
 g.add((dataset, DCAT.distribution, dist_v4))
 g.add((dist_v4, RDF.type, DCAT.Distribution))
-g.add((dist_v3, DCTERMS.issued, Literal("2023-10-28", datatype = XSD.date)))
+g.add((dist_v4, DCTERMS.issued, Literal("2023-10-28", datatype = XSD.date)))
 g.add((dist_v4, DCTERMS.title, Literal("SemOpenAlex RDF dump", datatype = XSD.string)))
 g.add((dist_v4, format, Literal("TriG", datatype = XSD.string)))
 g.add((dist_v4, DCAT.mediaType, Literal("application/x-trig", datatype = XSD.string)))
@@ -133,7 +133,7 @@ g.add((dist_v4, DCAT.accessURL, Literal("https://semopenalex.s3.amazonaws.com/br
 dist_v5 = URIRef("http://datasets.semopenalex.org/v5/semopenalex-distribution")
 g.add((dataset, DCAT.distribution, dist_v5))
 g.add((dist_v5, RDF.type, DCAT.Distribution))
-g.add((dist_v4, DCTERMS.issued, Literal(today, datatype = XSD.date)))
+g.add((dist_v5, DCTERMS.issued, Literal(today, datatype = XSD.date)))
 g.add((dist_v5, DCTERMS.title, Literal("SemOpenAlex RDF dump", datatype = XSD.string)))
 g.add((dist_v5, format, Literal("TriG", datatype = XSD.string)))
 g.add((dist_v5, DCAT.mediaType, Literal("application/x-trig", datatype = XSD.string)))
