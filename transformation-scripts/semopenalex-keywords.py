@@ -114,7 +114,27 @@ replacements_url = [
         "search"  : re.compile(r'\t'),
         "replace" : '',
         "comment" : "Newline string"
-    },
+    }, {
+        "search": re.compile(r'/'),
+        "replace": '',
+        "comment": "Slash in URI"
+    }, {
+        "search": re.compile(r'$'),
+        "replace": '',
+        "comment": "Dollar sign in URI"
+    }, {
+        "search": re.compile(r'_'),
+        "replace": '',
+        "comment": "Underscore in URI"
+    }, {
+        "search": re.compile(r'{'),
+        "replace": '',
+        "comment": "Opening curly brace in URI"
+    }, {
+        "search": re.compile(r'}'),
+        "replace": '',
+        "comment": "Closing curly brace in URI"
+    }
 ]
 
 def clean(nameStr):
@@ -213,10 +233,12 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     topic_keywords = json_data['keywords']
                     if not topic_keywords is None:
                         for keyword in topic_keywords:
+                            replacements_url = clean_url(keyword)
                             keyword_uri = transform_keyword_to_uri(keyword)
                             keywords_graph.add((URIRef(keyword_uri), RDF.type, soa_class_keyword))
                             keywords_graph.add((URIRef(keyword_uri), RDF.type, SKOS.Concept))
                             keywords_graph.add((URIRef(keyword_uri), SKOS.inScheme, keyword_scheme_uri))
+                            keywords_graph.add((URIRef(keyword_scheme_uri), SKOS.hasTopConcept, keyword_uri))
                             keywords_graph.add((URIRef(keyword_uri), SKOS.prefLabel, Literal(keyword, datatype=XSD.string)))
                     
 
