@@ -236,7 +236,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         for keyword in topic_keywords:
                             keyword_uri = transform_keyword_to_uri(keyword)
 
-                            if term.is_valid_uri(keyword_uri):
+                            if term._is_valid_uri(keyword_uri):
                                 keywords_graph.add((URIRef(keyword_uri), RDF.type, soa_class_keyword))
                                 keywords_graph.add((URIRef(keyword_uri), RDF.type, SKOS.Concept))
                                 keywords_graph.add((URIRef(keyword_uri), SKOS.inScheme, keyword_scheme_uri))
