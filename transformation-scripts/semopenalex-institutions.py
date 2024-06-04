@@ -161,7 +161,9 @@ country_predicate = URIRef("https://dbpedia.org/property/country")
 country_code_geo_predicate = URIRef("https://dbpedia.org/property/countryCode")
 lat_geo_predicate = URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#lat")
 long_geo_predicate = URIRef("http://www.w3.org/2003/01/geo/wgs84_pos#long")
-associated_institution_predicate = URIRef("https://semopenalex.org/ontology/hasAssociatedInstitution")
+related_institution_predicate = URIRef("https://semopenalex.org/ontology/hasAssociatedInstitution")
+parent_institution_predicate = URIRef("https://semopenalex.org/ontology/hasParentInstitution")
+child_institution_predicate = URIRef("https://semopenalex.org/ontology/hasChildInstitution")
 year_predicate = URIRef("https://semopenalex.org/ontology/year")
 
 # institutions entity context
@@ -335,8 +337,15 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         for associated_institution in institution_associated_institutions:
                             associated_institution_id = associated_institution["id"].replace("https://openalex.org/", "")
                             associated_institution_uri = URIRef(soa_namespace_institutions+associated_institution_id)
-                            institutions_graph.add((institution_uri,associated_institution_predicate,associated_institution_uri))
-
+                            associated_relationship = associated_institution["relationship"]
+                            if not associated_relationship is None:
+                                if associated_relationship == "related":
+                                    institutions_graph.add((institution_uri,related_institution_predicate,associated_institution_uri))
+                                if associated_relationship == "parent":
+                                    institutions_graph.add((institution_uri,parent_institution_predicate,associated_institution_uri))
+                                if associated_relationship == "child":
+                                    institutions_graph.add((institution_uri,child_institution_predicate,associated_institution_uri))
+                               
                     #counts_by_year
                     institution_counts_by_year = json_data['counts_by_year']
                     if not institution_counts_by_year is None:
@@ -364,6 +373,15 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     institution_created_date = json_data['created_date']
                     if not institution_created_date is None:
                         institutions_graph.add((institution_uri,DCTERMS.created,Literal(institution_created_date,datatype=XSD.date)))
+
+                    # lineage
+                    # captured in associated_institutions relationship parent
+
+                    # repositories
+                    # modeled in sources.py
+
+                    # roles
+                    # modeled in funders.py and publishers.py
 
                     i += 1
                     if i % 10000 == 0:
