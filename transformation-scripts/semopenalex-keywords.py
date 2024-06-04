@@ -4,6 +4,7 @@
 from rdflib import Graph
 from rdflib import URIRef, BNode, Literal
 from rdflib.namespace import DCTERMS, RDF, RDFS, XSD, OWL, FOAF, SKOS
+from rdflib import term
 import json
 import os
 import glob
@@ -233,32 +234,26 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     topic_keywords = json_data['keywords']
                     if not topic_keywords is None:
                         for keyword in topic_keywords:
-                            replacements_url = clean_url(keyword)
                             keyword_uri = transform_keyword_to_uri(keyword)
-                            keywords_graph.add((URIRef(keyword_uri), RDF.type, soa_class_keyword))
-                            keywords_graph.add((URIRef(keyword_uri), RDF.type, SKOS.Concept))
-                            keywords_graph.add((URIRef(keyword_uri), SKOS.inScheme, keyword_scheme_uri))
-                            keywords_graph.add((URIRef(keyword_scheme_uri), SKOS.hasTopConcept, keyword_uri))
-                            keywords_graph.add((URIRef(keyword_uri), SKOS.prefLabel, Literal(keyword, datatype=XSD.string)))
-                    
 
+                            if term.is_valid_uri(keyword_uri):
+                                keywords_graph.add((URIRef(keyword_uri), RDF.type, soa_class_keyword))
+                                keywords_graph.add((URIRef(keyword_uri), RDF.type, SKOS.Concept))
+                                keywords_graph.add((URIRef(keyword_uri), SKOS.inScheme, keyword_scheme_uri))
+                                keywords_graph.add((keyword_scheme_uri, SKOS.hasTopConcept, URIRef(keyword_uri)))
+                                keywords_graph.add((URIRef(keyword_uri), SKOS.prefLabel, Literal(keyword, datatype=XSD.string)))
+                        
                     i += 1
                     if i % 100 == 0:
                         print('Processed topics entity {} lines for the keyword files generation'.format(i))
-
-                    if i % 100 == 0:
-                        g.write(keywords_graph.serialize(format='trig'))
-                        keywords_graph = Graph(identifier=context)
 
                 except Exception as e:
                     print(str((e)) + ' Error in topics entity line for the keyword files generation' + str(i + 1 + error_count))
                     error_count += 1
                     pass
 
-    # Write the last part
-    if not i % 100 == 0:
-        g.write(keywords_graph.serialize(format='trig'))
-        keywords_graph = Graph(identifier=context)
+    # Write the graph to the .trig file
+    g.write(keywords_graph.serialize(format='trig'))
 
 f.close()
 g.close()
