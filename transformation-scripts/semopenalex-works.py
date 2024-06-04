@@ -276,7 +276,8 @@ def transform_gz_file(gz_file_path):
     file_error_count = 0
 
     with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g:
-        with open(f"{trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trig", "w", encoding="utf-8") as g_rdf_star:  
+        with open(f"{trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trig", "w", encoding="utf-8") as g_rdf_star:
+            g_rdf_star.write(f'<{context}> {{\n')  # opening named graph
             with gzip.open(gz_file_path, 'r') as f:
                 
                 i = 0
@@ -746,6 +747,7 @@ def transform_gz_file(gz_file_path):
                     g.write(works_graph.serialize(format='trig'))
                     works_graph = Graph(identifier=context)
 
+                g_rdf_star.write('}')  # close rdf-star file named graph
                 f"{trig_output_dir_path}/{gz_file_name}.trig"   
 
     f.close()
