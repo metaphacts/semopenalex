@@ -210,6 +210,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
 
                     #topic Scheme
                     domain_graph.add((domain_uri,SKOS.inScheme,topic_scheme_uri))
+                    domain_graph.add((topic_scheme_uri, SKOS.hasTopConcept, URIRef(domain_uri)))
 
                     # display_name
                     domain_display_name = json_data['display_name']
