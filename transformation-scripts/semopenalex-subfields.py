@@ -270,19 +270,13 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     if i % 10 == 0:
                         print('Processed subfields entity {} lines'.format(i))
 
-                    if i % 10 == 0:
-                        g.write(subfields_graph.serialize(format='trig'))
-                        subfields_graph = Graph(identifier=context)
-
                 except Exception as e:
                     print(str((e)) + ' Error in subfields entity line ' + str(i + 1 + error_count))
                     error_count += 1
                     pass
 
-    # Write the last part
-    if not i % 10 == 0:
-        g.write(subfields_graph.serialize(format='trig'))
-        subfields_graph = Graph(identifier=context)
+    # Write the graph to the .trig file
+    g.write(subfields_graph.serialize(format='trig'))
 
 f.close()
 g.close()

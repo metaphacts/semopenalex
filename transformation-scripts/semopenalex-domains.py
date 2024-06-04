@@ -272,13 +272,14 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
 
                     i += 1
                     print('Processed domains entity {} lines'.format(i))
-                    g.write(concept_graph.serialize(format='trig'))
-                    concept_graph = Graph(identifier=context)
 
                 except Exception as e:
                     print(str((e)) + ' Error in domains entity line ' + str(i + 1 + error_count))
                     error_count += 1
                     pass
+
+    # Write the graph to the .trig file
+    g.write(domain_graph.serialize(format='trig'))
 
 f.close()
 g.close()
