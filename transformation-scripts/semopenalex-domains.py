@@ -221,8 +221,9 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     # display_name_alternatives
                     domain_display_name_alternatives = json_data['display_name_alternatives']
                     if not domain_display_name_alternatives is None:
-                        domain_display_name_alternatives = clean(domain_display_name_alternatives)
-                        domain_graph.add((domain_uri, SKOS.altLabel, Literal(domain_display_name_alternatives, datatype=XSD.string)))
+                        for alternative_name in domain_display_name_alternatives:
+                            alternative_name = clean(alternative_name)
+                            domain_graph.add((domain_uri, SKOS.altLabel, Literal(alternative_name, datatype=XSD.string)))
 
                     # description
                     domain_description = json_data['description']
