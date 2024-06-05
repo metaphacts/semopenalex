@@ -272,7 +272,7 @@ for filename in glob.glob(os.path.join(data_dump_input_entity_dir, '*.gz')):
 
 def transform_gz_file(gz_file_path):
     works_graph = Graph(identifier=context)
-    gz_file_name = gz_file_path[len(gz_file_list[1]) - 39:].replace(".gz", "").replace("/", "_")
+    gz_file_name = gz_file_path[len(gz_file_list[1]) - 41:].replace(".gz", "").replace("/", "_")
     file_error_count = 0
 
     with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g:
@@ -762,6 +762,7 @@ def transform_gz_file(gz_file_path):
     # gzip file directly with command
     # -v for live output, --fast for faster compression with about 90% size reduction, -k for keeping the original .trig file
     os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}.trig')
+    os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trig')
     print("Worker completed gzip")
 
 
