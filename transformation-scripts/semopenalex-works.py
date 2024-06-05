@@ -471,9 +471,12 @@ def transform_gz_file(gz_file_path):
                                                     Literal(index, datatype=XSD.integer)))
                                     works_graph.add((work_authorship_uri, author_corresponding_predicate,
                                                     Literal(author_isCorresponding, datatype=XSD.boolean)))
-                                    author_raw_affiliation_string = authorship["raw_affiliation_string"]
+                                    author_raw_affiliation_string = authorship["raw_affiliation_strings"]
                                     if not author_raw_affiliation_string is None:
-                                        works_graph.add((work_authorship_uri, author_raw_affiliation_predicate, Literal(author_raw_affiliation_string, datatype=XSD.string)))
+                                        for affiliation in author_raw_affiliation_string:
+                                            author_raw_affiliation_string = clean(affiliation)
+                                            works_graph.add((work_authorship_uri, author_raw_affiliation_predicate, Literal(author_raw_affiliation_string, datatype=XSD.string)))
+                                         
                                     work_author_uri = URIRef(soa_namespace_authors + str(authorship_id))
                                     works_graph.add((work_authorship_uri, has_author_predicate, work_author_uri))
                                     index += 1
