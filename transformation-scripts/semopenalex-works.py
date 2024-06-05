@@ -639,23 +639,23 @@ def transform_gz_file(gz_file_path):
                                 works_graph.add((apc_paid_uri, has_provenance, Literal(work_apc_paid_provenance, datatype=XSD.string)))
 
                             # countries_distinct_count
-                            work_countries_distinct_count = json_data['countries_distinct_count']
+                            work_countries_distinct_count = json_data.get('countries_distinct_count')
                             if not work_countries_distinct_count is None:
                                 works_graph.add((work_uri, has_countries_distinct_count, Literal(work_countries_distinct_count, datatype=XSD.integer)))
 
                             # indexed_in
-                            work_indexed_in = json_data['indexed_in']
+                            work_indexed_in = json_data.get('indexed_in')
                             if not work_indexed_in is None:
                                 for index_source in work_indexed_in:
                                     works_graph.add((work_uri, indexed_in, Literal(index_source, datatype=XSD.string)))
 
                             # institutions_distinct_count
-                            work_institutions_distinct_count = json_data['institutions_distinct_count']
+                            work_institutions_distinct_count = json_data.get('institutions_distinct_count')
                             if not work_institutions_distinct_count is None:
                                 works_graph.add((work_uri, has_institutions_distinct_count, Literal(work_institutions_distinct_count, datatype=XSD.integer)))
 
                             # keywords
-                            work_keywords = json_data['keywords']
+                            work_keywords = json_data.get('keywords')
                             if not work_keywords is None:
                                 for keyword in work_keywords:
                                     keyword_uri = keyword['id']
@@ -684,7 +684,7 @@ def transform_gz_file(gz_file_path):
                                     works_graph.add((work_uri, has_mesh_predicate, descriptor_ui_uri))
                         
                             # primary_topic
-                            work_primary_topic = json_data['primary_topic']
+                            work_primary_topic = json_data.get('primary_topic')
                             if not work_primary_topic is None:
                                 primary_topic_id = work_primary_topic['id'].replace("https://openalex.org/", "")
                                 primary_topic_uri = URIRef(soa_namespace_topics + str(primary_topic_id))
@@ -707,7 +707,7 @@ def transform_gz_file(gz_file_path):
                                     g_rdf_star.write(f'<<<{work_uri}> <{has_sustainable_development_goal}> <{goal_uri}>>> <{score_predicate}> "{goal_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n')
 
                             # topics
-                            work_topics = json_data['topics']
+                            work_topics = json_data.get('topics')
                             if not work_topics is None:
                                 for topic in work_topics:
                                     topic_id = topic['id'].replace("https://openalex.org/", "")
