@@ -287,11 +287,13 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
 
                     institution_wikipedia = json_data.get('ids').get('wikipedia')
                     if not institution_wikipedia is None:
-                        institutions_graph.add((institution_uri,RDFS.seeAlso,Literal(clean_url(institution_wikipedia),datatype=XSD.string)))
+                        institution_wikipedia = clean_url(institution_wikipedia)
+                        institutions_graph.add((institution_uri, RDFS.seeAlso, URIRef(institution_wikipedia)))
 
                     institution_wikidata = json_data.get('ids').get('wikidata')
                     if not institution_wikidata == None:
-                        institutions_graph.add((institution_uri,OWL.sameAs,Literal(clean_url(institution_wikidata),datatype=XSD.string)))
+                        institution_wikidata = clean_url(institution_wikidata)
+                        institutions_graph.add((institution_uri, OWL.sameAs, URIRef(institution_wikidata)))
 
                     #geo
                     institution_geo = json_data['geo']

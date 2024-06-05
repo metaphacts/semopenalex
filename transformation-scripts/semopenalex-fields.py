@@ -239,7 +239,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     field_wikipedia = json_data.get('ids').get('wikipedia')
                     if not field_wikipedia is None:
                         field_wikipedia = clean_url(field_wikipedia)
-                        fields_graph.add((field_uri, RDFS.seeAlso, Literal(field_wikipedia, datatype=XSD.anyURI)))
+                        fields_graph.add((field_uri, RDFS.seeAlso, URIRef(field_wikipedia)))
 
                     # updated_date
                     field_updated_date = json_data['updated_date']

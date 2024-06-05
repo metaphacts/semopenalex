@@ -215,7 +215,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         concept_wikidata_uri = URIRef(concept_wikidata_canonical)
                         #aus 'https://www.wikidata.org/wiki/Q1231558' wird 'http://www.wikidata.org/entity/Q1231558'
 
-                        concept_graph.add((concept_uri,OWL.sameAs,concept_wikidata_uri))
+                        concept_graph.add((concept_uri,OWL.sameAs, concept_wikidata_uri))
 
                     #display_name
                     concept_display_name = json_data['display_name']
@@ -258,7 +258,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     concept_wikipedia = json_data.get('ids').get('wikipedia')
                     if not concept_wikipedia is None:
                         concept_wikipedia = clean_url(concept_wikipedia)
-                        concept_graph.add((concept_uri,RDFS.seeAlso,Literal(concept_wikipedia,datatype=XSD.string)))
+                        concept_graph.add((concept_uri, RDFS.seeAlso, URIRef(concept_wikipedia)))
 
                     concept_umls_aui = json_data.get('ids').get('umls_aui')
                     if not concept_umls_aui is None:

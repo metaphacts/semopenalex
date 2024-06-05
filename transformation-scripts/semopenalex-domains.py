@@ -248,7 +248,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     domain_wikipedia = json_data.get('ids').get('wikipedia')
                     if not domain_wikipedia is None:
                         domain_wikipedia = clean_url(domain_wikipedia)
-                        domain_graph.add((domain_uri,RDFS.seeAlso, Literal(domain_wikipedia, datatype=XSD.anyURI)))
+                        domain_graph.add((domain_uri, RDFS.seeAlso, URIRef(domain_wikipedia)))
 
                     # works_count
                     domain_works_count = json_data['works_count']
