@@ -197,167 +197,171 @@ for filename in glob.glob(os.path.join(data_dump_input_entity_dir, '*.gz')):
 def transform_gz_file(gz_file_path):
 
     author_graph = Graph(identifier=context)
-    gz_file_name = gz_file_path[len(gz_file_list[1])-39:].replace(".gz","").replace("/","_")
+    rdf_start_memory = ""
+    gz_file_name = gz_file_path[len(gz_file_list[1])-43:].replace(".gz","").replace("/","_")
     file_error_count = 0
 
-    with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g:
-        with open(f"{trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trig", "w", encoding="utf-8") as g_rdf_star:
-            g_rdf_star.write(f'<{context}> {{\n')  # opening named graph
-            with gzip.open(gz_file_path, 'r') as f:
-                i = 0
-                for line in f:
-                    try:
-                        json_data = json.loads(line.decode('utf-8'))
+    with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g, open(f"{trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trig", "w", encoding="utf-8") as g_rdf_star:
+        g_rdf_star.write(f'<{context}> {{\n')  # opening named graph
+        with gzip.open(gz_file_path, 'r') as f:
+            i = 0
+            for line in f:
+                try:
+                    json_data = json.loads(line.decode('utf-8'))
 
-                        #author ID and URI
-                        author_id = json_data['id'].replace("https://openalex.org/", "")
-                        author_uri = URIRef(soa_namespace_authors+author_id)
-                        author_graph.add((author_uri,RDF.type,soa_class_author))
+                    #author ID and URI
+                    author_id = json_data['id'].replace("https://openalex.org/", "")
+                    author_uri = URIRef(soa_namespace_authors+author_id)
+                    author_graph.add((author_uri,RDF.type,soa_class_author))
 
-                        #ORCID
-                        author_orcid = json_data['orcid']
-                        if not author_orcid is None:
-                            author_graph.add((author_uri,orcid_predicate,Literal(author_orcid,datatype=XSD.string)))
+                    #ORCID
+                    author_orcid = json_data['orcid']
+                    if not author_orcid is None:
+                        author_graph.add((author_uri,orcid_predicate,Literal(author_orcid,datatype=XSD.string)))
 
-                        #display name
-                        author_display_name = json_data['display_name']
-                        if not author_display_name is None:
-                            author_display_name = clean(author_display_name)
-                            author_graph.add((author_uri, FOAF.name, Literal(author_display_name, datatype=XSD.string)))
+                    #display name
+                    author_display_name = json_data['display_name']
+                    if not author_display_name is None:
+                        author_display_name = clean(author_display_name)
+                        author_graph.add((author_uri, FOAF.name, Literal(author_display_name, datatype=XSD.string)))
 
-                        # display_name_alternatives
-                        author_display_name_alternatives = json_data['display_name_alternatives']
-                        if not author_display_name_alternatives is None:
-                            for alt_name in author_display_name_alternatives:
-                                alt_name = clean(alt_name)
-                                author_graph.add((author_uri, alt_name_predicate, Literal(alt_name, datatype=XSD.string)))
+                    # display_name_alternatives
+                    author_display_name_alternatives = json_data['display_name_alternatives']
+                    if not author_display_name_alternatives is None:
+                        for alt_name in author_display_name_alternatives:
+                            alt_name = clean(alt_name)
+                            author_graph.add((author_uri, alt_name_predicate, Literal(alt_name, datatype=XSD.string)))
 
-                        # summary stats
-                        author_2yr_mean_citedness = json_data.get('summary_stats').get('2yr_mean_citedness')
-                        if not author_2yr_mean_citedness is None:
-                            author_graph.add((author_uri, mean_citedness_predicate,
-                                                Literal(author_2yr_mean_citedness, datatype=XSD.float)))
+                    # summary stats
+                    author_2yr_mean_citedness = json_data.get('summary_stats').get('2yr_mean_citedness')
+                    if not author_2yr_mean_citedness is None:
+                        author_graph.add((author_uri, mean_citedness_predicate,
+                                            Literal(author_2yr_mean_citedness, datatype=XSD.float)))
 
-                        author_h_index = json_data.get('summary_stats').get('h_index')
-                        if not author_h_index is None:
-                            author_graph.add(
-                                (author_uri, h_index_predicate, Literal(author_h_index, datatype=XSD.integer)))
+                    author_h_index = json_data.get('summary_stats').get('h_index')
+                    if not author_h_index is None:
+                        author_graph.add(
+                            (author_uri, h_index_predicate, Literal(author_h_index, datatype=XSD.integer)))
 
-                        author_i10_index = json_data.get('summary_stats').get('i10_index')
-                        if not author_i10_index is None:
-                            author_graph.add(
-                                (author_uri, i10_index_predicate, Literal(author_i10_index, datatype=XSD.integer)))
-
-
-                        # works_count
-                        author_works_count = json_data['works_count']
-                        if not author_works_count is None:
-                            author_graph.add((author_uri, works_count_predicate, Literal(author_works_count, datatype=XSD.integer)))
-
-                        # cited_by_count
-                        author_cited_by_count = json_data['cited_by_count']
-                        if not author_cited_by_count is None:
-                            author_graph.add((author_uri, cited_by_count_predicate, Literal(author_cited_by_count, datatype=XSD.integer)))
-
-                        # ids (relevant: mag, twitter, wikipedia, scopus)
-                        author_mag_id = json_data.get('ids').get('mag')
-                        if not author_mag_id is None:
-                            author_graph.add((author_uri,mag_id_predicate,Literal(author_mag_id,datatype=XSD.integer)))
-                            mag_id_URI = URIRef("https://makg.org/entity/"+str(author_mag_id))
-                            author_graph.add((author_uri,OWL.sameAs,mag_id_URI))
-
-                        author_twitter = json_data.get('ids').get('twitter')
-                        if not author_twitter is None:
-                            author_graph.add((author_uri, twitter_predicate, Literal(clean_url(author_twitter), datatype=XSD.string)))
-
-                        author_wikipedia = json_data.get('ids').get('wikipedia')
-                        if not author_wikipedia is None:
-                            author_wikipedia_URI = URIRef(clean_url(author_wikipedia))
-                            author_graph.add((author_uri, RDFS.seeAlso, author_wikipedia_URI))
-
-                        author_scopus = json_data.get('ids').get('scopus')
-                        if not author_scopus is None:
-                            author_graph.add((author_uri, scopus_predicate, Literal(clean_url(author_scopus), datatype=XSD.string)))
-
-                        #last known affiliated institution (will be deleted in future versions of OpenAlex, but still relevant for now)
-                        last_known_institution = json_data['last_known_institution']
-                        if not last_known_institution is None:
-                            last_known_institution_id = json_data['last_known_institution']['id'].replace("https://openalex.org/", "")
-                            last_known_institution_uri = URIRef(soa_namespace_institutions + last_known_institution_id)
-                            author_graph.add((author_uri, ORG.memberOf, last_known_institution_uri))
-
-                        #last_known_institutions
-                        last_known_institutions = json_data['last_known_institutions']
-                        if not last_known_institutions is None:
-                            for institution in last_known_institutions:
-                                institution_id = institution['id'].replace("https://openalex.org/", "")
-                                institution_uri = URIRef(soa_namespace_institutions + institution_id)
-                                author_graph.add((author_uri, ORG.memberOf, institution_uri))
-
-                        #counts by year in separate entity
-                        author_counts_by_year = json_data['counts_by_year']
-                        if not author_counts_by_year is None:
-                            for count_year in author_counts_by_year:  # iterate through yearly dicts
-                                count_year_year = count_year["year"]
-                                count_year_uri = URIRef(soa_namespace_countsbyyear + author_id + 'Y' + str(count_year_year))
-                                author_graph.add((count_year_uri, RDF.type, soa_class_counts_by_year))
-                                author_graph.add((author_uri, counts_by_year_predicate, count_year_uri))
-                                author_graph.add((count_year_uri, year_predicate, Literal(count_year_year, datatype=XSD.integer)))
-                                author_graph.add((count_year_uri, works_count_predicate,Literal(count_year["works_count"], datatype=XSD.integer)))
-                                author_graph.add((count_year_uri, cited_by_count_predicate,Literal(count_year["cited_by_count"], datatype=XSD.integer)))
+                    author_i10_index = json_data.get('summary_stats').get('i10_index')
+                    if not author_i10_index is None:
+                        author_graph.add(
+                            (author_uri, i10_index_predicate, Literal(author_i10_index, datatype=XSD.integer)))
 
 
-                        # updated_date
-                        author_updated_date = json_data['updated_date']
-                        if not author_updated_date is None:
-                            author_graph.add((author_uri, DCTERMS.modified, Literal(author_updated_date, datatype=XSD.date)))
+                    # works_count
+                    author_works_count = json_data['works_count']
+                    if not author_works_count is None:
+                        author_graph.add((author_uri, works_count_predicate, Literal(author_works_count, datatype=XSD.integer)))
 
-                        # created_date
-                        author_created_date = json_data['created_date']
-                        if not author_created_date is None:
-                            author_graph.add((author_uri, DCTERMS.created, Literal(author_created_date, datatype=XSD.date)))
+                    # cited_by_count
+                    author_cited_by_count = json_data['cited_by_count']
+                    if not author_cited_by_count is None:
+                        author_graph.add((author_uri, cited_by_count_predicate, Literal(author_cited_by_count, datatype=XSD.integer)))
 
-                        # affiliations (rdf-star)
-                        affiliations = json_data['affiliations']
-                        if not affiliations is None:
-                            for affiliation in affiliations:
-                                institution_id = affiliation['institution']['id'].replace("https://openalex.org/", "")
-                                institution_uri = URIRef(soa_namespace_institutions + institution_id)
-                                start_date = affiliation['years'][0]
-                                end_date = affiliation['years'][-1]
+                    # ids (relevant: mag, twitter, wikipedia, scopus)
+                    author_mag_id = json_data.get('ids').get('mag')
+                    if not author_mag_id is None:
+                        author_graph.add((author_uri,mag_id_predicate,Literal(author_mag_id,datatype=XSD.integer)))
+                        mag_id_URI = URIRef("https://makg.org/entity/"+str(author_mag_id))
+                        author_graph.add((author_uri,OWL.sameAs,mag_id_URI))
 
-                                # write affiliation as rdf-star triple in separate rdf-star file
-                                g_rdf_star.write(f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_start_year_predicate}> "{start_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n')
-                                g_rdf_star.write(f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_end_year_predicate}> "{end_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n')
+                    author_twitter = json_data.get('ids').get('twitter')
+                    if not author_twitter is None:
+                        author_graph.add((author_uri, twitter_predicate, Literal(clean_url(author_twitter), datatype=XSD.string)))
+
+                    author_wikipedia = json_data.get('ids').get('wikipedia')
+                    if not author_wikipedia is None:
+                        author_wikipedia_URI = URIRef(clean_url(author_wikipedia))
+                        author_graph.add((author_uri, RDFS.seeAlso, author_wikipedia_URI))
+
+                    author_scopus = json_data.get('ids').get('scopus')
+                    if not author_scopus is None:
+                        author_graph.add((author_uri, scopus_predicate, Literal(clean_url(author_scopus), datatype=XSD.string)))
+
+                    #last known affiliated institution (will be deleted in future versions of OpenAlex, but still relevant for now)
+                    last_known_institution = json_data['last_known_institution']
+                    if not last_known_institution is None:
+                        last_known_institution_id = json_data['last_known_institution']['id'].replace("https://openalex.org/", "")
+                        last_known_institution_uri = URIRef(soa_namespace_institutions + last_known_institution_id)
+                        author_graph.add((author_uri, ORG.memberOf, last_known_institution_uri))
+
+                    #last_known_institutions
+                    last_known_institutions = json_data['last_known_institutions']
+                    if not last_known_institutions is None:
+                        for institution in last_known_institutions:
+                            institution_id = institution['id'].replace("https://openalex.org/", "")
+                            institution_uri = URIRef(soa_namespace_institutions + institution_id)
+                            author_graph.add((author_uri, ORG.memberOf, institution_uri))
+
+                    #counts by year in separate entity
+                    author_counts_by_year = json_data['counts_by_year']
+                    if not author_counts_by_year is None:
+                        for count_year in author_counts_by_year:  # iterate through yearly dicts
+                            count_year_year = count_year["year"]
+                            count_year_uri = URIRef(soa_namespace_countsbyyear + author_id + 'Y' + str(count_year_year))
+                            author_graph.add((count_year_uri, RDF.type, soa_class_counts_by_year))
+                            author_graph.add((author_uri, counts_by_year_predicate, count_year_uri))
+                            author_graph.add((count_year_uri, year_predicate, Literal(count_year_year, datatype=XSD.integer)))
+                            author_graph.add((count_year_uri, works_count_predicate,Literal(count_year["works_count"], datatype=XSD.integer)))
+                            author_graph.add((count_year_uri, cited_by_count_predicate,Literal(count_year["cited_by_count"], datatype=XSD.integer)))
 
 
-                        i += 1
-                        if i % 20000 == 0:
-                            print('Processed {} lines'.format(i))
+                    # updated_date
+                    author_updated_date = json_data['updated_date']
+                    if not author_updated_date is None:
+                        author_graph.add((author_uri, DCTERMS.modified, Literal(author_updated_date, datatype=XSD.date)))
 
-                        if i % 100000 == 0:
-                            g.write(author_graph.serialize(format='trig'))
-                            author_graph = Graph(identifier=context)
+                    # created_date
+                    author_created_date = json_data['created_date']
+                    if not author_created_date is None:
+                        author_graph.add((author_uri, DCTERMS.created, Literal(author_created_date, datatype=XSD.date)))
+
+                    # affiliations (rdf-star)
+                    affiliations = json_data['affiliations']
+                    if not affiliations is None:
+                        for affiliation in affiliations:
+                            institution_id = affiliation['institution']['id'].replace("https://openalex.org/", "")
+                            institution_uri = URIRef(soa_namespace_institutions + institution_id)
+                            start_date = affiliation['years'][0]
+                            end_date = affiliation['years'][-1]
+
+                            # write affiliation as rdf-star triple in separate rdf-star file
+                            rdf_start_memory = rdf_start_memory + f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_start_year_predicate}> "{start_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n'
+                            rdf_start_memory = rdf_start_memory + f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_end_year_predicate}> "{end_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n'
 
 
-                    except Exception as e:
-                        print(str((e)) + f' Error in file {gz_file_path} in line {i+1}' + str(i + 1 + file_error_count))
-                        file_error_count += 1
-                        pass
+                    i += 1
+                    #if i % 20000 == 0:
+                    #    print('Processed {} lines'.format(i))
 
-                    if i % 50000 == 0:
-                        print(f'Processed authors entity {i} lines in file {gz_file_path}')
+                    #if i % 100000 == 0:
+                    #    g.write(author_graph.serialize(format='trig'))
+                    #    author_graph = Graph(identifier=context)
 
-                    if i % 50000 == 0:
-                        g.write(author_graph.serialize(format='trig'))
-                        author_graph = Graph(identifier=context)
 
-                # Write the last part
-                if not i % 50000 == 0:
+                except Exception as e:
+                    print(str((e)) + f' Error in file {gz_file_path} in line {i+1}' + str(i + 1 + file_error_count))
+                    file_error_count += 1
+                    pass
+
+                if i % 50000 == 0:
+                    print(f'Processed authors entity {i} lines in file {gz_file_path}')
+
+                if i % 50000 == 0:
                     g.write(author_graph.serialize(format='trig'))
+                    g_rdf_star.write(rdf_start_memory)
                     author_graph = Graph(identifier=context)
-                
-                g_rdf_star.write('}')  # close rdf-star file named graph
+                    rdf_start_memory = ""
+
+            # Write the last part
+            if not i % 50000 == 0:
+                g.write(author_graph.serialize(format='trig'))
+                g_rdf_star.write(rdf_start_memory)
+                author_graph = Graph(identifier=context)
+                rdf_start_memory = ""
+            
+            g_rdf_star.write('}')  # close rdf-star file named graph
 
     f.close()
     g.close()
