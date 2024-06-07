@@ -139,13 +139,15 @@ def clean_url(nameStr):
 soa_namespace_class = "https://semopenalex.org/ontology/"
 soa_namespace_authors = "https://semopenalex.org/author/"
 soa_namespace_sources = "https://semopenalex.org/source/"
-soa_namespace_publishers = "https://semopenalex.org/publisher/"  # new
+soa_namespace_publishers = "https://semopenalex.org/publisher/"
 soa_namespace_institutions = "https://semopenalex.org/institution/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsByYear/"
+soa_namespace_apc = "https://semopenalex.org/articleProcessingCharge/"
 
 # SOA classes used in this file
 soa_class_source = URIRef(soa_namespace_class + "Source")
 soa_class_counts_by_year = URIRef(soa_namespace_class + "CountsByYear")
+soa_class_apc = URIRef(soa_namespace_class + "ArticleProcessingCharge")
 
 # SOA predicates
 has_issnl_predicate = URIRef("http://purl.org/spar/fabio/hasIssnL")
@@ -168,6 +170,11 @@ abbreviated_name_predicate = URIRef("https://semopenalex.org/ontology/abbreviate
 mean_citedness_predicate = URIRef("https://semopenalex.org/ontology/2YrMeanCitedness")
 h_index_predicate = URIRef("http://purl.org/spar/bido/h-index")
 i10_index_predicate = URIRef("https://semopenalex.org/ontology/i10Index")
+has_price = URIRef("https://semopenalex.org/ontology/hasPrice")
+has_currency = URIRef("https://semopenalex.org/ontology/hasCurrency")
+has_price_usd = URIRef("https://semopenalex.org/ontology/hasPriceUSD")
+has_provenance = URIRef("https://semopenalex.org/ontology/hasProvenance")
+has_apc = URIRef("https://semopenalex.org/ontology/hasAPC")
 
 # sources entity context
 context = URIRef("https://semopenalex.org/sources/context")
@@ -370,6 +377,28 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     source_created_date = json_data['created_date']
                     if not source_created_date is None:
                         source_graph.add((source_uri, DCTERMS.created, Literal(source_created_date, datatype=XSD.date)))
+
+                    # apc_prices
+                    apc_prices = json_data.get('apc_prices')
+                    if not apc_prices is None:
+                        for apc_entity in apc_prices:
+                            apc_price = apc_entity.get('price')
+                            apc_currency = apc_entity.get('currency')
+                            if apc_price is not None and apc_currency is not None:
+                                apc_uri = URIRef(soa_namespace_apc + str(source_uri) + str(clean_url(apc_currency)))
+                                source_graph.add((apc_uri, RDF.type, soa_class_apc))
+                                source_graph.add((source_uri, has_apc, apc_uri))
+                                source_graph.add((apc_uri, has_price, Literal(apc_price, datatype=XSD.integer)))
+                                source_graph.add((source_uri, has_currency, Literal(apc_currency, datatype=XSD.string)))
+                            
+                        #apc_usd
+                        apc_usd = json_data['apc_usd']
+                        if not apc_usd is None:
+                            source_graph.add((source_uri, has_price_usd, Literal(apc_usd, datatype=XSD.integer)))
+                    
+                    # societies
+                    # todo
+
 
                     i += 1
                     if i % 10000 == 0:

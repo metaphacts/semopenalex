@@ -6,6 +6,11 @@ echo "SemOpenAlex transformation script started at: " $(date -u)
 
 # Data transformation from OpenAlex to RDF data dump
 # Running a series of python scripts one after another
+python3 ./transformation-scripts/semopenalex-topics.py;
+python3 ./transformation-scripts/semopenalex-subfields.py;
+python3 ./transformation-scripts/semopenalex-fields.py;
+python3 ./transformation-scripts/semopenalex-domains.py;
+python3 ./transformation-scripts/semopenalex-keywords.py;
 python3 ./transformation-scripts/semopenalex-concepts.py;
 python3 ./transformation-scripts/semopenalex-funders.py; 
 python3 ./transformation-scripts/semopenalex-institutions.py; 
