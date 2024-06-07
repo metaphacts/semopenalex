@@ -771,7 +771,7 @@ def transform_gz_file(gz_file_path):
     # gzip file directly with command
     # -v for live output, --fast for faster compression with about 90% size reduction, -k for keeping the original .trig file
     os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}.trig')
-    os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trig')
+    os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trigs')
     print("Worker completed gzip")
 
 
