@@ -489,7 +489,7 @@ def transform_gz_file(gz_file_path):
                                     works_graph.add((work_authorship_uri, has_organization_predicate, institution_uri))
                                 
                                 #countries
-                                author_country_code = authorship['countries']
+                                author_country_code = authorship.get('countries')
                                 if not author_country_code is None:
                                     for country in author_country_code:
                                         works_graph.add((work_authorship_uri, country_code_dbpedia_predicate, Literal(country, datatype=XSD.string)))
