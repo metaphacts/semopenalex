@@ -280,14 +280,14 @@ def transform_gz_file(gz_file_path):
                         author_graph.add((author_uri, scopus_predicate, Literal(clean_url(author_scopus), datatype=XSD.string)))
 
                     #last known affiliated institution (will be deleted in future versions of OpenAlex, but still relevant for now)
-                    last_known_institution = json_data['last_known_institution']
+                    last_known_institution = json_data.get('last_known_institution')
                     if not last_known_institution is None:
                         last_known_institution_id = json_data['last_known_institution']['id'].replace("https://openalex.org/", "")
                         last_known_institution_uri = URIRef(soa_namespace_institutions + last_known_institution_id)
                         author_graph.add((author_uri, ORG.memberOf, last_known_institution_uri))
 
                     #last_known_institutions
-                    last_known_institutions = json_data['last_known_institutions']
+                    last_known_institutions = json_data.get('last_known_institutions')
                     if not last_known_institutions is None:
                         for institution in last_known_institutions:
                             institution_id = institution['id'].replace("https://openalex.org/", "")
