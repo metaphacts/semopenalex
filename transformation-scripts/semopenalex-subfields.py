@@ -217,7 +217,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     # field
                     topic_field = json_data['field']['id']
                     if not topic_field is None:
-                        topic_field_id = topic_field.replace("https://openalex.org/", "")
+                        topic_field_id = topic_field.replace("https://openalex.org/fields/", "")
                         topic_field_uri = URIRef(soa_namespace_fields + topic_field_id)
                         subfields_graph.add((subfield_uri, SKOS.broader, topic_field_uri))
 
