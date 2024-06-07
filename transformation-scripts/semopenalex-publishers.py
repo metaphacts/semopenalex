@@ -225,13 +225,14 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                         publisher_graph.add(
                             (publisher_uri, level_predicate, Literal(publisher_level, datatype=XSD.integer)))
 
-                    # parent publisher
-                    parent_publisher_id = json_data['parent_publisher']
-                    if not parent_publisher_id is None:
+                   # parent_publisher
+                    parent_publisher = json_data.get('parent_publisher')
+                    if not parent_publisher is None:
+                        parent_publisher_id = parent_publisher.get('id')
                         parent_publisher_id = parent_publisher_id.replace("https://openalex.org/", "")
                         parent_publisher_uri = URIRef(soa_namespace_publishers + str(parent_publisher_id))
                         publisher_graph.add((publisher_uri, has_parent_publisher_predicate, parent_publisher_uri))
-
+                        
                     # country code
                     publisher_country_codes = json_data['country_codes']
                     if not publisher_country_codes is None:
