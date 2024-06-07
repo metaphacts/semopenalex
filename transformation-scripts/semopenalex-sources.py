@@ -381,16 +381,16 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     # apc_prices
                     apc_prices = json_data.get('apc_prices')
                     if not apc_prices is None:
-                        for apc_price in apc_prices:
-                            apc_price = apc_price['price']
-                            apc_currency = apc_price['currency']
-
-                            apc_uri = URIRef(soa_namespace_apc + str(source_uri) + str(clean_url(apc_currency)))
-                            source_graph.add((apc_uri, RDF.type, soa_class_apc))
-                            source_graph.add((source_uri, has_apc, apc_uri))
-                            source_graph.add((apc_uri, has_price, Literal(apc_price, datatype=XSD.integer)))
-                            source_graph.add((source_uri, has_currency, Literal(apc_currency, datatype=XSD.string)))
-                        
+                        for apc_entity in apc_prices:
+                            apc_price = apc_entity.get('price')
+                            apc_currency = apc_entity.get('currency')
+                            if apc_price is not None and apc_currency is not None:
+                                apc_uri = URIRef(soa_namespace_apc + str(source_uri) + str(clean_url(apc_currency)))
+                                source_graph.add((apc_uri, RDF.type, soa_class_apc))
+                                source_graph.add((source_uri, has_apc, apc_uri))
+                                source_graph.add((apc_uri, has_price, Literal(apc_price, datatype=XSD.integer)))
+                                source_graph.add((source_uri, has_currency, Literal(apc_currency, datatype=XSD.string)))
+                            
                         #apc_usd
                         apc_usd = json_data['apc_usd']
                         if not apc_usd is None:
