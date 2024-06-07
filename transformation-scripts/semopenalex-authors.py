@@ -323,8 +323,8 @@ def transform_gz_file(gz_file_path):
                         for affiliation in affiliations:
                             institution_id = affiliation['institution']['id'].replace("https://openalex.org/", "")
                             institution_uri = URIRef(soa_namespace_institutions + institution_id)
-                            start_date = affiliation['years'][0]
-                            end_date = affiliation['years'][-1]
+                            start_date = affiliation['years'][-1]
+                            end_date = affiliation['years'][0]
 
                             # write affiliation as rdf-star triple in separate rdf-star file
                             rdf_start_memory = rdf_start_memory + f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_start_year_predicate}> "{start_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n'
