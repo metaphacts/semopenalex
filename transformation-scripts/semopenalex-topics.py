@@ -1,6 +1,7 @@
 from rdflib import Graph
 from rdflib import URIRef, BNode, Literal
 from rdflib.namespace import DCTERMS, RDF, RDFS, XSD, OWL, FOAF, SKOS
+from rdflib import term
 import json
 import os
 import glob
@@ -251,7 +252,8 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     if not topic_keywords is None:
                         for keyword in topic_keywords:
                             keyword_uri = transform_keyword_to_uri(keyword)
-                            topics_graph.add((topic_uri, has_keyword_predicate, URIRef(keyword_uri)))
+                            if term._is_valid_uri(keyword_uri):
+                                topics_graph.add((topic_uri, has_keyword_predicate, URIRef(keyword_uri)))
 
                     # updated_date
                     topic_updated_date = json_data['updated_date']

@@ -3,6 +3,7 @@
 from rdflib import Graph
 from rdflib import URIRef, BNode, Literal
 from rdflib.namespace import DCTERMS, RDF, RDFS, XSD, OWL
+from rdflib import term
 import json
 import os
 import glob
@@ -659,9 +660,10 @@ def transform_gz_file(gz_file_path):
                             for keyword in work_keywords:
                                 keyword_uri = keyword['id']
                                 keyword_score = keyword['score']
-                                
-                                # write rdf-star triples for keywords with scores in memory variable
-                                rdf_start_memory = rdf_start_memory + f'<<<{work_uri}> <{has_keyword_predicate}> <{keyword_uri}>>> <{score_predicate}> "{keyword_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n'
+                                keyword_uri = URIRef(keyword_uri)
+                                if term._is_valid_uri(keyword_uri):
+                                    # write rdf-star triples for keywords with scores in memory variable
+                                    rdf_start_memory = rdf_start_memory + f'<<<{work_uri}> <{has_keyword_predicate}> <{keyword_uri}>>> <{score_predicate}> "{keyword_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n'
 
                         # language
                         work_language = json_data['language']
