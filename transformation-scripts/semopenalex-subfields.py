@@ -262,7 +262,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     subfield_siblings = json_data['siblings']
                     if not subfield_siblings is None:
                         for sibling in subfield_siblings:
-                            sibling_id = sibling['id'].replace("https://openalex.org/", "")
+                            sibling_id = sibling['id'].replace("https://openalex.org/subfields/", "")
                             sibling_uri = URIRef(soa_namespace_subfields+sibling_id)
                             subfields_graph.add((subfield_uri, SKOS.related, sibling_uri))
 
