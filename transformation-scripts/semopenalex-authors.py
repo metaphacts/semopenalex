@@ -201,7 +201,7 @@ def transform_gz_file(gz_file_path):
     gz_file_name = gz_file_path[len(gz_file_list[1])-43:].replace(".gz","").replace("/","_")
     file_error_count = 0
 
-    with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g, open(f"{trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trig", "w", encoding="utf-8") as g_rdf_star:
+    with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g, open(f"{trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trigs", "w", encoding="utf-8") as g_rdf_star:
         g_rdf_star.write(f'<{context}> {{\n')  # opening named graph
         with gzip.open(gz_file_path, 'r') as f:
             i = 0
