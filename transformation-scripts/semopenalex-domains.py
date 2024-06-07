@@ -133,7 +133,7 @@ def clean_date(dateStr):
 
 # info for namespaces used in SOA
 soa_namespace_class = "https://semopenalex.org/ontology/"
-soa_namespace_domains = "https://semopenalex.org/domains/"
+soa_namespace_domains = "https://semopenalex.org/domain/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsByYear/"
 
 # SOA classes used in this file

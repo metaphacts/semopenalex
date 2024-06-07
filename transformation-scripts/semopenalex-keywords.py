@@ -161,7 +161,7 @@ def transform_keyword_to_uri(keyword):
     keyword = keyword.lower()
     keyword = keyword.replace(" ", "-")
     keyword = clean_url(keyword)
-    keyword = "https://semopenalex.org/keywords/" + keyword
+    keyword = "https://semopenalex.org/keyword/" + keyword
     return keyword
 
 
