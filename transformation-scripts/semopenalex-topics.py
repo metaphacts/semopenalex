@@ -139,7 +139,7 @@ def transform_keyword_to_uri(keyword):
     keyword = keyword.lower()
     keyword = keyword.replace(" ", "-")
     keyword = clean_url(keyword)
-    keyword = "https://semopenalex.org/keywords/" + keyword
+    keyword = "https://semopenalex.org/keyword/" + keyword
     return keyword
 
 
@@ -231,7 +231,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     # subfield
                     topic_subfield = json_data['subfield']['id']
                     if not topic_subfield is None:
-                        topic_subfield_id = topic_subfield.replace("https://openalex.org/", "")
+                        topic_subfield_id = topic_subfield.replace("https://openalex.org/subfields/", "")
                         topic_subfield_uri = URIRef(soa_namespace_subfields + topic_subfield_id)
                         topics_graph.add((topic_uri, SKOS.broader, topic_subfield_uri))
 
