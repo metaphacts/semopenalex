@@ -607,36 +607,54 @@ def transform_gz_file(gz_file_path):
                             works_graph.add((work_uri, DCTERMS.created, Literal(work_created_date, datatype=XSD.date)))
 
                         # apc_list
-                        work_apc_list = json_data['apc_list']
+                        work_apc_list = json_data.get('apc_list')
                         if not work_apc_list is None:
-                                work_apc_list_value = work_apc_list['value']
-                                work_apc_list_currency = work_apc_list['currency']
-                                work_apc_list_value_usd = work_apc_list['value_usd']
-                                work_apc_list_provenance = work_apc_list['provenance']
+                            work_apc_list_value = work_apc_list.get('value')
+                            work_apc_list_currency = work_apc_list.get('currency')
+                            work_apc_list_value_usd = work_apc_list.get('value_usd')
+                            work_apc_list_provenance = work_apc_list.get('provenance')
 
-                                apc_list_uri = URIRef(soa_namespace_apc_list + str(work_id))
-                                works_graph.add((apc_list_uri, RDF.type, soa_class_apc))
-                                works_graph.add((work_uri, has_apc_list, apc_list_uri))
+                            apc_list_uri = URIRef(soa_namespace_apc_list + str(work_id))
+                            works_graph.add((apc_list_uri, RDF.type, soa_class_apc))
+                            works_graph.add((work_uri, has_apc_list, apc_list_uri))
+
+                            # check None values
+                            if not work_apc_list_value is None:
                                 works_graph.add((apc_list_uri, has_value, Literal(work_apc_list_value, datatype=XSD.integer)))
+
+                            if not work_apc_list_currency is None:
                                 works_graph.add((apc_list_uri, has_currency, Literal(work_apc_list_currency, datatype=XSD.string)))
+
+                            if not work_apc_list_value_usd is None:
                                 works_graph.add((apc_list_uri, has_value_usd, Literal(work_apc_list_value_usd, datatype=XSD.integer)))
+
+                            if not work_apc_list_provenance is None:
                                 works_graph.add((apc_list_uri, has_provenance, Literal(work_apc_list_provenance, datatype=XSD.string)))
-                
+            
                         # apc_paid
-                        work_apc_paid = json_data['apc_paid']
+                        work_apc_paid = json_data.get('apc_paid')
                         if not work_apc_paid is None:
-                            work_apc_paid_value = work_apc_paid['value']
-                            work_apc_paid_currency = work_apc_paid['currency']
-                            work_apc_paid_value_usd = work_apc_paid['value_usd']
-                            work_apc_paid_provenance = work_apc_paid['provenance']
+                            work_apc_paid_value = work_apc_paid.get('value')
+                            work_apc_paid_currency = work_apc_paid.get('currency')
+                            work_apc_paid_value_usd = work_apc_paid.get('value_usd')
+                            work_apc_paid_provenance = work_apc_paid.get('provenance')
 
                             apc_paid_uri = URIRef(soa_namespace_apc_paid + str(work_id))
                             works_graph.add((apc_paid_uri, RDF.type, soa_class_apc))
                             works_graph.add((work_uri, has_apc_paid, apc_paid_uri))
-                            works_graph.add((apc_paid_uri, has_value, Literal(work_apc_paid_value, datatype=XSD.integer)))
-                            works_graph.add((apc_paid_uri, has_currency, Literal(work_apc_paid_currency, datatype=XSD.string)))
-                            works_graph.add((apc_paid_uri, has_value_usd, Literal(work_apc_paid_value_usd, datatype=XSD.integer)))
-                            works_graph.add((apc_paid_uri, has_provenance, Literal(work_apc_paid_provenance, datatype=XSD.string)))
+                            
+                            # check None values
+                            if not work_apc_paid_value is None:
+                                works_graph.add((apc_paid_uri, has_value, Literal(work_apc_paid_value, datatype=XSD.integer)))
+
+                            if not work_apc_paid_currency is None:
+                                works_graph.add((apc_paid_uri, has_currency, Literal(work_apc_paid_currency, datatype=XSD.string)))
+
+                            if not work_apc_paid_value_usd is None:
+                                works_graph.add((apc_paid_uri, has_value_usd, Literal(work_apc_paid_value_usd, datatype=XSD.integer)))
+
+                            if not work_apc_paid_provenance is None:
+                                works_graph.add((apc_paid_uri, has_provenance, Literal(work_apc_paid_provenance, datatype=XSD.string)))
 
                         # countries_distinct_count
                         work_countries_distinct_count = json_data.get('countries_distinct_count')
