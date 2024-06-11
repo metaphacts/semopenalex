@@ -1,9 +1,26 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+
+<https://semopenalex.org/ontology/> a owl:Ontology;
+  <http://purl.org/dc/terms/issued> "2023-10-18"^^xsd:date;
+  <http://purl.org/dc/terms/creator> <https://orcid.org/0000-0001-5458-8645>, <https://orcid.org/0000-0002-5080-3587>,
+    <https://orcid.org/0000-0002-7561-7000>, <https://orcid.org/0000-0002-9098-5389>,
+    <https://orcid.org/0009-0009-4338-0983>;
+  rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en;
+  rdfs:label "SemOpenAlex Ontology"@en;
+  <http://purl.org/dc/terms/publisher> <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology>,
+    <http://www.wikidata.org/entity/Q22132500>;
+  <http://purl.org/dc/terms/modified> "2024-06-11T08:23:33.850Z"^^xsd:dateTime;
+  <http://purl.org/dc/terms/created> "2022-05-12"^^xsd:date;
+  <http://purl.org/dc/terms/license> <http://creativecommons.org/publicdomain/zero/1.0/>;
+  <http://purl.org/ontology/bibo/status> <http://purl.org/spar/pso/draft>;
+  <http://open-services.net/ns/core#modifiedBy> "admin";
+  <http://purl.org/dc/terms/contributor> "admin" .
 
 <http://www.w3.org/2003/01/geo/wgs84_pos#lat> a owl:DatatypeProperty;
   rdfs:domain <https://semopenalex.org/ontology/Geo>;
@@ -905,22 +922,6 @@ skos:ConceptShape a sh:NodeShape;
 <https://orcid.org/0009-0009-4338-0983> a <http://xmlns.com/foaf/0.1/Person>;
   rdfs:label "Linn Aung";
   <http://xmlns.com/foaf/0.1/mbox> <mailto:la@metaphacts.com> .
-
-<https://semopenalex.org/ontology/> a owl:Ontology;
-  <http://purl.org/dc/terms/issued> "2023-10-18"^^xsd:date;
-  <http://purl.org/dc/terms/creator> <https://orcid.org/0000-0001-5458-8645>, <https://orcid.org/0000-0002-5080-3587>,
-    <https://orcid.org/0000-0002-7561-7000>, <https://orcid.org/0000-0002-9098-5389>,
-    <https://orcid.org/0009-0009-4338-0983>;
-  rdfs:comment "The Semantic OpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en;
-  rdfs:label "SemOpenAlex Ontology"@en;
-  <http://purl.org/dc/terms/publisher> <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology>,
-    <http://www.wikidata.org/entity/Q22132500>;
-  <http://purl.org/dc/terms/modified> "2024-06-11T08:23:33.850Z"^^xsd:dateTime;
-  <http://purl.org/dc/terms/created> "2022-05-12"^^xsd:date;
-  <http://purl.org/dc/terms/license> <http://creativecommons.org/publicdomain/zero/1.0/>;
-  <http://purl.org/ontology/bibo/status> <http://purl.org/spar/pso/draft>;
-  <http://open-services.net/ns/core#modifiedBy> "admin";
-  <http://purl.org/dc/terms/contributor> "admin" .
 
 <https://semopenalex.org/ontology/AuthorShape> a sh:NodeShape;
   sh:property _:genid-fd21622d1d00484182e9b946a6167421485-034ac732b02c8a34b6bc6ef345fab4f,
