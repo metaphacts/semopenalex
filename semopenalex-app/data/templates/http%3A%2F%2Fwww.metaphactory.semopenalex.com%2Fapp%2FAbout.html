@@ -23,22 +23,20 @@
       <div style='margin-top:8px;'>
         <bs-row>
           <bs-col md="6">
-            {{>::count-entity type='https://semopenalex.org/ontology/Work' image='/assets/images/icon-2.png'
+            {{>::count-entity type='https://semopenalex.org/ontology/Work' image='/assets/images/essay.png'
             label='works'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Author' image='/assets/images/icon-1.png'
+            {{>::count-entity type='https://semopenalex.org/ontology/Author' image='/assets/images/writer.png'
             label='authors'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Institution' image='/assets/images/icon-3.png'
+            {{>::count-entity type='https://semopenalex.org/ontology/Institution' image='/assets/images/university.png'
             label='institutions'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Publisher' image='/assets/images/icon-7.png'
+            {{>::count-entity type='https://semopenalex.org/ontology/Publisher' image='/assets/images/office-building.png'
             label='publishers'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Funder' image='/assets/images/funding.png'
-            label='funders'}}
           </bs-col>
           <bs-col md="6">
-            {{>::count-entity type='https://semopenalex.org/ontology/Source' image='/assets/images/icon-6.png'
+            {{>::count-entity type='https://semopenalex.org/ontology/Source' image='/assets/images/stack-of-books.png'
             label='sources'}}
-            {{>::count-entity type='http://www.w3.org/2004/02/skos/core#Concept' image='/assets/images/icon-5.png'
-            label='concepts'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Funder' image='/assets/images/funding.png'
+            label='funders'}}
             {{>::count-entity type='https://semopenalex.org/ontology/Topic' image='/assets/images/topic.png'
             label='topics'}}
             {{>::count-entity type='https://semopenalex.org/ontology/Keyword' image='/assets/images/search.png'
@@ -147,7 +145,7 @@
       <div style='margin-top:8px;'>
         The source code for creating SemOpenAlex is available <a
           href='https://github.com/metaphacts/semopenalex/tree/main/transformation-scripts' target='_blank'>here</a>. It
-        is licensed under the MIT Licence.
+        is licensed under the MIT License.
       </div>
 
     </div>
@@ -227,7 +225,7 @@ SELECT ?paperTitle ?citedByCount ?firstAuthorName WHERE {
   ?Concept skos:prefLabel "Semantic Web"^^xsd:string . 
   ?paper soa:citedByCount ?citedByCount .
   ?paper soa:hasAuthorPosition ?authorPosition . 
-  ?authorPosition soa:position "1"^^xsd:integer . 
+  ?authorPosition soa:position "0"^^xsd:integer . 
   ?authorPosition soa:hasAuthor ?firstAuthor . 
   ?firstAuthor foaf:name ?firstAuthorName .
 
