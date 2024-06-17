@@ -1,34 +1,46 @@
 <div class="page soa">
   <div style='padding: 10px; font-size:15px;'>
-    
+
 
     <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>What exactly do we provide?</b>
       <div style='margin-top:8px;'>
         <ol>
           <li>A semantic search interface to access, search and visualize the SemOpenAlex data in real time.</li>
-          <li>Periodically updated <a href='https://semopenalex.s3.amazonaws.com/browse.html' target='_blank'>RDF dump files</a> of SemOpenAlex.</li>
+          <li>Periodically updated <a href='https://semopenalex.s3.amazonaws.com/browse.html' target='_blank'>RDF dump
+              files</a> of SemOpenAlex.</li>
           <li>URI Resolution of SemOpenAlex within the Linked Open Data Cloud.</li>
-          <li>A publicly accessible <a href='/sparql' target='_blank'>SPARQL endpoint</a> containing the latest SemOpenAlex data.</li>
-          <li><a href='https://doi.org/10.5281/zenodo.7912776' target='_blank'>Entity Embeddings</a> for all works, authors, sources and institutions in SemOpenAlex.</li>
+          <li>A publicly accessible <a href='/sparql' target='_blank'>SPARQL endpoint</a> containing the latest
+            SemOpenAlex data.</li>
+          <li><a href='https://doi.org/10.5281/zenodo.7912776' target='_blank'>Entity Embeddings</a> for all works,
+            authors, sources and institutions in SemOpenAlex.</li>
         </ol>
       </div>
     </div>
 
-     <div style='margin:auto;width:922px;padding-top:16px;'>
+    <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>How big is SemOpenAlex?</b>
       <div style='margin-top:8px;'>
         <bs-row>
           <bs-col md="6">
-            {{>::count-entity type='https://semopenalex.org/ontology/Work' image='/assets/images/icon-2.png' label='works'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Author' image='/assets/images/icon-1.png' label='authors'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Institution' image='/assets/images/icon-3.png' label='institutions'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Work' image='/assets/images/essay.png'
+            label='works'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Author' image='/assets/images/writer.png'
+            label='authors'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Institution' image='/assets/images/university.png'
+            label='institutions'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Publisher' image='/assets/images/office-building.png'
+            label='publishers'}}
           </bs-col>
           <bs-col md="6">
-            {{>::count-entity type='http://www.w3.org/2004/02/skos/core#Concept' image='/assets/images/icon-5.png' label='topics'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Source' image='/assets/images/icon-6.png' label='sources'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Publisher' image='/assets/images/icon-7.png' label='publishers'}}
-            {{>::count-entity type='https://semopenalex.org/ontology/Funder' image='/assets/images/funding.png' label='funders'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Source' image='/assets/images/stack-of-books.png'
+            label='sources'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Funder' image='/assets/images/funding.png'
+            label='funders'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Topic' image='/assets/images/topic.png'
+            label='topics'}}
+            {{>::count-entity type='https://semopenalex.org/ontology/Keyword' image='/assets/images/search.png'
+            label='keywords'}}
           </bs-col>
         </bs-row>
       </div>
@@ -37,40 +49,47 @@
     <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>Entity Embeddings</b>
       <div style='margin-top:8px;'>
-        Trained <a href='https://arxiv.org/pdf/1412.6575.pdf' target='_blank'>DistMult </a> <a href='https://zenodo.org/record/7912776#.ZFtZTi1n5ao' target='_blank'>entity embeddings</a> for all works, authors, sources and institutions in SemOpenAlex.
-        
+        Trained <a href='https://arxiv.org/pdf/1412.6575.pdf' target='_blank'>DistMult </a> <a
+          href='https://zenodo.org/record/7912776#.ZFtZTi1n5ao' target='_blank'>entity embeddings</a> for all works,
+        authors, sources and institutions in SemOpenAlex.
+
       </div>
       <div style='margin-top:8px;'>
-        For more details, please refer to <a href='https://github.com/metaphacts/semopenalex/tree/main/embeddings-generation' target='_blank'>GitHub</a>.
+        For more details, please refer to <a
+          href='https://github.com/metaphacts/semopenalex/tree/main/embeddings-generation' target='_blank'>GitHub</a>.
       </div>
     </div>
 
     <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>Ontology and Linked Dataset Descriptions</b>
-       <div style='margin-top:8px;'>
+      <div style='margin-top:8px;'>
         <ul>
           <li>
-            <a href='https://semopenalex.org/resource/?uri=https%3A%2F%2Fsemopenalex.org%2Fvocab%23' target='_blank'>SemOpenAlex Ontology</a>
+            <a href='https://semopenalex.org/resource/?uri=https%3A%2F%2Fsemopenalex.org%2Fvocab%23'
+              target='_blank'>SemOpenAlex Ontology</a>
           </li>
           <li>
-            <a href='https://github.com/metaphacts/semopenalex/blob/main/ontologies/semopenalex-ontology-shacl.ttl' target='_blank'>Turtle file</a>
+            <a href='https://github.com/metaphacts/semopenalex/blob/main/ontologies/semopenalex-ontology-shacl.ttl'
+              target='_blank'>Turtle file</a>
           </li>
-          <li><a href='https://github.com/metaphacts/semopenalex/tree/main/linked-dataset-description' target='_blank'>VoID file</a></li>
+          <li><a href='https://github.com/metaphacts/semopenalex/tree/main/linked-dataset-description'
+              target='_blank'>VoID file</a></li>
         </ul>
-       </div>
+      </div>
     </div>
 
     <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>URI Resolution</b>
       <div style='margin-top:8px;'>
-        The resources of SemOpenAlex are resolvable via HTTP and content negotiation. In this way, the knowledge graph is part of the Linked Open Data cloud.
-        
-          Examples for URI resolution with curl:
-          <mp-code-block mode='text/turtle'>
-curl -H "Accept:text/n3" https://semopenalex.org/work/W4239696231 
-curl -H "Accept:text/plain" https://semopenalex.org/work/W4239696231
-          </mp-code-block>
-        
+        The resources of SemOpenAlex are resolvable via HTTP and content negotiation. In this way, the knowledge graph
+        is part of the Linked Open Data cloud.
+
+        Examples for URI resolution with curl:
+        <mp-code-block mode='text/turtle'>
+          curl -H "Accept:text/n3" https://semopenalex.org/work/W4239696231
+          curl -H "Accept:text/plain" https://semopenalex.org/work/W4239696231
+        </mp-code-block>
+
       </div>
     </div>
 
@@ -78,46 +97,71 @@ curl -H "Accept:text/plain" https://semopenalex.org/work/W4239696231
       <b>RDF Dumps</b>
       <div style='margin-top:8px;'>
         We provide monthly updated RDF dump files of SemOpenAlex at Amazon S3 at no cost:<br>
-        <a href='https://semopenalex.s3.amazonaws.com/browse.html' target='_blank'>https://semopenalex.s3.amazonaws.com/browse.html</a>
-        <p style='margin-top:8px;'>A small data sample is available in <a href='https://github.com/metaphacts/semopenalex/tree/main/data-sample' target='_blank'>GitHub</a>.</p>
+        <a href='https://semopenalex.s3.amazonaws.com/browse.html'
+          target='_blank'>https://semopenalex.s3.amazonaws.com/browse.html</a>
+        <p style='margin-top:8px;'>A small data sample is available in <a
+            href='https://github.com/metaphacts/semopenalex/tree/main/data-sample' target='_blank'>GitHub</a>.</p>
       </div>
-  
+
     </div>
 
     <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>Contact</b>
       <div style='margin-top:8px;'>
-        The system has been designed and implemented by Michael Färber<sup>1</sup>, Johan Krause<sup>1</sup>, David Lamprecht<sup>1</sup>, Linn Aung<sup>2</sup> and Peter Haase<sup>2</sup>.
-        Feel free to submit bug reports and feature requests on GitHub and address questions and remarks on the project in general to <a href='https://sites.google.com/view/michaelfaerber' target='_blank'>Michael Färber</a> (michael.faerber@kit.edu) as Principal Investigator.
+        The system has been designed and implemented by Michael Färber<sup>1</sup>, Johan Krause<sup>2</sup>, David
+        Lamprecht<sup>3</sup>, Linn Aung<sup>3</sup> and Peter Haase<sup>3</sup>.
+        Feel free to submit bug reports and feature requests on GitHub and address questions and remarks on the project
+        in general to <a href='https://sites.google.com/view/michaelfaerber' target='_blank'>Michael Färber</a>
+        (michael.faerber@tu-dresden.de) as Principal Investigator.
       </div>
       <div style='margin-top:8px;'>
-        <sup>1</sup>Institute AIFB, Karlsruhe Institute of Technology (KIT), Karlsruhe, Germany<br>
-        <sup>2</sup>metaphacts GmbH, Walldorf, Germany
+        <sup>1</sup>ScaDS.AI & TU Dresden, Dresden, Germany<br>
+        <sup>2</sup>Institute AIFB, Karlsruhe Institute of Technology (KIT), Karlsruhe, Germany<br>
+        <sup>3</sup>metaphacts GmbH, Walldorf, Germany
       </div>
-  
+
+    </div>
+
+    <div style='margin:auto;width:922px;padding-top:16px;'>
+      <b>Reference & More Information</b>
+      <div style='margin-top:8px;'>
+        More information about SemOpenAlex can be found in our ISWC 2023 paper:
+        <ul>
+          <li>
+            <a href='https://arxiv.org/pdf/2308.03671' target='_blank'>SemOpenAlex: The Scientific Landscape in 26
+              Billion RDF Triples</a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>License & Code</b>
       <div style='margin-top:8px;'>
-        SemOpenAlex, the linked data description files, and the ontology are licensed under <a href='https://creativecommons.org/publicdomain/zero/1.0/' target='_blank'>CC0</a>.
-        
+        SemOpenAlex, the linked data description files, and the ontology are licensed under <a
+          href='https://creativecommons.org/publicdomain/zero/1.0/' target='_blank'>CC0</a>.
+
       </div>
       <div style='margin-top:8px;'>
-        The source code for creating SemOpenAlex is available <a href='https://github.com/metaphacts/semopenalex/tree/main/transformation-scripts' target='_blank'>here</a>. It is licensed under the MIT Licence.
+        The source code for creating SemOpenAlex is available <a
+          href='https://github.com/metaphacts/semopenalex/tree/main/transformation-scripts' target='_blank'>here</a>. It
+        is licensed under the MIT License.
       </div>
-  
+
     </div>
 
-     <div style='margin:auto;width:922px;padding-top:16px;'>
+    <div style='margin:auto;width:922px;padding-top:16px;'>
       <b>Potential use cases</b>
       <div style='margin-top:8px;'>
         <ul>
-          <li>Entity-centric exploration of publications, authors, institutions, etc. (e.g., concerning some research area)</li>
+          <li>Entity-centric exploration of publications, authors, institutions, etc. (e.g., concerning some research
+            area)</li>
           <li>Easier data integration through use of RDF and by linking resources to other data sources (e.g., combining
-SemOpenAlex with digital library collections in RDF).</li>
-          <li>Data analysis and knowledge discovery (e.g., measuring the popularity of publications and authors; build semantic
-recommender systems for publications, authors, and sources; and analyzing the evolution of concepts, research methods and data sets over time).</li>
+            SemOpenAlex with digital library collections in RDF).</li>
+          <li>Data analysis and knowledge discovery (e.g., measuring the popularity of publications and authors; build
+            semantic
+            recommender systems for publications, authors, and sources; and analyzing the evolution of concepts,
+            research methods and data sets over time).</li>
         </ul>
       </div>
     </div>
@@ -138,7 +182,7 @@ PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
 SELECT DISTINCT ?paperTitle ?paper ?oaUrl WHERE {
 
   ?paper fabio:hasPublicationYear "2022"^^xsd:integer . 
-  ?paper soa:hasConcept ?concept .
+  &lt;&lt;?paper soa:hasConcept ?concept&gt;&gt; soa:score ?score .
   ?concept skos:prefLabel "Machine learning"^^xsd:string . 
   ?paper dcterms:title ?paperTitle .
   ?paper soa:hasOpenAccess ?openAccess .
@@ -177,12 +221,12 @@ PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
 SELECT ?paperTitle ?citedByCount ?firstAuthorName WHERE {
 
   ?paper dcterms:title ?paperTitle .
-  ?paper soa:hasConcept ?Concept .
+  &lt;&lt;?paper soa:hasConcept ?Concept&gt;&gt; soa:score ?score .
   ?Concept skos:prefLabel "Semantic Web"^^xsd:string . 
   ?paper soa:citedByCount ?citedByCount .
-  ?paper soa:hasAuthorPosition ?authorPosition . 
-  ?authorPosition soa:position "first"^^xsd:string . 
-  ?authorPosition soa:hasAuthor ?firstAuthor . 
+  ?paper soa:hasAuthorship ?authorship . 
+  ?authorship soa:position "0"^^xsd:integer . 
+  ?authorship soa:hasAuthor ?firstAuthor . 
   ?firstAuthor foaf:name ?firstAuthorName .
 
 } ORDER BY DESC(?citedByCount) LIMIT 10
