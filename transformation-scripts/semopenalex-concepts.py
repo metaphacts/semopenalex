@@ -136,6 +136,7 @@ soa_namespace_concepts = "https://semopenalex.org/concept/"
 soa_namespace_countsbyyear = "https://semopenalex.org/countsByYear/"
 
 # SOA classes used in this file
+soa_class_concept = URIRef(soa_namespace_class + "Concept")
 soa_class_counts_by_year = URIRef(soa_namespace_class+"CountsByYear")
 
 # SOA predicates
@@ -202,6 +203,7 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     #Concept-ID
                     concept_id = json_data['id'].replace("https://openalex.org/", "")
                     concept_uri = URIRef(soa_namespace_concepts+concept_id)
+                    concept_graph.add((concept_uri, RDF.type, soa_class_concept))
                     concept_graph.add((concept_uri,RDF.type,SKOS.Concept))
 
                     #Concept Scheme
