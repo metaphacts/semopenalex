@@ -224,9 +224,9 @@ SELECT ?paperTitle ?citedByCount ?firstAuthorName WHERE {
   &lt;&lt;?paper soa:hasConcept ?Concept&gt;&gt; soa:score ?score .
   ?Concept skos:prefLabel "Semantic Web"^^xsd:string . 
   ?paper soa:citedByCount ?citedByCount .
-  ?paper soa:hasAuthorPosition ?authorPosition . 
-  ?authorPosition soa:position "0"^^xsd:integer . 
-  ?authorPosition soa:hasAuthor ?firstAuthor . 
+  ?paper soa:hasAuthorship ?authorship . 
+  ?authorship soa:position "0"^^xsd:integer . 
+  ?authorship soa:hasAuthor ?firstAuthor . 
   ?firstAuthor foaf:name ?firstAuthorName .
 
 } ORDER BY DESC(?citedByCount) LIMIT 10
