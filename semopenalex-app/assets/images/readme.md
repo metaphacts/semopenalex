@@ -7,3 +7,7 @@
 - <a href="https://www.flaticon.com/free-icons/building" title="building icons" target='_blank'>Building icons created by juicy_fish - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/empty" title="empty icons" target='_blank'>Empty icons created by Icon.doit - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/funding" title="funding icons">Funding icons created by Dewi Sari - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/science-research" title="science research icons">Science research icons created by Flat Icons - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/goal" title="goal icons">Goal icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/keyword" title="keyword icons">Keyword icons created by Dreamstale - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/trending-topic" title="trending topic icons">Trending topic icons created by lutfix - Flaticon</a>
