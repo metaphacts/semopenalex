@@ -21,7 +21,7 @@
   <http://purl.org/dc/terms/modified> "2024-06-17T12:58:03.123Z"^^xsd:dateTime;
   <http://purl.org/dc/terms/created> "2022-05-12T00:00:00Z"^^xsd:dateTime;
   <http://purl.org/dc/terms/license> <http://creativecommons.org/publicdomain/zero/1.0/>;
-  <http://purl.org/ontology/bibo/status> <http://purl.org/spar/pso/draft>;
+  <http://purl.org/ontology/bibo/status> <http://purl.org/spar/pso/published>;
   <http://open-services.net/ns/core#modifiedBy> "dl@metaphacts.com";
   <http://purl.org/dc/terms/contributor> "dl@metaphacts.com";
   owl:versionInfo "3.0.0" .
