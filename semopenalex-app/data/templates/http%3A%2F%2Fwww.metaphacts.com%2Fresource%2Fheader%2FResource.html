@@ -1,0 +1,65 @@
+<div class="knowledgeGraphBar">
+  <div class='knowledgeGraphBar__thumbnail'>
+    [[#if thumbnail]]
+    	<img src="[[thumbnail]]">
+    [[/if]]
+  </div>
+
+  <div class="knowledgeGraphBar__summary">
+    <div class='knowledgeGraphBar__summaryTitle'>
+      <h1>
+        <mp-popover>
+          <mp-popover-trigger placement='bottom' trigger='["hover", "focus"]'>
+            <span class='knowledgeGraphBar__summaryLabel'><mp-label iri="{{page-resource}}"></mp-label></span>
+          </mp-popover-trigger>
+          <mp-popover-content>
+            <mp-label iri="{{page-resource}}"></mp-label>
+          </mp-popover-content>
+        </mp-popover>
+      </h1>
+    </div>
+    <div class='knowledgeGraphBar__bottomRow'>
+        <div class='knowledgeGraphBar__graphInfos'>
+            <div class="knowledgeGraphBar__uriRow">
+            <b>IRI</b>: <span title={{page-resource}} class="ms-1">{{page-resource}}</span> <mp-copy-to-clipboard text="{{page-resource}}" title='Click to copy IRI'>
+            <button class="btn btn-secondary btn-sm btn-icon knowledgeGraphBar__copyIri"></button>
+            </mp-copy-to-clipboard>
+            </div>
+            <semantic-query query="SELECT DISTINCT ?type WHERE { ?? [[#if type]][[type]][[else]]a[[/if]] ?type }" style="display:inline;" template="{{> template}}">
+            <template id="template">
+                <span>
+                <b>Type</b>:
+                {{#each bindings}}
+                  {{#if (isIri type)}}
+                      <semantic-link iri="{{type.value}}"></semantic-link>
+                  {{else}}
+                    {{type.value}}
+                  {{/if}}
+                  {{#unless @last}},&nbsp;{{/unless}}
+                {{/each}}
+                </span>
+            </template>
+            </semantic-query>
+        </div>
+      <mp-description iri="{{page-resource}}" template='{{> truncate-template}}'>
+        <template id='truncate-template'>
+          <div class="knowledgeGraphBar__description">
+            <mp-text-truncate lines=2 
+              truncate='<mp-popover title="">
+                        <mp-popover-trigger placement="left" trigger=["click","hover","focus"] root-close="false">
+                        <a>... </a>
+                        </mp-popover-trigger>
+                        <mp-popover-content>{{description}}</mp-popover-content>
+                        </mp-popover>'
+            >
+              {{description}}
+            </mp-text-truncate>
+          </div>
+        </template>
+      </mp-description>
+    </div>
+  </div>
+
+
+  [[> "http://www.metaphacts.com/resource/KnowledgeGraphBarViewControls" ]]
+</div>

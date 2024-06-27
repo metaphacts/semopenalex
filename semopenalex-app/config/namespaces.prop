@@ -6,3 +6,4 @@ soa = https://semopenalex.org/ontology/
 wgs = http://www.w3.org/2003/01/geo/wgs84_pos#
 dbpedia-owl = https://dbpedia.org/ontology/
 dbprop = https://dbpedia.org/property/
+jsfn = http://www.ontotext.com/js#
