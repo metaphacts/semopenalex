@@ -1,3 +1,57 @@
+<style>
+  .soa {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .soa .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 1rem;
+  }
+  .card.publication-chart {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+  }
+  .publication-chart > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  .publications__label, .citations__label {
+    font-size: 1.3rem;
+  }
+  .publications__value, .citations__value {
+    font-size: 3.2rem;
+    font-weight: 700;
+  }
+  .publications__label, .publications__value {
+    color: #000000;
+  }
+  .citations__label, .citations__value {
+    color: var(--soa-color-green);
+  }
+  .related-concepts {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+  .related-concepts > div {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+</style>
 
 {{!-- use custom templates for concepts from different vocabularies --}}
 
