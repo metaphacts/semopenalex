@@ -98,7 +98,7 @@
                         <<?publication <https://semopenalex.org/ontology/hasTopic> <{{page-resource}}> >> soa:score ?score .
                         ?publication fabio:hasPublicationYear ?year .
                         FILTER (?score >= 0.5 && ?year >= 2014)
-                      } 
+                      } LIMIT 1000
                     }
                   } GROUP BY ?year ORDER BY ASC(?year)
                 } UNION {
@@ -111,7 +111,7 @@
                           ?publication soa:citedByCount ?citations .
                           ?publication fabio:hasPublicationYear ?year .
                         FILTER (?score >= 0.5 && ?year >= 2014 )
-                      } 
+                      } LIMIT 1000
                     }
                   } GROUP BY ?year ORDER BY ASC(?year)
                       
