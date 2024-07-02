@@ -1,0 +1,4 @@
+config.proxy.wikidata-images.targetUri=https://commons.wikimedia.org/w/thumb.php
+config.proxy.wikidata-images.preserveCookies=true
+config.proxy.rcsb-pdb.targetUri=https://files.rcsb.org/view/
+config.proxy.rcsb-pdb.preserveCookies=true

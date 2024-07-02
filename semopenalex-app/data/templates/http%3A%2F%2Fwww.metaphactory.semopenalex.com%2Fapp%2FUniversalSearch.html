@@ -61,63 +61,84 @@
       }'
 
       [[!-- thumbnails are renamed with number and are used for ordering the domains card --]]
-      search-profile='{
+      search-profile='{ 
         "categories": [
         
-        {
-          "iri": "<https://semopenalex.org/ontology/Author>",
-          "label": "Author",
-          "thumbnail": "/assets/images/writer.png"
-        },
-         {
-          "iri": "<https://semopenalex.org/ontology/Work>",
-          "label": "Work",
-          "thumbnail": "/assets/images/essay.png"
-        },
-        {
-          "iri": "<https://semopenalex.org/ontology/Source>",
-          "label": "Source",
-          "thumbnail": "/assets/images/stack-of-books.png"
-        },
-        {
-        	"iri": "<https://semopenalex.org/ontology/Institution>",
-          "label": "Institution",
-          "thumbnail": "/assets/images/university.png"
-        }, 
-        {
-          "iri": "<https://semopenalex.org/ontology/Publisher>",
-          "label": "Publisher",
-          "thumbnail": "/assets/images/office-building.png"
-        }, {
-          "iri": "<https://semopenalex.org/ontology/Funder>",
-          "label": "Funder",
-          "thumbnail": "/assets/images/funding.png"
-        }, {
-        	"iri": "<https://semopenalex.org/ontology/Topic>",
-          "label": "Topic",
-          "thumbnail": "/assets/images/topic.png"
-        },
-         {
-        	"iri": "<https://semopenalex.org/ontology/Keyword>",
-          "label": "Keyword",
-          "thumbnail": "/assets/images/search.png"
-        },
-        {
-        	"iri": "<http://metadata.un.org/sdg/ontology#Goal>",
-          "label": "Topic (Sustainable Development Goals)",
-          "thumbnail": "/assets/images/goal.png"
-        },
-        {
-        	"iri": "<http://id.nlm.nih.gov/mesh/vocab#TopicalDescriptor>",
-          "label": "Topic (Medical Subject Headings)",
-          "thumbnail": "/assets/images/science-research.png"
-        },
-        {
-        	"iri": "<http://metadata.un.org/sdg/ontology#Target>",
-          "label": "Target",
-          "includeAsDomain": false
-        }
-        ],
+          {
+            "iri": "<https://semopenalex.org/ontology/Author>",
+            "label": "Author",
+            "thumbnail": "/assets/images/writer.png"
+          },
+          {
+            "iri": "<https://semopenalex.org/ontology/Work>",
+            "label": "Work",
+            "thumbnail": "/assets/images/essay.png"
+          },
+          {
+            "iri": "<https://semopenalex.org/ontology/Source>",
+            "label": "Source",
+            "thumbnail": "/assets/images/stack-of-books.png"
+          },
+          {
+            "iri": "<https://semopenalex.org/ontology/Institution>",
+            "label": "Institution",
+            "thumbnail": "/assets/images/university.png"
+          }, 
+          {
+            "iri": "<https://semopenalex.org/ontology/Publisher>",
+            "label": "Publisher",
+            "thumbnail": "/assets/images/office-building.png"
+          }, {
+            "iri": "<https://semopenalex.org/ontology/Funder>",
+            "label": "Funder",
+            "thumbnail": "/assets/images/funding.png"
+          },
+          {
+            "iri": "<https://semopenalex.org/ontology/Domain>",
+            "label": "Topic Domain",
+            "thumbnail": "/assets/images/category.png"
+          },
+          {
+            "iri": "<https://semopenalex.org/ontology/Field>",
+            "label": "Topic Field",
+            "thumbnail": "/assets/images/folder.png"
+          },
+          {
+            "iri": "<https://semopenalex.org/ontology/Subfield>",
+            "label": "Topic Subfield",
+            "thumbnail": "/assets/images/categorization.png"
+          },
+           {
+            "iri": "<https://semopenalex.org/ontology/Topic>",
+            "label": "Topic",
+            "thumbnail": "/assets/images/topic.png"
+          },
+          {
+        	  "iri": "<https://semopenalex.org/ontology/Keyword>",
+            "label": "Keyword",
+            "thumbnail": "/assets/images/search.png"
+          },
+          {
+            "iri": "<http://metadata.un.org/sdg/ontology#Target>",
+            "label": "Target",
+            "includeAsDomain": false
+          },
+          {
+            "iri": "<https://semopenalex.org/ontology/Concept>",
+            "label": "Concept",
+            "thumbnail": "/assets/images/lightbulb.png"
+          },
+          {
+            "iri": "<http://metadata.un.org/sdg/ontology#Goal>",
+            "label": "Topic (Sustainable Development Goals)",
+            "thumbnail": "/assets/images/goal.png"
+          },
+          {
+            "iri": "<http://id.nlm.nih.gov/mesh/vocab#TopicalDescriptor>",
+            "label": "Topic (Medical Subject Headings)",
+            "thumbnail": "/assets/images/science-research.png"
+          }
+      ],
         "relations": [
           {  
             "hasDomain": "<https://semopenalex.org/ontology/Work>",
@@ -202,6 +223,12 @@
             "hasRange": "<https://semopenalex.org/ontology/Topic>",
             "label": "has related topic"
           },
+           {
+            "hasDomain": "<https://semopenalex.org/ontology/Concept>",
+            "iri": "<http://www.w3.org/2004/02/skos/core#related>",
+            "hasRange": "<https://semopenalex.org/ontology/Concept>",
+            "label": "has related concept"
+          },
           {
             "hasDomain": "<https://semopenalex.org/ontology/Topic>",
             "iri": "<https://semopenalex.org/ontology/hasKeyword>",
@@ -237,6 +264,30 @@
             "iri": "<http://metadata.un.org/sdg/ontology#hasTarget>",
             "hasRange": "<http://metadata.un.org/sdg/ontology#Target>",
             "label": "has target"
+          },
+          {
+            "hasDomain": "<http://metadata.un.org/sdg/ontology#Target>",
+            "iri": "<http://metadata.un.org/sdg/ontology#isTargetOf>",
+            "hasRange": "<http://metadata.un.org/sdg/ontology#Goal>",
+            "label": "is target of"
+          },
+           {
+            "hasDomain": "<https://semopenalex.org/ontology/Field>",
+            "iri": "<http://www.w3.org/2004/02/skos/core#broader>",
+            "hasRange": "<https://semopenalex.org/ontology/Domain>",
+            "label": "has broader term"
+          },
+          {
+            "hasDomain": "<https://semopenalex.org/ontology/Subfield>",
+            "iri": "<http://www.w3.org/2004/02/skos/core#broader>",
+            "hasRange": "<https://semopenalex.org/ontology/Field>",
+            "label": "has broader term"
+          },
+           {
+            "hasDomain": "<https://semopenalex.org/ontology/Topic>",
+            "iri": "<http://www.w3.org/2004/02/skos/core#broader>",
+            "hasRange": "<https://semopenalex.org/ontology/Subfield>",
+            "label": "has broader term"
           }
         ]
       }'>
@@ -285,6 +336,9 @@
         <li><a href="https://www.flaticon.com/free-icons/goal" title="goal icons">Goal icons created by Freepik - Flaticon</a></li>
         <li><a href="https://www.flaticon.com/free-icons/keyword" title="keyword icons">Keyword icons created by Dreamstale - Flaticon</a></li>
         <li><a href="https://www.flaticon.com/free-icons/trending-topic" title="trending topic icons">Trending topic icons created by lutfix - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/category" title="category icons">Category icons created by NickyLimYeanFen - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/category" title="category icons">Category icons created by iconzilla - Flaticon</a></li>
+        <li><a href="https://www.flaticon.com/free-icons/category" title="category icons">Category icons created by orvipixel - Flaticon</a></li>
       </ul>
     </mp-overlay-dialog-content>
     </mp-overlay-dialog>

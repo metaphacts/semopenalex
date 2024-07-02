@@ -1,0 +1,195 @@
+<style>
+  h3, .h3 {
+	  background-color: var(--mp-color-dark-50);
+  }
+  .show-term-in-vocabulary-link-class {
+    justify-content: flex-end;
+    display: flex;
+  }
+</style>
+
+[[#*inline "skosInfo"]]
+<mp-popover title="[[title]]">
+  <mp-popover-trigger placement="right"  trigger='["click"]'>
+    <span class="material-symbols-outlined" aria-hidden="true" style='margin-left:10px;cursor: pointer;' title="Click to show explanation.">info</span>
+  </mp-popover-trigger>
+  <mp-popover-content>
+    [[description]]
+  </mp-popover-content>
+</mp-popover>
+[[/inline]]
+
+<div class="page">
+
+    <div class='page__header-navtabs show-term-in-vocabulary-link-class'>
+      {{>::show-term-in-vocabulary-link}}
+    </div>
+    <bs-tabs id="tabs" class='page__body-navtabs' unmount-on-exit=true>
+      <bs-tab event-key="0" title="Summary">
+         <bs-row>
+           <bs-col sm="6" md="6">
+              [[> "http://www.metaphacts.com/resource/SkosResourcePropertiesInclude" ]]
+          </bs-col>
+          <bs-col sm="6" md="6">
+            <div style="height:calc(100vh - 304px);">
+              <semantic-lazy-tree
+                id='termTree'
+                roots-query='
+                  SELECT DISTINCT ?item ?hasChildren WHERE {
+                    ?item a skos:ConceptScheme . 
+                    ?item (skos:hasTopConcept|^skos:topConceptOf) ?topConcept .
+                    <{{page-resource}}> (skos:broader|^skos:narrower)* ?topConcept .
+                    BIND (true AS ?hasChildren)
+                  }'
+                children-query='
+                  SELECT DISTINCT ?item ?hasChildren WHERE {
+                    { 
+                      ?parent a skos:ConceptScheme .
+                      ?parent skos:hasTopConcept|^skos:topConceptOf ?item . 
+                    } UNION {
+                       ?parent a skos:Concept .
+                       ?item skos:broader|^skos:narrower ?parent .
+                    }
+
+                    BIND ( IF ( EXISTS { ?subItem skos:broader|^skos:narrower ?item . }, true, false ) AS ?hasChildren)
+
+                  }'
+                parents-query='
+                  SELECT DISTINCT ?item ?parent WHERE {
+                    { 
+                      ?parent a skos:ConceptScheme .
+                      ?parent skos:hasTopConcept|^skos:topConceptOf ?item . 
+                    } UNION {
+                       ?parent a skos:Concept .
+                       ?item skos:broader|^skos:narrower ?parent .
+                    }
+                    
+                  }'
+                focused-iri='{"iri": "{{page-resource}}", "omitSiblings": true}'
+                click-item-to-expand=true
+                node-template='{{> node}}'
+              >
+                <template id='node'>
+                  {{#if (cond-eq iri (page-resource))}}
+                     <span style="background: var(--mp-color-info-100);"> <semantic-link iri='{{iri}}' style='color: var(--mp-link-color-active);'></semantic-link></span>
+                  {{else}}
+                    <semantic-link iri='{{iri}}'></semantic-link>
+                  {{/if}}
+                </template>
+              </semantic-lazy-tree>
+            </div>
+          </bs-col>
+
+				</bs-row>
+      </bs-tab>
+      <bs-tab event-key="2" title="Semantic Relations">
+        <div>
+          [[! -- <h2>Hierarchical Relations</h2> --]]
+          <div data-flex-layout="row top-stretch">
+            <div>
+              <h3>
+                Broader Concepts
+                [[> skosInfo title="skos:broader" description="Concepts that are broader (more generic) than this one."]]
+              </h3>
+              <semantic-table query='SELECT DISTINCT * WHERE {?? skos:broader|^skos:narrower ?BroaderConcept}'
+                no-result-template='No broader concepts.'></semantic-table>
+            </div><div>
+            <h3>
+              Narrower Concepts
+              [[> skosInfo title="skos:narrower" description="Concepts that are narrower (more specific) than this one."]]
+            </h3>
+            <semantic-table query='SELECT DISTINCT * WHERE {?? skos:narrower|^skos:broader ?NarrowerConcept}'
+              no-result-template='No narrower concepts.'></semantic-table>
+            </div>
+          </div>
+          [[! -- <h2>Associative Relations</h2> --]]
+          <h3>
+            Related Concepts
+            [[> skosInfo title="skos:related" description="Relation is purely associative. Can mean everything."]]
+          </h3>
+          <semantic-table query='SELECT DISTINCT * WHERE {?? skos:related|^skos:related ?Related}'
+            no-result-template='No related concepts.'></semantic-table>
+        </div>
+      </bs-tab>
+      <bs-tab event-key="3" title="Mapping Relations">
+        <div>
+          [[! --
+          <h2>Equivalent Matches</h2>
+          <hr>
+          --]]
+          <div data-flex-layout="row top-stretch">
+            <div>
+              <h3>
+                Exact Matches
+                [[> skosInfo title="skos:exactMatch" description="High degree of confidence that concepts are equivalent. Platform can use concepts interchangeably for query expansion."]]
+              </h3>
+              <semantic-table query='SELECT DISTINCT * WHERE {?? skos:exactMatch|^skos:exactMatch ?ExactMatch}'
+                no-result-template='No exact matching concepts.'></semantic-table>
+            </div>
+            <div>
+              <h3>
+                Close Matches
+                [[> skosInfo title="skos:closeMatch" description="Certain degree of confidence that concepts are close to be equivalent. Platform may use concepts interchangeably for query expansion."]]
+              </h3>
+              <semantic-table query='SELECT DISTINCT * WHERE {?? skos:closeMatch|^skos:closeMatch ?CloseMatch}'
+                no-result-template='No close matching concepts.'></semantic-table>
+            </div></div>
+          [[! --
+          <h2>Hierarchical Matches</h2>
+          <hr>
+          --]]
+          <div data-flex-layout="row top-stretch">
+            <div>
+              <h3>
+                Broad Matches
+                [[> skosInfo title="skos:broadMatch" description="Linked concepts are broader matches (more generic)."]]
+              </h3>
+              <semantic-table query='SELECT DISTINCT * WHERE {?? skos:broadMatch|^skos:narrowMatch ?BroadMatch}'
+                no-result-template='No broad matching concepts.'></semantic-table>
+            </div>
+            <div>
+              <h3>Narrow Matches
+                [[> skosInfo title="skos:narrowMatch" description="Linked concepts are narrower matches (more specific)."]]
+              </h3>
+              <semantic-table query='SELECT DISTINCT * WHERE {?? skos:narrowMatch|^skos:broadMatch ?NarrowMatch}'
+                no-result-template='No narrow matching concepts.'></semantic-table>
+            </div>
+
+          </div>
+
+          [[! --
+          <h2>Associative Matches</h2>
+          <hr>
+          --]]
+          <h3>
+            Related Matches
+            [[> skosInfo title="skos:relatedMatch" description="Relation is purely associative. Can mean everything."]]
+          </h3>
+          <semantic-table query='SELECT DISTINCT * WHERE {?? skos:relatedMatch|^skos:relatedMatch ?RelatedMatch}'
+            no-result-template='No related matching concepts.'></semantic-table>
+        </div>
+      </bs-tab>
+
+      <bs-tab event-key="4" title="Diagrams">
+        {{> Assets:OntodiaDiagramsTable resource=(page-resource)}}
+      </bs-tab>
+
+    </bs-tabs>
+
+</div>
+
+<template-fragment id='show-term-in-vocabulary-link'>
+  <semantic-query query='SELECT ?scheme { GRAPH ?g { ?scheme a skos:ConceptScheme. <{{page-resource}}> a skos:Concept. } } LIMIT 1' template='{{> tmpl}}'>
+    <template id='tmpl'>
+    
+      {{#each bindings}}
+        {{#if scheme.value}}
+          <semantic-link iri='{{scheme.value}}' class='mt-md-3' style='margin-right:16px;position:absolute;font-size:12px;--mp-icon-size: 16px;' urlqueryparam-term='{{page-resource}}'>
+            <span class="material-symbols-outlined me-2" aria-hidden="true">open_in_new</span>Open in vocabulary
+          </semantic-link>
+        {{/if}}
+      {{/each}}
+  
+    </template>
+  </semantic-query>
+</template-fragment>
