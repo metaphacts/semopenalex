@@ -1,0 +1,3 @@
+#Definition of role sparql-editor-view
+#Mon Jun 17 10:04:58 UTC 2024
+permissions=ui\:page\:sparql-editor
