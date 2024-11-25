@@ -1,0 +1,3 @@
+#Definition of role export-diagram
+#Mon Nov 25 08:35:34 UTC 2024
+permissions=api\:ldp\:container\:*\:export
