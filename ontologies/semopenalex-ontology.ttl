@@ -357,7 +357,7 @@ skos:ConceptShape a sh:NodeShape;
   dct:creator <https://orcid.org/0000-0001-5458-8645>, <https://orcid.org/0000-0002-5080-3587>,
     <https://orcid.org/0000-0002-7561-7000>, <https://orcid.org/0000-0002-9098-5389>,
     <https://orcid.org/0009-0009-4338-0983>;
-  rdfs:comment "The SemOpenAlex Ontology, described using W3C RDF Schema and the Web Ontology Language OWL."@en;
+  dct:description "The SemOpenAlex Ontology is an OWL ontology, representing scientific works such as publications, as well as authors, institutions, publishers, funders, sources, concepts and relations between them, i.e. citations, affiliations, funding details, authorship, publication locations and their sources."@en;
   rdfs:label "SemOpenAlex Ontology"@en;
   dct:publisher <http://dbpedia.org/resource/Karlsruhe_Institute_of_Technology>, <http://www.wikidata.org/entity/Q22132500>,
     <https://www.wikidata.org/wiki/Q158158>;
