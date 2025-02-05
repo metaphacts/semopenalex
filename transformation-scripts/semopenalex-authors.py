@@ -201,8 +201,7 @@ def transform_gz_file(gz_file_path):
     gz_file_name = gz_file_path[len(gz_file_list[1])-43:].replace(".gz","").replace("/","_")
     file_error_count = 0
 
-    with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g, open(f"{trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trigs", "w", encoding="utf-8") as g_rdf_star:
-        g_rdf_star.write(f'<{context}> {{\n')  # opening named graph
+    with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g:
         with gzip.open(gz_file_path, 'r') as f:
             i = 0
             for line in f:
@@ -318,17 +317,17 @@ def transform_gz_file(gz_file_path):
                         author_graph.add((author_uri, DCTERMS.created, Literal(author_created_date, datatype=XSD.date)))
 
                     # affiliations (rdf-star)
-                    affiliations = json_data.get('affiliations')
-                    if not affiliations is None:
-                        for affiliation in affiliations:
-                            institution_id = affiliation['institution']['id'].replace("https://openalex.org/", "")
-                            institution_uri = URIRef(soa_namespace_institutions + institution_id)
-                            start_date = affiliation['years'][-1]
-                            end_date = affiliation['years'][0]
+                    #affiliations = json_data.get('affiliations')
+                    #if not affiliations is None:
+                        #for affiliation in affiliations:
+                            #institution_id = affiliation['institution']['id'].replace("https://openalex.org/", "")
+                            #institution_uri = URIRef(soa_namespace_institutions + institution_id)
+                            #start_date = affiliation['years'][-1]
+                            #end_date = affiliation['years'][0]
 
                             # write affiliation as rdf-star triple in separate rdf-star file
-                            rdf_start_memory = rdf_start_memory + f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_start_year_predicate}> "{start_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n'
-                            rdf_start_memory = rdf_start_memory + f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_end_year_predicate}> "{end_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n'
+                            #rdf_start_memory = rdf_start_memory + f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_start_year_predicate}> "{start_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n'
+                            #rdf_start_memory = rdf_start_memory + f'<<<{author_uri}> <{has_affiliation_predicate}> <{institution_uri}>>> <{has_end_year_predicate}> "{end_date}"^^<http://www.w3.org/2001/XMLSchema#integer> .\n'
 
 
                     i += 1
@@ -350,22 +349,18 @@ def transform_gz_file(gz_file_path):
 
                 if i % 50000 == 0:
                     g.write(author_graph.serialize(format='trig'))
-                    g_rdf_star.write(rdf_start_memory)
                     author_graph = Graph(identifier=context)
                     rdf_start_memory = ""
 
             # Write the last part
             if not i % 50000 == 0:
                 g.write(author_graph.serialize(format='trig'))
-                g_rdf_star.write(rdf_start_memory)
                 author_graph = Graph(identifier=context)
                 rdf_start_memory = ""
             
-            g_rdf_star.write('}')  # close rdf-star file named graph
 
     f.close()
     g.close()
-    g_rdf_star.close()
 
     print(f"Worker completed .trig authors transformation with {i} lines and {file_error_count} errors")
 
@@ -391,4 +386,3 @@ with open(f"{trig_output_dir_path}/{ENTITY_TYPE}-transformation-summary.txt", "w
 
 print("Done authors transformation")
 print("#############################")
-
