@@ -573,12 +573,13 @@ def transform_gz_file(gz_file_path):
                                 works_graph.add((work_uri, cites_predicate, referenced_work_uri))
 
                         # related_works
-                        work_related_works = json_data['related_works']
-                        for rel_work in work_related_works:
-                            if not rel_work is None:
-                                rel_work = rel_work.replace("https://openalex.org/", "")
-                                related_work_uri = URIRef(soa_namespace_works + str(rel_work))
-                                works_graph.add((work_uri, related_work_predicate, related_work_uri))
+                        work_related_works = json_data.get('related_works', [])[:5]  # Limit to maximum of 5 related works
+                        if work_related_works:
+                                for rel_work in work_related_works:
+                                    if rel_work is not None:
+                                        rel_work = rel_work.replace("https://openalex.org/", "")
+                                        related_work_uri = URIRef(soa_namespace_works + str(rel_work))
+                                        works_graph.add((work_uri, related_work_predicate, related_work_uri))
 
                         # cited_by_api_url
                         # is missing atm
