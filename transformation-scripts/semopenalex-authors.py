@@ -197,7 +197,6 @@ for filename in glob.glob(os.path.join(data_dump_input_entity_dir, '*.gz')):
 def transform_gz_file(gz_file_path):
 
     author_graph = Graph(identifier=context)
-    rdf_start_memory = ""
     gz_file_name = gz_file_path[len(gz_file_list[1])-43:].replace(".gz","").replace("/","_")
     file_error_count = 0
 
@@ -350,13 +349,11 @@ def transform_gz_file(gz_file_path):
                 if i % 50000 == 0:
                     g.write(author_graph.serialize(format='trig'))
                     author_graph = Graph(identifier=context)
-                    rdf_start_memory = ""
 
             # Write the last part
             if not i % 50000 == 0:
                 g.write(author_graph.serialize(format='trig'))
                 author_graph = Graph(identifier=context)
-                rdf_start_memory = ""
             
 
     f.close()

@@ -273,7 +273,6 @@ for filename in glob.glob(os.path.join(data_dump_input_entity_dir, '*.gz')):
 
 def transform_gz_file(gz_file_path):
     works_graph = Graph(identifier=context)
-    rdf_start_memory = ""
     gz_file_name = gz_file_path[len(gz_file_list[1]) - 41:].replace(".gz", "").replace("/", "_")
     file_error_count = 0
 
