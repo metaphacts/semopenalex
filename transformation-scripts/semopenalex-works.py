@@ -584,19 +584,17 @@ def transform_gz_file(gz_file_path):
                         # is missing atm
 
                         # counts_by_year
-                        work_counts_by_year = json_data['counts_by_year']
-                        if not work_counts_by_year is None:
-                            for count_year in work_counts_by_year:
-                                count_year_year = count_year["year"]
-                                count_year_uri = URIRef(soa_namespace_countsbyyear + work_id + 'Y' + str(count_year_year))
+                        #work_counts_by_year = json_data['counts_by_year']
+                        #if not work_counts_by_year is None:
+                            #for count_year in work_counts_by_year:
+                                #count_year_year = count_year["year"]
+                                #count_year_uri = URIRef(soa_namespace_countsbyyear + work_id + 'Y' + str(count_year_year))
 
-                                works_graph.add((count_year_uri, RDF.type, soa_class_counts_by_year))
-                                works_graph.add((work_uri, counts_by_year_predicate, count_year_uri))
-                                works_graph.add(
-                                    (count_year_uri, year_predicate, Literal(count_year_year, datatype=XSD.integer)))
-                                count_year_cited_by_count = count_year["cited_by_count"]
-                                works_graph.add((count_year_uri, cited_by_count_predicate,
-                                                Literal(count_year_cited_by_count, datatype=XSD.integer)))
+                                #works_graph.add((count_year_uri, RDF.type, soa_class_counts_by_year))
+                                #works_graph.add((work_uri, counts_by_year_predicate, count_year_uri))
+                                #works_graph.add((count_year_uri, year_predicate, Literal(count_year_year, datatype=XSD.integer)))
+                                #count_year_cited_by_count = count_year["cited_by_count"]
+                                #works_graph.add((count_year_uri, cited_by_count_predicate, Literal(count_year_cited_by_count, datatype=XSD.integer)))
 
                         # updated_date
                         work_updated_date = json_data['updated_date']
