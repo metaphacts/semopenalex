@@ -745,7 +745,7 @@ def transform_gz_file(gz_file_path):
                             for topic in work_topics:
                                 topic_id = topic['id'].replace("https://openalex.org/", "")
                                 topic_uri = URIRef(soa_namespace_topics + str(topic_id))
-                                topic_score = topic['score']
+                                #topic_score = topic['score']
 
                                 # write rdf-star triples for topics with score in memory variable
                                 #rdf_start_memory = rdf_start_memory + f'<<<{work_uri}> <{has_topic_predicate}> <{topic_uri}>>> <{score_predicate}> "{topic_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n'
@@ -798,7 +798,6 @@ def transform_gz_file(gz_file_path):
     # gzip file directly with command
     # -v for live output, --fast for faster compression with about 90% size reduction, -k for keeping the original .trig file
     os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}.trig')
-    #os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trigs')
     print("Worker completed gzip")
 
 
