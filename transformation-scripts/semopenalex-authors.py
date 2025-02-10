@@ -164,7 +164,7 @@ context = URIRef("https://semopenalex.org/authors/context")
 today = date.today()
 
 ##########
-CPU_THREADS = 16
+CPU_THREADS = 24
 ENTITY_TYPE = 'authors'
 ##########
 

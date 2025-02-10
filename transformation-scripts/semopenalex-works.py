@@ -243,7 +243,7 @@ has_source_predicate = URIRef("https://semopenalex.org/ontology/hasSource")
 context = URIRef("https://semopenalex.org/works/context")
 
 ##########
-CPU_THREADS = 16
+CPU_THREADS = 24
 ENTITY_TYPE = 'works'
 ##########
 
