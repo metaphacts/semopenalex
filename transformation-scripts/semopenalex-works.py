@@ -273,12 +273,10 @@ for filename in glob.glob(os.path.join(data_dump_input_entity_dir, '*.gz')):
 
 def transform_gz_file(gz_file_path):
     works_graph = Graph(identifier=context)
-    rdf_start_memory = ""
     gz_file_name = gz_file_path[len(gz_file_list[1]) - 41:].replace(".gz", "").replace("/", "_")
     file_error_count = 0
 
-    with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g, open(f"{trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trigs", "w", encoding="utf-8") as g_rdf_star:
-        g_rdf_star.write(f'<{context}> {{\n')  # opening named graph
+    with open(f"{trig_output_dir_path}/{gz_file_name}.trig", "w", encoding="utf-8") as g:
         with gzip.open(gz_file_path, 'r') as f:
             i = 0
             for line in f:
@@ -545,21 +543,11 @@ def transform_gz_file(gz_file_path):
                                 concept_id = concept["id"].replace("https://openalex.org/", "")
                                 concept_uri = URIRef(soa_namespace_concept + str(concept_id))
                                 concept_score = concept["score"]
-                                
-                                ############## outdated way of modeling concepts with scores via n-ary relations
-
-                                #concept_score_uri = URIRef(soa_namespace_concept_score + str(work_id) + str(concept_id))
-                                # direct connection without score
-                                #works_graph.add((work_uri, has_concept_predicate, concept_uri))
-                                #works_graph.add((concept_score_uri, RDF.type, soa_class_concept_score))
-                                #works_graph.add((work_uri, has_concept_score_predicate, concept_score_uri))
-                                #works_graph.add((concept_score_uri, has_concept_predicate, concept_uri))
-                                #works_graph.add(
-                                #    (concept_score_uri, score_predicate, Literal(concept_score, datatype=XSD.integer)))
-
-                                ############## new way of modeling concepts with scores via rdf-star triples in a separate file with all rdf-star triples
-                                rdf_start_memory = rdf_start_memory + f'<<<{work_uri}> <{has_concept_predicate}> <{concept_uri}>>> <{score_predicate}> "{concept_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n'
-
+                    
+                                ############## way of modeling concepts without scores as plain RDF triples if the concept score is greater than 0.3
+                                if concept_score >= 0.3:
+                                    works_graph.add((work_uri, has_concept_predicate, concept_uri))
+                        
 
                         # referenced_works
                         work_referenced_works = json_data['referenced_works']
@@ -570,30 +558,16 @@ def transform_gz_file(gz_file_path):
                                 works_graph.add((work_uri, cites_predicate, referenced_work_uri))
 
                         # related_works
-                        work_related_works = json_data['related_works']
-                        for rel_work in work_related_works:
-                            if not rel_work is None:
-                                rel_work = rel_work.replace("https://openalex.org/", "")
-                                related_work_uri = URIRef(soa_namespace_works + str(rel_work))
-                                works_graph.add((work_uri, related_work_predicate, related_work_uri))
+                        work_related_works = json_data.get('related_works', [])[:5]  # Limit to maximum of 5 related works
+                        if work_related_works:
+                                for rel_work in work_related_works:
+                                    if rel_work is not None:
+                                        rel_work = rel_work.replace("https://openalex.org/", "")
+                                        related_work_uri = URIRef(soa_namespace_works + str(rel_work))
+                                        works_graph.add((work_uri, related_work_predicate, related_work_uri))
 
                         # cited_by_api_url
                         # is missing atm
-
-                        # counts_by_year
-                        work_counts_by_year = json_data['counts_by_year']
-                        if not work_counts_by_year is None:
-                            for count_year in work_counts_by_year:
-                                count_year_year = count_year["year"]
-                                count_year_uri = URIRef(soa_namespace_countsbyyear + work_id + 'Y' + str(count_year_year))
-
-                                works_graph.add((count_year_uri, RDF.type, soa_class_counts_by_year))
-                                works_graph.add((work_uri, counts_by_year_predicate, count_year_uri))
-                                works_graph.add(
-                                    (count_year_uri, year_predicate, Literal(count_year_year, datatype=XSD.integer)))
-                                count_year_cited_by_count = count_year["cited_by_count"]
-                                works_graph.add((count_year_uri, cited_by_count_predicate,
-                                                Literal(count_year_cited_by_count, datatype=XSD.integer)))
 
                         # updated_date
                         work_updated_date = json_data['updated_date']
@@ -680,8 +654,10 @@ def transform_gz_file(gz_file_path):
                                 keyword_score = keyword['score']
                                 keyword_uri = URIRef(keyword_uri)
                                 if term._is_valid_uri(keyword_uri):
-                                    # write rdf-star triples for keywords with scores in memory variable
-                                    rdf_start_memory = rdf_start_memory + f'<<<{work_uri}> <{has_keyword_predicate}> <{keyword_uri}>>> <{score_predicate}> "{keyword_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n'
+                                    
+                                    ############## way of modeling keywords without scores as plain RDF triples if the keyword score is greater than 0.5
+                                    if keyword_score >= 0.5:
+                                        works_graph.add((work_uri, has_keyword_predicate, keyword_uri))
 
                         # language
                         work_language = json_data['language']
@@ -707,11 +683,10 @@ def transform_gz_file(gz_file_path):
                         if not work_primary_topic is None:
                             primary_topic_id = work_primary_topic['id'].replace("https://openalex.org/", "")
                             primary_topic_uri = URIRef(soa_namespace_topics + str(primary_topic_id))
-                            primary_topic_score = work_primary_topic['score']
+                            #primary_topic_score = work_primary_topic['score']
 
-                            # write rdf-star triples for primary_topic with scores in memory variable
-                            rdf_start_memory = rdf_start_memory + f'<<<{work_uri}> <{has_primary_topic_predicate}> <{primary_topic_uri}>>> <{score_predicate}> "{primary_topic_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n'
-
+                            ############## way of modeling primary_topic without scores as plain RDF triple
+                            works_graph.add((work_uri, has_primary_topic_predicate, primary_topic_uri))
 
                         # sustainable_development_goals
                         # see: https://research.un.org/en/thesaurus/downloads 
@@ -720,10 +695,13 @@ def transform_gz_file(gz_file_path):
                             for goal in work_sustainable_development_goals:
                                 goal_uri = goal['id']
                                 goal_uri = correct_uri_from_https_to_http(goal_uri)
+                                goal_uri = URIRef(goal_uri)
                                 goal_score = goal['score']
-                                    
-                                # write rdf-star triples for sustainable_development_goals with scores in memory variable
-                                rdf_start_memory = rdf_start_memory + f'<<<{work_uri}> <{has_sustainable_development_goal}> <{goal_uri}>>> <{score_predicate}> "{goal_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n'
+
+                                ############## way of modeling sustainable_development_goals without scores as plain RDF triples if the goal score is greater than 0.4 (same threshold as OpenAlex)
+                                if goal_score >= 0.4:
+                                    works_graph.add((work_uri, has_sustainable_development_goal, goal_uri))
+
 
                         # topics
                         work_topics = json_data.get('topics')
@@ -731,10 +709,10 @@ def transform_gz_file(gz_file_path):
                             for topic in work_topics:
                                 topic_id = topic['id'].replace("https://openalex.org/", "")
                                 topic_uri = URIRef(soa_namespace_topics + str(topic_id))
-                                topic_score = topic['score']
+                                #topic_score = topic['score']
 
-                                # write rdf-star triples for topics with score in memory variable
-                                rdf_start_memory = rdf_start_memory + f'<<<{work_uri}> <{has_topic_predicate}> <{topic_uri}>>> <{score_predicate}> "{topic_score}"^^<http://www.w3.org/2001/XMLSchema#decimal> .\n'
+                                ############## way of modeling topics without scores as plain RDF triples
+                                works_graph.add((work_uri, has_topic_predicate, topic_uri))
 
 
                     except Exception as e:
@@ -763,33 +741,24 @@ def transform_gz_file(gz_file_path):
                 if i % 50000 == 0:
                     # write works_graph to file
                     g.write(works_graph.serialize(format='trig'))
-                    # write rdf_start_memory at the end of the file g_rdf_star
-                    g_rdf_star.write(rdf_start_memory)
                     works_graph = Graph(identifier=context)
-                    rdf_start_memory = ""
 
             # Write the last part of current file
             if not i % 50000 == 0:
                 # write works_graph to file
                 g.write(works_graph.serialize(format='trig'))
-                # write rdf_start_memory at the end of the file g_rdf_star
-                g_rdf_star.write(rdf_start_memory)
                 works_graph = Graph(identifier=context)
-                rdf_start_memory = ""
 
-            g_rdf_star.write('}')  # close rdf-star file named graph
             f"{trig_output_dir_path}/{gz_file_name}.trig"   
 
     f.close()
     g.close()
-    g_rdf_star.close()
 
     print(f"Worker completed .trig transformation with {i} lines and {file_error_count} errors")
 
     # gzip file directly with command
     # -v for live output, --fast for faster compression with about 90% size reduction, -k for keeping the original .trig file
     os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}.trig')
-    os.system(f'gzip --fast {trig_output_dir_path}/{gz_file_name}-rdf-star-triples.trigs')
     print("Worker completed gzip")
 
 

@@ -24,7 +24,7 @@ FOAF = Namespace("http://xmlns.com/foaf/0.1/")
 context = URIRef("https://semopenalex.org/dataset/context")
 
 # semopenalex dataset subject IRI
-dataset = URIRef("http://datasets.semopenalex.org/dcat/semopenalex")
+dataset = URIRef("https://w3id.org/SemOpenAlex")
  
 # namedGraph predicate
 namedGraph = URIRef("http://www.w3.org/ns/sparql-service-description#namedGraph")
@@ -54,7 +54,7 @@ g.add((dataset, DCTERMS.issued, Literal(data_issued_time, datatype = XSD.dateTim
 g.add((dataset, DCTERMS.license, Literal("https://creativecommons.org/publicdomain/zero/1.0/legalcode", datatype = XSD.anyURI)))
 
 # keywords 
-g.add((dataset, DCAT.version, Literal("5.0.0", datatype = XSD.string)))
+g.add((dataset, DCAT.version, Literal("6.0.0", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("concepts", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("topics", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("keywords", datatype = XSD.string)))
@@ -63,6 +63,7 @@ g.add((dataset, DCAT.keyword, Literal("sources", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("authors", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("publishers", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("works", datatype = XSD.string)))
+g.add((dataset, DCAT.keyword, Literal("publications", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("funders", datatype = XSD.string)))
 g.add((dataset, DCAT.keyword, Literal("geo", datatype = XSD.string)))
 
@@ -133,11 +134,20 @@ g.add((dist_v4, DCAT.accessURL, Literal("https://semopenalex.s3.amazonaws.com/br
 dist_v5 = URIRef("http://datasets.semopenalex.org/v5/semopenalex-distribution")
 g.add((dataset, DCAT.distribution, dist_v5))
 g.add((dist_v5, RDF.type, DCAT.Distribution))
-g.add((dist_v5, DCTERMS.issued, Literal(today, datatype = XSD.date)))
+g.add((dist_v5, DCTERMS.issued, Literal("2024-06-09", datatype = XSD.date)))
 g.add((dist_v5, DCTERMS.title, Literal("SemOpenAlex RDF dump", datatype = XSD.string)))
 g.add((dist_v5, format, Literal("TriG", datatype = XSD.string)))
 g.add((dist_v5, DCAT.mediaType, Literal("application/x-trig", datatype = XSD.string)))
 g.add((dist_v5, DCAT.accessURL, Literal("https://semopenalex.s3.amazonaws.com/browse.html", datatype = XSD.anyURI)))
+
+dist_v6 = URIRef("http://datasets.semopenalex.org/v6/semopenalex-distribution")
+g.add((dataset, DCAT.distribution, dist_v6))
+g.add((dist_v6, RDF.type, DCAT.Distribution))
+g.add((dist_v6, DCTERMS.issued, Literal(today, datatype = XSD.date)))
+g.add((dist_v6, DCTERMS.title, Literal("SemOpenAlex RDF dump", datatype = XSD.string)))
+g.add((dist_v6, format, Literal("TriG", datatype = XSD.string)))
+g.add((dist_v6, DCAT.mediaType, Literal("application/x-trig", datatype = XSD.string)))
+g.add((dist_v6, DCAT.accessURL, Literal("https://semopenalex.s3.amazonaws.com/browse.html", datatype = XSD.anyURI)))
 
 with open(trig_output_file_path, "w", encoding="utf-8") as dataset_file:
 	dataset_file.write(g.serialize(format='trig'))
