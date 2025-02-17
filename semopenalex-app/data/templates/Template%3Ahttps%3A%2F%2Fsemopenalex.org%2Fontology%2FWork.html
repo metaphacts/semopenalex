@@ -195,8 +195,7 @@
       <semantic-query query='
         SELECT DISTINCT ?concept {
           BIND(<{{page-resource}}> as ?work)
-          <<?work <https://semopenalex.org/ontology/hasConcept> ?concept >> soa:score ?score .
-          FILTER (?score >= 0.5)
+          ?work <https://semopenalex.org/ontology/hasConcept> ?concept .
         }
         LIMIT 70
       ' template='{{>tmp}}'>

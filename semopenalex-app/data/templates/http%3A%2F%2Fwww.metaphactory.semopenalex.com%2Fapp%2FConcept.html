@@ -168,11 +168,10 @@
           SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) (COUNT(?publication) as ?count) WHERE {
             {
               SELECT * WHERE {
-                <<?publication <https://semopenalex.org/ontology/hasConcept> <{{page-resource}}> >> soa:score ?score .
+                ?publication <https://semopenalex.org/ontology/hasConcept> <{{page-resource}}> .
               }
               LIMIT 10001
             }
-            FILTER (?score >= 0.5)
             
             ?publication <http://purl.org/dc/terms/creator> ?author . 
             ?publication <http://purl.org/dc/terms/title> ?title .

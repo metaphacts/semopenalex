@@ -66,8 +66,7 @@
           <semantic-query query='
             SELECT (COUNT (?publication) as ?count) WHERE {
                ?publication a soa:Work .
-              <<?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> >> soa:score ?score .
-              FILTER (?score >= 0.5)
+              ?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> .
             }' template='{{>tmp}}'>
             <template id="tmp">
               {{#each bindings}}
@@ -80,9 +79,8 @@
           <semantic-query query='
             SELECT (SUM (?citations) as ?count) WHERE {
               ?publication a soa:Work .
-              <<?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> >> soa:score ?score .
+              ?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> .
               ?publication soa:citedByCount ?citations .
-              FILTER (?score >= 0.5)
             }
           ' template="{{> tmp}}">
             <template id="tmp">
@@ -100,9 +98,9 @@
                     {
                       SELECT * {
                         ?publication a soa:Work .
-                        <<?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> >> soa:score ?score .
+                        ?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> .
                         ?publication fabio:hasPublicationYear ?year .
-                        FILTER (?score >= 0.5 && ?year >= 2014)
+                        FILTER (?year >= 2014)
                       } 
                     }
                   } GROUP BY ?year ORDER BY ASC(?year)
@@ -112,10 +110,10 @@
                     {
                       SELECT * {
                         ?publication a soa:Work .
-                        <<?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> >> soa:score ?score .
+                          ?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> .
                           ?publication soa:citedByCount ?citations .
                           ?publication fabio:hasPublicationYear ?year .
-                        FILTER (?score >= 0.5 && ?year >= 2014 )
+                        FILTER (?year >= 2014 )
                       } 
                     }
                   } GROUP BY ?year ORDER BY ASC(?year)
@@ -207,11 +205,10 @@
           SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) (COUNT(?publication) as ?count) WHERE {
             {
               SELECT * WHERE {
-                <<?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> >> soa:score ?score .
+                ?publication <https://semopenalex.org/ontology/hasKeyword> <{{page-resource}}> .
               }
               LIMIT 1001
             }
-            FILTER (?score >= 0.5)
             
             ?publication <http://purl.org/dc/terms/creator> ?author . 
             ?publication <http://purl.org/dc/terms/title> ?title .

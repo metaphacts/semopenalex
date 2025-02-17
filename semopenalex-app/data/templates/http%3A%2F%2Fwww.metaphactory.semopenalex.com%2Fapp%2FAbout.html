@@ -182,7 +182,7 @@ PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
 SELECT DISTINCT ?paperTitle ?paper ?oaUrl WHERE {
 
   ?paper fabio:hasPublicationYear "2022"^^xsd:integer . 
-  &lt;&lt;?paper soa:hasConcept ?concept&gt;&gt; soa:score ?score .
+  ?paper soa:hasConcept ?concept .
   ?concept skos:prefLabel "Machine learning"^^xsd:string . 
   ?paper dcterms:title ?paperTitle .
   ?paper soa:hasOpenAccess ?openAccess .
@@ -221,7 +221,7 @@ PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
 SELECT ?paperTitle ?citedByCount ?firstAuthorName WHERE {
 
   ?paper dcterms:title ?paperTitle .
-  &lt;&lt;?paper soa:hasConcept ?Concept&gt;&gt; soa:score ?score .
+  ?paper soa:hasConcept ?Concept .
   ?Concept skos:prefLabel "Semantic Web"^^xsd:string . 
   ?paper soa:citedByCount ?citedByCount .
   ?paper soa:hasAuthorship ?authorship . 
