@@ -154,6 +154,17 @@ def clean_url(nameStr):
 def clean_date(dateStr):
     return dateStr.split("T")[0]
 
+def validate_keyword_uri(keyword_uri):
+    if keyword_uri.startswith('https://semopenalex.org/keyword/'):
+        suffix = keyword_uri[len('https://semopenalex.org/keyword/'):]
+        suffix = suffix.replace(',', '-')
+        if re.match(r'^[a-zA-Z0-9\-]+$', suffix):
+            return 'https://semopenalex.org/keyword/' + suffix
+        else:
+            return None
+    else:
+        return None
+
 # method to transform the display_name of a keyword into the keyword URI
 #Artificial Intelligence -> https://openalex.org/keywords/artificial-intelligence
 #Clinical Decision Support -> https://openalex.org/keywords/clinical-decision-support
@@ -235,14 +246,16 @@ with open(trig_output_file_path, "w", encoding="utf-8") as g:
                     if not topic_keywords is None:
                         for keyword in topic_keywords:
                             keyword_uri = transform_keyword_to_uri(keyword)
+                            keyword_uri = validate_keyword_uri(keyword_uri)
 
-                            if term._is_valid_uri(keyword_uri):
-                                keywords_graph.add((URIRef(keyword_uri), RDF.type, soa_class_keyword))
-                                keywords_graph.add((URIRef(keyword_uri), RDF.type, SKOS.Concept))
-                                keywords_graph.add((URIRef(keyword_uri), SKOS.inScheme, keyword_scheme_uri))
-                                keywords_graph.add((keyword_scheme_uri, SKOS.hasTopConcept, URIRef(keyword_uri)))
-                                keywords_graph.add((URIRef(keyword_uri), SKOS.prefLabel, Literal(keyword, datatype=XSD.string)))
-                        
+                            if not keyword_uri is None:
+                                if term._is_valid_uri(keyword_uri):
+                                    keywords_graph.add((URIRef(keyword_uri), RDF.type, soa_class_keyword))
+                                    keywords_graph.add((URIRef(keyword_uri), RDF.type, SKOS.Concept))
+                                    keywords_graph.add((URIRef(keyword_uri), SKOS.inScheme, keyword_scheme_uri))
+                                    keywords_graph.add((keyword_scheme_uri, SKOS.hasTopConcept, URIRef(keyword_uri)))
+                                    keywords_graph.add((URIRef(keyword_uri), SKOS.prefLabel, Literal(keyword, datatype=XSD.string)))
+                            
                     i += 1
                     if i % 100 == 0:
                         print('Processed topics entity {} lines for the keyword files generation'.format(i))
