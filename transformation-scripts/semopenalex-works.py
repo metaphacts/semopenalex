@@ -151,6 +151,16 @@ def clean_date(dateStr):
 def correct_uri_from_https_to_http(uri):
     return uri.replace("https://", "http://")
 
+def validate_keyword_uri(keyword_uri):
+    if keyword_uri.startswith('https://semopenalex.org/keyword/'):
+        suffix = keyword_uri[len('https://semopenalex.org/keyword/'):]
+        suffix = suffix.replace(',', '-')
+        if re.match(r'^[a-zA-Z0-9\-]+$', suffix):
+            return 'https://semopenalex.org/keyword/' + suffix
+        else:
+            return None
+    else:
+        return None
 
 # info for namespaces used in SOA
 soa_namespace_class = "https://semopenalex.org/ontology/"
@@ -650,14 +660,14 @@ def transform_gz_file(gz_file_path):
                         work_keywords = json_data.get('keywords')
                         if not work_keywords is None:
                             for keyword in work_keywords:
-                                keyword_uri = keyword['id']
+                                keyword_uri = keyword['id'].replace("https://openalex.org/keywords/", "https://semopenalex.org/keyword/")
+                                keyword_uri = validate_keyword_uri(keyword_uri)
                                 keyword_score = keyword['score']
-                                keyword_uri = URIRef(keyword_uri)
-                                if term._is_valid_uri(keyword_uri):
-                                    
-                                    ############## way of modeling keywords without scores as plain RDF triples if the keyword score is greater than 0.5
-                                    if keyword_score >= 0.5:
-                                        works_graph.add((work_uri, has_keyword_predicate, keyword_uri))
+                                if not keyword_uri is None:
+                                    keyword_uri = URIRef(keyword_uri)
+                                    if term._is_valid_uri(keyword_uri):
+                                        if keyword_score >= 0.5:
+                                            works_graph.add((work_uri, has_keyword_predicate, keyword_uri))
 
                         # language
                         work_language = json_data['language']
