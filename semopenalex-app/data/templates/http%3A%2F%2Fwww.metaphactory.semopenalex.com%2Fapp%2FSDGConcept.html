@@ -78,7 +78,7 @@
             SELECT (COUNT (?publication) as ?count) WHERE {
               { SELECT * {
                 ?publication a soa:Work .
-                <<?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> >> soa:score ?score .
+                ?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> .
               } LIMIT 1000 }
             }' template='{{>tmp}}' no-result-template='<div class="publications__value">0</div>'>
             <template id="tmp">
@@ -106,7 +106,7 @@
             SELECT (SUM (?citations) as ?count) WHERE {
               { SELECT * {
                 ?publication a soa:Work .
-                <<?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> >> soa:score ?score .
+                ?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> .
                 ?publication soa:citedByCount ?citations .
               
               } LIMIT 1000 }
@@ -127,9 +127,9 @@
                     {
                       SELECT * {
                         ?publication a soa:Work .
-                        <<?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> >> soa:score ?score .
+                        ?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> .
                         ?publication fabio:hasPublicationYear ?year .
-                        FILTER (?score >= 0.5 && ?year >= 2014)
+                        FILTER (?year >= 2014)
                       } LIMIT 1000
                     }
                   } GROUP BY ?year ORDER BY ASC(?year)
@@ -139,10 +139,10 @@
                     {
                       SELECT * {
                         ?publication a soa:Work .
-                        <<?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> >> soa:score ?score .
+                         ?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> .
                           ?publication soa:citedByCount ?citations .
                           ?publication fabio:hasPublicationYear ?year .
-                        FILTER (?score >= 0.5 && ?year >= 2014 )
+                        FILTER (?year >= 2014 )
                       } LIMIT 1000
                     }
                   } GROUP BY ?year ORDER BY ASC(?year)
@@ -215,11 +215,10 @@
           SELECT ?title ?publication ?cited ?publicationYear ?publisher ?volume ?issue (group_concat(DISTINCT ?name; separator = ", ") as ?authors) (COUNT(?publication) as ?count) WHERE {
             {
               SELECT * WHERE {
-                <<?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> >> soa:score ?score .
+                ?publication <https://semopenalex.org/ontology/hasSustainableDevelopmentGoal> <{{page-resource}}> .
               }
               LIMIT 1001
             }
-            FILTER (?score >= 0.5)
             
             ?publication <http://purl.org/dc/terms/creator> ?author . 
             ?publication <http://purl.org/dc/terms/title> ?title .

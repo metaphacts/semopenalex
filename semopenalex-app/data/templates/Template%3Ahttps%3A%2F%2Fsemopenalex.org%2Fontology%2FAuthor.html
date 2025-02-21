@@ -405,7 +405,7 @@
               ?publication <http://purl.org/dc/terms/creator> ?coauthor.
               FILTER(?coauthor != <{{page-resource}}>)
               <{{page-resource}}> <http://www.w3.org/ns/org#memberOf> ?institution.
-              <<?work <https://semopenalex.org/ontology/hasConcept> ?concept>> soa:score ?score .
+              ?work <https://semopenalex.org/ontology/hasConcept> ?concept .
               
             }  LIMIT 1
           ' template='{{>tmp}}'>
@@ -439,7 +439,7 @@
           <semantic-query query='
             SELECT DISTINCT ?concept (COUNT (distinct ?publication) as ?count) {
               ?publication <http://purl.org/dc/terms/creator> <{{page-resource}}> .
-              <<?publication <https://semopenalex.org/ontology/hasConcept> ?concept >> soa:score ?score . 
+              ?publication <https://semopenalex.org/ontology/hasConcept> ?concept . 
             }
             GROUP BY ?concept
             ORDER BY desc(?count)
