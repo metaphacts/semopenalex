@@ -154,6 +154,7 @@ def clean_url(nameStr):
 def clean_date(dateStr):
     return dateStr.split("T")[0]
 
+# method to validate the keyword URIs. Only valid URIs are returned, otherwise None.
 def validate_keyword_uri(keyword_uri):
     if keyword_uri.startswith('https://semopenalex.org/keyword/'):
         suffix = keyword_uri[len('https://semopenalex.org/keyword/'):]
